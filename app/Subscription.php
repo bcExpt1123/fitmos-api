@@ -502,7 +502,7 @@ class Subscription extends Model
                     case 'Active':
                         break;    
                 }
-                print_r($endDate);
+
                 if ($changed) {
                     print_r('changed');
                     $this->save();
@@ -604,7 +604,7 @@ class Subscription extends Model
             $query->whereHas('user', function ($q) {
                 $q->where('active', '=', 1);
             });
-        })->whereId(3194)->get();
+        })->get();
         $services = Service::all();
         foreach ($services as $service) {
             foreach ($customers as $customer) { //I didn't consider service_id
@@ -614,9 +614,7 @@ class Subscription extends Model
                     });
                 })->first();
                 if ($subscription) {
-                    if($subscription->id == 427){
-                        $subscription->scraping();
-                    }
+                    $subscription->scraping();
                 } else {
                     //new creation if payment subscription exist
                     $paymentSubscription = PaymentSubscription::whereCustomerId($customer->id)->first();
