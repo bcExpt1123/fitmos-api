@@ -85,9 +85,13 @@ class FindTransactions extends Command
             $result = Customer::verifyEmail($email);
             print_r($result);
         }
-        if(false){
-            $customer = Customer::find(25);
-            $customer->changeCoupon(10);
+        if(true){
+            $customer = Customer::find(3);
+            // $customer->changeCoupon(10);
+            $friends = $customer->getPeople();
+            foreach($friends as $friend){
+                if(in_array($friend->id, [28, 46, 60, 111])){print_r($friend->id);print_r("@");}
+            }
         }
         if(false){
             $customers = Customer::all();
@@ -208,8 +212,10 @@ class FindTransactions extends Command
         }
         if(false){
             $subscription = Subscription::find(1021);
-            $time = $subscription->nextPaymentTime();
-            print_r($time);
+            if($subscription){
+                $subscription->cancelled_reason = "ok";
+                $subscription->save();
+            }
         }
         if(false){
             $transaction = Transaction::find(468);
@@ -274,7 +280,7 @@ class FindTransactions extends Command
         if(false){
             $this->updateShortCodes();
         }
-        if(true){
+        if(false){
             // $this->updateWorkout();
             $this->updateStaticWorkout();
         }

@@ -358,4 +358,12 @@ class CustomerController extends Controller
         }
         return response()->json(['status'=>false],401);
     }
+    public function people(Request $request){
+        $user = $request->user('api');
+        if($user->customer){
+            $people = $user->customer->getPeople();
+            return response()->json(['people'=>$people]);
+        }
+        return response()->json(['status'=>false],401);
+    }    
 }

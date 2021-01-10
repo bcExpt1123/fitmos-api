@@ -74,6 +74,7 @@ Route::get('customers/partners', 'CustomerController@partners')->middleware('aut
 Route::post('customers/trigger-workout', 'CustomerController@triggerWorkout')->middleware('auth:api');
 Route::post('customers/trigger-notifiable', 'CustomerController@triggerNotifiable')->middleware('auth:api');
 Route::post('customers/alternate-shortcode', 'CustomerController@alternateShortcode')->middleware('auth:api');
+Route::post('customers/people', 'CustomerController@people')->middleware('auth:api');
 Route::resource('customers', 'CustomerController')->middleware('auth:api');
 Route::get('transactions/export', 'TransactionController@export')->middleware('auth:api');
 Route::get('transactions/{id}/log', 'TransactionController@log')->where('id', '[0-9]+')->middleware('auth:api');

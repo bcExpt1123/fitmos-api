@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 use Twilio\Rest\Client;
 use App\Jobs\SendEmail;
 use App\Exports\CustomersExport;
@@ -1129,5 +1130,26 @@ class Customer extends Model
                 $subscription->save();
             }
         }
+    }
+    public function getPeople(){//public profile and followers
+        $follows = DB::table("follows")->select("*")->where('customer_id',$this->id)->whereIn('status',['accepted'])->get();
+        $followerIds = [];
+        foreach($follows as $follow){
+            $followerIds[] = $follow->follower_id;
+        }
+        $where = Customer::whereProfile('public');
+        $where->where(function($query){
+            $query->whereHas('user', function($q){
+                $q->where('active','=','1');
+            });
+            $query->whereHas('subscriptions', function($q){
+                $q->where('status','=',"Active");
+            });
+        });
+        $customers = $where->orWhereIn('id',$followerIds)->get();
+        foreach($customers as $customer){
+            $customer->display = $customer->first_name.' '.$customer->last_name;
+        }
+        return $customers;
     }
 }
