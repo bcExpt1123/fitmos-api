@@ -14,7 +14,7 @@ class CreateMediasTable extends Migration
     public function up()
     {
         Schema::create('medias', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->enum('type', ['image','video', 'file'])->default('image');
             $table->string('mime_type');
             $table->string('alt_text')->nullable();

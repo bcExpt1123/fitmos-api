@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSocialActivitiesTable extends Migration
+class CreatePostMediasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateSocialActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('social_activities', function (Blueprint $table) {
+        Schema::create('post_medias', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('likes')->default(0);
+            $table->unsignedBigInteger('post_id');//social activity
+            $table->unsignedBigInteger('media_id');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateSocialActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('social_activities');
+        Schema::dropIfExists('post_medias');
     }
 }

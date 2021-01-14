@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Twilio\Rest\Client;
 use App\Jobs\SendEmail;
 use App\Exports\CustomersExport;
@@ -1091,6 +1092,9 @@ class Customer extends Model
         $userTimezone = new \DateTimeZone($this->timezone);
         $objDateTime = new \DateTime('NOW');
         $objDateTime->setTimezone($userTimezone);
+        if($objDateTime->format('H')>18){
+            $objDateTime->modify('+1 day');
+        }
         return $objDateTime->format('Y-m-d');
     }
     public function getPayAmount($amount,$coupon,$transaction = null){
@@ -1151,5 +1155,19 @@ class Customer extends Model
             $customer->display = $customer->first_name.' '.$customer->last_name;
         }
         return $customers;
+    }
+    public function generateUsername(){
+        $names = explode('@',$this->email);
+        $username = $names[0];
+        $validator = Validator::make(['username'=>$username], array('username'=>['unique:customers,username,'.$this->id]));
+        if ($validator->fails()) {
+            $i = 0;
+            do{
+                $username = $names[0].$i;
+                $validator = Validator::make(['username'=>$username], array('username'=>['unique:customers,username,'.$this->id]));
+                $i++;
+            }while($validator->fails());
+        }
+        $this->username = $username;
     }
 }

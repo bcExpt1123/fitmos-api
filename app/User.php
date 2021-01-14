@@ -161,6 +161,7 @@ class User extends Authenticatable
             if(($imc<18.5 && $record['goal']!="strong") || 
                 ($imc>=18.5 && $imc<25 && $record['goal']!="fit") || 
                 ($imc>=25 && $record['goal']!="cardio")) $customer->objective = $record['goal'];
+            $customer->generateUsername();    
             $customer->save();
             if($customer->coupon_id){
                 if(isset($couponEmail)){

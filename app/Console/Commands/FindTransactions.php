@@ -85,7 +85,7 @@ class FindTransactions extends Command
             $result = Customer::verifyEmail($email);
             print_r($result);
         }
-        if(true){
+        if(false){
             $customer = Customer::find(3);
             // $customer->changeCoupon(10);
             $friends = $customer->getPeople();
@@ -280,8 +280,8 @@ class FindTransactions extends Command
         if(false){
             $this->updateShortCodes();
         }
-        if(false){
-            // $this->updateWorkout();
+        if(true){
+            $this->updateWorkout();
             $this->updateStaticWorkout();
         }
         if(false){

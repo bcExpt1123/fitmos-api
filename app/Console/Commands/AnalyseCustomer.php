@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Customer;
 use App\Subscription;
 
+
 class AnalyseCustomer extends Command
 {
     /**
@@ -44,9 +45,15 @@ class AnalyseCustomer extends Command
     }
     private function updateUsername(){
         $customers = Customer::all();
+        $start = 0;
+        $i = $start;
         foreach($customers as $customer){
-            $customer->username = "user".$customer->id;
+            $customer->generateUsername();
             $customer->save();
+            if($i>$start+10){
+                break;
+            }
+            $i++;
         }
     }
     private function getCurrentActiveCustomers(){
