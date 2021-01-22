@@ -75,6 +75,8 @@ Route::post('customers/trigger-workout', 'CustomerController@triggerWorkout')->m
 Route::post('customers/trigger-notifiable', 'CustomerController@triggerNotifiable')->middleware('auth:api');
 Route::post('customers/alternate-shortcode', 'CustomerController@alternateShortcode')->middleware('auth:api');
 Route::post('customers/people', 'CustomerController@people')->middleware('auth:api');
+Route::post('customers/newsfeed', 'CustomerController@newsfeed')->middleware('auth:api');
+Route::get('customers/{id}/profile', 'CustomerController@profile')->where('id', '[0-9]+')->middleware('auth:api');
 Route::resource('customers', 'CustomerController')->middleware('auth:api');
 Route::get('transactions/export', 'TransactionController@export')->middleware('auth:api');
 Route::get('transactions/{id}/log', 'TransactionController@log')->where('id', '[0-9]+')->middleware('auth:api');
@@ -187,3 +189,13 @@ Route::get('bank/{id}', 'BankTransferController@show')->middleware('auth:api');
 Route::post('bank/{id}/approve', 'BankTransferController@approve')->middleware('auth:api');
 Route::post('bank/{id}/reject', 'BankTransferController@reject')->middleware('auth:api');
 Route::post('bank/{id}/restore', 'BankTransferController@restore')->middleware('auth:api');
+Route::post('posts/sub-newsfeed','PostController@subNewsfeed')->middleware('auth:api');
+Route::get('posts/random-medias/{customerId}','PostController@randomMedias')->where('customerId', '[0-9]+')->middleware('auth:api');
+Route::get('posts/medias','PostController@medias')->middleware('auth:api');
+Route::resource('posts', 'PostController')->middleware('auth:api');
+Route::get('search/all', 'SearchController@all')->middleware('auth:api');
+Route::get('search/customers', 'SearchController@customers')->middleware('auth:api');
+Route::get('search/companies', 'SearchController@companies')->middleware('auth:api');
+Route::get('search/posts', 'SearchController@posts')->middleware('auth:api');
+Route::post('sync/{id}', 'SearchController@sync')->where('id', '[0-9]+');
+

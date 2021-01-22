@@ -284,6 +284,7 @@ class User extends Authenticatable
         $defaultCoupon = Coupon::whereCode(Coupon::DEFAULT)->first();
         if($defaultCoupon)$user['defaultCouponId'] = $defaultCoupon->id;
         if($user->customer){
+            $user->customer->getSocialDetails();
             $heightValue = Height::convert($user->customer->current_height,$user->customer->current_height_unit)/100;
             if($heightValue==0)$heightValue = Height::convert($user->customer->initial_height,$user->customer->initial_height_unit)/100;
             $user->customer['imc'] = round(Weight::convert($user->customer->current_weight,$user->customer->current_weight_unit)/$heightValue/$heightValue);

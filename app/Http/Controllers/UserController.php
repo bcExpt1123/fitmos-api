@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\User;
 use App\Customer;
 use App\Session;
+use App\Company;
 use Twilio\Rest\Client;
 use Google_Client;
 use Vinkla\Facebook\Facades\Facebook;
@@ -173,6 +174,7 @@ class UserController extends Controller
         $user->customer->whatsapp_phone_number = $request->input('whatsapp_phone_number');
         $user->customer->country = $request->input('country');
         $user->customer->country_code = $request->input('country_code');
+        $user->customer->description = $request->input('description');
         if($user->customer->active_whatsapp && $user->customer->whatsapp_phone_number&&getenv("APP_ENV")!="local"){
             $twilio = new Client(config('services.twilio.sid'), config('services.twilio.token'));
             try{

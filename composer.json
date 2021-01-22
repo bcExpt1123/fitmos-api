@@ -20,6 +20,8 @@
         "laravel/passport": "^8.0",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
+        "lcobucci/jwt": "^3.4",
+        "league/flysystem-aws-s3-v3": "~1.0",
         "maatwebsite/excel": "^3.1",
         "mautic/api-library": "^2.15",
         "paypal/paypal-checkout-sdk": "1.0.1",
@@ -27,9 +29,7 @@
         "sendgrid/sendgrid": "^7.4",
         "spatie/laravel-permission": "^3.11",
         "twilio/sdk": "^5.42",
-        "lcobucci/jwt":"^3.4",
-        "vinkla/facebook": "^4.0",
-        "league/flysystem-aws-s3-v3": "~1.0"
+        "vinkla/facebook": "^4.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

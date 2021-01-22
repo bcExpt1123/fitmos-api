@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Subscription;
 use App\Observers\SubscriptionObserver;
+use App\Models\Post;
+use App\Observers\PostObserver;
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -30,6 +32,7 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
         Subscription::observe(SubscriptionObserver::class);
+        Post::observe(PostObserver::class);
         //
     }
 }

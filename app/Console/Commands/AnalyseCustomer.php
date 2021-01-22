@@ -49,9 +49,10 @@ class AnalyseCustomer extends Command
         $i = $start;
         foreach($customers as $customer){
             $customer->generateUsername();
+            // $customer->fullname = $customer->first_name." ".$customer->last_name;
             $customer->save();
             if($i>$start+10){
-                break;
+                // break;
             }
             $i++;
         }

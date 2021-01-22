@@ -8,10 +8,12 @@ class DoneController extends Controller
 {
     public function check(Request $request){
         $user = $request->user('api');
+        $this->validate($request, ['date'=>'required|string|min:10|max:10']);
+        if(substr($request->input('date'),0,2) != '20')return response()->json(['status'=>'failed'], 500);
         $done = new Done;
         $done->done_date = $request->input('date');
         $done->customer_id = $user->customer->id;
-        if($request->input('blog')){
+        if($request->input('blog')===true || $request->input('blog') === 'true'){
             $done->type = 'blog';
         }else{
             $done->type = 'workout';

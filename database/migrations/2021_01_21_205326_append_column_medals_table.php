@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostMediasTable extends Migration
+class AppendColumnMedalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreatePostMediasTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_medias', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('post_id');//social activity
-            $table->unsignedBigInteger('media_id');
+        Schema::table('medals', function (Blueprint $table) {
+            $table->enum('type',['total','level','month'])->default('total');
         });
     }
 
@@ -27,6 +25,8 @@ class CreatePostMediasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_medias');
+        Schema::table('medals', function (Blueprint $table) {
+            $table->dropColumn('type');
+        });
     }
 }

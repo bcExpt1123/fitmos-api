@@ -101,7 +101,7 @@ class Company extends Model
         $this->countryCode = $user->customer->country_code;
         $this->expirationDate = $user->customer->currentDate();
         $this->search = null;
-        $this->status = 'Publish';
+        // $this->status = 'Publish';
         $this->pageSize = $request->input('pageSize');
         $this->pageNumber = $request->input('pageNumber');
     }
@@ -110,6 +110,7 @@ class Company extends Model
         $where = Company::whereHas('countries',function($query){
             $query->where('country','=',strtoupper($this->countryCode));
             })
+            ->whereStatus('active')
             ->where('is_all_countries','=','no')
             ->orWhere('is_all_countries','=','yes')
             ->whereHas('products',function($query){

@@ -366,4 +366,22 @@ class CustomerController extends Controller
         }
         return response()->json(['status'=>false],401);
     }    
+    public function newsfeed(Request $request){
+        $user = $request->user('api');
+        if($user->customer){
+            $newsfeed = $user->customer->getNewsfeed($request->post_id);
+            return response()->json(['newsfeed'=>$newsfeed]);
+        }
+        return response()->json(['status'=>false],401);
+    }
+    public function profile($id, Request $request){
+        $user = $request->user('api');
+        if($user->customer){
+            $customer = Customer::find($id);
+            $customer->getSocialDetails($user->customer->id);
+            $customer['medals'] = $customer->findMedal();
+            return response()->json($customer);
+        }
+        return response()->json(['status'=>false],401);
+    }
 }

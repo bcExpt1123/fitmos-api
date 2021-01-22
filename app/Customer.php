@@ -77,6 +77,9 @@ class Customer extends Model
     public function latestWeights(){
         return $this->hasMany('App\Weight')->orderBy('created_at','desc')->limit(5);
     }
+    public function following(){
+        return $this->belongsToMany('App\Customer','follows','customer_id','follower_id');
+    }
     public function assign($request){
         foreach($this->fillable as $property){
             if($request->exists($property)){
@@ -751,16 +754,24 @@ class Customer extends Model
         $fromWorkoutImage = null;
         $toWorkout = 0;
         $toWorkoutImage = null;
-        $levels = Medal::orderBy('count')->get();
-        foreach($levels as $index=>$level){
+        $totalWorkoutLevels = Medal::whereType('total')->orderBy('count')->get();
+        foreach($totalWorkoutLevels as $index=>$level){
             $toWorkout = $level->count;
             $toWorkoutImage = url('storage/'.$level->image);
             if($workoutCount>$level->count){
             }else{
-                if(isset($levels[$index-1])){
-                    $fromWorkout = $levels[$index-1]['count'];
-                    $fromWorkoutImage = url('storage/'.$levels[$index-1]['image']);
+                if(isset($totalWorkoutLevels[$index-1])){
+                    $fromWorkout = $totalWorkoutLevels[$index-1]['count'];
+                    $fromWorkoutImage = url('storage/'.$totalWorkoutLevels[$index-1]['image']);
                 }
+                break;
+            }
+        }
+        //level
+        $levelMedals = Medal::whereType('level')->orderBy('count')->get();
+        foreach($levelMedals as $index=>$level){
+            if($this->current_condition == $level->count){
+                $levelMedalImage = url('storage/'.$level->image);
                 break;
             }
         }
@@ -1169,5 +1180,74 @@ class Customer extends Model
             }while($validator->fails());
         }
         $this->username = $username;
+    }
+    public function getAvatar(){
+        $user = $this->user;
+        if($user->avatar){
+            $this['avatarUrls'] = [
+                'max'=>url("storage/".$user->avatar),
+                'large'=>url("storage/".$user->avatar),
+                'medium'=>url("storage/".$user->avatar),
+                'small'=>url("storage/".$user->avatar),
+            ];
+        }else{
+            if($this->gender=="Male"){
+                $this['avatarUrls'] = [
+                    'max'=>url("storage/media/avatar/X-man-large.jpg"),
+                    'large'=>url("storage/media/avatar/X-man-large.jpg"),
+                    'medium'=>url("storage/media/avatar/X-man-medium.jpg"),
+                    'small'=>url("storage/media/avatar/X-man-small.jpg"),
+                ];
+            }else{
+                $this['avatarUrls'] = [
+                    'max'=>url("storage/media/avatar/X-woman-large.jpg"),
+                    'large'=>url("storage/media/avatar/X-woman-large.jpg"),
+                    'medium'=>url("storage/media/avatar/X-woman-medium.jpg"),
+                    'small'=>url("storage/media/avatar/X-woman-small.jpg"),
+                ];
+            }
+        }
+    }
+    public function getNewsfeed($fromId){
+        $where = \App\Models\Post::with(['customer','medias']);
+        if($fromId>0){
+            $where->where('id','<',$fromId);
+        }
+        $followers = DB::table("follows")->select("*")->where('customer_id',$this->id)->whereIn('status',['accepted'])->get();
+        $ids = [];
+        foreach($followers as $follower){
+            $ids[] = $follower->follower_id;
+        }
+        $where->whereIn('customer_id',$ids);
+        $result = $where->whereStatus(1)->orderBy('id','desc')->limit(8)->get();
+        foreach($result as $index=>$post){
+            $post->extend();
+        }
+        return $result;
+    }
+    public function getSocialDetails($authId = null){
+        if($this->avatarUrls == null)$this->getAvatar();
+        //following
+        //followers
+        if($this->id == $authId){
+            $this['followers'] = DB::table("follows")->select("*")->where('customer_id',$this->id)->whereIn('status',['pending','accepted'])->get();
+            $this['followings'] = DB::table("follows")->select("*")->where('follower_id',$this->id)->whereIn('status',['pending','accepted'])->get();
+        }else{
+            $this['followers'] = DB::table("follows")->select("*")->where('customer_id',$this->id)->where('status','accepted')->get();
+            $this['followings'] = DB::table("follows")->select("*")->where('follower_id',$this->id)->where('status','accepted')->get();
+            if($authId){
+                $this['following'] = DB::table("follows")->select("*")->where('follower_id',$this->id)->where('customer_id',$authId)->first();
+            }
+        }
+        $this['display'] = $this->first_name." ".$this->last_name;
+        //posts
+        $posts =  \App\Models\Post::whereCustomerId($this->id)->whereStatus(1)->get();
+        $this['postCount'] = $posts->count();
+        //blocked?
+        $this['blocked'] = false;
+        //muted?
+        $this['muted'] = false;
+        //tocalWorkoutCompleted
+        //currentMonthWorkoutCompleted
     }
 }

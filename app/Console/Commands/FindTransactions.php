@@ -25,6 +25,8 @@ use App\Workout;
 use App\StaticWorkout;
 use App\Payment\Bank;
 use App\BankTransferRequest;
+use App\Done;
+use App\Models\Media;
 
 class FindTransactions extends Command
 {
@@ -280,12 +282,68 @@ class FindTransactions extends Command
         if(false){
             $this->updateShortCodes();
         }
-        if(true){
+        if(false){
             $this->updateWorkout();
             $this->updateStaticWorkout();
         }
         if(false){
             $this->bankReminder();
+        }
+        if(false){
+            $this->checkDoneWorkouts();
+        }
+        if(true){
+            $this->convertPostContent();
+        }
+    }
+    private function convertPostContent(){
+        $medias = Media::wherePostId(33)->get();
+        foreach($medias as $media){
+            // print_r($media->id);
+            \Storage::disk('s3')->delete($media->src);
+            $media->delete();
+        }
+    }
+    private function checkDoneWorkouts(){
+        $customers = Customer::whereIn('id',[3])->get();
+        foreach($customers as $customer){
+            $begin = new \DateTime('2020-05-11');
+            $end = new \DateTime('2021-01-17');
+
+            $interval = \DateInterval::createFromDateString('1 day');
+            $period = new \DatePeriod($begin, $interval, $end);
+            $dones = Done::whereCustomerId($customer->id)->get();
+            if($dones->count()>0){
+                foreach($dones as $index=>$done){
+                    if($done->id == 14822){
+                        print_r($customer->id."-");
+                        print_r("\n");
+                    }
+                    if($done->done_date == '0000-00-00'){
+                        print_r($customer->id."-");
+                        print_r("\n");
+                        $done->delete();
+                    }
+                }
+                foreach ($period as $dt) {
+                    $date = $dt->format("Y-m-d");
+                    $dones = Done::whereCustomerId($customer->id)->whereDoneDate($date)->get();
+                    if($dones->count()>1){
+                        print_r($customer->id."-".$date);
+                        print_r("\n");
+                        foreach($dones as $index=>$done){
+                            if($done->done_date == '0000-00-00'){
+                                $done->delete();
+                            }
+                            if($index>0){
+                                $done->delete();
+                                // print_r($index);
+                            }
+                        }
+                        print_r("\n");
+                    }
+                }                
+            }
         }
     }
     private function bankReminder(){
