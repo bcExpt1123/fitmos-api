@@ -20,6 +20,7 @@ class Company extends Model
         $upload=explode('M',ini_get('upload_max_filesize'));
         $uploadMaxSize = $upload[0]*1024;
         return array(
+            'username'=>'required|unique:companies,username,'.$id.'|unique:customers,username|not_in:follow,cancel',
             'name'=>'required|max:255|unique:companies,name,'.$id,
             'description'=>'required',
             'mail'=>'required|email|unique:companies,mail,'.$id,

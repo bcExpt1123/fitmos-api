@@ -14,7 +14,7 @@ use Mail;
 
 class Customer extends Model
 {
-    protected $fillable = ['first_name','last_name','gender','birthday','whatsapp_phone_number','policy','status','country','country_code'];    
+    protected $fillable = ['username','first_name','last_name','gender','birthday','whatsapp_phone_number','policy','status','country','country_code'];    
     private $pageSize;
     private $statuses;
     private $pageNumber;
@@ -34,6 +34,7 @@ class Customer extends Model
         return array(
             //'email'=>'required|max:255|unique:users,email,'.$user_id,
             //'customer_email'=>'required|max:255|unique:customers,email,'.$customer_id,
+            'username'=>'required|max:255|unique:companies,username|unique:customers,username,'.$customer_id.'|not_in:follow,cancel',
             'first_name'=>['required','max:255'],
             'last_name'=>['required','max:255'],
             'current_height'=>['required'],
@@ -775,11 +776,47 @@ class Customer extends Model
                 break;
             }
         }
+        //month
+        $monthDoneworkouts = collect();
+        $doneworkouts->each(function($doneworkout) use ($monthDoneworkouts) {
+            if( substr($doneworkout->done_date,0,7) == substr(date("Y-m-d"),0,7)){
+                $monthDoneworkouts->push($doneworkout);
+            }
+        });
+        $fromMonthWorkout = 0;
+        $fromMonthWorkoutImage = null;
+        $toMonthWorkout = 0;
+        $toMonthWorkoutImage = null;
+        $monthWorkoutCount = count($monthDoneworkouts);
+        $monthWorkoutTotal = date("d");
+        $monthPercent = round($monthWorkoutCount/$monthWorkoutTotal*100);
+        $monthWorkoutLevels = Medal::whereType('month')->orderBy('count')->get();
+        foreach($monthWorkoutLevels as $index=>$level){
+            $toMonthWorkout = $level->count;
+            $toMonthWorkoutImage = url('storage/'.$level->image);
+            if($monthPercent>$level->count){
+            }else{
+                if(isset($monthWorkoutLevels[$index-1])){
+                    $fromMonthWorkout = $monthWorkoutLevels[$index-1]['count'];
+                    $fromMonthWorkoutImage = url('storage/'.$monthWorkoutLevels[$index-1]['image']);
+                }
+                break;
+            }
+        }
         return ['fromWorkout'=>$fromWorkout,
             'fromWorkoutImage'=>$fromWorkoutImage,
             'toWorkout'=>$toWorkout,
             'toWorkoutImage'=>$toWorkoutImage,
-            'workoutCount'=>$workoutCount];
+            'workoutCount'=>$workoutCount,
+            'levelMedalImage'=>isset($levelMedalImage)?$levelMedalImage:null,
+            'fromMonthWorkout'=>$fromMonthWorkout,
+            'fromMonthWorkoutImage'=>$fromMonthWorkoutImage,
+            'toMonthWorkout'=>$toMonthWorkout,
+            'toMonthWorkoutImage'=>$toMonthWorkoutImage,
+            'monthWorkoutCount'=>$monthWorkoutCount,            
+            'monthWorkoutTotal'=>$monthWorkoutTotal,
+            'monthPercent'=>$monthPercent,
+        ];
     }
     public function removePaymentMethods(){
         $tokens = PaymentTocken::whereCustomerId($this->id)->get();
@@ -1249,5 +1286,20 @@ class Customer extends Model
         $this['muted'] = false;
         //tocalWorkoutCompleted
         //currentMonthWorkoutCompleted
+    }
+    public function isConnectting($customer){
+        if($this->id == $customer->id) return true;
+        if($customer->profile=='public') return true;
+        $item = DB::table("follows")->select("*")->where('customer_id',$this->id)->where('follower_id',$customer->id)->whereIn('status',['accepted'])->first();
+        if($item)return true;
+        return false;
+    }
+    public function findCustomerProfile($request){
+        $profile = true;
+        if($request->exists('customer_id')){
+            $customer = Customer::find($request->customer_id);
+            $profile = $this->isConnectting($customer);
+        }
+        return $profile;
     }
 }

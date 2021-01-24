@@ -3,10 +3,12 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Validator;
 use App\Subscription;
 use App\PaymentSubscription;
 use App\Transaction;
 use App\Customer;
+use App\Company;
 use App\Coupon;
 use App\Record;
 use App\User;
@@ -292,17 +294,23 @@ class FindTransactions extends Command
         if(false){
             $this->checkDoneWorkouts();
         }
+        if(false){
+            $this->findMedal();
+        }
         if(true){
-            $this->convertPostContent();
+            $this->checkUnique();
         }
     }
-    private function convertPostContent(){
-        $medias = Media::wherePostId(33)->get();
-        foreach($medias as $media){
-            // print_r($media->id);
-            \Storage::disk('s3')->delete($media->src);
-            $media->delete();
-        }
+    private function checkUnique(){
+        $commpany = Company::find(3);
+        $customer = Customer::find(3);
+        $validator = Validator::make(['username'=>'cancel1'], ['username'=>'required|unique:companies,username,3|unique:customers,username|not_in:follow,cancel']);
+        var_dump($validator->fails());
+    }
+    private function findMedal(){
+        $customer = Customer::find(3);
+        $object = $customer->findMedal();
+        print_r($object);
     }
     private function checkDoneWorkouts(){
         $customers = Customer::whereIn('id',[3])->get();

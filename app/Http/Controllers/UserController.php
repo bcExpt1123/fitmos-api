@@ -167,6 +167,7 @@ class UserController extends Controller
         }
         $user->name = $request->input('first_name').' '.$request->input('last_name');
         $user->save();
+        $user->customer->username = $request->input('username');
         $user->customer->first_name = $request->input('first_name');
         $user->customer->last_name = $request->input('last_name');
         $user->customer->gender = $request->input('gender');

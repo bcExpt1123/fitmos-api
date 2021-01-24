@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Activity;
 use App\Models\Post;
+use App\Customer;
 use App\Models\Media;
 use App\Jobs\DeleteAsyncPost;
 use Illuminate\Support\Facades\Storage;
@@ -14,11 +15,18 @@ use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     public function index(Request $request){
+        $user = $request->user();
         $post = new Post;
-        $post->assignFrontSearch($request);
-        $indexData = $post->search();
-        $size = 'x-small';
-        return response()->json(array('status'=>'ok','posts'=>$indexData));
+        $indexData = null;            
+        $profile = false;
+        if($user->customer){
+            $profile = $user->customer->findCustomerProfile($request);
+            if($profile){
+                $post->assignFrontSearch($request);
+                $indexData = $post->search();
+            }
+        }
+        return response()->json(array('status'=>'ok','posts'=>$indexData,'customerProfile'=>$profile));
     }
     public function store(Request $request){
         $validator = Validator::make($request->all(), Post::validateRules());
@@ -118,15 +126,23 @@ class PostController extends Controller
         $user = $request->user();
         if($user->customer){
             // DB::enableQueryLog();
-            $self = Media::whereHas('post',function($query) use ($customerId){
-                $query->whereStatus(1)
-                      ->whereCustomerId($customerId);
-            })->inRandomOrder()->limit(6)->get();
-            // dd(DB::getQueryLog());            
-            $other = Media::whereHas('post',function($query) use ($customerId){
-                $query->whereStatus(1)
-                      ->where('customer_id','!=',$customerId);
-            })->inRandomOrder()->limit(12)->get();
+            $self = null;            
+            $other = null;            
+            $profile = false;
+            if($user->customer){
+                $profile = $user->customer->findCustomerProfile($request);
+                if($profile){
+                    $self = Media::whereHas('post',function($query) use ($customerId){
+                        $query->whereStatus(1)
+                              ->whereCustomerId($customerId);
+                    })->inRandomOrder()->limit(6)->get();
+                    // dd(DB::getQueryLog());            
+                    $other = Media::whereHas('post',function($query) use ($customerId){
+                        $query->whereStatus(1)
+                              ->where('customer_id','!=',$customerId);
+                    })->inRandomOrder()->limit(12)->get();
+                }
+            }    
             return response()->json(['self'=>$self,'other'=>$other]);
         }
         return response()->json(['status'=>'failed'], 401);
@@ -134,16 +150,21 @@ class PostController extends Controller
     public function medias(Request $request){
         $user = $request->user();
         if($user->customer){
-            $customerId = $request->customer_id;
-            // DB::enableQueryLog();
-            $where = Media::whereHas('post',function($query) use ($customerId){
-                $query->whereStatus(1)
-                      ->whereCustomerId($customerId);
-            });
-            if($request->media_id>0){
-                $where = $where->where('id','<',$request->media_id);
+            $profile = $user->customer->findCustomerProfile($request);
+            $medias = null;
+            if($profile){
+                $customerId = $request->customer_id;
+                // DB::enableQueryLog();
+                $where = Media::whereHas('post',function($query) use ($customerId){
+                    $query->whereStatus(1)
+                          ->whereCustomerId($customerId);
+                });
+                if($request->media_id>0){
+                    $where = $where->where('id','<',$request->media_id);
+                }
+                $medias = $where->orderBy('id','desc')->limit(20)->get();
             }
-            $medias = $where->orderBy('id','desc')->limit(20)->get();
+
             // dd(DB::getQueryLog());            
             return response()->json(['medias'=>$medias]);
         }
