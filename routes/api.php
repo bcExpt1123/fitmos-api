@@ -76,6 +76,7 @@ Route::post('customers/trigger-notifiable', 'CustomerController@triggerNotifiabl
 Route::post('customers/alternate-shortcode', 'CustomerController@alternateShortcode')->middleware('auth:api');
 Route::post('customers/people', 'CustomerController@people')->middleware('auth:api');
 Route::post('customers/newsfeed', 'CustomerController@newsfeed')->middleware('auth:api');
+Route::post('customers/notifications', 'CustomerController@notifications')->middleware('auth:api');
 Route::get('customers/{id}/profile', 'CustomerController@profile')->where('id', '[0-9]+')->middleware('auth:api');
 Route::resource('customers', 'CustomerController')->middleware('auth:api');
 Route::get('transactions/export', 'TransactionController@export')->middleware('auth:api');
@@ -174,7 +175,7 @@ Route::get('countries', 'CompanyController@fetchCountries')->middleware('auth:ap
 Route::get('companies/{id}/disable', 'CompanyController@disable')->where('id', '[0-9]+')->middleware('auth:api');
 Route::get('companies/{id}/restore', 'CompanyController@restore')->where('id', '[0-9]+')->middleware('auth:api');
 Route::get('companies/home', 'CompanyController@home')->middleware('auth:api');
-Route::get('companies/{id}/home', 'CompanyController@view')->middleware('auth:api');
+Route::get('companies/{id}/home', 'CompanyController@view');
 Route::resource('companies', 'CompanyController')->middleware('auth:api');
 Route::get('products/{id}/disable', 'ProductController@disable')->where('id', '[0-9]+')->middleware('auth:api');
 Route::get('products/{id}/restore', 'ProductController@restore')->where('id', '[0-9]+')->middleware('auth:api');
@@ -197,5 +198,15 @@ Route::get('search/all', 'SearchController@all')->middleware('auth:api');
 Route::get('search/customers', 'SearchController@customers')->middleware('auth:api');
 Route::get('search/companies', 'SearchController@companies')->middleware('auth:api');
 Route::get('search/posts', 'SearchController@posts')->middleware('auth:api');
+Route::get('search/username', 'SearchController@username');
+Route::get('search/notifications', 'SearchController@notifications')->middleware('auth:api');
+Route::post('follows/unfollow', 'FollowController@unfollow')->middleware('auth:api');
+Route::post('follows/{id}/accept', 'FollowController@accept')->middleware('auth:api');
+Route::post('follows/{id}/reject', 'FollowController@reject')->middleware('auth:api');
+Route::resource('follows', 'FollowController')->only(['index','store'])->middleware('auth:api');
+Route::get('eventos/home', 'EventoController@home');
+Route::get('eventos/recent', 'EventoController@recent');
+Route::resource('eventos', 'EventoController')->only(['index','update','store','destroy'])->middleware('auth:api');
+Route::resource('eventos', 'EventoController')->only(['show']);
 Route::post('sync/{id}', 'SearchController@sync')->where('id', '[0-9]+');
 

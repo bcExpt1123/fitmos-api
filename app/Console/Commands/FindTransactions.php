@@ -302,10 +302,8 @@ class FindTransactions extends Command
         }
     }
     private function checkUnique(){
-        $commpany = Company::find(3);
         $customer = Customer::find(3);
-        $validator = Validator::make(['username'=>'cancel1'], ['username'=>'required|unique:companies,username,3|unique:customers,username|not_in:follow,cancel']);
-        var_dump($validator->fails());
+        $customer->touch();
     }
     private function findMedal(){
         $customer = Customer::find(3);

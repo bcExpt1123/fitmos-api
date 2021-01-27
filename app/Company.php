@@ -9,18 +9,21 @@ use Intervention\Image\ImageManagerStatic;
 use Illuminate\Support\Facades\DB;
 class Company extends Model
 {
-    protected $fillable = ['name','description','phone','mail','is_all_countries','mobile_phone','website_url','address','facebook','instagram','twitter','horario'];    
+    protected $fillable = ['username','name','description','phone','mail','is_all_countries','mobile_phone','website_url','address','facebook','instagram','twitter','horario'];    
     private $pageSize;
     private $pageNumber;
     private $search;
     private $countryCode;
     private $expirationDate;
     private static $searchableColumns = ['search'];
+    public const NOT_IN="workout,home,shop,benchmarks,partners,profile,profile, perfil,level,subscriptions,customers,
+        search,search-people,search-shops,search-posts,pricing,checkout,settings,news,posts,ayuda,contact,terms_and_condition,
+        privacy,cookies,newsfeed,leaderboard,eventos,auth";
     public static function validateRules($id=null){
         $upload=explode('M',ini_get('upload_max_filesize'));
         $uploadMaxSize = $upload[0]*1024;
         return array(
-            'username'=>'required|unique:companies,username,'.$id.'|unique:customers,username|not_in:follow,cancel',
+            'username'=>'required|unique:companies,username,'.$id.'|unique:customers,username|not_in:'.Company::NOT_IN,
             'name'=>'required|max:255|unique:companies,name,'.$id,
             'description'=>'required',
             'mail'=>'required|email|unique:companies,mail,'.$id,

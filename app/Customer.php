@@ -34,7 +34,7 @@ class Customer extends Model
         return array(
             //'email'=>'required|max:255|unique:users,email,'.$user_id,
             //'customer_email'=>'required|max:255|unique:customers,email,'.$customer_id,
-            'username'=>'required|max:255|unique:companies,username|unique:customers,username,'.$customer_id.'|not_in:follow,cancel',
+            'username'=>'required|max:255|unique:companies,username|unique:customers,username,'.$customer_id.'|not_in:'.Company::NOT_IN,
             'first_name'=>['required','max:255'],
             'last_name'=>['required','max:255'],
             'current_height'=>['required'],
@@ -1273,7 +1273,7 @@ class Customer extends Model
             $this['followers'] = DB::table("follows")->select("*")->where('customer_id',$this->id)->where('status','accepted')->get();
             $this['followings'] = DB::table("follows")->select("*")->where('follower_id',$this->id)->where('status','accepted')->get();
             if($authId){
-                $this['following'] = DB::table("follows")->select("*")->where('follower_id',$this->id)->where('customer_id',$authId)->first();
+                $this['following'] = DB::table("follows")->select("*")->where('follower_id',$authId)->where('customer_id',$this->id)->first();
             }
         }
         $this['display'] = $this->first_name." ".$this->last_name;

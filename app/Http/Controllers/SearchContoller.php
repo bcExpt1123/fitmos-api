@@ -140,6 +140,36 @@ class SearchController extends Controller
             'errors' => ['result'=>[['error'=>'failed']]]
         ], 403);
     }
+    public function username(Request $request){
+        $user = $request->user('api');
+        $username = $request->u;
+        if($user && $user->customer){
+            $customer = Customer::whereUsername($username)->first();
+            if($customer && $customer->hasActiveSubscription()){
+                $customer->type = 'customer';
+                $customer->getSocialDetails($user->customer->id);
+                $customer['medals'] = $customer->findMedal();    
+                return response()->json($customer);
+            }
+            $company = Company::whereUsername($username)->first();
+            if($company){
+                $company->type = 'company';
+                return response()->json($company);
+            }
+        }else{
+            $company = Company::where('username','=',$username)->whereStatus('Active')->first();
+            if($company){
+                $company->type = 'company';
+                return response()->json($company);
+            }
+        }
+        return response()->json(null);
+    }
+    public function notifications(Request $request){
+        $user = $request->user('api');
+        $notifications = \App\Models\Notification::whereCustomerId($user->customer->id)->orderBy('id','desc')->limit(30)->first();
+        return response()->json(['notifications'=>$notifications]);
+    }
     public function sync($id){
         $customer = Customer::find($id);
         if($customer) {

@@ -177,21 +177,32 @@ class CompanyController extends Controller
     public function view($id,Request $request){
         $company = Company::find($id);
         $user = $request->user('api');
-        if($user->customer)\App\Jobs\Activity::dispatch($user->customer);
-        if($user->customer && $company->status == "Active"){
+        if($user && $user->customer)\App\Jobs\Activity::dispatch($user->customer);
+        if($company->status == "Active"){
             $matchCountry = true;
             $size = 'medium';
             $productImage = new ProductImage;
             if($company->is_all_countries=="no") {
-                $country = CompanyCountry::whereCompanyId($id)->whereCountry($user->customer->country_code)->first();
-                if($country == null)$matchCountry = false;
+                if($user && $user->customer){
+                    $countryCode = $user->customer->country_code;
+                    $country = CompanyCountry::whereCompanyId($id)->whereCountry($countryCode)->first();
+                    if($country == null)$matchCountry = false;
+                }else{
+                    $ipInfo = \App\User::getCountryFromIp();
+                    // $countryCode = $ipInfo->countryCode;
+                    $country = CompanyCountry::whereCompanyId($id)->first();
+                }
             }
             $company['media_url'] = $productImage->getImageSize($company->logo,$size);
             if( $matchCountry ){
                 $product = new Product;
                 $product->assignSearch($request);
                 $product->company_id = $id;
-                $product->expiration_date = $user->customer->currentDate();
+                if($user && $user->customer){
+                    $product->expiration_date = $user->customer->currentDate();
+                }else{
+                    $product->expiration_date = $this->getTime($ipInfo->timezone);
+                }
                 $product->status = "Active";
                 $results = $product->search();
                 if($results->total()>0){
@@ -200,10 +211,24 @@ class CompanyController extends Controller
                         $results[$index]['media_url'] = $productImage->getImageSize($logo,"medium");
                     }            
                     return response()->json(['company'=>$company,'products'=>$results]);
+                }else{
+                    if($user && $user->customer){
+                    }else{
+                        return response()->json(['company'=>$company,'products'=>[]]);
+                    }
                 }
             }
         }        
         return response()->json(['status'=>'failed'], 404);    
+    }
+    private function getTime($timezone){
+        $userTimezone = new \DateTimeZone($timezone);
+        $objDateTime = new \DateTime('NOW');
+        $objDateTime->setTimezone($userTimezone);
+        if($objDateTime->format('H')>18){
+            $objDateTime->modify('+1 day');
+        }
+        return $objDateTime->format('Y-m-d');
     }
     public function home(Request $request){
         $company = new Company;
@@ -213,3 +238,4 @@ class CompanyController extends Controller
         return response()->json($company->frontSearch());        
     }
 }
+

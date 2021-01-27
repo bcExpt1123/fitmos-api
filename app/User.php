@@ -85,7 +85,14 @@ class User extends Authenticatable
 
         return $ip;
     }
-
+    public static function getCountryFromIp(){
+        $ip = self::getUserIP();
+        if($ip=='127.0.0.1'){
+            $ipInfo = file_get_contents("http://ip-api.com/json/132.45.23.234");
+        }else $ipInfo = file_get_contents("http://ip-api.com/json/".$ip);
+        $ipInfo = json_decode($ipInfo);
+        return $ipInfo;
+    }
     public static function createCustomer($record,$provider='email',$providerId=null){
         $serviceId = 1;
         switch($record['application_source']){
