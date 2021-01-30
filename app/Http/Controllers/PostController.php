@@ -170,5 +170,18 @@ class PostController extends Controller
         }
         return response()->json(['status'=>'failed'], 401);
     }
+    public function sync(Request $request){
+        $ids = [];
+        $conditions = [];
+        foreach($request->ids as $item){
+            $ids[] = $item['id'];
+            $conditions[$item['id']] = $item;
+        }
+        $posts = Post::whereIn('id',$ids)->get();
+        foreach($posts as $post){
+            $post->extend($conditions[$post->id]);
+        }
+        return response()->json(['posts'=>$posts]);
+    }
 }
 

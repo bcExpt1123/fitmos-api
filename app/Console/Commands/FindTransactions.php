@@ -8,6 +8,7 @@ use App\Subscription;
 use App\PaymentSubscription;
 use App\Transaction;
 use App\Customer;
+use App\Models\Comment;
 use App\Company;
 use App\Coupon;
 use App\Record;
@@ -302,8 +303,6 @@ class FindTransactions extends Command
         }
     }
     private function checkUnique(){
-        $customer = Customer::find(3);
-        $customer->touch();
     }
     private function findMedal(){
         $customer = Customer::find(3);

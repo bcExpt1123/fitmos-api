@@ -6,14 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Like extends Model
 {
-    protected $table = 'comments';
-    protected $fillable = ['customer_id','post_id','activity_id','parent_activity_id','level0','level1'];
+    protected $table = 'likes';
+    protected $fillable = ['customer_id','activity_id'];
     public function customer()
     {
         return $this->belongsTo('App\Customer', 'customer_id');
-    }
-    public function post()
-    {
-        return $this->belongsTo('App\Models\Post', 'post_id');
     }
 }

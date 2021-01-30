@@ -193,7 +193,9 @@ Route::post('bank/{id}/restore', 'BankTransferController@restore')->middleware('
 Route::post('posts/sub-newsfeed','PostController@subNewsfeed')->middleware('auth:api');
 Route::get('posts/random-medias/{customerId}','PostController@randomMedias')->where('customerId', '[0-9]+')->middleware('auth:api');
 Route::get('posts/medias','PostController@medias')->middleware('auth:api');
+Route::post('posts/sync','PostController@sync')->middleware('auth:api');
 Route::resource('posts', 'PostController')->middleware('auth:api');
+Route::resource('comments', 'CommentController')->middleware('auth:api');
 Route::get('search/all', 'SearchController@all')->middleware('auth:api');
 Route::get('search/customers', 'SearchController@customers')->middleware('auth:api');
 Route::get('search/companies', 'SearchController@companies')->middleware('auth:api');

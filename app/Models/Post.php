@@ -56,7 +56,7 @@ class Post extends Model
         }
         return $posts;
     }
-    public function extend(){
+    public function extend($condition=null){
         $tagFollowers = [];
         if($this->customer){
             $this->customer->getAvatar();
@@ -81,5 +81,27 @@ class Post extends Model
         }
         $this->tagFollowers = $tagFollowers;
         $this->medias;
+        $comments = Comment::wherePostId($this->id)->get();
+        if($condition && $condition['maxLevel0']>-1){
+            list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($condition);
+            $this->previousCommentsCount = $previousComments->count();
+            $this->comments = $viewComments;//->get()->toArray();
+            $this->nextCommentsCount = $nextComments->count();
+        }else{
+            $latestComment = Comment::with('customer')->wherePostId($this->id)->orderBy('level0','desc')->orderBy('level1','desc')->first();
+            if($latestComment){
+                // $replyComments = Comment::whereParentActivityId($latestComment->activity_id)->orderBy('id')->get();
+                // $this->comments = $replyComments->prepend($latestComment);
+                $latestComment->customer->getAvatar();
+                $this->comments = [$latestComment];
+                $this->previousCommentsCount = $comments->count()-1;
+            }else{
+                $this->comments = [];
+                $this->previousCommentsCount = 0;
+            }
+            $this->nextCommentsCount = 0;
+        }
+        $likes = Like::whereActivityId($this->activity_id)->get();
+        $this->likesCount = $likes->count();
     }
 }
