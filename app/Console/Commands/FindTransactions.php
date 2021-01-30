@@ -9,6 +9,7 @@ use App\PaymentSubscription;
 use App\Transaction;
 use App\Customer;
 use App\Models\Comment;
+use App\Models\Post;
 use App\Company;
 use App\Coupon;
 use App\Record;
@@ -303,6 +304,28 @@ class FindTransactions extends Command
         }
     }
     private function checkUnique(){
+        $post = Post::find(29);
+        print_r($post->content);
+        $pattern = '/\@\{\$([^$]+)\$\}\(([0-9]+)\)/';
+        $pattern = '/@\[(.+?)\]\(([0-9]+)\)/';
+        $lines = explode("\n",$post->content);
+        $texts = [];
+        $jsons = [];
+        foreach( $lines as $line){
+            preg_match_all($pattern, $line, $matches);
+            print_r($matches);
+            // $jsonLine = $line;
+            // if(count($matches)>0){
+            //     foreach($matches[0] as $index=>$search){
+            //         $line = str_replace($search,$matches[1][$index],$line);
+            //         $jsonLine = str_replace($search,"$".$matches[2][$index]."$",$jsonLine);
+            //     }
+            //     $jsons[] = ['content'=>$jsonLine,'ids'=>$matches[2]];
+            // }else{
+            //     $jsons[] = ['content'=>$jsonLine];
+            // }
+            // $texts[] = $line;
+        }
     }
     private function findMedal(){
         $customer = Customer::find(3);

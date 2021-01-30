@@ -206,6 +206,7 @@ Route::post('follows/unfollow', 'FollowController@unfollow')->middleware('auth:a
 Route::post('follows/{id}/accept', 'FollowController@accept')->middleware('auth:api');
 Route::post('follows/{id}/reject', 'FollowController@reject')->middleware('auth:api');
 Route::resource('follows', 'FollowController')->only(['index','store'])->middleware('auth:api');
+Route::resource('likes', 'LikeController')->only(['store','destroy'])->middleware('auth:api');
 Route::get('eventos/home', 'EventoController@home');
 Route::get('eventos/recent', 'EventoController@recent');
 Route::resource('eventos', 'EventoController')->only(['index','update','store','destroy'])->middleware('auth:api');

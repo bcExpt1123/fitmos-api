@@ -16,7 +16,8 @@ class PostObserver
     public function saved(Post $post)
     {
         Post::withoutEvents(function () use ($post) {
-            $pattern = '/\@\{\$([^$]+)\$\}\(([0-9]+)\)/';
+            // $pattern = '/\@\{\$([^$]+)\$\}\(([0-9]+)\)/';
+            $pattern = '/@\[(.+?)\]\(([0-9]+)\)/';
             $lines = explode("\n",$post->content);
             $texts = [];
             $jsons = [];

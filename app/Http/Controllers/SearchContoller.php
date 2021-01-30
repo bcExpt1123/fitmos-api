@@ -52,6 +52,9 @@ class SearchController extends Controller
                 $shops[$index]['logo'] = $item->getImageSize($logo,$size);
             }        
             $posts = \App\Models\Post::with('medias')->where('searchable_content','like',"%$search%")->limit(4)->get();
+            foreach($posts as $post){
+                $post->extend(null, $user);
+            }    
             // dd(DB::getQueryLog());
             return response()->json([
                 'searchResult' => ['people'=>$customers,'shops'=>$shops,'posts'=>$posts]
@@ -132,6 +135,9 @@ class SearchController extends Controller
                 $where = $where->where('id','<',$request->id);
             }
             $posts = $where->orderBy('id','desc')->limit(20)->get();
+            foreach($posts as $post){
+                $post->extend(null, $user);
+            }
             return response()->json([
                 'posts'=>$posts
             ]);

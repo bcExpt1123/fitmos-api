@@ -57,7 +57,7 @@ class Comment extends Model
         }
         return $comments;
     }
-    public static function findByCondition($condition){
+    public static function findByCondition($condition,$user){
         $previousComments = Comment::wherePostId($condition['id'])->where(function($query) use ($condition){
             $query->where('level0','<',$condition['minLevel0']);
             $query->orWhere(function($q) use ($condition){
@@ -80,6 +80,13 @@ class Comment extends Model
         })->get();
         foreach($viewComments as $index=>$comment){
             $comment->customer->getAvatar();
+            $likes = Like::whereActivityId($comment->activity_id)->get();
+            $comment->likesCount = $likes->count();
+            $comment->like=false;
+            if(isset($user->customer)){
+                $like = Like::whereActivityId($comment->activity_id)->whereCustomerId($user->customer->id)->first();
+                $comment->like = $like?true:false;    
+            }
         }    
         $nextComments = Comment::wherePostId($condition['id'])->where(function($query) use ($condition){
             $query->where('level0','>',$condition['maxLevel0']);

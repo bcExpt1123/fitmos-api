@@ -60,14 +60,16 @@ class CommentController extends Controller
                 'level1'=>$maxlevel1,
                 ]);
             $comment->save();
-            $comment->post->touch();
+            Post::withoutEvents(function () use ($comment) {
+                $comment->post->touch();
+            });
             \DB::commit();
             $comment->customer->getAvatar();
             $nextCommentsCount = 0;
             $comments = [];
             $previousCommentsCount = 0;
             if($request->condition && $request->condition['maxLevel0']>-1){
-                list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($request->condition);
+                list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($request->condition, $user);
                 $previousCommentsCount = $previousComments->count();
                 $comments = $viewComments;//->get()->toArray();
                 $nextCommentsCount = $nextComments->count();
@@ -99,7 +101,9 @@ class CommentController extends Controller
                 }
                 Comment::whereLevel0($comment->level0)->delete();
             }
-            $post->touch();
+            Post::withoutEvents(function () use ($post) {
+                $post->touch();
+            });
             $data=[
                 'status'=>'1',
                 'msg'=>'success'
@@ -108,7 +112,7 @@ class CommentController extends Controller
             $comments = [];
             $previousCommentsCount = 0;
             if($request->condition && $request->condition['maxLevel0']>-1){
-                list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($request->condition);
+                list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($request->condition, $user);
                 $previousCommentsCount = $previousComments->count();
                 $comments = $viewComments;//->get()->toArray();
                 $nextCommentsCount = $nextComments->count();
@@ -140,6 +144,9 @@ class CommentController extends Controller
             $comment->fill(['content'=>$request->content]);
             $comment->save();
             \DB::commit();
+            Post::withoutEvents(function () use ($comment) {
+                $comment->post->touch();
+            });
             $comment->post->touch();
             $comment->customer->getAvatar();
             return response()->json(array('status'=>'ok','comment'=>$comment));

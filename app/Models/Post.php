@@ -46,17 +46,17 @@ class Post extends Model
         $this->customer_id = $request->customer_id;
         if($request->post_id)$this->lastId = $request->post_id;
     }
-    public function search(){
+    public function search($user=null){
         $where = self::with(['customer','medias'])->whereStatus(1);
         if($this->lastId)$where->where('id','<',$this->lastId);
         $where->whereCustomerId($this->customer_id);
         $posts =  $where->orderBy('id','desc')->limit(3)->get();
         foreach($posts as $index=>$post){
-            $post->extend();
+            $post->extend(null,$user);
         }
         return $posts;
     }
-    public function extend($condition=null){
+    public function extend($condition=null, $user=null){
         $tagFollowers = [];
         if($this->customer){
             $this->customer->getAvatar();
@@ -83,7 +83,7 @@ class Post extends Model
         $this->medias;
         $comments = Comment::wherePostId($this->id)->get();
         if($condition && $condition['maxLevel0']>-1){
-            list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($condition);
+            list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($condition, $user);
             $this->previousCommentsCount = $previousComments->count();
             $this->comments = $viewComments;//->get()->toArray();
             $this->nextCommentsCount = $nextComments->count();
@@ -93,6 +93,13 @@ class Post extends Model
                 // $replyComments = Comment::whereParentActivityId($latestComment->activity_id)->orderBy('id')->get();
                 // $this->comments = $replyComments->prepend($latestComment);
                 $latestComment->customer->getAvatar();
+                $likes = Like::whereActivityId($latestComment->activity_id)->get();
+                $latestComment->likesCount = $likes->count();
+                $latestComment->like=false;
+                if(isset($user->customer)){
+                    $like = Like::whereActivityId($latestComment->activity_id)->whereCustomerId($user->customer->id)->first();
+                    $latestComment->like = $like?true:false;    
+                }
                 $this->comments = [$latestComment];
                 $this->previousCommentsCount = $comments->count()-1;
             }else{
@@ -103,5 +110,9 @@ class Post extends Model
         }
         $likes = Like::whereActivityId($this->activity_id)->get();
         $this->likesCount = $likes->count();
+        if($user && $user->customer){
+            $like = Like::whereActivityId($this->activity_id)->whereCustomerId($user->customer->id)->first();
+            $this->like = $like?true:false;
+        }
     }
 }

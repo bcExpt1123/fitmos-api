@@ -1258,7 +1258,7 @@ class Customer extends Model
         $where->whereIn('customer_id',$ids);
         $result = $where->whereStatus(1)->orderBy('id','desc')->limit(8)->get();
         foreach($result as $index=>$post){
-            $post->extend();
+            $post->extend(null, $this->user);
         }
         return $result;
     }

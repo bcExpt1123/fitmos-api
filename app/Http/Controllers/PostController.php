@@ -23,7 +23,7 @@ class PostController extends Controller
             $profile = $user->customer->findCustomerProfile($request);
             if($profile){
                 $post->assignFrontSearch($request);
-                $indexData = $post->search();
+                $indexData = $post->search($user);
             }
         }
         return response()->json(array('status'=>'ok','posts'=>$indexData,'customerProfile'=>$profile));
@@ -116,6 +116,7 @@ class PostController extends Controller
             $posts = Post::with('customer')->whereIn('id',$request->ids)->get();
             $result = [];
             foreach($posts as $post){
+                $post->extend(null, $user);
                 array_push($result, $post);
             }
             return response()->json(['items'=>$result]);
@@ -179,7 +180,7 @@ class PostController extends Controller
         }
         $posts = Post::whereIn('id',$ids)->get();
         foreach($posts as $post){
-            $post->extend($conditions[$post->id]);
+            $post->extend($conditions[$post->id], $request->user());
         }
         return response()->json(['posts'=>$posts]);
     }
