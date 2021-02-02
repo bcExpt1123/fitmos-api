@@ -299,8 +299,18 @@ class FindTransactions extends Command
         if(false){
             $this->findMedal();
         }
-        if(true){
+        if(false){
             $this->checkUnique();
+        }
+        if(true){
+            $this->deleteComments();
+        }
+    }
+    private function deleteComments(){
+        $comments = Comment::all();
+        foreach($comments as $comment){
+            $comment->activity->delete();
+            $comment->delete();
         }
     }
     private function checkUnique(){

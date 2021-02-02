@@ -81,21 +81,22 @@ class Post extends Model
         }
         $this->tagFollowers = $tagFollowers;
         $this->medias;
-        $comments = Comment::wherePostId($this->id)->get();
-        if($condition && $condition['maxLevel0']>-1){
+        if($condition && $condition['from_id']>-1){
             list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($condition, $user);
             $this->previousCommentsCount = $previousComments->count();
             $this->comments = $viewComments;//->get()->toArray();
             $this->nextCommentsCount = $nextComments->count();
         }else{
-            $latestComment = Comment::with('customer')->wherePostId($this->id)->orderBy('level0','desc')->orderBy('level1','desc')->first();
+            $latestComment = Comment::with('customer')->wherePostId($this->id)->where('level1',0)->orderBy('level0','desc')->first();
             if($latestComment){
+                $comments = Comment::wherePostId($this->id)->get();
                 // $replyComments = Comment::whereParentActivityId($latestComment->activity_id)->orderBy('id')->get();
                 // $this->comments = $replyComments->prepend($latestComment);
                 $latestComment->customer->getAvatar();
                 $likes = Like::whereActivityId($latestComment->activity_id)->get();
                 $latestComment->likesCount = $likes->count();
                 $latestComment->like=false;
+                $latestComment->extends();
                 if(isset($user->customer)){
                     $like = Like::whereActivityId($latestComment->activity_id)->whereCustomerId($user->customer->id)->first();
                     $latestComment->like = $like?true:false;    
@@ -108,6 +109,7 @@ class Post extends Model
             }
             $this->nextCommentsCount = 0;
         }
+        $this->commentsCount = Comment::wherePostId($this->id)->count();
         $likes = Like::whereActivityId($this->activity_id)->get();
         $this->likesCount = $likes->count();
         if($user && $user->customer){

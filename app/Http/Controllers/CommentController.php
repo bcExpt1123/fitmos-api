@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Activity;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Customer;
-use Illuminate\Support\Facades\Storage;
 
 class CommentController extends Controller
 {
@@ -22,7 +19,7 @@ class CommentController extends Controller
     public function store(Request $request){
         $user = $request->user();
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
             $activity = new Activity;
             $activity->save();
             if($request->exists("parent_activity_id")){
@@ -63,25 +60,38 @@ class CommentController extends Controller
             Post::withoutEvents(function () use ($comment) {
                 $comment->post->touch();
             });
-            \DB::commit();
+            DB::commit();
             $comment->customer->getAvatar();
+            $comment->getLike($user);
             $nextCommentsCount = 0;
-            $comments = [];
             $previousCommentsCount = 0;
-            if($request->condition && $request->condition['maxLevel0']>-1){
+            $commentsCount = Comment::wherePostId($request->post_id)->count();
+            if($maxlevel1>0){
+                $condition = ['post_id'=>$request->post_id,'to_level0'=>$comment->level0,'to_level1'=>$comment->level1];
+                list($children, $nextChildrenCount) = Comment::findRepliesByCondition($condition, $user);    
+                return response()->json([
+                    'comment'=>$comment,
+                    'comments'=>$children,
+                    'nextChildrenCount'=>$nextChildrenCount,
+                    'commentsCount'=>$commentsCount,
+                    ]
+                );        
+            }else{
+                $request->condition['to_id'] = $comment->id;
                 list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($request->condition, $user);
                 $previousCommentsCount = $previousComments->count();
-                $comments = $viewComments;//->get()->toArray();
                 $nextCommentsCount = $nextComments->count();
-            }        
-            return response()->json([
-                'comment'=>$comment,
-                'previousCommentsCount'=>$previousCommentsCount,
-                'comments'=>$comments,
-                'nextCommentsCount'=>$nextCommentsCount]
+                return response()->json([
+                    'comment'=>$comment,
+                    'previousCommentsCount'=>$previousCommentsCount,
+                    'comments'=>$viewComments,
+                    'nextCommentsCount'=>$nextCommentsCount,
+                    'commentsCount'=>$commentsCount,
+                    ]
                 );        
+            }
         } catch (Throwable $e) {
-            \DB::rollback();
+            DB::rollback();
             return response()->json(array('status'=>'failed'));
         }
         
@@ -90,8 +100,19 @@ class CommentController extends Controller
         $user = $request->user();
         $comment = Comment::find($id);
         if($comment && $comment->customer_id == $user->customer->id){
-            $post = $comment->post;
+            if($request->condition['from_id']>0)$fromComment = Comment::find($request->condition['from_id']);
+            $toComment = Comment::find($request->condition['to_id']);
+            $isReply = false;
             if($comment->level1>0){
+                $isReply = true;
+                $toLevel1 = $toComment->level1;
+                $toLevel0 = $toComment->level0;
+            }else{
+                $fromLevel0 = $fromComment->level0;
+                $toLevel0 = $toComment->level0;
+            }
+            $post = $comment->post;
+            if($isReply){
                 $comment->activity->delete();
                 $comment->delete();
             }else{
@@ -104,23 +125,26 @@ class CommentController extends Controller
             Post::withoutEvents(function () use ($post) {
                 $post->touch();
             });
-            $data=[
-                'status'=>'1',
-                'msg'=>'success'
-            ];
-            $nextCommentsCount = 0;
-            $comments = [];
-            $previousCommentsCount = 0;
-            if($request->condition && $request->condition['maxLevel0']>-1){
-                list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($request->condition, $user);
-                $previousCommentsCount = $previousComments->count();
-                $comments = $viewComments;//->get()->toArray();
-                $nextCommentsCount = $nextComments->count();
-            }        
+            $commentsCount = Comment::wherePostId($post->id)->count();
+            if($isReply){
+                $condition = ['post_id'=>$post->id,'to_level0'=>$toLevel0,'to_level1'=>$toLevel1];
+                list($children, $nextChildrenCount) = Comment::findRepliesByCondition($condition, $user);
+                return response()->json([
+                    'children'=>$children,
+                    'nextChildrenCount'=>$nextChildrenCount,
+                    'commentsCount'=>$commentsCount
+                    ]
+                    );
+            }
+            $condition = ['post_id'=>$post->id,'from_level0'=>$fromLevel0,'to_level0'=>$toLevel0];
+            list($previousComments, $viewComments, $nextComments) = Comment::findByConditionWith($condition, $user);
+            $previousCommentsCount = $previousComments->count();
+            $nextCommentsCount = $nextComments->count();
             return response()->json([
                 'previousCommentsCount'=>$previousCommentsCount,
-                'comments'=>$comments,
-                'nextCommentsCount'=>$nextCommentsCount]
+                'comments'=>$viewComments,
+                'nextCommentsCount'=>$nextCommentsCount,
+                'commentsCount'=>$commentsCount]
                 );
             }
         $data=[
@@ -140,10 +164,10 @@ class CommentController extends Controller
         $user = $request->user();
         if($user->customer->id != $comment->customer_id)return response()->json(['status'=>'failed'],403);
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
             $comment->fill(['content'=>$request->content]);
             $comment->save();
-            \DB::commit();
+            DB::commit();
             Post::withoutEvents(function () use ($comment) {
                 $comment->post->touch();
             });
@@ -152,7 +176,7 @@ class CommentController extends Controller
             return response()->json(array('status'=>'ok','comment'=>$comment));
         
         } catch (Throwable $e) {
-            \DB::rollback();
+            DB::rollback();
             return response()->json(array('status'=>'failed'));
         }
     }

@@ -1201,6 +1201,7 @@ class Customer extends Model
         $customers = $where->orWhereIn('id',$followerIds)->get();
         foreach($customers as $customer){
             $customer->display = $customer->first_name.' '.$customer->last_name;
+            $customer->getAvatar();
         }
         return $customers;
     }
