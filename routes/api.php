@@ -76,6 +76,7 @@ Route::post('customers/trigger-notifiable', 'CustomerController@triggerNotifiabl
 Route::post('customers/alternate-shortcode', 'CustomerController@alternateShortcode')->middleware('auth:api');
 Route::post('customers/people', 'CustomerController@people')->middleware('auth:api');
 Route::post('customers/newsfeed', 'CustomerController@newsfeed')->middleware('auth:api');
+Route::post('customers/oldnewsfeed', 'CustomerController@oldnewsfeed')->middleware('auth:api');
 Route::post('customers/notifications', 'CustomerController@notifications')->middleware('auth:api');
 Route::get('customers/{id}/profile', 'CustomerController@profile')->where('id', '[0-9]+')->middleware('auth:api');
 Route::resource('customers', 'CustomerController')->middleware('auth:api');
@@ -194,6 +195,7 @@ Route::post('posts/sub-newsfeed','PostController@subNewsfeed')->middleware('auth
 Route::get('posts/random-medias/{customerId}','PostController@randomMedias')->where('customerId', '[0-9]+')->middleware('auth:api');
 Route::get('posts/medias','PostController@medias')->middleware('auth:api');
 Route::post('posts/sync','PostController@sync')->middleware('auth:api');
+Route::post('posts/{id}/read','PostController@read')->where('id', '[0-9]+')->middleware('auth:api');
 Route::resource('posts', 'PostController')->middleware('auth:api');
 Route::resource('comments', 'CommentController')->middleware('auth:api');
 Route::get('search/all', 'SearchController@all')->middleware('auth:api');
@@ -205,6 +207,10 @@ Route::get('search/notifications', 'SearchController@notifications')->middleware
 Route::post('follows/unfollow', 'FollowController@unfollow')->middleware('auth:api');
 Route::post('follows/{id}/accept', 'FollowController@accept')->middleware('auth:api');
 Route::post('follows/{id}/reject', 'FollowController@reject')->middleware('auth:api');
+Route::post('follows/block', 'FollowController@block')->middleware('auth:api');
+Route::post('follows/unblock', 'FollowController@unblock')->middleware('auth:api');
+Route::post('follows/mute', 'FollowController@mute')->middleware('auth:api');
+Route::post('follows/unmute', 'FollowController@unmute')->middleware('auth:api');
 Route::resource('follows', 'FollowController')->only(['index','store'])->middleware('auth:api');
 Route::resource('likes', 'LikeController')->only(['store','destroy'])->middleware('auth:api');
 Route::get('eventos/home', 'EventoController@home');

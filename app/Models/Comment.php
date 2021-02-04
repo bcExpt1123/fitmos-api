@@ -95,7 +95,7 @@ class Comment extends Model
     public static function findByCondition($condition,$user){
         $fromComment = self::find($condition['from_id']);
         $toComment = self::find($condition['to_id']);
-        $newCondition = ['post_id'=>$fromComment->post_id,'from_level0'=>$fromComment->level0,'to_level0'=>$toComment->level0];
+        $newCondition = ['post_id'=>$fromComment?$fromComment->post_id:$toComment->post_id,'from_level0'=>$fromComment?$fromComment->level0:$toComment->level0,'to_level0'=>$toComment->level0];
         return self::findByConditionWith($newCondition, $user);
     }
     /**
@@ -107,7 +107,7 @@ class Comment extends Model
      */
     public static function findByConditionWith($condition,$user){
         $previousComments = Comment::wherePostId($condition['post_id'])->where('level0','<',$condition['from_level0'])->where('level1',0)->get();
-        $viewComments = $previousComments = Comment::wherePostId($condition['post_id'])->
+        $viewComments = Comment::wherePostId($condition['post_id'])->
             where('level0','>=',$condition['from_level0'])->where('level1',0)->
             where('level0','<=',$condition['to_level0'])->where('level1',0)->
             orderBy('level0')->orderBy('level1')->get();
@@ -121,7 +121,7 @@ class Comment extends Model
                 $comment->getLike($user);
             }
         }    
-        $nextComments = Comment::wherePostId($condition['post_id'])->where('level0','>',$condition['from_level0'])->where('level1',0)->get();
+        $nextComments = Comment::wherePostId($condition['post_id'])->where('level0','>',$condition['to_level0'])->where('level1',0)->get();
         return [$previousComments, $viewComments, $nextComments];
     }
     /**

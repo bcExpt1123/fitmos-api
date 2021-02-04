@@ -77,8 +77,8 @@ class CommentController extends Controller
                     ]
                 );        
             }else{
-                $request->condition['to_id'] = $comment->id;
-                list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($request->condition, $user);
+                $condition = ['from_id'=>$request->condition['from_id'],'to_id'=>$comment->id];
+                list($previousComments, $viewComments, $nextComments) = Comment::findByCondition($condition, $user);
                 $previousCommentsCount = $previousComments->count();
                 $nextCommentsCount = $nextComments->count();
                 return response()->json([
@@ -100,8 +100,8 @@ class CommentController extends Controller
         $user = $request->user();
         $comment = Comment::find($id);
         if($comment && $comment->customer_id == $user->customer->id){
-            if($request->condition['from_id']>0)$fromComment = Comment::find($request->condition['from_id']);
-            $toComment = Comment::find($request->condition['to_id']);
+            if($request->from_id>0)$fromComment = Comment::find($request->from_id);
+            $toComment = Comment::find($request->to_id);
             $isReply = false;
             if($comment->level1>0){
                 $isReply = true;

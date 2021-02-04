@@ -44,11 +44,7 @@ class FollowController extends Controller
                 ]);
                 $status = 'accepted';
             }
-            $customer = Customer::find($customerId);
-            $customer->type="customer";
-            $customer->getSocialDetails($user->customer->id);
-            $customer['medals'] = $customer->findMedal();
-            $user->customer->touch();
+            $customer = $this->findCustomer($customerId, $user);
             return response()->json(array('status'=>$status,'customer'=>$customer));
         }
         return response()->json(array('status'=>'ok'));
@@ -60,11 +56,7 @@ class FollowController extends Controller
         if($follow->status == 'pending' && $follow->customer_id == $user->customer->id){
             $customerId = $follow->customer_id;
             DB::table("follows")->select("*")->where('id',$id)->update(['status'=>'accepted']);
-            $user->customer->touch();
-            $customer = Customer::find($customerId);
-            $customer->type="customer";
-            $customer->getSocialDetails($user->customer->id);
-            $customer['medals'] = $customer->findMedal();            
+            $customer = $this->findCustomer($customerId, $user);
             return response()->json(array('status'=>'accepted','customer'=>$customer));
         }
         return response()->json(array('status'=>'failed'),403);    
@@ -76,11 +68,7 @@ class FollowController extends Controller
         if($follow->status == 'pending' && $follow->customer_id == $user->customer->id){
             $customerId = $follow->customer_id;
             DB::table("follows")->select("*")->where('id',$id)->update(['status'=>'rejected']);
-            $user->customer->touch();
-            $customer = Customer::find($customerId);
-            $customer->type="customer";
-            $customer->getSocialDetails($user->customer->id);
-            $customer['medals'] = $customer->findMedal();            
+            $customer = $this->findCustomer($customerId, $user);
             return response()->json(array('status'=>'rejected','customer'=>$customer));
         }
         return response()->json(array('status'=>'failed'),403);    
@@ -89,11 +77,60 @@ class FollowController extends Controller
         $user = $request->user();
         $customerId = $request->customer_id;
         DB::table("follows")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->delete();
+        $customer = $this->findCustomer($customerId, $user);
+        return response()->json(array('status'=>'ok','customer'=>$customer));
+    }
+    public function block(Request $request){
+        $user = $request->user();
+        $customerId = $request->customer_id;
+        DB::table('customers_relations')->updateOrInsert(
+            ['status' =>'blocked'],
+            ['customer_id' => $customerId,
+            'follower_id' => $user->customer->id]
+        );
+        $customer = $this->findCustomer($customerId, $user);
+        return response()->json(array('status'=>'ok','customer'=>$customer));
+    }
+    public function unblock(Request $request){
+        $user = $request->user();
+        $customerId = $request->customer_id;
+        DB::table("customers_relations")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->delete();
+        $customer = $this->findCustomer($customerId, $user);
+        return response()->json(array('status'=>'ok','customer'=>$customer));
+    }
+    public function mute(Request $request){
+        $user = $request->user();
+        $customerId = $request->customer_id;
+        $relation = DB::table("follows")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->first();
+        if($relation && $relation->status == 'blocked'){
+            return response()->json(array('status'=>'failed'),421);    
+        }
+        DB::table('customers_relations')->updateOrInsert(
+            ['status' =>'muted'],
+            ['customer_id' => $customerId,
+            'follower_id' => $user->customer->id]
+        );        
+        $customer = $this->findCustomer($customerId, $user);
+        return response()->json(array('status'=>'ok','customer'=>$customer));
+    }
+    public function unmute(Request $request){
+        $user = $request->user();
+        $customerId = $request->customer_id;
+        $relation = DB::table("follows")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->first();
+        if($relation && $relation->status == 'blocked'){
+            return response()->json(array('status'=>'failed'),421);    
+        }
+        DB::table("customers_relations")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->delete();
+        $customer = $this->findCustomer($customerId, $user);
+        return response()->json(array('status'=>'ok','customer'=>$customer));
+    }
+    private function findCustomer($customerId, $user){
         $customer = Customer::find($customerId);
         $customer->type="customer";
         $customer->getSocialDetails($user->customer->id);
         $customer['medals'] = $customer->findMedal();
         $user->customer->touch();
-        return response()->json(array('status'=>'ok','customer'=>$customer));
+        return $customer;
     }
+
 }

@@ -34,6 +34,9 @@ class Post extends Model
     {
         return $this->hasMany('App\Models\Media', 'post_id');
     }
+    public function readingCustomers(){
+        return $this->belongsToMany('App\Customer','reading_posts','post_id','customer_id')->wherePivot('status','completed');
+    }
     public function uploadMedias($files){
         foreach($files as $file){
             $media = new Media;
@@ -60,11 +63,11 @@ class Post extends Model
         $tagFollowers = [];
         if($this->customer){
             $this->customer->getAvatar();
+            if($user)$this->customer->getSocialDetails($user->customer->id);
         }
         if(is_array($this->tag_followers)){
             foreach($this->tag_followers as $customerId){
                 $customer = \App\Customer::find($customerId);
-                $customer->getSocialDetails();
                 $tagFollowers[] = $customer;
             }
         }
@@ -73,7 +76,6 @@ class Post extends Model
             foreach($this->json_content as $index=>$line){
                 foreach($line['ids'] as $customerId){
                     $customer = \App\Customer::find($customerId);
-                    $customer->getSocialDetails();
                     $contentFollowers[] = $customer;
                 }
             }
@@ -87,25 +89,41 @@ class Post extends Model
             $this->comments = $viewComments;//->get()->toArray();
             $this->nextCommentsCount = $nextComments->count();
         }else{
-            $latestComment = Comment::with('customer')->wherePostId($this->id)->where('level1',0)->orderBy('level0','desc')->first();
-            if($latestComment){
-                $comments = Comment::wherePostId($this->id)->get();
-                // $replyComments = Comment::whereParentActivityId($latestComment->activity_id)->orderBy('id')->get();
-                // $this->comments = $replyComments->prepend($latestComment);
-                $latestComment->customer->getAvatar();
-                $likes = Like::whereActivityId($latestComment->activity_id)->get();
-                $latestComment->likesCount = $likes->count();
-                $latestComment->like=false;
-                $latestComment->extends();
-                if(isset($user->customer)){
-                    $like = Like::whereActivityId($latestComment->activity_id)->whereCustomerId($user->customer->id)->first();
-                    $latestComment->like = $like?true:false;    
-                }
-                $this->comments = [$latestComment];
-                $this->previousCommentsCount = $comments->count()-1;
-            }else{
-                $this->comments = [];
+            if($condition&&isset($condition['count'])&&$condition['count']==-1){
                 $this->previousCommentsCount = 0;
+                $viewComments = Comment::wherePostId($this->id)->where('level1', 0)->orderBy('level0')->get();
+                foreach($viewComments as $index=>$comment){
+                    $comment->customer->getAvatar();
+                    $likes = Like::whereActivityId($comment->activity_id)->get();
+                    $comment->likesCount = $likes->count();
+                    $comment->like=false;
+                    $comment->extends();
+                    if(isset($user->customer)){
+                        $comment->getLike($user);
+                    }
+                }                    
+                $this->comments = $viewComments;//->get()->toArray();
+            }else{
+                $latestComment = Comment::with('customer')->wherePostId($this->id)->where('level1',0)->orderBy('level0','desc')->first();
+                if($latestComment){
+                    $comments = Comment::wherePostId($this->id)->get();
+                    // $replyComments = Comment::whereParentActivityId($latestComment->activity_id)->orderBy('id')->get();
+                    // $this->comments = $replyComments->prepend($latestComment);
+                    $latestComment->customer->getAvatar();
+                    $likes = Like::whereActivityId($latestComment->activity_id)->get();
+                    $latestComment->likesCount = $likes->count();
+                    $latestComment->like=false;
+                    $latestComment->extends();
+                    if(isset($user->customer)){
+                        $like = Like::whereActivityId($latestComment->activity_id)->whereCustomerId($user->customer->id)->first();
+                        $latestComment->like = $like?true:false;    
+                    }
+                    $this->comments = [$latestComment];
+                    $this->previousCommentsCount = $comments->count()-1;
+                }else{
+                    $this->comments = [];
+                    $this->previousCommentsCount = 0;
+                }
             }
             $this->nextCommentsCount = 0;
         }

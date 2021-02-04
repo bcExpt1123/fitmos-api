@@ -369,8 +369,16 @@ class CustomerController extends Controller
     public function newsfeed(Request $request){
         $user = $request->user('api');
         if($user->customer){
-            $newsfeed = $user->customer->getNewsfeed($request->post_id);
+            $newsfeed = $user->customer->getNewsfeed($request->post_id,$request->suggested);
             return response()->json(['newsfeed'=>$newsfeed]);
+        }
+        return response()->json(['status'=>false],401);
+    }
+    public function oldnewsfeed(Request $request){
+        $user = $request->user('api');
+        if($user->customer){
+            $newsfeed = $user->customer->getOldNewsfeed($request->post_id);
+            return response()->json(['oldNewsfeed'=>$newsfeed]);
         }
         return response()->json(['status'=>false],401);
     }

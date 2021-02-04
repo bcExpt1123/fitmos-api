@@ -11,6 +11,7 @@ use App\Customer;
 use App\Models\Media;
 use App\Jobs\DeleteAsyncPost;
 use Illuminate\Support\Facades\Storage;
+use Svg\Tag\Rect;
 
 class PostController extends Controller
 {
@@ -39,6 +40,11 @@ class PostController extends Controller
             $post->save();
             if(isset($request->medias)){
                 $post->uploadMedias($request->medias);
+            }else{
+                Post::withoutEvents(function () use ($post) {
+                    $post->status = 1;
+                    $post->save();
+                });
             }
             \DB::commit();
             return response()->json(array('status'=>'ok','post'=>$post));
@@ -71,8 +77,13 @@ class PostController extends Controller
         
     }
     public function show($id,Request $request){
+        $user = $request->user();
         $post = Post::find($id);
-        $post->extend();
+        $condition = null;
+        if($request->comment == 1){
+            $condition = ['from_id'=>-1,'count'=>-1];
+        }
+        $post->extend($condition, $user);
         return response()->json($post);    
     }
     public function update($id,Request $request)
@@ -170,6 +181,22 @@ class PostController extends Controller
             return response()->json(['medias'=>$medias]);
         }
         return response()->json(['status'=>'failed'], 401);
+    }
+    public function read($id,Request $request){
+        $user = $request->user();
+        $post = Post::find($id);
+        if($post->customer_id != $user->customer->id){
+            $reading = DB::table('reading_posts')->where('post_id',$id)->where('customer_id',$user->customer->id)->first();
+            if(!$reading){
+                DB::table('reading_posts')->insert([
+                    'post_id' => $id,
+                    'customer_id' => $user->customer->id,
+                    "created_at" =>  \Carbon\Carbon::now(), # new \Datetime()
+                    "updated_at" => \Carbon\Carbon::now(),  # new \Datetime()
+                ]);        
+            }
+        }
+        return response()->json(['status'=>'ok']);
     }
     public function sync(Request $request){
         $ids = [];

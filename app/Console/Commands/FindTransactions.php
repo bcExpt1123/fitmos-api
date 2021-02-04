@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Subscription;
 use App\PaymentSubscription;
 use App\Transaction;
@@ -300,41 +301,35 @@ class FindTransactions extends Command
             $this->findMedal();
         }
         if(false){
-            $this->checkUnique();
-        }
-        if(true){
             $this->deleteComments();
         }
+        if(true){
+            $this->checkUnique();
+        }
+    }
+    private function checkUnique(){
+        $customer = Customer::find(28);
+        // $followings  = $customer->followings;
+        // $followings = Customer::whereHas('followings',function($query){
+        //     $query->where('follows.follower_id',3);
+        // })->get();
+        // foreach($followings as $following){
+        //     print_r($following->id);print_r("\n");
+        // }
+                
+        // DB::enableQueryLog();
+        $posts = $customer->getNewsfeed(-1);
+        print_r("\n");print_r($posts->count());print_r("\n");
+        foreach($posts as $post){
+            print_r($post->id);print_r("****");print_r($post->customer_id);print_r("\n");
+        }
+        // dd(DB::getQueryLog());
     }
     private function deleteComments(){
         $comments = Comment::all();
         foreach($comments as $comment){
             $comment->activity->delete();
             $comment->delete();
-        }
-    }
-    private function checkUnique(){
-        $post = Post::find(29);
-        print_r($post->content);
-        $pattern = '/\@\{\$([^$]+)\$\}\(([0-9]+)\)/';
-        $pattern = '/@\[(.+?)\]\(([0-9]+)\)/';
-        $lines = explode("\n",$post->content);
-        $texts = [];
-        $jsons = [];
-        foreach( $lines as $line){
-            preg_match_all($pattern, $line, $matches);
-            print_r($matches);
-            // $jsonLine = $line;
-            // if(count($matches)>0){
-            //     foreach($matches[0] as $index=>$search){
-            //         $line = str_replace($search,$matches[1][$index],$line);
-            //         $jsonLine = str_replace($search,"$".$matches[2][$index]."$",$jsonLine);
-            //     }
-            //     $jsons[] = ['content'=>$jsonLine,'ids'=>$matches[2]];
-            // }else{
-            //     $jsons[] = ['content'=>$jsonLine];
-            // }
-            // $texts[] = $line;
         }
     }
     private function findMedal(){

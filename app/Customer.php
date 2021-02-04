@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Builder;
 use Twilio\Rest\Client;
 use App\Jobs\SendEmail;
 use App\Exports\CustomersExport;
@@ -78,8 +79,20 @@ class Customer extends Model
     public function latestWeights(){
         return $this->hasMany('App\Weight')->orderBy('created_at','desc')->limit(5);
     }
-    public function following(){
-        return $this->belongsToMany('App\Customer','follows','customer_id','follower_id');
+    public function followings(){
+        return $this->belongsToMany('App\Customer','follows','follower_id','customer_id')->wherePivot('status', 'accepted');
+    }
+    public function followers(){
+        return $this->belongsToMany('App\Customer','follows','customer_id','follower_id')->wherePivot('status', 'accepted');
+    }    
+    public function mutedRelations(){
+        return $this->belongsToMany('App\Customer','customers_relations','customer_id','follower_id')->withPivot('status');
+    }
+    public function blockedRelations(){
+        return $this->belongsToMany('App\Customer','customers_relations','follower_id','customer_id')->wherePivot('status','blocked');
+    }
+    public function readingPosts(){
+        return $this->belongsToMany('App\Model\Post','reading_posts','customer_id','post_id')->wherePivot('status','completed');
     }
     public function assign($request){
         foreach($this->fillable as $property){
@@ -1246,18 +1259,59 @@ class Customer extends Model
             }
         }
     }
-    public function getNewsfeed($fromId){
+    public function getNewsfeed($fromId,$suggested){
         $where = \App\Models\Post::with(['customer','medias']);
         if($fromId>0){
             $where->where('id','<',$fromId);
         }
-        $followers = DB::table("follows")->select("*")->where('customer_id',$this->id)->whereIn('status',['accepted'])->get();
-        $ids = [];
-        foreach($followers as $follower){
-            $ids[] = $follower->follower_id;
+        $where->whereHas('customer',function($query) use ($suggested){
+            if($suggested == 0){
+                $query->whereHas('followers',function($q){
+                    $q->where("follows.follower_id",$this->id); 
+                });
+            }else{
+                $query->whereDoesntHave('followers',function($q){
+                    $q->where("follows.follower_id",$this->id); 
+                });
+            }
+            $query->whereDoesntHave('mutedRelations',function($q){
+                $q->where("customers_relations.follower_id",$this->id); 
+            });
+        });
+        $where->where('customer_id','!=',$this->id);
+        // $followings = DB::table("follows")->select("*")->where('follower_id',$this->id)->whereIn('status',['accepted'])->get();
+        // $ids = [];
+        // foreach($followings as $following){
+        //     $ids[] = $following->customer_id;
+        // }
+        // $where->whereIn('customer_id',$ids);        
+        $where->whereDoesntHave('readingCustomers',function($query){
+            $query->where("reading_posts.customer_id",$this->id);
+        });
+        $result = $where->where('posts.status',1)->orderBy('posts.id','desc')->limit(8)->get();
+        foreach($result as $index=>$post){
+            $post->extend(null, $this->user);
         }
-        $where->whereIn('customer_id',$ids);
-        $result = $where->whereStatus(1)->orderBy('id','desc')->limit(8)->get();
+        return $result;
+    }
+    public function getOldNewsfeed($fromId){
+        $where = \App\Models\Post::with(['customer','medias']);
+        if($fromId>0){
+            $where->where('id','<',$fromId);
+        }
+        $where->whereHas('customer',function($query){
+            $query->whereHas('followers',function($q){
+                $q->where("follows.follower_id",$this->id); 
+            });
+            $query->whereDoesntHave('mutedRelations',function($q){
+                $q->where("customers_relations.follower_id",$this->id); 
+            });
+        });
+        $where->where('customer_id','!=',$this->id);
+        $where->whereHas('readingCustomers',function($query){
+            $query->where("reading_posts.customer_id",$this->id);
+        });
+        $result = $where->where('posts.status',1)->orderBy('posts.id','desc')->limit(8)->get();
         foreach($result as $index=>$post){
             $post->extend(null, $this->user);
         }
@@ -1281,10 +1335,11 @@ class Customer extends Model
         //posts
         $posts =  \App\Models\Post::whereCustomerId($this->id)->whereStatus(1)->get();
         $this['postCount'] = $posts->count();
-        //blocked?
-        $this['blocked'] = false;
-        //muted?
-        $this['muted'] = false;
+        $this['relation'] = false;
+        if($authId){
+            $relation = DB::table("customers_relations")->select("*")->where('follower_id',$authId)->where('customer_id',$this->id)->first();
+            if($relation)$this['relation'] = $relation->status;
+        }
         //tocalWorkoutCompleted
         //currentMonthWorkoutCompleted
     }
