@@ -2,11 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Evento;
-use App\Category;
-use App\MauticClient;
-use Google_Client;
-use Vinkla\Facebook\Facades\Facebook;
 
 class EventoController extends Controller
 {
@@ -23,6 +20,7 @@ class EventoController extends Controller
             $evento->save();
             if(isset($request->images)){
                 $evento->uploadMedias($request->images);
+                $evento->save();
             }
             return response()->json(array('status'=>'ok','evento'=>$evento));
         }else{
@@ -38,22 +36,24 @@ class EventoController extends Controller
                 return response()->json(array('status'=>'failed','errors'=>$validator->errors()),422);
             }
             $evento = Evento::find($id);
-            $oldImages = $post->medias;
-            if(isset($request->media_ids)){
+            $oldImages = collect($evento->medias);
+            if(isset($request->image_ids)){
                 $imageIds = $request->image_ids;
                 foreach($imageIds as $imageId){
                     $oldImages = $oldImages->reject(function($image,$key) use ( $imageId ){
-                        return $image->id == $imageId;
+                        return $image == $imageId;
                     });
                 }
+                $evento->medias = $imageIds;
             }
             if(isset($request->images)){
                 $evento->uploadMedias($request->images);
             }
             $evento->fill($request->input());
             $evento->save();
-            if($oldImages&&$oldImages->count()){
-                $oldImages->each(function($media){
+            if($oldImages&&$oldImages->count()>0){
+                $oldImages->each(function($id){
+                    $media = \App\Models\Media::find($id);
                     Storage::disk('s3')->delete($media->src);
                     $media->delete();
                 });
@@ -86,15 +86,25 @@ class EventoController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
-    public function show($id){
+    public function show($id,Request $request){
+        $user = $request->user('api');
         $evento = Evento::find($id);
-        if($evento->image)  $evento->image = url('storage/'.$evento->image);
-        $evento->category;
+        $evento->getImages();
         $evento['created_date'] = date('M d, Y',strtotime($evento->done_date));
         if($evento->done_date){
             $dates = explode(' ',$evento->done_date);
+            $evento['spanish_date'] = iconv('ISO-8859-2', 'UTF-8', strftime("%B %d, %Y ", strtotime($evento->done_date)));
+            $evento['spanish_time'] = date("j:i a",strtotime($evento->done_date));
+            $evento['participants'] = $evento->customers->count();
             $evento['date'] = $dates[0];
             $evento['datetime'] = substr($dates[1],0,5);
+            if( $user && $user->customer ){
+                $participant = false;
+                foreach($evento->customers as $customer){
+                    if($customer->id == $user->customer->id)$participant = true;
+                }
+                $evento['participant'] = $participant;
+            }
         }
         return response()->json($evento);
     }
@@ -154,5 +164,14 @@ class EventoController extends Controller
             if($evento->image)  $evento->image = url('storage/'.$evento->image);            
         }
         return response()->json($items);
+    }
+    public function toggleAttend($id,Request $request){
+        $user = $request->user('api');
+        $evento = Evento::find($id);
+        if($user && $user->customer->id){
+            $evento->toggleAttend($user->customer);
+            return response()->json(['event'=>$evento]);
+        }
+        return response()->json(['status'=>'failed'],403);
     }
 }

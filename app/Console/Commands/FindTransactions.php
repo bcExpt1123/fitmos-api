@@ -308,22 +308,11 @@ class FindTransactions extends Command
         }
     }
     private function checkUnique(){
-        $customer = Customer::find(28);
-        // $followings  = $customer->followings;
-        // $followings = Customer::whereHas('followings',function($query){
-        //     $query->where('follows.follower_id',3);
-        // })->get();
-        // foreach($followings as $following){
-        //     print_r($following->id);print_r("\n");
-        // }
-                
-        // DB::enableQueryLog();
-        $posts = $customer->getNewsfeed(-1);
-        print_r("\n");print_r($posts->count());print_r("\n");
-        foreach($posts as $post){
-            print_r($post->id);print_r("****");print_r($post->customer_id);print_r("\n");
-        }
-        // dd(DB::getQueryLog());
+        $evento = \App\Models\Evento::find(1);
+        if($evento->medias == null)$evento->medias = [];
+        $a = [1,2,3,4,5,6];
+        $evento->medias = $a;
+        var_dump($evento->medias);
     }
     private function deleteComments(){
         $comments = Comment::all();

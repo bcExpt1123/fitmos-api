@@ -19,8 +19,8 @@ class CreateEventosTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->json('medias')->nullable();
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
+            $table->decimal('latitude', 18, 14)->nullable();
+            $table->decimal('longitude', 18, 14)->nullable();
             $table->string('address')->nullable();
             $table->enum('status',['Draft', 'Publish'])->default('Publish');
             $table->timestamps();

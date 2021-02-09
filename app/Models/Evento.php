@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Intervention\Image\Facades\Image;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
@@ -31,14 +30,31 @@ class Evento extends Model
         );
     }
     public function customers(){
-        return $this->belongsToMany('App\Customer','eventos_customers','customer_id','evento_id');
+        return $this->belongsToMany('App\Customer','eventos_customers','evento_id','customer_id');
     }    
     public function uploadMedias($files){
+        if(is_array($this->medias)){
+            $medias = $this->medias;
+        }else{
+            $medias = [];
+        }
         foreach($files as $file){
             $media = new Media;
             $media->attachment="event";
             $media->uploadSingle($file);
-            array_push($this->medias,$media->id);
+            array_push($medias,$media->id);
+        }
+        $this->medias = $medias;
+    }
+    public function getImages(){
+        $this->images = [];
+        $images = [];
+        if(is_array($this->medias)){
+            foreach($this->medias as $id){
+                $media = Media::find($id);
+                $images[] = $media;
+            }
+            $this->images = $images;
         }
     }
     public function search(){
@@ -53,15 +69,18 @@ class Evento extends Model
             return $currentPage;
         });      
         $response = $where->orderBy('done_date', 'DESC')->paginate($this->pageSize);
+        setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
         $items = $response->items();
         foreach($items as $index=> $evento){
             $items[$index]['created_date'] = date('M d, Y',strtotime($evento->done_date));
             $evento->category;
             $items[$index]['excerpt'] = $this->extractExcerpt($evento->description);
-            if($evento->image)  $evento->image = url('storage/'.$evento->image);        
+            $evento->getImages();
             if($evento->done_date){
                 $dates = explode(' ',$evento->done_date);
                 $items[$index]['date'] = $dates[0];
+                $items[$index]['spanish_date'] = iconv('ISO-8859-2', 'UTF-8', strftime("%B %d, %Y ", strtotime($evento->done_date)));
+                $items[$index]['spanish_time'] = date("j:i a",strtotime($evento->done_date));
                 $items[$index]['datetime'] = substr($dates[1],0,5);
                 $items[$index]['participants'] = $evento->customers->count();
             }      
@@ -94,23 +113,26 @@ class Evento extends Model
     public function assignFrontSearch($request){
         $this->search = null;
         $this->status = 'Publish';
-        $this->done_date = date("Y-m-d H:i:s");
+        // $this->done_date = date("Y-m-d H:i:s");
         $this->pageSize = $request->input('pageSize');
         $this->pageNumber = $request->input('pageNumber');
     }
-    // public function resizeImage($photoPath,$fileNameUpdate)
-    // {   
-    //     $resizeImg = Image::make('storage/' . $photoPath.'/'.$fileNameUpdate);
-    //     $height = $resizeImg->height();
-    //     $width = $resizeImg->width();
-    //     if($width>720){
-    //         $cropWidth = 720;
-    //         $cropHeight = 720/$width*$height;
-    //         $resizeImg->crop($width, $height, 0, 0)
-    //         ->resize($cropWidth, $cropHeight, function($constraint) {
-    //             $constraint->aspectRatio();
-    //         });
-    //     }
-    //     $resizeImg->save('storage/' . $photoPath .'/m/'.$fileNameUpdate);
-    // }
+    public function toggleAttend($customer){
+        $attend = DB::table("eventos_customers")->select("*")->where('evento_id',$this->id)->where('customer_id',$customer->id)->first();
+        if($attend){
+            DB::table("eventos_customers")->select("*")->where('evento_id',$this->id)->where('customer_id',$customer->id)->delete();
+        }else{
+            DB::table('eventos_customers')->insert([
+                'customer_id' => $customer->id,
+                'evento_id' => $this->id
+            ]);            
+        }
+        $this->refresh();
+        $this['participants'] = $this->customers->count();
+        $participant = false;
+        foreach($this->customers as $item){
+            if($item->id == $customer->id)$participant = true;
+        }
+        $this['participant'] = $participant;        
+    }
 }

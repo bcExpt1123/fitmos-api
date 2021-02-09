@@ -8,6 +8,7 @@ class Comment extends Model
 {
     protected $table = 'comments';
     protected $type;
+    protected $user;
     protected $fillable = ['customer_id','post_id','activity_id','parent_activity_id','level0','level1','content'];
     public function customer()
     {
@@ -24,6 +25,7 @@ class Comment extends Model
     public function assignFrontSearch($request){
         $this->id = $request->id;
         $this->type = $request->type;
+        $this->user = $request->user();
     }
     /**
      * param id; comment from id or to id
@@ -60,26 +62,22 @@ class Comment extends Model
         }
         $comments = $where->get();
         foreach($comments as $comment){
-            $comment->customer->getAvatar();
-            $likes = Like::whereActivityId($comment->activity_id)->get();
-            $comment->likesCount = $likes->count();
-            $comment->like=false;
-            $comment->extends();
+            $comment->extends($this->user);
         }
         return $comments;
     }
-    public function extends(){
+    public function extends($user=null){
+        $this->customer->getAvatar();
+        $likes = Like::whereActivityId($this->activity_id)->get();
+        $this->likesCount = $likes->count();
+        $this->like=false;
         if($this->level1 == 0){
             $children = Comment::whereParentActivityId($this->activity_id)->get();
-            // if($children->count()>4){
-            //     $this->children = $children->slice(0,4)->all();
-            //     $this->nextChildrenCount = $children->count()-4;
-            // }else{
-            //     $this->children = $children;
-            //     $this->nextChildrenCount = 0;
-            // }
             $this->children = [];
             $this->nextChildrenCount = $children->count();
+        }
+        if(isset($user->customer)){
+            $this->getLike($user);
         }
     }
     public function getLike($user){
@@ -112,14 +110,7 @@ class Comment extends Model
             where('level0','<=',$condition['to_level0'])->where('level1',0)->
             orderBy('level0')->orderBy('level1')->get();
         foreach($viewComments as $index=>$comment){
-            $comment->customer->getAvatar();
-            $likes = Like::whereActivityId($comment->activity_id)->get();
-            $comment->likesCount = $likes->count();
-            $comment->like=false;
-            $comment->extends();
-            if(isset($user->customer)){
-                $comment->getLike($user);
-            }
+            $comment->extends($user);
         }    
         $nextComments = Comment::wherePostId($condition['post_id'])->where('level0','>',$condition['to_level0'])->where('level1',0)->get();
         return [$previousComments, $viewComments, $nextComments];
@@ -136,13 +127,7 @@ class Comment extends Model
             ->where('level1','>',0)->where('level1','<=',$condition['to_level1'])
             ->orderby('level1')->get();
         foreach($children as $comment){
-            $comment->customer->getAvatar();
-            $likes = Like::whereActivityId($comment->activity_id)->get();
-            $comment->likesCount = $likes->count();
-            $comment->like=false;
-            if(isset($user->customer)){
-                $comment->getLike($user);
-            }        
+            $comment->extends($user);
         }
         $nextChildrenCount = Comment::wherePostId($condition['post_id'])->where('level0',$condition['to_level0'])
             ->where('level1','>',$condition['to_level1'])->orderby('level1')->count();

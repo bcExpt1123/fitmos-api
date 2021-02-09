@@ -106,7 +106,7 @@ class Post extends Model
             }else{
                 $latestComment = Comment::with('customer')->wherePostId($this->id)->where('level1',0)->orderBy('level0','desc')->first();
                 if($latestComment){
-                    $comments = Comment::wherePostId($this->id)->get();
+                    $comments = Comment::wherePostId($this->id)->where('level1',0)->get();
                     // $replyComments = Comment::whereParentActivityId($latestComment->activity_id)->orderBy('id')->get();
                     // $this->comments = $replyComments->prepend($latestComment);
                     $latestComment->customer->getAvatar();

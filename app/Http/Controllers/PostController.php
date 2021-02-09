@@ -11,7 +11,6 @@ use App\Customer;
 use App\Models\Media;
 use App\Jobs\DeleteAsyncPost;
 use Illuminate\Support\Facades\Storage;
-use Svg\Tag\Rect;
 
 class PostController extends Controller
 {

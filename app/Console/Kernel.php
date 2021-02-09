@@ -73,7 +73,7 @@ class Kernel extends ConsoleKernel
         $queue = 0;
         if(is_array($output)){
             foreach($output as $value){
-                if(strpos($value,'php artisan queue:work --tries=3')){
+                if(strpos($value,'php artisan queue:work --tries=3 --timeout=500')){
                     //$config->updateConfig('subscription_queue'.$queue, $value);
                     $queue++;
                 }

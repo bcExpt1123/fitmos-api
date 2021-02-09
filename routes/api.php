@@ -213,9 +213,12 @@ Route::post('follows/mute', 'FollowController@mute')->middleware('auth:api');
 Route::post('follows/unmute', 'FollowController@unmute')->middleware('auth:api');
 Route::resource('follows', 'FollowController')->only(['index','store'])->middleware('auth:api');
 Route::resource('likes', 'LikeController')->only(['store','destroy'])->middleware('auth:api');
-Route::get('eventos/home', 'EventoController@home');
-Route::get('eventos/recent', 'EventoController@recent');
+Route::get('eventos/home', 'EventoController@home')->middleware('auth:api');
+// Route::get('eventos/recent', 'EventoController@recent')->middleware('auth:api');
+Route::post('eventos/{id}/toggle-attend', 'EventoController@toggleAttend')->middleware('auth:api');
 Route::resource('eventos', 'EventoController')->only(['index','update','store','destroy'])->middleware('auth:api');
 Route::resource('eventos', 'EventoController')->only(['show']);
 Route::post('sync/{id}', 'SearchController@sync')->where('id', '[0-9]+');
+Route::get('chat/verify', 'ChatController@verify');
+Route::get('chat/verify-local', 'ChatController@verifyLocal');
 
