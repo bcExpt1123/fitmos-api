@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Evento;
+use App\Models\EventoComment;
 
 class EventoController extends Controller
 {
@@ -105,6 +106,16 @@ class EventoController extends Controller
                 }
                 $evento['participant'] = $participant;
             }
+            $evento['commentsCount'] = EventoComment::whereEventoId($id)->count();
+            if($evento['commentsCount']>0){
+                $comments = EventoComment::whereEventoId($id)->whereLevel1(0)->orderBy('level0')->get();
+                foreach($comments as $comment){
+                    $comment->extends();
+                }
+                $evento->comments = $comments;
+            }else{
+                $evento->comments = [];
+            }
         }
         return response()->json($evento);
     }
@@ -173,5 +184,28 @@ class EventoController extends Controller
             return response()->json(['event'=>$evento]);
         }
         return response()->json(['status'=>'failed'],403);
+    }
+    public function random(Request $request){
+        $user = $request->user('api');
+        $eventos = Evento::inRandomOrder()->limit(2)->get();
+        foreach($eventos as $evento){
+            $evento->getImages();
+            $evento['spanish_date'] = iconv('ISO-8859-2', 'UTF-8', strftime("%B %d, %Y ", strtotime($evento->done_date)));
+            $evento['spanish_time'] = date("j:i a",strtotime($evento->done_date));
+        }
+        $news = \App\Event::inRandomOrder()->limit(4)->get();
+        foreach($news as $item){
+            $item->category;
+            if($item->image)  $item->image = url('storage/'.$item->image);
+        }
+        $product = new \App\Product;
+        $productImage = new \App\ProductImage;
+        $products = $product->getRelatedItems($user->customer);
+        foreach($products as $index=>$item){
+            $product = \App\Product::find($item->id);
+            $item->company_name = $product->company?$product->company->name:"";
+            if(isset($item->image))$products[$index]->media_url = $productImage->getImageSize($item->image,"x-small");
+        }
+        return response()->json(['events'=>$eventos,'news'=>$news,'products'=>$products]);
     }
 }
