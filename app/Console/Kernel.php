@@ -67,6 +67,9 @@ class Kernel extends ConsoleKernel
             ->dailyAt('23:59')
             ->evenInMaintenanceMode()
             ->timezone('America/Panama');
+        $schedule->command('posts:read')
+            ->everyTenMinutes()
+            ->evenInMaintenanceMode()
     }
     private function isRunQueue(){
         exec("ps -eo cmd", $output, $return);
