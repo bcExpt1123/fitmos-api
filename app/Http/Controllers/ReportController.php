@@ -17,7 +17,7 @@ class ReportController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['permission:settings']);
+        $this->middleware(['permission:settings'])->except("customerWorkouts");;
     }
     public function customers(Request $request){
         $fromDate = $request->input("from");
@@ -33,7 +33,7 @@ class ReportController extends Controller
             $reports['clients_users'][$nextDate] = 0;
             $nextDate = date("Y-m-d",strtotime($nextDate) + 3600*24);
         }
-        $customers = Customer::where('created_at','>',$fromDate." 00:00:00")->where('created_at','<=',$toDate." 00:00:00")->get();
+        $customers = Customer::where('created_at','>',$fromDate." 00:00:00")->where('created_at','<=',$toDate." 23:59:59")->get();
         foreach($customers as $customer){
             $registeredDate = $customer->created_at->format('Y-m-d');
             $reports['registers'][$registeredDate] = $reports['registers'][$registeredDate] + 1;
@@ -202,6 +202,9 @@ class ReportController extends Controller
         $fromDate = $request->input("from");
         $toDate = $request->input("to");
         $number = $request->input("number");
+        if($request->exists('gender') && $request->input("gender") != 'all'){
+            $gender=$request->input("gender");
+        }
         $workoutPublishDates = [];
         $workouts = ActivityWorkout::where('publish_date','>=',$fromDate)->where('publish_date','<=',$toDate)->whereType('complete')->get();
         $records = Workout::where('publish_date','>=',$fromDate)->where('publish_date','<=',$toDate)->whereNotNull('comentario')->get();
@@ -224,14 +227,19 @@ class ReportController extends Controller
                 return ( $a['workouts'] > $b['workouts'] ? -1 : 1 ); 
             });
             $workoutCount = count($workoutPublishDates);
-            $customers = array_slice(array_values($customers),0,$number);
+            // $customers = array_slice(array_values($customers),0,$number);
             $workoutComplete = 0;
+            $pos = 0;
+            $same = 0;
             foreach($customers as $index=>$customer){
                 $item = Customer::find($customer['id']);
+                if(isset($gender)&&$gender!=$item->gender)continue;
                 $workouts = ActivityWorkout::whereCustomerId($customer['id'])->whereType('complete')->get();
                 if($workoutComplete == $customer['workouts']){
+                    $same++;
                 }else{
-                    $pos = $index + 1;
+                    $pos = $same + $pos + 1;
+                    $same = 0;
                     $workoutComplete = $customer['workouts'];
                 }
                 if($item->user && $item->user->avatar){
@@ -260,6 +268,7 @@ class ReportController extends Controller
                 }    
                 $workouts = Done::where('customer_id','=',$customer['id'])->get();
                 $results[] = ['id'=>$item->id,'pos'=>$pos,'avatar_url'=>$avatarUrls,'name'=>$item->first_name.' '.$item->last_name,'workout_completeness'=>round($customer['workouts']/$workoutCount*100),'workout_complete_count'=>$customer['workouts'].'/'.$workoutCount,'total'=>count($workouts)];
+                if(count($results)>=$number) break;
             }
         }
         return response()->json($results);

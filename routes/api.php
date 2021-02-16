@@ -20,6 +20,8 @@ Route::post('google/login', 'AuthController@loginGoogle');
 Route::post('google/register', 'AuthController@registerGoogle');
 Route::post('facebook/login', 'AuthController@loginFacebook');
 Route::post('facebook/register', 'AuthController@registerFacebook');
+Route::post('apple/login', 'AuthController@loginApple');
+Route::post('apple/register', 'AuthController@registerApple');
 Route::get('verify/{token}', 'AuthController@verify');
 Route::post('password/reset', 'AuthController@reset');
 Route::post('password/reset/{token}', 'AuthController@change');

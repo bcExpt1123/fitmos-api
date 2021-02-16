@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Google_Client;
 use Vinkla\Facebook\Facades\Facebook;
+use Laravel\Socialite\Facades\Socialite;
 use App\User;
 use Mail;
 use App\Mail\VerifyMail;
@@ -367,6 +368,114 @@ class AuthController extends Controller
                     'couponCode'=>'nullable',
                 ]);    
                 $providerId = $facebookId;
+                $user = User::createCustomer($record,$provider,$providerId);
+                if($user){
+                    //Mail::to($user->email)->send(new VerifyMail($user));
+                    list($user,$tokenResult) = User::generateAcessToken($user);
+                    Session::sessionStartWithUser($user,$tokenResult->token->id);
+                    return response()->json([
+                        'authentication'=>[
+                            'accessToken' => $tokenResult->accessToken,
+                            'expires_at' => Carbon::parse(
+                                $tokenResult->token->expires_at
+                            )->toDateTimeString(),
+                        ],
+                        'user' => $user
+                    ], 201);
+                }else{
+                    return response()->json([
+                        'errors' => [['error'=>'api']]
+                    ], 423);
+                }    
+            }
+        } else {
+            return response()->json([
+                'errors' => ['email'=>[['error'=>'failed']]]
+            ], 423);
+        }
+        return response()->json(true);
+    }
+    public function loginApple(Request $request){
+        $provider = 'apple';
+        $payload = Socialite::driver($provider)->userFromToken($request->input('access_token'));
+        if($payload){
+            $user = User::where('provider_id','=',$payload->id)->first();
+            if($user == null)$user = User::where('email','=',$payload->email)->first();
+            if($user==null){
+                return response()->json([
+                    'errors' => ['account'=>[['error'=>'not registered']]]
+                ],423);        
+            }
+            if($user->active==false){
+                return response()->json([
+                    'errors' => ['account'=>[['error'=>'inactive']]]
+                ],422);
+            }
+            list($user,$tokenResult) = User::generateAcessToken($user);
+            Session::sessionStartWithUser($user,$tokenResult->token->id);
+            if($user->customer)\App\Jobs\Activity::dispatch($user->customer);
+            return response()->json([
+                'authentication'=>[
+                    'accessToken' => $tokenResult->accessToken,
+                    'expires_at' => Carbon::parse(
+                        $tokenResult->token->expires_at
+                    )->toDateTimeString(),
+                ],
+                'token_type' => 'Bearer',
+                'user' => $user
+            ]);
+        }
+        return response()->json([
+            'errors' => ['password'=>[['error'=>'invalid']]]
+        ],401);
+    }
+    public function registerApple(Request $request){
+        $provider = 'apple';
+        $payload = Socialite::driver($provider)->userFromToken($request->input('access_token'));
+        if ($payload) {
+            $user = User::where('email','=',$payload->email)->first();
+            if($user){
+                if($user->active==false){
+                    return response()->json([
+                        'errors' => ['account'=>[['error'=>'inactive']]]
+                    ],422);
+                }
+                list($user,$tokenResult) = User::generateAcessToken($user);
+                Session::sessionStartWithUser($user,$tokenResult->token->id);
+                return response()->json([
+                    'authentication'=>[
+                        'accessToken' => $tokenResult->accessToken,
+                        'expires_at' => Carbon::parse(
+                            $tokenResult->token->expires_at
+                        )->toDateTimeString(),
+                    ],
+                    'token_type' => 'Bearer',
+                    'user' => $user
+                ]);    
+            }else{
+                $request['first_name'] = $payload->name?$payload->name:$payload->email;
+                $request['last_name'] = $payload->name?$payload->name:$payload->email;
+                $request['email'] = $payload->email;
+                $request['password'] = $payload->user['c_hash'];
+                $record = $request->validate([
+                    'first_name' => 'required|string',
+                    'last_name' => 'required|string',
+                    'email' => 'required|string|email|unique:users',
+                    'password' => 'required|string',
+                    'gender'=>'required|string',
+                    'gender'=>'required|string',
+                    'level'=>'required|numeric',
+                    'place'=>'required|string',
+                    'goal'=>'required|string',
+                    'birthday'=>'required|string',
+                    'weight'=>'required',
+                    'weightUnit'=>'required|string',
+                    'height'=>'required',
+                    'heightUnit'=>'required|string',
+                    'application_source'=>'required|string',
+                    'couponCode'=>'nullable',
+                ]);    
+                $providerId = $payload->id;
                 $user = User::createCustomer($record,$provider,$providerId);
                 if($user){
                     //Mail::to($user->email)->send(new VerifyMail($user));
