@@ -1340,8 +1340,6 @@ class Customer extends Model
             $relation = DB::table("customers_relations")->select("*")->where('follower_id',$authId)->where('customer_id',$this->id)->first();
             if($relation)$this['relation'] = $relation->status;
         }
-        //tocalWorkoutCompleted
-        //currentMonthWorkoutCompleted
     }
     public function isConnectting($customer){
         if($this->id == $customer->id) return true;

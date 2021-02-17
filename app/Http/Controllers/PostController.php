@@ -204,7 +204,7 @@ class PostController extends Controller
             $ids[] = $item['id'];
             $conditions[$item['id']] = $item;
         }
-        $posts = Post::whereIn('id',$ids)->get();
+        $posts = Post::whereIn('id',$ids)->orderBy('id','desc')->get();
         foreach($posts as $post){
             $post->extend($conditions[$post->id], $request->user());
         }
