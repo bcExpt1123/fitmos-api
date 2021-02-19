@@ -72,7 +72,7 @@ class Media extends Model
         // ['disk'=>'s3', 'visibility'=>'public']);
         // $this->url = \Storage::disk('s3')->url($path);
         $this->save();
-        MoveFileToS3::dispatch($this->id, $filename);
+        MoveFileToS3::dispatch($this->id, $filename, env('CDN_WEBSITE'));
         if($this->type == 'image'){
             //dispatch(new ImageResizing($this->id));
         }

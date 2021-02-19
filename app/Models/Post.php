@@ -68,6 +68,7 @@ class Post extends Model
         if(is_array($this->tag_followers)){
             foreach($this->tag_followers as $customerId){
                 $customer = \App\Customer::find($customerId);
+                $customer->getAvatar();
                 $tagFollowers[] = $customer;
             }
         }

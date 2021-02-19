@@ -308,11 +308,7 @@ class FindTransactions extends Command
         }
     }
     private function checkUnique(){
-        $evento = \App\Models\Evento::find(1);
-        if($evento->medias == null)$evento->medias = [];
-        $a = [1,2,3,4,5,6];
-        $evento->medias = $a;
-        var_dump($evento->medias);
+        var_dump(env('CDN_WEBSITE'));
     }
     private function deleteComments(){
         $comments = Comment::all();

@@ -18,15 +18,17 @@ class MoveFileToS3 implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $filename;
     protected $id;
+    protected $cdnWebsite;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($id, $filename)
+    public function __construct($id, $filename, $cdnWebsite)
     {
         $this->filename = $filename;
         $this->id = $id;
+        $this->cdnWebsite = $cdnWebsite;
     }
 
     /**
@@ -48,7 +50,7 @@ class MoveFileToS3 implements ShouldQueue
             $file,
             $media->src
         );
-        $media->url = \Storage::disk('s3')->url($result);
+        $media->url = $this->cdnWebsite.$media->src;
         $media->save();
         // Forces collection of any existing garbage cycles
         // If we don't add this, in some cases the file remains locked
