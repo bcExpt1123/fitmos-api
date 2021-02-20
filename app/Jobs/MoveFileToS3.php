@@ -10,6 +10,7 @@ use Illuminate\Http\File;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\App;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\Media;
 
@@ -18,17 +19,15 @@ class MoveFileToS3 implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $filename;
     protected $id;
-    protected $cdnWebsite;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($id, $filename, $cdnWebsite)
+    public function __construct($id, $filename)
     {
         $this->filename = $filename;
         $this->id = $id;
-        $this->cdnWebsite = $cdnWebsite;
     }
 
     /**
@@ -50,7 +49,14 @@ class MoveFileToS3 implements ShouldQueue
             $file,
             $media->src
         );
-        $media->url = $this->cdnWebsite.$media->src;
+        $cdnWebsite = "https://s3.fitemos.com/";
+        if (App::environment('local')) {
+            $cdnWebsite = "https://devs3.fitemos.com/";
+        }        
+        if (App::environment('staging')) {
+            $cdnWebsite = "https://s3.fitemos.com/";
+        }        
+        $media->url = $cdnWebsite.$media->src;
         $media->save();
         // Forces collection of any existing garbage cycles
         // If we don't add this, in some cases the file remains locked

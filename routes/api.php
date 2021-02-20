@@ -221,7 +221,7 @@ Route::get('eventos/random', 'EventoController@random')->middleware('auth:api');
 Route::post('eventos/{id}/toggle-attend', 'EventoController@toggleAttend')->middleware('auth:api');
 Route::resource('eventos', 'EventoController')->only(['index','update','store','destroy'])->middleware('auth:api');
 Route::resource('eventos', 'EventoController')->only(['show']);
-Route::resource('eventoComments', 'EventoCommentController')->middleware('auth:api');
+Route::resource('evento-comments', 'EventoCommentController')->middleware('auth:api');
 Route::get('social-reports/{id}/complete', 'SocialReportController@complete')->where('id', '[0-9]+')->middleware('auth:api');
 Route::get('social-reports/{id}/restore', 'SocialReportController@restore')->where('id', '[0-9]+')->middleware('auth:api');
 Route::resource('social-reports', 'SocialReportController')->middleware('auth:api');

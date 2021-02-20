@@ -182,7 +182,8 @@ class Coupon extends Model
             $coupon = Coupon::find($id);
             if($coupon && $coupon->status == "Active"){
                 if($coupon->type == "Referral"){
-                    if($coupon->customer->hasActiveSubscription())return $coupon;
+                    $customer = Customer::find($coupon->customer_id);
+                    if($customer && $customer->hasActiveSubscription())return $coupon;
                 }else {
                     return $coupon;
                 }
