@@ -72,6 +72,11 @@ class Media extends Model
         // ['disk'=>'s3', 'visibility'=>'public']);
         // $this->url = \Storage::disk('s3')->url($path);
         $this->save();
+        if(PHP_OS == 'Linux'){
+            $file = storage_path('app/' . $filename);
+            $output = shell_exec("mogrify -auto-orient $file");
+            sleep(1);
+        }
         MoveFileToS3::dispatch($this->id, $filename);
         if($this->type == 'image'){
             //dispatch(new ImageResizing($this->id));
