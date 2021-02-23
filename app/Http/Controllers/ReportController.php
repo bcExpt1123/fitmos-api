@@ -199,27 +199,44 @@ class ReportController extends Controller
         return Excel::download($export,'usage.xlsx');   
     }
     public function customerWorkouts(Request $request){
-        $fromDate = $request->input("from");
-        $toDate = $request->input("to");
+        if($request->exists("from")){
+            $fromDate = $request->input("from");
+            $toDate = $request->input("to");
+            $change =  true;
+        }else{
+            $fromDate = date("Y-m")."-01";
+            $toDate = date("Y-m-d");
+            $change =  false;
+        }
         $number = $request->input("number");
         if($request->exists('gender') && $request->input("gender") != 'all'){
             $gender=$request->input("gender");
         }
-        $workoutPublishDates = [];
-        $workouts = ActivityWorkout::where('publish_date','>=',$fromDate)->where('publish_date','<=',$toDate)->whereType('complete')->get();
-        $records = Workout::where('publish_date','>=',$fromDate)->where('publish_date','<=',$toDate)->whereNotNull('comentario')->get();
-        foreach($records as $record){
-            if(in_array($record->publish_date,$workoutPublishDates)==false)$workoutPublishDates[] = $record->publish_date;
-        }
-        $customers = [];
-        foreach($workouts as $workout){
-            if(in_array($workout->publish_date,$workoutPublishDates)==false)$workoutPublishDates[] = $workout->publish_date;
-            if(isset($customers[$workout->customer_id])){
-                $customers[$workout->customer_id]['workouts']++;
-            }else{
-                $customers[$workout->customer_id] = ['id'=>$workout->customer_id,'workouts'=>1];
+        $month = $fromDate;
+        do {
+            $workoutPublishDates = [];
+            $workouts = ActivityWorkout::where('publish_date','>=',$fromDate)->where('publish_date','<=',$toDate)->whereType('complete')->get();
+            $records = Workout::where('publish_date','>=',$fromDate)->where('publish_date','<=',$toDate)->whereNotNull('comentario')->get();
+            foreach($records as $record){
+                if(in_array($record->publish_date,$workoutPublishDates)==false)$workoutPublishDates[] = $record->publish_date;
             }
-        }
+            $customers = [];
+            foreach($workouts as $workout){
+                if(in_array($workout->publish_date,$workoutPublishDates)==false)$workoutPublishDates[] = $workout->publish_date;
+                if(isset($customers[$workout->customer_id])){
+                    $customers[$workout->customer_id]['workouts']++;
+                }else{
+                    $customers[$workout->customer_id] = ['id'=>$workout->customer_id,'workouts'=>1];
+                }
+            }
+            if($change){
+                break;
+            }else{
+                if($customers>0)$month = $fromDate;
+                $fromDate = date("Y-m", strtotime( date( "Y-m-d", strtotime( $fromDate ) ) . "-1 month" ) )."-01";
+                $toDate = date("Y-m-t", strtotime($fromDate));
+            }
+        } while(count($customers)==0);
         $results = [];
         if(count($workoutPublishDates)>0 && count($customers)>0){
             uasort($customers, function ($a, $b) { 
@@ -267,11 +284,19 @@ class ReportController extends Controller
                     }
                 }    
                 $workouts = Done::where('customer_id','=',$customer['id'])->get();
-                $results[] = ['id'=>$item->id,'pos'=>$pos,'avatar_url'=>$avatarUrls,'name'=>$item->first_name.' '.$item->last_name,'workout_completeness'=>round($customer['workouts']/$workoutCount*100),'workout_complete_count'=>$customer['workouts'].'/'.$workoutCount,'total'=>count($workouts)];
+                $results[] = [
+                    'id'=>$item->id,
+                    'pos'=>$pos,
+                    'avatar_url'=>$avatarUrls,
+                    'name'=>$item->first_name.' '.$item->last_name,
+                    'workout_completeness'=>round($customer['workouts']/$workoutCount*100),
+                    'workout_complete_count'=>$customer['workouts'].'/'.$workoutCount,
+                    'total'=>count($workouts)
+                ];
                 if(count($results)>=$number) break;
             }
         }
-        return response()->json($results);
+        return response()->json(['data'=>$results,'month'=>$month]);
     }
     public function exportSubscriptions(Request $request){
         $fromDate = $request->input("from");

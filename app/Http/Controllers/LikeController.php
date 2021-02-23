@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
 use App\Models\Activity;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Like;
-use App\Customer;
-use Illuminate\Support\Facades\Storage;
 
 class LikeController extends Controller
 {
@@ -24,9 +20,9 @@ class LikeController extends Controller
             return response()->json(array('status'=>'you made activity'),423);
         }
         $comment = Comment::whereActivityId($request->activity_id)->first();
-        if($comment && $comment->customer_id == $user->customer->id){
-            return response()->json(array('status'=>'you made activity'),423);
-        }
+        // if($comment && $comment->customer_id == $user->customer->id){
+        //     return response()->json(array('status'=>'you made activity'),423);
+        // }
         $like = Like::whereActivityId($request->activity_id)->whereCustomerId($user->customer->id)->first();
         if($like){
             return response()->json(array('status'=>'already exists'),421);

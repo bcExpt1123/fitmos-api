@@ -35,7 +35,12 @@ class PostController extends Controller
             \DB::beginTransaction();
             $activity = new Activity;
             $activity->save();
-            $post = Post::create(['activity_id'=>$activity->id,'customer_id'=>$user->customer->id,'content'=>$request->content,'location'=>$request->location,'tag_followers'=>json_decode($request->tag_followers)]);
+            $post = new Post;
+            $post->fill(['activity_id'=>$activity->id,'customer_id'=>$user->customer->id,'content'=>$request->content,'location'=>$request->location,'tag_followers'=>json_decode($request->tag_followers)]);
+            if($request->exists('workout_date')){
+                $post->workout_date = $request->workout_date;
+                $post->type = 'workout';
+            }
             $post->save();
             if(isset($request->medias)){
                 $post->uploadMedias($request->medias);

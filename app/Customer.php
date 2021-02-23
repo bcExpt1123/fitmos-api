@@ -473,6 +473,10 @@ class Customer extends Model
         }else{
             $workout = Workout::sendable($today,$workoutCondition,$weightsCondition,$objective,$gender,$this->id);
         }
+        if($workout){
+            $post = \App\Models\Post::where('customer_id',$this->id)->whereWorkoutDate($today)->first();
+            $workout['hasPost'] = $post?true:false;
+        }
         return $workout;
     }
     public function findPartnerDiscount(){
