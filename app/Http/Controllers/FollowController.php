@@ -132,5 +132,46 @@ class FollowController extends Controller
         $user->customer->touch();
         return $customer;
     }
+    public function customerIndex(Request $request){
+        $user = $request->user();
+        $customer = Customer::find($request->customer_id);
+        if($request->exists('page_number')){
+            $pageNumber = $request->page_number; 
+        }else{
+            $pageNumber = 0; 
+        }
+        $pageSize = 10;
+        if($request->type=='followings'){
+            /** followings */
+            $where = DB::table("follows")->select("*")->where('follower_id',$customer->id);
+            if($customer->id != $user->customer->id)$where->whereIn('status',['pending','accepted']);
+            $where->orderBy('id')->offset($pageNumber * $pageSize)->limit(10)->get();
+            $follows = $where->get();
+            $where = DB::table("follows")->select("*")->where('follower_id',$customer->id);
+            $where->whereIn('status',['pending','accepted']);
+            $where->orderBy('id')->offset(($pageNumber+1) * $pageSize)->limit(10);
+            $next = $where->count();
+        }else{
+            /** followers */
+            $where = DB::table("follows")->select("*")->where('customer_id',$customer->id);
+            if($customer->id != $user->customer->id)$where->whereIn('status',['pending','accepted']);
+            $where->orderBy('id')->offset($pageNumber * $pageSize)->limit(10)->get();
+            $follows = $where->get();
+            $where = DB::table("follows")->select("*")->where('customer_id',$customer->id);
+            if($customer->id != $user->customer->id)$where->whereIn('status',['pending','accepted']);
+            $where->orderBy('id')->offset(($pageNumber+1) * $pageSize)->limit(10)->count();
+            $next = $where->count();
+        }
+        foreach( $follows as $follow){
+            if($request->type=='followings'){
+                $follow->customer = Customer::find($follow->customer_id);
+                $follow->customer->getAvatar();
+            }else{
+                $follow->follower = Customer::find($follow->follower_id);
+                $follow->follower->getAvatar();
+            }
+        }
+        return response()->json(['follows'=>$follows,'next'=>$next]);
+    }
 
 }

@@ -213,6 +213,7 @@ Route::post('follows/block', 'FollowController@block')->middleware('auth:api');
 Route::post('follows/unblock', 'FollowController@unblock')->middleware('auth:api');
 Route::post('follows/mute', 'FollowController@mute')->middleware('auth:api');
 Route::post('follows/unmute', 'FollowController@unmute')->middleware('auth:api');
+Route::get('follows/customer','FollowController@customerIndex')->middleware('auth:api');
 Route::resource('follows', 'FollowController')->only(['index','store'])->middleware('auth:api');
 Route::resource('likes', 'LikeController')->only(['store','destroy'])->middleware('auth:api');
 Route::get('eventos/home', 'EventoController@home')->middleware('auth:api');

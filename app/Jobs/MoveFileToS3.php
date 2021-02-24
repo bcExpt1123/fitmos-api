@@ -12,6 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
 use Intervention\Image\ImageManagerStatic as Image;
+use Owenoj\LaravelGetId3\GetId3;
 use App\Models\Media;
 
 class MoveFileToS3 implements ShouldQueue
@@ -56,6 +57,14 @@ class MoveFileToS3 implements ShouldQueue
         if (App::environment('staging')) {
             $cdnWebsite = "https://s3.fitemos.com/";
         }        
+        if($media->type=='video'){
+            $track = GetId3::fromDiskAndPath('local', $this->filename);
+            $data = $track->extractInfo();
+            if(isset($data['video']['resolution_x'])){
+                $media->width = $data['video']['resolution_x'];
+                $media->height = $data['video']['resolution_y'];
+            }
+        }
         $media->url = $cdnWebsite.$media->src;
         $media->save();
         // Forces collection of any existing garbage cycles

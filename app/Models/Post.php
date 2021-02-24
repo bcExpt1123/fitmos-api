@@ -135,5 +135,9 @@ class Post extends Model
             $like = Like::whereActivityId($this->activity_id)->whereCustomerId($user->customer->id)->first();
             $this->like = $like?true:false;
         }
+        if($this->type == 'workout'){
+            $this->workout_spanish_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B del %Y", strtotime($this->workout_date))));
+            $this->workout_spanish_short_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B", strtotime($this->workout_date))));
+        }
     }
 }

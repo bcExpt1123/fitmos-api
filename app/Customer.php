@@ -832,6 +832,7 @@ class Customer extends Model
             'toMonthWorkoutImage'=>$toMonthWorkoutImage,
             'monthWorkoutCount'=>$monthWorkoutCount,            
             'monthWorkoutTotal'=>$monthWorkoutTotal,
+            'monthShortName'=>ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%h", time()))),
             'monthPercent'=>$monthPercent,
         ];
     }

@@ -24,6 +24,8 @@ class CreateMediasTable extends Migration
             $table->string('url')->nullable();
             $table->unsignedInteger('position')->default(0);
             $table->unsignedBigInteger('post_id')->nullable();
+            $table->float('width')->nullable();
+            $table->float('height')->nullable();
             $table->enum('attachment', ['post','event','other'])->default('post');
             $table->timestamps();
         });
