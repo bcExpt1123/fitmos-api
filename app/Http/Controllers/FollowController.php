@@ -140,27 +140,27 @@ class FollowController extends Controller
         }else{
             $pageNumber = 0; 
         }
-        $pageSize = 10;
+        $pageSize = 20;
         if($request->type=='followings'){
             /** followings */
             $where = DB::table("follows")->select("*")->where('follower_id',$customer->id);
-            if($customer->id != $user->customer->id)$where->whereIn('status',['pending','accepted']);
-            $where->orderBy('id')->offset($pageNumber * $pageSize)->limit(10)->get();
+            if($customer->id != $user->customer->id)$where->whereIn('status',['accepted']);
+            $where->orderBy('id')->offset($pageNumber * $pageSize)->limit($pageSize)->get();
             $follows = $where->get();
             $where = DB::table("follows")->select("*")->where('follower_id',$customer->id);
-            $where->whereIn('status',['pending','accepted']);
-            $where->orderBy('id')->offset(($pageNumber+1) * $pageSize)->limit(10);
-            $next = $where->count();
+            if($customer->id != $user->customer->id)$where->whereIn('status',['accepted']);
+            $where->orderBy('id')->offset(($pageNumber+1) * $pageSize)->limit($pageSize);
+            $next = $where->get()->count();
         }else{
             /** followers */
             $where = DB::table("follows")->select("*")->where('customer_id',$customer->id);
-            if($customer->id != $user->customer->id)$where->whereIn('status',['pending','accepted']);
-            $where->orderBy('id')->offset($pageNumber * $pageSize)->limit(10)->get();
+            if($customer->id != $user->customer->id)$where->whereIn('status',['accepted']);
+            $where->orderBy('id')->offset($pageNumber * $pageSize)->limit($pageSize)->get();
             $follows = $where->get();
             $where = DB::table("follows")->select("*")->where('customer_id',$customer->id);
-            if($customer->id != $user->customer->id)$where->whereIn('status',['pending','accepted']);
-            $where->orderBy('id')->offset(($pageNumber+1) * $pageSize)->limit(10)->count();
-            $next = $where->count();
+            if($customer->id != $user->customer->id)$where->whereIn('status',['accepted']);
+            $where->orderBy('id')->offset(($pageNumber+1) * $pageSize)->limit($pageSize)->count();
+            $next = $where->get()->count();
         }
         foreach( $follows as $follow){
             if($request->type=='followings'){

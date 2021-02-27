@@ -20,6 +20,7 @@ class Setting
         'small' => '150X150', 
         'medium' => '500X500', 
         'large' => '650X500', 
+        'x-large' => '1024X1024', 
     ];
     public static function convertSizes(){
         $sizes = array_values(Setting::IMAGE_SIZES);

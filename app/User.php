@@ -247,6 +247,7 @@ class User extends Authenticatable
                 $user->customer['renewalOptions'] = $subscription->renewalOptions();
                 $user->customer['currentWorkoutMonths'] = $subscription->convertMonths();
                 $user->customer['currentWorkoutPaymentType'] = $subscription->gateway;
+                $user->customer['medals'] = $user->customer->findMedal();
             }else{
                 $service =Service::find(1);
                 $s = ['serviceName'=>$service->title];

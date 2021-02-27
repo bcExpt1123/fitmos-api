@@ -65,6 +65,13 @@ class MoveFileToS3 implements ShouldQueue
                 $media->height = $data['video']['resolution_y'];
             }
         }
+        if($media->type=='image'){
+            $data = getimagesize(storage_path('app/' . $this->filename));
+            if(isset($data[0])){
+                $media->width = $data[0];
+                $media->height = $data[1];
+            }            
+        }
         $media->url = $cdnWebsite.$media->src;
         $media->save();
         // Forces collection of any existing garbage cycles
