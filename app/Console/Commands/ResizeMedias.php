@@ -41,58 +41,24 @@ class ResizeMedias extends Command
      */
     public function handle()
     {
-        $medias = Media::whereType('image')->get();
+        $medias = Media::whereType('image')
+            ->whereIn('id',[130])
+            ->get();
         foreach($medias as $media){
             // $this->oldDeletes($media);
             $this->makeNewImages($media);
             gc_collect_cycles();
         }
     }
-    private function makeNewImage($image, $size, $id){
+    private function makeNewCroppedImage($image, $size, $id){
         $fileExtension = $image->extension();
-        $resizeImg = Image::make($image);
-        if($size[0]==$size[1]){
-            $height = $resizeImg->height();
-            $width = $resizeImg->width();
-            if($width > $height) {
-                $cropStartPointX = round(($width - $height) / 2);
-                $cropStartPointY = 0;
-                $cropWidth = $height;
-                $cropHeight = $height;
-            }
-            else {
-                $cropStartPointX = 0;
-                $cropStartPointY = round(($height - $width) / 2);
-                $cropWidth = $width;
-                $cropHeight = $width;
-            }
-        }
-        else{
-            if($size[0] > $size[1]){
-                $height = $resizeImg->height();
-                $width = $resizeImg->width();
-                if($width > $height) {
-                    $sizeRate = $size[0]/$size[1];
-                    $cropStartPointX = round(($width - ($height*$sizeRate)) / 2);
-                    $cropStartPointY = 0;
-                    $cropWidth = round($height*$sizeRate);
-                    $cropHeight = $height;
-                }
-                else {
-                    $sizeRate = $size[1]/$size[0];
-                    $cropStartPointX = 0;
-                    $cropStartPointY = round(($height - ($width*$sizeRate)) / 2);
-                    $cropWidth = $width;
-                    $cropHeight = round($width*$sizeRate);
-                }
-            }
-        }
-        
-        $resizeImg->crop($cropWidth, $cropHeight, $cropStartPointX, $cropStartPointY)
-        ->resize($size[0], $size[1], function($constraint) {
-            $constraint->aspectRatio();
-        })->encode($fileExtension);
+        $resizeImg = Media::makeCroppedImage($image, $size);
         $resizeImg->save('storage/app/files/'. $id . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension);
+    }
+    private function makeNewResizedImage($image, $size, $id){
+        $fileExtension = $image->extension();
+        $resizeImg = Media::makeResizedImage($image, $size);
+        $resizeImg->save('storage/app/files/'. $id . '-' . $size . '.' . $fileExtension);
     }
     private function makeNewImages($media){
         $sizes = \App\Setting::convertSizes();
@@ -105,13 +71,22 @@ class ResizeMedias extends Command
         $src = substr($media->src,0,strlen($media->src)-strlen($fileExtension) -1 );
         foreach($sizes as $size){
             if (Storage::disk('s3')->exists($src . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension)==false) {
-                $this->makeNewImage($image, $size, $media->id);
+                $this->makeNewCroppedImage($image, $size, $media->id);
                 Storage::disk('s3')->putFileAs(
                     '/',
                     new File(storage_path('app/files/' . $media->id . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension)),
                     $src . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension
                 );    
                 Storage::disk('local')->delete('files/'.$media->id . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension);
+            }
+            if (Storage::disk('s3')->exists($src . '-' . $size[0] . '.' . $fileExtension)==false) {
+                $this->makeNewResizedImage($image, $size[0], $media->id);                
+                Storage::disk('s3')->putFileAs(
+                    '/',
+                    new File(storage_path('app/files/' . $media->id . '-' . $size[0] . '.' . $fileExtension)),
+                    $src . '-' . $size[0] . '.' . $fileExtension
+                );    
+                Storage::disk('local')->delete('files/'.$media->id . '-' . $size[0] . '.' . $fileExtension);
             }
         }
         Storage::disk('local')->delete('files/'.$media->id);

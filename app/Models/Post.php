@@ -52,6 +52,7 @@ class Post extends Model
     public function search($user=null){
         $where = self::with(['customer','medias'])->whereStatus(1);
         if($this->lastId)$where->where('id','<',$this->lastId);
+        $where->where('status',1);
         $where->whereCustomerId($this->customer_id);
         $posts =  $where->orderBy('id','desc')->limit(3)->get();
         foreach($posts as $index=>$post){

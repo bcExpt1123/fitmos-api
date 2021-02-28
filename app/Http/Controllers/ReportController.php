@@ -260,11 +260,13 @@ class ReportController extends Controller
                     $workoutComplete = $customer['workouts'];
                 }
                 if($item->user && $item->user->avatar){
+                    $data = pathinfo($item->user->avatar);
+                    $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];                                
                     $avatarUrls = [
                         'max'=>url("storage/".$item->user->avatar),
                         'large'=>url("storage/".$item->user->avatar),
                         'medium'=>url("storage/".$item->user->avatar),
-                        'small'=>url("storage/".$item->user->avatar),
+                        'small'=>url("storage/".$avatarFile),
                     ];
                 }else{
                     if($item->gender=="Male"){

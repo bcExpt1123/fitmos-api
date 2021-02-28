@@ -297,11 +297,13 @@ class User extends Authenticatable
             if($heightValue==0)$heightValue = Height::convert($user->customer->initial_height,$user->customer->initial_height_unit)/100;
             $user->customer['imc'] = round(Weight::convert($user->customer->current_weight,$user->customer->current_weight_unit)/$heightValue/$heightValue);
             if($user->avatar){
+                $data = pathinfo($user->avatar);
+                $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];        
                 $user['avatarUrls'] = [
                     'max'=>url("storage/".$user->avatar),
                     'large'=>url("storage/".$user->avatar),
                     'medium'=>url("storage/".$user->avatar),
-                    'small'=>url("storage/".$user->avatar),
+                    'small'=>url("storage/".$avatarFile),
                 ];
             }else{
                 if($user->customer->gender=="Male"){

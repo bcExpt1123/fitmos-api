@@ -156,4 +156,71 @@ class Media extends Model
     public function removeFiles(){
         \Storage::disk('s3')->delete($this->src);
     }
+    public static function makeCroppedImage($image, $size){
+        $fileExtension = $image->extension();
+        $resizeImg = Image::make($image);
+        if($size[0]==$size[1]){
+            $height = $resizeImg->height();
+            $width = $resizeImg->width();
+            if($width > $height) {
+                $cropStartPointX = round(($width - $height) / 2);
+                $cropStartPointY = 0;
+                $cropWidth = $height;
+                $cropHeight = $height;
+            }
+            else {
+                $cropStartPointX = 0;
+                $cropStartPointY = round(($height - $width) / 2);
+                $cropWidth = $width;
+                $cropHeight = $width;
+            }
+        }
+        else{
+            if($size[0] > $size[1]){
+                $height = $resizeImg->height();
+                $width = $resizeImg->width();
+                if($width > $height) {
+                    $sizeRate = $size[0]/$size[1];
+                    $cropStartPointX = round(($width - ($height*$sizeRate)) / 2);
+                    $cropStartPointY = 0;
+                    $cropWidth = round($height*$sizeRate);
+                    $cropHeight = $height;
+                }
+                else {
+                    $sizeRate = $size[1]/$size[0];
+                    $cropStartPointX = 0;
+                    $cropStartPointY = round(($height - ($width*$sizeRate)) / 2);
+                    $cropWidth = $width;
+                    $cropHeight = round($width*$sizeRate);
+                }
+            }
+        }
+        
+        $resizeImg->crop($cropWidth, $cropHeight, $cropStartPointX, $cropStartPointY)
+        ->resize($size[0], $size[1], function($constraint) {
+            $constraint->aspectRatio();
+        })->encode($fileExtension);
+        return $resizeImg;
+    }
+    public static function makeResizedImage($image, $size){
+        $fileExtension = $image->extension();
+        $resizeImg = Image::make($image);
+        $height = $resizeImg->height();
+        $width = $resizeImg->width();
+        if($width > $height) {
+            $sizeRate = $size/$width;
+            $resizeWidth = $width;
+            $resizeHeight = round($height * $sizeRate);
+        }
+        else {
+            $sizeRate = $size/$height;
+            $resizeWidth = round($width * $sizeRate);
+            $resizeHeight = $height;
+        }
+        
+        $resizeImg->resize($resizeWidth, $resizeHeight, function($constraint) {
+            $constraint->aspectRatio();
+        })->encode($fileExtension);
+        return $resizeImg;
+    }
 }

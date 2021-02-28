@@ -189,7 +189,7 @@ class PostController extends Controller
     public function read($id,Request $request){
         $user = $request->user();
         $post = Post::find($id);
-        if($post->customer_id != $user->customer->id){
+        // if($post->customer_id != $user->customer->id){
             $reading = DB::table('reading_posts')->where('post_id',$id)->where('customer_id',$user->customer->id)->first();
             if(!$reading){
                 DB::table('reading_posts')->insert([
@@ -199,7 +199,7 @@ class PostController extends Controller
                     "updated_at" => \Carbon\Carbon::now(),  # new \Datetime()
                 ]);        
             }
-        }
+        // }
         return response()->json(['status'=>'ok']);
     }
     public function sync(Request $request){

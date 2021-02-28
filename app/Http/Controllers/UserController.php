@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\File;
 //use App\Rules\UniqueEmail;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -149,11 +150,11 @@ class UserController extends Controller
         if($user&&$request->hasFile('image')&&$request->file('image')->isValid()){ 
             $photoPath = $request->image->store('media/user');
             $file = storage_path('app/public/'.$photoPath);
-            //$this->cropImage($file,200,200,$file);
             if(PHP_OS == 'Linux'){
                 $output = shell_exec("mogrify -auto-orient $file");
                 sleep(1);
             }
+            $this->cropImage($photoPath);
             $user->avatar = $photoPath;
             $user->save();
         }        
@@ -194,57 +195,12 @@ class UserController extends Controller
         $user->save();
         return response()->json(array('status'=>'ok','user'=>$user));
     }
-    private function cropImage($sourcePath, $width=200,$height=230, $destination = null) {
-
-        $parts = explode('.', $sourcePath);
-        $ext = $parts[count($parts) - 1];
-        if ($ext == 'jpg' || $ext == 'jpeg') {
-          $format = 'jpg';
-        } else {
-          $format = 'png';
-        }
-      
-        if ($format == 'jpg') {
-          $sourceImage = imagecreatefromjpeg($sourcePath);
-        }
-        if ($format == 'png') {
-          $sourceImage = imagecreatefrompng($sourcePath);
-        }
-      
-        list($srcWidth, $srcHeight) = getimagesize($sourcePath);
-      
-        // calculating the part of the image to use for thumbnail
-        if ($srcWidth > $srcHeight) {
-          $y = 0;
-          $x = ($srcWidth - $srcHeight) / 2;
-          $smallestSide = $srcHeight;
-        } else {
-          $x = 0;
-          $y = ($srcHeight - $srcWidth) / 2;
-          $smallestSide = $srcWidth;
-        }
-      
-        $destinationImage = imagecreatetruecolor($width, $height);
-        imagecopyresampled($destinationImage, $sourceImage, 0, 0, $x, $y, $width, $height, $smallestSide, $smallestSide);
-      
-        if ($destination == null) {
-          header('Content-Type: image/jpeg');
-          if ($format == 'jpg') {
-            imagejpeg($destinationImage, null, 100);
-          }
-          if ($format == 'png') {
-            imagejpeg($destinationImage);
-          }
-          if ($destination = null) {
-          }
-        } else {
-          if ($format == 'jpg') {
-            imagejpeg($destinationImage, $destination, 100);
-          }
-          if ($format == 'png') {
-            imagepng($destinationImage, $destination);
-          }
-        }
+    private function cropImage($filePath,  $width=60,$height=60) {
+        $data = pathinfo($filePath);
+        $image = new File(storage_path('app/public/'.$filePath));        
+        $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];
+        $resizeImg = \App\Models\Media::makeCroppedImage($image, [$width, $height]);
+        $resizeImg->save('storage/app/public/'. $avatarFile);
     }
     public function emailUpdate(Request $request){
         $user = $request->user('api');

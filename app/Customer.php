@@ -874,11 +874,13 @@ class Customer extends Model
         $partners = Customer::whereFriendId($this->id)->get();
         foreach($partners as $partner){
             if($partner->user->avatar){
+                $data = pathinfo($partner->user->avatar);
+                $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];        
                 $partner['avatarUrls'] = [
                     'max'=>url("storage/".$partner->user->avatar),
                     'large'=>url("storage/".$partner->user->avatar),
                     'medium'=>url("storage/".$partner->user->avatar),
-                    'small'=>url("storage/".$partner->user->avatar),
+                    'small'=>url("storage/".$avatarFile),
                 ];
             }else{
                 if($partner->gender=="Male"){
@@ -1240,11 +1242,13 @@ class Customer extends Model
     public function getAvatar(){
         $user = $this->user;
         if($user->avatar){
+            $data = pathinfo($user->avatar);
+            $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];    
             $this['avatarUrls'] = [
                 'max'=>url("storage/".$user->avatar),
                 'large'=>url("storage/".$user->avatar),
                 'medium'=>url("storage/".$user->avatar),
-                'small'=>url("storage/".$user->avatar),
+                'small'=>url("storage/".$avatarFile),
             ];
         }else{
             if($this->gender=="Male"){
@@ -1283,7 +1287,7 @@ class Customer extends Model
                 $q->where("customers_relations.follower_id",$this->id); 
             });
         });
-        $where->where('customer_id','!=',$this->id);
+        $where->orwhere('customer_id','=',$this->id);
         // $followings = DB::table("follows")->select("*")->where('follower_id',$this->id)->whereIn('status',['accepted'])->get();
         // $ids = [];
         // foreach($followings as $following){
@@ -1312,7 +1316,7 @@ class Customer extends Model
                 $q->where("customers_relations.follower_id",$this->id); 
             });
         });
-        $where->where('customer_id','!=',$this->id);
+        $where->orwhere('customer_id','=',$this->id);
         $where->whereHas('readingCustomers',function($query){
             $query->where("reading_posts.customer_id",$this->id);
         });
