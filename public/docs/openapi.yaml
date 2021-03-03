@@ -1,0 +1,5248 @@
+openapi: 3.0.3
+info:
+    title: Laravel
+    description: ''
+    version: 1.0.0
+servers:
+    -
+        url: 'http://127.0.0.4'
+paths:
+    /api/login:
+        post:
+            summary: login.
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    /api/register:
+        post:
+            summary: 'create a user.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    /api/logout:
+        delete:
+            summary: logout.
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    /api/google/login:
+        post:
+            summary: 'login with google.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    /api/google/register:
+        post:
+            summary: 'register a user with google.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    /api/facebook/login:
+        post:
+            summary: 'login a user with facebook.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    /api/facebook/register:
+        post:
+            summary: 'register a user with facebook.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    /api/apple/login:
+        post:
+            summary: 'login a user with apple.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    /api/apple/register:
+        post:
+            summary: 'register a user with apple.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    '/api/verify/{token}':
+        get:
+            summary: 'verify a user.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+        parameters:
+            -
+                in: path
+                name: token
+                description: ''
+                example: cumque
+                required: true
+                schema:
+                    type: string
+    /api/password/reset:
+        post:
+            summary: 'reset password.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+    '/api/password/reset/{token}':
+        post:
+            summary: 'change password.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Auth
+        parameters:
+            -
+                in: path
+                name: token
+                description: ''
+                example: nulla
+                required: true
+                schema:
+                    type: string
+    '/api/benchmarkResults/{id}/benchmark':
+        get:
+            summary: 'get a benchmark.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Benchmark result'
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: quis
+                required: true
+                schema:
+                    type: string
+    /api/benchmarkResults/history:
+        get:
+            summary: 'get a benchmark result histories.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Benchmark result'
+    /api/benchmarkResults:
+        get:
+            summary: 'search a benchmark result.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Benchmark result'
+        post:
+            summary: 'create a benchmark result.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Benchmark result'
+    '/api/benchmarkResults/{benchmarkResult}':
+        get:
+            summary: 'show a benchmark result.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Benchmark result'
+        put:
+            summary: 'update a benchmark result.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Benchmark result'
+        delete:
+            summary: 'delete a benchmark result.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Benchmark result'
+        parameters:
+            -
+                in: path
+                name: benchmarkResult
+                description: ''
+                example: quo
+                required: true
+                schema:
+                    type: string
+    /api/follows/block:
+        post:
+            summary: 'block a customer.'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"ok\",\n \"customer\":{customer}\n}"
+            tags:
+                - 'Block and mute'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                customer_id:
+                                    type: integer
+                                    description: ''
+                                    example: 17
+                            required:
+                                - customer_id
+    /api/follows/unblock:
+        post:
+            summary: 'unblock a customer.'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"ok\",\n \"customer\":{customer}\n}"
+            tags:
+                - 'Block and mute'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                customer_id:
+                                    type: integer
+                                    description: ''
+                                    example: 15
+                            required:
+                                - customer_id
+    /api/follows/mute:
+        post:
+            summary: 'mute a customer.'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"ok\",\n \"customer\":{customer}\n}"
+            tags:
+                - 'Block and mute'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                customer_id:
+                                    type: integer
+                                    description: ''
+                                    example: 7
+                            required:
+                                - customer_id
+    /api/follows/unmute:
+        post:
+            summary: 'unmute a customer.'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"ok\",\n \"customer\":{customer}\n}"
+            tags:
+                - 'Block and mute'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                customer_id:
+                                    type: integer
+                                    description: ''
+                                    example: 19
+                            required:
+                                - customer_id
+    /api/cart/inside:
+        post:
+            summary: 'inside cart'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Cart
+    /api/cart/outside:
+        post:
+            summary: 'outside cart.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Cart
+    '/api/cart/{cart}':
+        get:
+            summary: 'show cart.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Cart
+        parameters:
+            -
+                in: path
+                name: cart
+                description: ''
+                example: porro
+                required: true
+                schema:
+                    type: string
+    /api/chat/verify:
+        get:
+            summary: verify.
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Chat
+    /api/chat/verify-local:
+        get:
+            summary: 'verify from local.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Chat
+    /api/comments:
+        get:
+            summary: 'search comments.'
+            description: "This endpoint get comments on several scenarios.\nOnly comments with level1 = 0 can have replies.\n<p>Replies  level1 > 0.</p>\n<p>type = appendNext, it searchs only 4 comments with level1=0 from id</p>\n<p>type = appendNextReplies, it searchs only 4 comments(replies) with level1>0 from id</p>\n<p>type = append, it searchs only 4 previous comments with level1=0 from id</p>"
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"comments\":[\n     {\n         \"id\":1,\n         \"activity_id\":13,\n         \"post_id\":3,\n         \"customer_id\":9,\n         \"parent_activity_id\":4, parent item can be post or comment, so it means post or comment activity id\n         \"content\":\"content\", it contains multi mentioned user such as @[Marlon Cañas](132) same as post content\n         \"level0\":1,\n         \"level1\":0,\n         \"likesCount\":2,\n         \"like\":false,\n         \"children\":[], it exists when level1=0\n         \"nextChildrenCount\":8,it exists when level1=0\n     },\n ]\n}"
+            tags:
+                - 'Comment on social part'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                id:
+                                    type: integer
+                                    description: 'comment from id or to id'
+                                    example: 15
+                                type:
+                                    type: string
+                                    description: 'appendNext or appendNextReplies or append'
+                                    example: nulla
+                            required:
+                                - id
+                                - type
+        post:
+            summary: 'create a comment.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200, creating comment reply'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n     \"comment\":{comment},// just created new comment\n     \"comments\":[{comment}], all replies  to current new reply\n     \"nextChildrenCount\":0,\n     \"commentsCount\":14, total comment count, which contains replies\n}"
+                403:
+                    description: '403, failed{'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "\"status\":\"failed\"\n}"
+            tags:
+                - 'Comment on social part'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                post_id:
+                                    type: integer
+                                    description: 'post ID'
+                                    example: 17
+                                content:
+                                    type: string
+                                    description: 'it contains multi mentioned user such as @[Marlon Cañas](132) same as post content'
+                                    example: animi
+                                parent_activity_id:
+                                    type: optional
+                                    description: 'if exists, it is reply if no it is comment with level1=0'
+                                    example: quis
+                                condition:
+                                    type: object
+                                    description: 'optional when comment leve1 = 0'
+                                    example: []
+                                    properties: { from_id: { type: integer, description: 'it shows viewable comment first id', example: 3 } }
+                            required:
+                                - post_id
+                                - content
+    '/api/comments/{comment}':
+        get:
+            summary: 'show a comment.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Comment on social part'
+        put:
+            summary: 'update a comment.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"ok\",\n \"comment\":{comment}\n}"
+            tags:
+                - 'Comment on social part'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                content:
+                                    type: string
+                                    description: 'it contains multi mentioned user such as @[Marlon Cañas](132) same as post content'
+                                    example: molestias
+                            required:
+                                - content
+        delete:
+            summary: 'delete a comment.'
+            description: 'This endpoint deletes the comment and child replies and return comment struction.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200, creating comment reply'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n     \"comments\":[{comment}], all replies  to current new reply\n     \"nextChildrenCount\":0,\n     \"commentsCount\":14, total comment count, which contains replies\n}"
+                403:
+                    description: '403, failed'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    status: '0'
+                                properties:
+                                    status: { type: string, example: '0' }
+            tags:
+                - 'Comment on social part'
+            requestBody:
+                required: false
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                from_id:
+                                    type: integer
+                                    description: 'it shows viewable comment first id when level1=0 required'
+                                    example: 7
+                                to_id:
+                                    type: integer
+                                    description: 'it shows viewable comment last id when level1=0 required'
+                                    example: 5
+        parameters:
+            -
+                in: path
+                name: comment
+                description: 'comment ID'
+                example: 14
+                required: true
+                schema:
+                    type: integer
+    /api/companies/home:
+        get:
+            summary: 'search shops(company) on front.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Company
+    '/api/companies/{id}/home':
+        get:
+            summary: 'get a shop(company) on frontend.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Company
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: qui
+                required: true
+                schema:
+                    type: string
+    /api/contacts:
+        post:
+            summary: 'send a contract request.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Contact
+    /api/coupons/check:
+        post:
+            summary: 'check the validation of a coupon on renewal.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Coupon
+    /api/coupons/generateFirstPay:
+        post:
+            summary: 'generate first pay on a coupon.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Coupon
+    /api/coupons/private:
+        post:
+            summary: 'show  a private coupon.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Coupon
+    /api/coupons/subscription:
+        post:
+            summary: 'create a renewal coupon for autenticated customer.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Coupon
+    /api/coupons/public:
+        post:
+            summary: 'show a public coupon including invitation code coupon.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Coupon
+    /api/coupons/email:
+        post:
+            summary: 'show a email coupon.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Coupon
+    /api/coupons/publicWithUser:
+        post:
+            summary: 'show a public coupon.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Coupon
+    /api/coupons/referral:
+        post:
+            summary: 'find a coupon.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Coupon
+    /api/customers/weights:
+        get:
+            summary: 'get weights.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+        delete:
+            summary: 'delete weight.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+        put:
+            summary: 'update weight.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+        post:
+            summary: 'create weight.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/conditions:
+        get:
+            summary: 'get all conditions.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/previousCondition:
+        post:
+            summary: 'previous condition.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/nextCondition:
+        post:
+            summary: 'next condition.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/changeCondition:
+        post:
+            summary: 'change condition.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/changeObjective:
+        post:
+            summary: 'change object.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/changeWeights:
+        post:
+            summary: 'change weights.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/recentWorkouts:
+        get:
+            summary: 'recent workouts.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/activity:
+        post:
+            summary: 'register activity.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/link:
+        get:
+            summary: 'redirect youtubelink.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/ccard:
+        get:
+            summary: 'show a customer credit card.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/referral:
+        get:
+            summary: 'get referral.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/partners:
+        get:
+            summary: 'get partners.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/trigger-workout:
+        post:
+            summary: 'trigger workout.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/trigger-notifiable:
+        post:
+            summary: 'trigger notofiable.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/alternate-shortcode:
+        post:
+            summary: 'show alternate shortcode.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/people:
+        post:
+            summary: 'get people.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/newsfeed:
+        post:
+            summary: 'get newsfeed.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /api/customers/oldnewsfeed:
+        post:
+            summary: 'get old newsfeed.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    '/api/customers/{id}/profile':
+        get:
+            summary: 'show customer profile.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: qui
+                required: true
+                schema:
+                    type: string
+    /api/customers:
+        get:
+            summary: 'search customers.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Customer
+    /:
+        get:
+            summary: ''
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses: {  }
+            tags:
+                - Endpoints
+            security: []
+    /api/eventos/home:
+        get:
+            summary: 'find published eventos.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Evento   '
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                pageSize:
+                                    type: integer
+                                    description: ''
+                                    example: 16
+                                pageNumber:
+                                    type: integer
+                                    description: ''
+                                    example: 1
+                            required:
+                                - pageSize
+                                - pageNumber
+    /api/eventos/random:
+        get:
+            summary: 'get random eventos and blogs, products.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"events\":[{evento}],\n \"news\":[{blog}]\n \"products\":[{product}]\n}"
+            tags:
+                - 'Evento   '
+    '/api/eventos/{id}/toggle-attend':
+        post:
+            summary: 'toggle attending on a evento.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"event\":{evento}\n}"
+            tags:
+                - 'Evento   '
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: iste
+                required: true
+                schema:
+                    type: string
+    '/api/eventos/{evento}':
+        get:
+            summary: 'show a evento.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"id\":9,\n \"title\":\"title\",\n \"description\":\"description\",\n \"done_date\":\"2022/02/04\",\n \"latitude\":\"23.1231312\",\n \"longitude\":\"-123.12312312\",\n \"address\":\"address\",\n \"spanish_date\":\"spanish_date\",\n \"spanish_time\":\"spanish_time\",\n \"participants\":6,\n \"participant\": true,  //false\n \"commentsCount\":8,\n \"comments\":[{comment}] // only level1=0\n}"
+            tags:
+                - 'Evento   '
+        parameters:
+            -
+                in: path
+                name: evento
+                description: ''
+                example: 7
+                required: true
+                schema:
+                    type: integer
+    /api/evento-comments:
+        get:
+            summary: 'search evento comments.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Evento Comment'
+        post:
+            summary: 'create a evento comment.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Evento Comment'
+    '/api/evento-comments/{evento_comment}':
+        get:
+            summary: 'show a evento comment.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Evento Comment'
+        put:
+            summary: 'update a evento comment.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Evento Comment'
+        delete:
+            summary: 'delete a evento comment.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Evento Comment'
+        parameters:
+            -
+                in: path
+                name: evento_comment
+                description: ''
+                example: et
+                required: true
+                schema:
+                    type: string
+    /api/follows/unfollow:
+        post:
+            summary: 'unfollow a customer.'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"ok\"\n \"customer\":{customer}\n}"
+            tags:
+                - Follow
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: 8
+                required: true
+                schema:
+                    type: integer
+    '/api/follows/{id}/accept':
+        post:
+            summary: 'accept follow request.'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"accepted\"\n \"customer\":{customer}\n}"
+            tags:
+                - Follow
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: 5
+                required: true
+                schema:
+                    type: integer
+    '/api/follows/{id}/reject':
+        post:
+            summary: 'reject follow request.'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"rejected\"\n \"customer\":{customer}\n}"
+            tags:
+                - Follow
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: 4
+                required: true
+                schema:
+                    type: integer
+    /api/follows:
+        get:
+            summary: 'get pending follow requests of authenticated customer.'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n     \"requests\":[\n         {customer}\n     ]\n}"
+            tags:
+                - Follow
+        post:
+            summary: 'create follow request.'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"accepted\", // or pending when customer type is private\n \"customer\":{customer}\n}"
+            tags:
+                - Follow
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                customer_id:
+                                    type: integer
+                                    description: ''
+                                    example: 7
+                            required:
+                                - customer_id
+    /api/follows/customer:
+        get:
+            summary: 'search followings or followers by 20 per page.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n     \"follows\":[{customer}],\n     \"next\":5,\n}"
+            tags:
+                - 'Following    on social part'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                customer_id:
+                                    type: integer
+                                    description: ''
+                                    example: 7
+                                type:
+                                    type: string
+                                    description: 'followings or follower'
+                                    example: explicabo
+                                page_number:
+                                    type: integer
+                                    description: ''
+                                    example: 14
+                            required:
+                                - customer_id
+                                - type
+    /api/levelTests:
+        get:
+            summary: 'search level tests.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Level Test   '
+        post:
+            summary: 'create a level test.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Level Test   '
+    '/api/levelTests/{levelTest}':
+        put:
+            summary: 'update a level test.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Level Test   '
+        delete:
+            summary: 'delete a level test.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Level Test   '
+        parameters:
+            -
+                in: path
+                name: levelTest
+                description: ''
+                example: adipisci
+                required: true
+                schema:
+                    type: string
+    /api/likes:
+        post:
+            summary: 'create a like.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Like   '
+    '/api/likes/{like}':
+        delete:
+            summary: 'delete a like.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Like   '
+        parameters:
+            -
+                in: path
+                name: like
+                description: ''
+                example: error
+                required: true
+                schema:
+                    type: string
+    /api/tockens:
+        get:
+            summary: 'search payment tokens.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Payment Token   '
+        post:
+            summary: 'create a payment token.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Payment Token   '
+    '/api/tockens/{tocken}':
+        get:
+            summary: 'show a payment token.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Payment Token   '
+        put:
+            summary: 'update a payment token.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Payment Token   '
+        delete:
+            summary: 'delete a payment token.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Payment Token   '
+        parameters:
+            -
+                in: path
+                name: tocken
+                description: ''
+                example: laudantium
+                required: true
+                schema:
+                    type: string
+    /api/posts/sub-newsfeed:
+        post:
+            summary: 'get posts by ids.'
+            description: 'This endpoint gets current posts with ids'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n  \"items\":[\n     {\n         post\n     },\n     {\n         post\n     },\n     {\n         post\n     },\n]\n}"
+            tags:
+                - 'Post    on social part'
+            requestBody:
+                required: false
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                ids:
+                                    type: array
+                                    description: ''
+                                    example: [1, 3]
+                                    items: { type: integer }
+    '/api/posts/random-medias/{customerId}':
+        get:
+            summary: 'get random medias for a customer.'
+            description: 'This endpoint get random medias of a customer who is public,  whom authenticated customer followed (not blocked, muted)'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n     \"self\":[    // customer's 6 medias random order\n         {media},\n         {media}\n     ],\n     \"other\":[ // other customers' 12 medias  random order\n         {media},\n         {media}\n     ]\n}"
+            tags:
+                - 'Post    on social part'
+        parameters:
+            -
+                in: path
+                name: customerId
+                description: ''
+                example: 8
+                required: true
+                schema:
+                    type: integer
+    /api/posts/medias:
+        get:
+            summary: 'get medias for a customer.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n     \"medias\":[    // customer's 20 medias from media_id order by id desc\n         {media},\n         {media}\n     ],\n}"
+            tags:
+                - 'Post    on social part'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                customer_id:
+                                    type: integer
+                                    description: ''
+                                    example: 20
+                                media_id:
+                                    type: integer
+                                    description: '// from media_id'
+                                    example: 6
+                            required:
+                                - customer_id
+    /api/posts/sync:
+        post:
+            summary: 'get Posts with ids and comment condition.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"posts\":[\n  {\n   \"id\":3,\n   \"activity_id\":8,\n   \"content\":\"content\",\n   \"tagFollowers\":[\n     {\n       customer,\n     },\n     {\n       customer,\n     },\n     ],\n   \"medias\":[],\n   \"comments\":[{comment}, {comment}], comments of from_id and to_id\n   \"previousCommentsCount\":5,\n   \"nextCommentsCount\":1,  //other customer recent comments count\n   \"commentsCount\":8, // total comments count, which contains replies level.\n   \"likesCount\":9,\n   \"like\":true, // This means authenticated customer likes it\n   \"type\":\"general\",\n   \"customer\":{customer},// it contains post creator's info\n  },\n  {\n   \"id\":4,\n   \"activity_id\":9,\n   \"content\":\"content\",\n   \"tagFollowers\":[\n     {\n       customer,\n     },\n     {\n       customer,\n     },\n     ],\n   \"medias\":[],\n   \"comments\":[{comment}, {comment}], comments of from_id and to_id\n   \"previousCommentsCount\":5,\n   \"nextCommentsCount\":1,  //other customer recent comments count\n   \"commentsCount\":8, // total comments count, which contains replies level.\n   \"likesCount\":9,\n   \"like\":false,\n   \"type\":\"workout\",\n   \"workout_spanish_date\":\"jan 5 2022\",\n   \"workout_spanish_short_date\":\"jan 5 2022\",\n   \"customer\":{customer},// it contains post creator's info\n  },\n  {\n   \"id\":5,\n   \"activity_id\":10,\n   \"content\":\"content\",\n   \"tagFollowers\":[\n     {\n       customer,\n     },\n     {\n       customer,\n     },\n     ],\n   \"medias\":[],\n   \"comments\":[{comment}, {comment}], comments of from_id and to_id\n   \"previousCommentsCount\":5,\n   \"nextCommentsCount\":1,  //other customer recent comments count\n   \"commentsCount\":8, // total comments count, which contains replies level.\n   \"likesCount\":9,\n   \"like\":false,\n   \"type\":\"workout\",\n   \"workout_spanish_date\":\"jan 5 2022\",\n   \"workout_spanish_short_date\":\"jan 5 2022\",\n   \"customer\":{customer},// it contains post creator's info\n  },\n]\n}"
+            tags:
+                - 'Post    on social part'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                ids:
+                                    type: array
+                                    description: ''
+                                    example: [[], []]
+                                    items: { type: object, properties: { id: { type: integer, description: post_id, example: 5 }, from_id: { type: integer, description: 'from comment_id', example: 7 }, to_id: { type: integer, description: 'to comment_id', example: 13 } }, required: [id, from_id, to_id] }
+                            required:
+                                - ids
+    '/api/posts/{id}/read':
+        post:
+            summary: 'read a post.'
+            description: 'This endpoint save reading time on post'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Post    on social part'
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: 18
+                required: true
+                schema:
+                    type: integer
+    /api/posts:
+        get:
+            summary: 'search posts for specific customer.'
+            description: 'This endpoint returns 3 posts from post_id order by post id desc'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status\":\"ok\",\n \"posts\":[\n  {\n   \"id\":3,\n   \"activity_id\":8,\n   \"content\":\"content\",\n   \"tagFollowers\":[\n     {\n       customer,\n     },\n     {\n       customer,\n     },\n     ],\n   \"medias\":[],\n   \"comments\":[{comment}], //it contains last comment\n   \"previousCommentsCount\":5, // total (comment level)comments(not include replies) count -1\n   \"commentsCount\":8, // total comments count, which contains replies level.\n   \"likesCount\":9,\n   \"like\":true, // This means authenticated customer likes it\n   \"type\":\"general\",\n   \"customer\":{customer},// it contains post creator's info\n  },\n  {\n   \"id\":4,\n   \"activity_id\":9,\n   \"content\":\"content\",\n   \"tagFollowers\":[\n     {\n       customer,\n     },\n     {\n       customer,\n     },\n     ],\n   \"medias\":[],\n   \"comments\":[{comment}], //it contains last comment\n   \"previousCommentsCount\":5, // total (comment level)comments(not include replies) count -1\n   \"commentsCount\":8, // total comments count, which contains replies level.\n   \"likesCount\":9,\n   \"like\":false,\n   \"type\":\"workout\",\n   \"workout_spanish_date\":\"jan 5 2022\",\n   \"workout_spanish_short_date\":\"jan 5 2022\",\n   \"customer\":{customer},// it contains post creator's info\n  },\n  {\n   \"id\":5,\n   \"activity_id\":10,\n   \"content\":\"content\",\n   \"tagFollowers\":[\n     {\n       customer,\n     },\n     {\n       customer,\n     },\n     ],\n   \"medias\":[],\n   \"comments\":[{comment}], //it contains last comment\n   \"previousCommentsCount\":5, // total (comment level)comments(not include replies) count -1\n   \"commentsCount\":8, // total comments count, which contains replies level.\n   \"likesCount\":9,\n   \"like\":false,\n   \"type\":\"workout\",\n   \"workout_spanish_date\":\"jan 5 2022\",\n   \"workout_spanish_short_date\":\"jan 5 2022\",\n   \"customer\":{customer},// it contains post creator's info\n  },\n],\n\"customerProfile\":true,// if true, it means the customer is public or when the customer is private, authenticated customer already followed the customer. if false, the customer is private, authenticated customer have no following relationship with the customer or blocked or muted\n}"
+            tags:
+                - 'Post    on social part'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                customer_id:
+                                    type: integer
+                                    description: ''
+                                    example: 6
+                                post_id:
+                                    type: integer
+                                    description: 'last post id'
+                                    example: 19
+                            required:
+                                - customer_id
+        post:
+            summary: 'create a post.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: multipart/form-data
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status:\"ok\",\n \"post\":{\n \"id\":3,\n \"activity_id\":5,\n \"content\":\"content\",\n \"tag_followers\":[4,5,8],\n}\n}"
+            tags:
+                - 'Post    on social part'
+            requestBody:
+                required: true
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                location:
+                                    type: string
+                                    description: ''
+                                    example: porro
+                                content:
+                                    type: string
+                                    description: 'contains multi mentioned user such as @[Marlon Cañas](132)'
+                                    example: voluptatem
+                                tag_followers:
+                                    type: array
+                                    description: ''
+                                    example: [16, 19]
+                                    items: { type: integer }
+                                workout_date:
+                                    type: string
+                                    description: ''
+                                    example: rem
+                                medias:
+                                    type: array
+                                    description: 'video, image max size 200M'
+                                    example: [null, null]
+                                    items: { type: file }
+                            required:
+                                - workout_date
+    '/api/posts/{post}':
+        get:
+            summary: 'show a post.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200, comment 1'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n   \"id\":5,\n   \"activity_id\":10,\n   \"content\":\"content\",\n   \"tagFollowers\":[\n     {\n       customer,\n     },\n     {\n       customer,\n     },\n     ],\n   \"medias\":[],\n   \"comments\":[{comment}], //it contains all comments\n   \"previousCommentsCount\":0,\n   \"commentsCount\":8, // total comments count, which contains replies level.\n   \"likesCount\":9,\n   \"like\":false,\n   \"type\":\"general\",\n   \"customer\":{customer},// it contains post creator's info\n}"
+            tags:
+                - 'Post    on social part'
+            requestBody:
+                required: false
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                comment:
+                                    type: integer
+                                    description: 'when comment = 1, it contains all comments, but not include replies'
+                                    example: 17
+        put:
+            summary: 'update a post.'
+            description: 'This endpoint update post data. but image or videos has not been update immediately, because fitemos saves medias asynchronously'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: multipart/form-data
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"status:\"ok\",\n \"post\":{\n \"id\":3,\n \"activity_id\":5,\n \"content\":\"content\",\n \"tag_followers\":[4,5,8],\n}\n}"
+            tags:
+                - 'Post    on social part'
+            requestBody:
+                required: true
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                location:
+                                    type: string
+                                    description: ''
+                                    example: sapiente
+                                content:
+                                    type: string
+                                    description: 'contains multi mentioned user such as @[Marlon Cañas](132)'
+                                    example: non
+                                tag_followers:
+                                    type: array
+                                    description: ''
+                                    example: [4, 19]
+                                    items: { type: integer }
+                                workout_date:
+                                    type: string
+                                    description: ''
+                                    example: dolor
+                                media_ids:
+                                    type: array
+                                    description: 'original medias'
+                                    example: [16, 20]
+                                    items: { type: integer }
+                                medias:
+                                    type: array
+                                    description: 'new meidas'
+                                    example: [null, null]
+                                    items: { type: file }
+                            required:
+                                - workout_date
+        delete:
+            summary: 'delete a post.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200, failed'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    status: '0'
+                                    msg: fail
+                                properties:
+                                    status: { type: string, example: '0' }
+                                    msg: { type: string, example: fail }
+            tags:
+                - 'Post    on social part'
+        parameters:
+            -
+                in: path
+                name: post
+                description: ''
+                example: 13
+                required: true
+                schema:
+                    type: integer
+    '/api/viewImages/{id}':
+        get:
+            summary: 'view a product images.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Product   on shop part'
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: praesentium
+                required: true
+                schema:
+                    type: string
+    '/api/products/{id}/home':
+        get:
+            summary: 'show a product on front.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Product   on shop part'
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: quod
+                required: true
+                schema:
+                    type: string
+    '/api/products/{id}/download':
+        get:
+            summary: 'download a product.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Product   on shop part'
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: nesciunt
+                required: true
+                schema:
+                    type: string
+    /api/reports/customers:
+        get:
+            summary: 'get customer report.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Report   '
+    /api/reports/export-customers:
+        get:
+            summary: 'export customers.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Report   '
+    /api/reports/export-usage:
+        get:
+            summary: 'export usage.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Report   '
+    /api/reports/customer-workouts:
+        get:
+            summary: 'get customer workouts.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Report   '
+    /api/reports/export-subscriptions:
+        get:
+            summary: 'export subscriptions.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Report   '
+    /api/search/all:
+        get:
+            summary: 'search customers, shops, posts.'
+            description: 'This endpoint searchs customers and shops and posts'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"people\":[{customer}],\n \"shop\":[{company}],\n \"posts\":[{post}],\n}"
+            tags:
+                - 'Search   '
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                search:
+                                    type: string
+                                    description: ''
+                                    example: officia
+                            required:
+                                - search
+    /api/search/customers:
+        get:
+            summary: 'search customers.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"customers\":[{customer}],\n}"
+            tags:
+                - 'Search   '
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                search:
+                                    type: string
+                                    description: ''
+                                    example: atque
+                            required:
+                                - search
+    /api/search/companies:
+        get:
+            summary: 'search companies.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"companies\":[{company}],\n}"
+            tags:
+                - 'Search   '
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                search:
+                                    type: string
+                                    description: ''
+                                    example: ipsam
+                            required:
+                                - search
+    /api/search/posts:
+        get:
+            summary: 'search posts.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n \"posts\":[{post}],\n}"
+            tags:
+                - 'Search   '
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                search:
+                                    type: string
+                                    description: ''
+                                    example: assumenda
+                            required:
+                                - search
+    /api/search/username:
+        get:
+            summary: 'find customer or shop by username.'
+            description: "This endpoint\nIt find only shop unauthenticated, and it searchs customer or shop when authenticated."
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200, company{'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "\"id\":5,\n     \"type\":\"company\",\n     \"username\":\"unique_user_name\",\n     \"name\":\"name\",\n     \"description\":\"description\",\n     \"phone\":\"phone\",\n     \"mail\":\"email@gmail.com\",\n     \"is_all_countries\":\"yes\",// or \"no\"\n     \"mobile_phone\":\"1231231\",\n     \"website_url\":\"https://www.fitemos.com\",\n     \"address\":\"address\",\n     \"facebook\":\"facebook\",\n     \"instagram\":\"instagram\",\n     \"twitter\":\"twitter\",\n     \"horario\":\"horario\",\n     \"logo\":\"src\"\n}"
+                403:
+                    description: '403, Not found'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Search   '
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                u:
+                                    type: string
+                                    description: ''
+                                    example: atque
+                            required:
+                                - u
+            security: []
+    /api/search/notifications:
+        get:
+            summary: 'get notifications.'
+            description: 'This endpoint shows latest 30 notifications.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n notifications:[{notification}]\n}"
+            tags:
+                - 'Search   '
+    /api/sessions/inside:
+        post:
+            summary: inside
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Session   '
+    /api/sessions/outside:
+        post:
+            summary: outside.
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Session   '
+    /api/shortcodes/all:
+        get:
+            summary: 'get active shortcode list.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Shortcode    on workout'
+    /api/subscriptions/cancel:
+        post:
+            summary: 'cancel a subscription.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Subscription   '
+    /api/subscriptions/paypal-ipn:
+        post:
+            summary: 'paypal ipn.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Subscription   '
+    /api/subscriptions/nmi:
+        post:
+            summary: 'purchase a subscription by nmi.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Subscription   '
+    /api/subscriptions/checkout:
+        post:
+            summary: checkout.
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Subscription   '
+    '/api/subscriptions/{id}/renewal':
+        post:
+            summary: 'renewal a subscription.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Subscription   '
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: sed
+                required: true
+                schema:
+                    type: string
+    /api/subscriptions/findPaypalPlan:
+        post:
+            summary: 'find a paypal plan.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Subscription   '
+    /api/subscriptions:
+        post:
+            summary: 'create a subscription.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Subscription   '
+    '/api/subscriptions/{subscription}':
+        get:
+            summary: 'show a subscription.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Subscription   '
+        parameters:
+            -
+                in: path
+                name: subscription
+                description: ''
+                example: numquam
+                required: true
+                schema:
+                    type: string
+    /api/subscriptions/free:
+        post:
+            summary: 'create a free subscription.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Subscription   '
+    /api/surveys/me:
+        get:
+            summary: 'get current survey for me.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Survey   '
+    /api/survey-reports:
+        post:
+            summary: 'create survey report.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Survey Report   '
+    '/api/users/{id}':
+        put:
+            summary: 'update my profile.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+        get:
+            summary: 'show the user.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+        delete:
+            summary: 'delete user.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: expedita
+                required: true
+                schema:
+                    type: string
+    /api/users/accessToken:
+        post:
+            summary: 'generate token.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+    /api/users/me:
+        post:
+            summary: 'find me.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+    /api/users/customerUpdate:
+        post:
+            summary: 'update customer info.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+    /api/users/email-only:
+        put:
+            summary: 'update email.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+    /api/users/update-password:
+        put:
+            summary: 'update password.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+    /api/users/upload-image:
+        post:
+            summary: 'update avatar image.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+    /api/users/avatar:
+        delete:
+            summary: 'delete avatar image.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+    /api/users/google:
+        delete:
+            summary: 'remove google account.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+        post:
+            summary: 'add google account.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+    /api/users/facebook:
+        delete:
+            summary: 'remove facebook account.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+        post:
+            summary: 'add facebook account.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'User   '
+    /api/done/check:
+        post:
+            summary: 'workout complete'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Workout done'
+    /api/done/workouts:
+        post:
+            summary: 'get workouts on specific date.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Workout done'
+    /api/done/question:
+        post:
+            summary: 'save answer for "How did you find out about us?"'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Workout done'
+    /api/done/start:
+        post:
+            summary: 'workout start'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Workout done'
+    /api/social-reports:
+        post:
+            summary: 'create a report.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'reporting    on social part'
+    '/api/social-reports/{social_report}':
+        get:
+            summary: 'show a report.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'reporting    on social part'
+        put:
+            summary: 'update a report.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'reporting    on social part'
+        delete:
+            summary: 'delete a report.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'reporting    on social part'
+        parameters:
+            -
+                in: path
+                name: social_report
+                description: ''
+                example: soluta
+                required: true
+                schema:
+                    type: string

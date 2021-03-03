@@ -13,17 +13,21 @@ use Mail;
 use App\Mail\VerifyMail;
 use App\Mail\PasswordMail;
 use App\Session;
+/**
+ * @group Auth
+ *
+ * APIs for managing  auth
+ */
 
 class AuthController extends Controller
 {
     /**
-     * Create user
-     *
-     * @param  [string] name
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [string] password_confirmation
-     * @return [string] message
+     * create a user.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
      */
     public function register(Request $request)
     {
@@ -73,11 +77,27 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * verify a user.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function verify(Request $request, $token) {
         $user = User::where('verify_code', '=', $token)->update(['email_verified' => true]);
         return redirect('/');
     }
 
+    /**
+     * reset password.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function reset(Request $request)
     {   
         $email = $request->input('email');
@@ -95,6 +115,14 @@ class AuthController extends Controller
             return response()->json(false,422);
         }
     }
+    /**
+     * login.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function login(Request $request){
         $request->validate([
             'email' => 'required|string|email',
@@ -128,6 +156,14 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * logout.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function logout(Request $request)
     {
         $user = $request->user('api');
@@ -141,13 +177,24 @@ class AuthController extends Controller
     /**
      * Get the authenticated User
      *
-     * @return [json] user object
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
      */
     public function user(Request $request)
     {
         return response()->json($request->user());
     }
 
+    /**
+     * find or create a user.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function findOrCreateUser($user, $provider) {
         $authUser = User::where('provider_id', $user->id)->first();
         if ($authUser) {
@@ -161,6 +208,14 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * change password.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function change(Request $request, $token) {
         $password = $request->input('password');
         $user = User::where(['password_code' => $token])->update(['password' => bcrypt($password)]);
@@ -170,6 +225,14 @@ class AuthController extends Controller
             return response()->json(false);
         }
     }
+    /**
+     * login with google.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function loginGoogle(Request $request){
         $provider = 'google';
         $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);  // Specify the CLIENT_ID of the app that accesses the backend
@@ -205,6 +268,14 @@ class AuthController extends Controller
             'errors' => ['password'=>[['error'=>'invalid']]]
         ],401);
     }
+    /**
+     * register a user with google.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function registerGoogle(Request $request){
         $provider = 'google';
         $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);  // Specify the CLIENT_ID of the app that accesses the backend
@@ -280,6 +351,14 @@ class AuthController extends Controller
         }
         return response()->json(true);
     }
+    /**
+     * login a user with facebook.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function loginFacebook(Request $request){
         $provider = 'facebook';
         $response = Facebook::get('/me', $request->input('access_token'));
@@ -316,6 +395,14 @@ class AuthController extends Controller
             'errors' => ['password'=>[['error'=>'invalid']]]
         ],401);
     }
+    /**
+     * register a user with facebook.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function registerFacebook(Request $request){
         $response = Facebook::get('/me?&fields=first_name,last_name,email', $request->input('access_token'));
         $provider = 'facebook';
@@ -395,6 +482,14 @@ class AuthController extends Controller
         }
         return response()->json(true);
     }
+    /**
+     * login a user with apple.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function loginApple(Request $request){
         $provider = 'apple';
         $payload = Socialite::driver($provider)->userFromToken($request->input('access_token'));
@@ -429,6 +524,14 @@ class AuthController extends Controller
             'errors' => ['password'=>[['error'=>'invalid']]]
         ],401);
     }
+    /**
+     * register a user with apple.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function registerApple(Request $request){
         $provider = 'apple';
         $payload = Socialite::driver($provider)->userFromToken($request->input('access_token'));

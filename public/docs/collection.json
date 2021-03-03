@@ -1,0 +1,4709 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "127.0.0.4"
+        }
+    ],
+    "info": {
+        "name": "Laravel",
+        "_postman_id": "33f88659-7699-413b-821d-1bdd29967874",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "description": "\nAPIs for managing  auth",
+            "item": [
+                {
+                    "name": "login.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a user.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/register",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "logout.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/logout",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/logout"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "login with google.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/google\/login",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/google\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "register a user with google.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/google\/register",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/google\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "login a user with facebook.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/facebook\/login",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/facebook\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "register a user with facebook.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/facebook\/register",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/facebook\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "login a user with apple.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/apple\/login",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/apple\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "register a user with apple.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/apple\/register",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/apple\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "verify a user.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/verify\/:token",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/verify\/:token",
+                            "variable": [
+                                {
+                                    "id": "token",
+                                    "key": "token",
+                                    "value": "cumque",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "reset password.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/password\/reset",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/password\/reset"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "change password.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/password\/reset\/:token",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/password\/reset\/:token",
+                            "variable": [
+                                {
+                                    "id": "token",
+                                    "key": "token",
+                                    "value": "nulla",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Benchmark result",
+            "description": "\nAPIs for managing  benchmark results",
+            "item": [
+                {
+                    "name": "get a benchmark.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/benchmarkResults\/:id\/benchmark",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/benchmarkResults\/:id\/benchmark",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "quis",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get a benchmark result histories.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/benchmarkResults\/history",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/benchmarkResults\/history"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "search a benchmark result.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/benchmarkResults",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/benchmarkResults"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a benchmark result.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/benchmarkResults",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/benchmarkResults"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a benchmark result.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/benchmarkResults\/:benchmarkResult",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/benchmarkResults\/:benchmarkResult",
+                            "variable": [
+                                {
+                                    "id": "benchmarkResult",
+                                    "key": "benchmarkResult",
+                                    "value": "quo",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update a benchmark result.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/benchmarkResults\/:benchmarkResult",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/benchmarkResults\/:benchmarkResult",
+                            "variable": [
+                                {
+                                    "id": "benchmarkResult",
+                                    "key": "benchmarkResult",
+                                    "value": "quod",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete a benchmark result.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/benchmarkResults\/:benchmarkResult",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/benchmarkResults\/:benchmarkResult",
+                            "variable": [
+                                {
+                                    "id": "benchmarkResult",
+                                    "key": "benchmarkResult",
+                                    "value": "aliquam",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Block and mute",
+            "description": "This endpoint.",
+            "item": [
+                {
+                    "name": "block a customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows\/block",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows\/block"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customer_id\": 17\n}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "unblock a customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows\/unblock",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows\/unblock"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customer_id\": 15\n}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "mute a customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows\/mute",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows\/mute"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customer_id\": 7\n}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "unmute a customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows\/unmute",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows\/unmute"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customer_id\": 19\n}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Cart",
+            "description": "\nAPIs for managing  cart",
+            "item": [
+                {
+                    "name": "inside cart",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/cart\/inside",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/cart\/inside"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "outside cart.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/cart\/outside",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/cart\/outside"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show cart.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/cart\/:cart",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/cart\/:cart",
+                            "variable": [
+                                {
+                                    "id": "cart",
+                                    "key": "cart",
+                                    "value": "porro",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Chat",
+            "description": "\nAPIs for managing  chat",
+            "item": [
+                {
+                    "name": "verify.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/chat\/verify",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/chat\/verify"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "verify from local.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/chat\/verify-local",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/chat\/verify-local"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Comment on social part",
+            "description": "\nAPIs for managing  comment",
+            "item": [
+                {
+                    "name": "search comments.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/comments",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/comments"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"id\": 15,\n    \"type\": \"nulla\"\n}"
+                        },
+                        "description": "This endpoint get comments on several scenarios.\nOnly comments with level1 = 0 can have replies.\n<p>Replies  level1 > 0.<\/p>\n<p>type = appendNext, it searchs only 4 comments with level1=0 from id<\/p>\n<p>type = appendNextReplies, it searchs only 4 comments(replies) with level1>0 from id<\/p>\n<p>type = append, it searchs only 4 previous comments with level1=0 from id<\/p>"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/comments",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/comments"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"post_id\": 17,\n    \"content\": \"animi\",\n    \"parent_activity_id\": \"quis\",\n    \"condition\": {\n        \"from_id\": 3\n    }\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/comments\/:comment",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/comments\/:comment",
+                            "variable": [
+                                {
+                                    "id": "comment",
+                                    "key": "comment",
+                                    "value": "14",
+                                    "description": "comment ID"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update a comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/comments\/:comment",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/comments\/:comment",
+                            "variable": [
+                                {
+                                    "id": "comment",
+                                    "key": "comment",
+                                    "value": "15",
+                                    "description": "comment ID"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"molestias\"\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete a comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/comments\/:comment",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/comments\/:comment",
+                            "variable": [
+                                {
+                                    "id": "comment",
+                                    "key": "comment",
+                                    "value": "2",
+                                    "description": "comment ID"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"from_id\": 7,\n    \"to_id\": 5\n}"
+                        },
+                        "description": "This endpoint deletes the comment and child replies and return comment struction."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Company",
+            "description": "\nAPIs for managing  companies",
+            "item": [
+                {
+                    "name": "search shops(company) on front.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/companies\/home",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/companies\/home"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get a shop(company) on frontend.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/companies\/:id\/home",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/companies\/:id\/home",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "qui",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Contact",
+            "description": "\nAPIs for managing  contact",
+            "item": [
+                {
+                    "name": "send a contract request.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/contacts",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/contacts"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Coupon",
+            "description": "\nAPIs for managing  coupon",
+            "item": [
+                {
+                    "name": "check the validation of a coupon on renewal.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/coupons\/check",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/coupons\/check"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "generate first pay on a coupon.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/coupons\/generateFirstPay",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/coupons\/generateFirstPay"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show  a private coupon.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/coupons\/private",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/coupons\/private"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a renewal coupon for autenticated customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/coupons\/subscription",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/coupons\/subscription"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a public coupon including invitation code coupon.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/coupons\/public",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/coupons\/public"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a email coupon.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/coupons\/email",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/coupons\/email"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a public coupon.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/coupons\/publicWithUser",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/coupons\/publicWithUser"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "find a coupon.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/coupons\/referral",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/coupons\/referral"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Customer",
+            "description": "\nAPIs for managing  customer",
+            "item": [
+                {
+                    "name": "get weights.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/weights",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/weights"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete weight.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/weights",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/weights"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update weight.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/weights",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/weights"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create weight.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/weights",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/weights"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get all conditions.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/conditions",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/conditions"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "previous condition.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/previousCondition",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/previousCondition"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "next condition.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/nextCondition",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/nextCondition"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "change condition.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/changeCondition",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/changeCondition"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "change object.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/changeObjective",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/changeObjective"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "change weights.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/changeWeights",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/changeWeights"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "recent workouts.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/recentWorkouts",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/recentWorkouts"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "register activity.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/activity",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/activity"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "redirect youtubelink.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/link",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/link"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a customer credit card.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/ccard",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/ccard"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get referral.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/referral",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/referral"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get partners.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/partners",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/partners"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "trigger workout.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/trigger-workout",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/trigger-workout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "trigger notofiable.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/trigger-notifiable",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/trigger-notifiable"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show alternate shortcode.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/alternate-shortcode",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/alternate-shortcode"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get people.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/people",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/people"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get newsfeed.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/newsfeed",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/newsfeed"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get old newsfeed.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/oldnewsfeed",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/oldnewsfeed"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show customer profile.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/:id\/profile",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/:id\/profile",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "qui",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "search customers.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "\/",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "\/",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/\/"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Evento   ",
+            "description": "\nAPIs for managing  evento",
+            "item": [
+                {
+                    "name": "find published eventos.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/eventos\/home",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/eventos\/home"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"pageSize\": 16,\n    \"pageNumber\": 1\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get random eventos and blogs, products.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/eventos\/random",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/eventos\/random"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "toggle attending on a evento.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/eventos\/:id\/toggle-attend",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/eventos\/:id\/toggle-attend",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "iste",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a evento.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/eventos\/:evento",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/eventos\/:evento",
+                            "variable": [
+                                {
+                                    "id": "evento",
+                                    "key": "evento",
+                                    "value": "7",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Evento Comment",
+            "description": "\nAPIs for managing  evento comment",
+            "item": [
+                {
+                    "name": "search evento comments.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/evento-comments",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/evento-comments"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a evento comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/evento-comments",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/evento-comments"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a evento comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/evento-comments\/:evento_comment",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/evento-comments\/:evento_comment",
+                            "variable": [
+                                {
+                                    "id": "evento_comment",
+                                    "key": "evento_comment",
+                                    "value": "et",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update a evento comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/evento-comments\/:evento_comment",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/evento-comments\/:evento_comment",
+                            "variable": [
+                                {
+                                    "id": "evento_comment",
+                                    "key": "evento_comment",
+                                    "value": "quo",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete a evento comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/evento-comments\/:evento_comment",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/evento-comments\/:evento_comment",
+                            "variable": [
+                                {
+                                    "id": "evento_comment",
+                                    "key": "evento_comment",
+                                    "value": "ullam",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Follow",
+            "description": "This endpoint.",
+            "item": [
+                {
+                    "name": "unfollow a customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows\/unfollow",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows\/unfollow",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "8",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "accept follow request.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows\/:id\/accept",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows\/:id\/accept",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "5",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "reject follow request.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows\/:id\/reject",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows\/:id\/reject",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "4",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get pending follow requests of authenticated customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create follow request.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customer_id\": 7\n}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Following    on social part",
+            "description": "\nAPIs for managing  followings",
+            "item": [
+                {
+                    "name": "search followings or followers by 20 per page.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/follows\/customer",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/follows\/customer"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customer_id\": 7,\n    \"type\": \"explicabo\",\n    \"page_number\": 14\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Level Test   ",
+            "description": "\nAPIs for managing level test",
+            "item": [
+                {
+                    "name": "search level tests.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/levelTests",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/levelTests"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a level test.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/levelTests",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/levelTests"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update a level test.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/levelTests\/:levelTest",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/levelTests\/:levelTest",
+                            "variable": [
+                                {
+                                    "id": "levelTest",
+                                    "key": "levelTest",
+                                    "value": "adipisci",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete a level test.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/levelTests\/:levelTest",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/levelTests\/:levelTest",
+                            "variable": [
+                                {
+                                    "id": "levelTest",
+                                    "key": "levelTest",
+                                    "value": "molestiae",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Like   ",
+            "description": "\nAPIs for managing  likes for post and comment on social part",
+            "item": [
+                {
+                    "name": "create a like.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/likes",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/likes"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete a like.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/likes\/:like",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/likes\/:like",
+                            "variable": [
+                                {
+                                    "id": "like",
+                                    "key": "like",
+                                    "value": "error",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Payment Token   ",
+            "description": "\nAPIs for managing  payment tokens",
+            "item": [
+                {
+                    "name": "search payment tokens.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tockens",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/tockens"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a payment token.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tockens",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/tockens"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a payment token.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tockens\/:tocken",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/tockens\/:tocken",
+                            "variable": [
+                                {
+                                    "id": "tocken",
+                                    "key": "tocken",
+                                    "value": "laudantium",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update a payment token.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tockens\/:tocken",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/tockens\/:tocken",
+                            "variable": [
+                                {
+                                    "id": "tocken",
+                                    "key": "tocken",
+                                    "value": "placeat",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete a payment token.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tockens\/:tocken",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/tockens\/:tocken",
+                            "variable": [
+                                {
+                                    "id": "tocken",
+                                    "key": "tocken",
+                                    "value": "aut",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Post    on social part",
+            "description": "\nAPIs for managing post",
+            "item": [
+                {
+                    "name": "get posts by ids.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/sub-newsfeed",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts\/sub-newsfeed"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"ids\": [\n        1,\n        3\n    ]\n}"
+                        },
+                        "description": "This endpoint gets current posts with ids"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get random medias for a customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/random-medias\/:customerId",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts\/random-medias\/:customerId",
+                            "variable": [
+                                {
+                                    "id": "customerId",
+                                    "key": "customerId",
+                                    "value": "8",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint get random medias of a customer who is public,  whom authenticated customer followed (not blocked, muted)"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get medias for a customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/medias",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts\/medias"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customer_id\": 20,\n    \"media_id\": 6\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get Posts with ids and comment condition.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/sync",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts\/sync"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"ids\": [\n        {\n            \"id\": 5,\n            \"from_id\": 7,\n            \"to_id\": 13\n        },\n        {\n            \"id\": 5,\n            \"from_id\": 7,\n            \"to_id\": 13\n        }\n    ]\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "read a post.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/:id\/read",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts\/:id\/read",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "18",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint save reading time on post"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "search posts for specific customer.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customer_id\": 6,\n    \"post_id\": 19\n}"
+                        },
+                        "description": "This endpoint returns 3 posts from post_id order by post id desc"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a post.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart\/form-data"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "location",
+                                    "value": "porro",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "content",
+                                    "value": "voluptatem",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "tag_followers",
+                                    "value": [
+                                        16,
+                                        19
+                                    ],
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "workout_date",
+                                    "value": "rem",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "medias[]",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a post.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/:post",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts\/:post",
+                            "variable": [
+                                {
+                                    "id": "post",
+                                    "key": "post",
+                                    "value": "13",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"comment\": 17\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update a post.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/:post",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts\/:post",
+                            "variable": [
+                                {
+                                    "id": "post",
+                                    "key": "post",
+                                    "value": "17",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart\/form-data"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "location",
+                                    "value": "sapiente",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "content",
+                                    "value": "non",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "tag_followers",
+                                    "value": [
+                                        4,
+                                        19
+                                    ],
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "workout_date",
+                                    "value": "dolor",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "media_ids",
+                                    "value": [
+                                        16,
+                                        20
+                                    ],
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "medias[]",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "description": "This endpoint update post data. but image or videos has not been update immediately, because fitemos saves medias asynchronously"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete a post.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/:post",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/posts\/:post",
+                            "variable": [
+                                {
+                                    "id": "post",
+                                    "key": "post",
+                                    "value": "11",
+                                    "description": "the id of post"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Product   on shop part",
+            "description": "\nAPIs for managing  products",
+            "item": [
+                {
+                    "name": "view a product images.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/viewImages\/:id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/viewImages\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "praesentium",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a product on front.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/products\/:id\/home",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/products\/:id\/home",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "quod",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "download a product.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/products\/:id\/download",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/products\/:id\/download",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "nesciunt",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Report   ",
+            "description": "\nAPIs for managing  report",
+            "item": [
+                {
+                    "name": "get customer report.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reports\/customers",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/reports\/customers"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "export customers.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reports\/export-customers",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/reports\/export-customers"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "export usage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reports\/export-usage",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/reports\/export-usage"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get customer workouts.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reports\/customer-workouts",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/reports\/customer-workouts"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "export subscriptions.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reports\/export-subscriptions",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/reports\/export-subscriptions"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Search   ",
+            "description": "\nAPIs for searching people, eventos, posts",
+            "item": [
+                {
+                    "name": "search customers, shops, posts.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/search\/all",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/search\/all"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"search\": \"officia\"\n}"
+                        },
+                        "description": "This endpoint searchs customers and shops and posts"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "search customers.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/search\/customers",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/search\/customers"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"search\": \"atque\"\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "search companies.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/search\/companies",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/search\/companies"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"search\": \"ipsam\"\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "search posts.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/search\/posts",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/search\/posts"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"search\": \"assumenda\"\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "find customer or shop by username.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/search\/username",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/search\/username"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"u\": \"atque\"\n}"
+                        },
+                        "description": "This endpoint\nIt find only shop unauthenticated, and it searchs customer or shop when authenticated.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get notifications.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/search\/notifications",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/search\/notifications"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint shows latest 30 notifications."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Session   ",
+            "description": "\nAPIs for managing  session",
+            "item": [
+                {
+                    "name": "inside",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/sessions\/inside",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/sessions\/inside"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "outside.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/sessions\/outside",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/sessions\/outside"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Shortcode    on workout",
+            "description": "\nAPIs for managing  shortcodes on workout",
+            "item": [
+                {
+                    "name": "get active shortcode list.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/shortcodes\/all",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/shortcodes\/all"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Subscription   ",
+            "description": "\nAPIs for managing  subscription",
+            "item": [
+                {
+                    "name": "cancel a subscription.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/subscriptions\/cancel",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/subscriptions\/cancel"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "paypal ipn.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/subscriptions\/paypal-ipn",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/subscriptions\/paypal-ipn"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "purchase a subscription by nmi.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/subscriptions\/nmi",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/subscriptions\/nmi"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "checkout.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/subscriptions\/checkout",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/subscriptions\/checkout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "renewal a subscription.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/subscriptions\/:id\/renewal",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/subscriptions\/:id\/renewal",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "sed",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "find a paypal plan.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/subscriptions\/findPaypalPlan",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/subscriptions\/findPaypalPlan"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a subscription.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/subscriptions",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/subscriptions"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a subscription.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/subscriptions\/:subscription",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/subscriptions\/:subscription",
+                            "variable": [
+                                {
+                                    "id": "subscription",
+                                    "key": "subscription",
+                                    "value": "numquam",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a free subscription.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/subscriptions\/free",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/subscriptions\/free"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Survey   ",
+            "description": "\nAPIs for managing  survey",
+            "item": [
+                {
+                    "name": "get current survey for me.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/surveys\/me",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/surveys\/me"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Survey Report   ",
+            "description": "\nAPIs for managing  survey report",
+            "item": [
+                {
+                    "name": "create survey report.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/survey-reports",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/survey-reports"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "User   ",
+            "description": "\nAPIs for managing  user",
+            "item": [
+                {
+                    "name": "update my profile.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/:id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "expedita",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show the user.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/:id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "quis",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete user.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/:id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "minima",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "generate token.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/accessToken",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/accessToken"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "find me.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/me",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/me"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update customer info.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/customerUpdate",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/customerUpdate"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update email.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/email-only",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/email-only"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update password.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/update-password",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/update-password"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update avatar image.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/upload-image",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/upload-image"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete avatar image.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/avatar",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/avatar"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "remove google account.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/google",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/google"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "remove facebook account.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/facebook",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/facebook"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "add google account.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/google",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/google"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "add facebook account.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/facebook",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users\/facebook"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Workout done",
+            "description": "\nAPIs for managing  workout done",
+            "item": [
+                {
+                    "name": "workout complete",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/done\/check",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/done\/check"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get workouts on specific date.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/done\/workouts",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/done\/workouts"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "save answer for \"How did you find out about us?\"",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/done\/question",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/done\/question"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "workout start",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/done\/start",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/done\/start"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "reporting    on social part",
+            "description": "\nAPIs for reporting",
+            "item": [
+                {
+                    "name": "create a report.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/social-reports",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/social-reports"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a report.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/social-reports\/:social_report",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/social-reports\/:social_report",
+                            "variable": [
+                                {
+                                    "id": "social_report",
+                                    "key": "social_report",
+                                    "value": "soluta",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update a report.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/social-reports\/:social_report",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/social-reports\/:social_report",
+                            "variable": [
+                                {
+                                    "id": "social_report",
+                                    "key": "social_report",
+                                    "value": "vitae",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete a report.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/social-reports\/:social_report",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/social-reports\/:social_report",
+                            "variable": [
+                                {
+                                    "id": "social_report",
+                                    "key": "social_report",
+                                    "value": "voluptatum",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

@@ -159,7 +159,7 @@ Route::resource('levelTests', 'LevelTestController')->only(['store','update','de
 Route::get('surveys/active', 'SurveyController@active')->middleware('auth:api');
 Route::get('surveys/inactive', 'SurveyController@inactive')->middleware('auth:api');
 Route::get('surveys/me', 'SurveyController@me')->middleware('auth:api');
-Route::post('surveys/report', 'SurveyController@report')->middleware('auth:api');
+// Route::post('surveys/report', 'SurveyController@report')->middleware('auth:api');
 Route::resource('surveys', 'SurveyController')->middleware('auth:api');
 Route::resource('survey-items', 'SurveyItemController')->middleware('auth:api');
 Route::post('survey-items/selectOptionItems/{id}', 'SurveyItemController@saveOptionItems')->middleware('auth:api');

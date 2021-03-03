@@ -2,13 +2,34 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \Firebase\JWT\JWT;
+/**
+ * @group Chat
+ *
+ * APIs for managing  chat
+ */
 
 class ChatController extends Controller
 {
+    /**
+     * verify.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function verify(Request $request)
     {
         return response()->json(['status'=>'ok','cart'=>null]);
     }
+    /**
+     * verify from local.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function verifyLocal(Request $request)
     {   
         $userId = $request->id;

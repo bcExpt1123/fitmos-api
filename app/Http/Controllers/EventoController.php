@@ -5,9 +5,22 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Evento;
 use App\Models\EventoComment;
+/**
+ * @group Evento   
+ *
+ * APIs for managing  evento
+ */
 
 class EventoController extends Controller
 {
+    /**
+     * create a evento.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function store(Request $request)
     {
         $user = $request->user('api');
@@ -28,6 +41,14 @@ class EventoController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * update a evento.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function update($id,Request $request)
     {
         $user = $request->user('api');
@@ -64,6 +85,14 @@ class EventoController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * destroy a evento.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function destroy($id,Request $request){
         $user = $request->user('api');
         if($user->can('events')){
@@ -87,6 +116,28 @@ class EventoController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * show a evento.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @urlParam evento integer required
+     * @response {
+     *  "id":9,
+     *  "title":"title",
+     *  "description":"description",
+     *  "done_date":"2022/02/04",
+     *  "latitude":"23.1231312",
+     *  "longitude":"-123.12312312",
+     *  "address":"address",
+     *  "spanish_date":"spanish_date",
+     *  "spanish_time":"spanish_time",
+     *  "participants":6,
+     *  "participant": true,  //false
+     *  "commentsCount":8,
+     *  "comments":[{comment}] // only level1=0
+     * }
+     */
     public function show($id,Request $request){
         $user = $request->user('api');
         $evento = Evento::find($id);
@@ -119,6 +170,14 @@ class EventoController extends Controller
         }
         return response()->json($evento);
     }
+    /**
+     * search eventos.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function index(Request $request){
         $user = $request->user('api');
         if($user->can('events')){
@@ -129,6 +188,16 @@ class EventoController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * find published eventos.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @bodyParam pageSize integer required
+     * @bodyParam pageNumber integer required
+     * @response {
+     * }
+     */
     public function home(Request $request){
         $evento = new Evento;
         $evento->assignFrontSearch($request);
@@ -136,6 +205,14 @@ class EventoController extends Controller
         if($user&&$user->customer)\App\Jobs\Activity::dispatch($user->customer);
         return response()->json($evento->search());
     }
+    /**
+     * disable a evento.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function disable($id,Request $request)
     {
         $user = $request->user('api');
@@ -151,6 +228,14 @@ class EventoController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * restore a evento.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function restore($id,Request $request)
     {
         $user = $request->user('api');
@@ -166,6 +251,14 @@ class EventoController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * get recent 3 eventos.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function recent(){
         $items = Evento::whereStatus('Publish')->where('done_date','<',date("Y-m-d H:i:s"))->take(3)->orderBy('created_at','desc')->get();
         foreach($items as $index=> $evento){
@@ -176,6 +269,17 @@ class EventoController extends Controller
         }
         return response()->json($items);
     }
+    /**
+     * toggle attending on a evento.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @urlParams id integer required
+     * 
+     * @response {
+     *  "event":{evento}
+     * }
+     */
     public function toggleAttend($id,Request $request){
         $user = $request->user('api');
         $evento = Evento::find($id);
@@ -185,9 +289,20 @@ class EventoController extends Controller
         }
         return response()->json(['status'=>'failed'],403);
     }
+    /**
+     * get random eventos and blogs, products.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     *  "events":[{evento}],
+     *  "news":[{blog}]
+     *  "products":[{product}]
+     * }
+     */
     public function random(Request $request){
         $user = $request->user('api');
-        $eventos = Evento::inRandomOrder()->limit(2)->get();
+        $eventos = Evento::where('done_date',  '>=', date('Y-m-d') )->inRandomOrder()->limit(2)->get();
         foreach($eventos as $evento){
             $evento->getImages();
             $evento['spanish_date'] = iconv('ISO-8859-2', 'UTF-8', strftime("%B %d, %Y ", strtotime($evento->done_date)));

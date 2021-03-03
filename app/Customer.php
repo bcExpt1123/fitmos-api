@@ -1350,9 +1350,11 @@ class Customer extends Model
             if($relation)$this['relation'] = $relation->status;
         }
     }
-    public function isConnectting($customer){
+    public function isConnecting($customer){
         if($this->id == $customer->id) return true;
         if($customer->profile=='public') return true;
+        $block = DB::table("customers_relations")->select("*")->where('customer_id',$this->id)->where('follower_id',$customer->id)->first();
+        if($block) return false;
         $item = DB::table("follows")->select("*")->where('customer_id',$this->id)->where('follower_id',$customer->id)->whereIn('status',['accepted'])->first();
         if($item)return true;
         return false;
@@ -1361,7 +1363,7 @@ class Customer extends Model
         $profile = true;
         if($request->exists('customer_id')){
             $customer = Customer::find($request->customer_id);
-            $profile = $this->isConnectting($customer);
+            $profile = $this->isConnecting($customer);
         }
         return $profile;
     }

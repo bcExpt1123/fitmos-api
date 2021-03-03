@@ -5,15 +5,36 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\EventoComment;
+/**
+ * @group Evento Comment
+ *
+ * APIs for managing  evento comment
+ */
 
 class EventoCommentController extends Controller
 {
+    /**
+     * search evento comments.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function index(Request $request){
         $comment = new EventoComment;
         $comment->assignFrontSearch($request);    
         $comments = $comment->search();
         return response()->json(['comments'=>$comments]);
     }
+    /**
+     * create a evento comment.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function store(Request $request){
         $user = $request->user();
         try {
@@ -79,6 +100,14 @@ class EventoCommentController extends Controller
         }
         
     }
+    /**
+     * delete a evento comment.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function destroy($id,Request $request){
         $user = $request->user();
         $comment = EventoComment::find($id);
@@ -120,10 +149,26 @@ class EventoCommentController extends Controller
         ];
         return response()->json($data,403);
     }
+    /**
+     * show a evento comment.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function show($id,Request $request){
         $comment = EventoComment::find($id);
         return response()->json($comment);    
     }
+    /**
+     * update a evento comment.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function update($id,Request $request)
     {
         $comment = EventoComment::find($id);

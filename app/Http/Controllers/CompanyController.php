@@ -9,8 +9,22 @@ use App\CompanyCountry;
 use App\Product;
 use App\ProductImage;
 use Illuminate\Support\Facades\Validator;
+/**
+ * @group Company
+ *
+ * APIs for managing  companies
+ */
+
 class CompanyController extends Controller
 {
+    /**
+     * search shops(company).
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function index(Request $request){
         $company = new Company;
         $company->assignSearch($request);
@@ -22,6 +36,14 @@ class CompanyController extends Controller
         }
         return response()->json($indexData);
     }
+    /**
+     * create a shop(company).
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function store(Request $request){ 
         $validator = Validator::make($request->all(), Company::validateRules());
         if ($validator->fails()) {
@@ -61,9 +83,25 @@ class CompanyController extends Controller
             return response()->json(array('status'=>'failed'));
         }
     }
+    /**
+     * get all countries.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function fetchCountries(Request $request){
         return Country::all();
     }
+    /**
+     * disable a shop(company).
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function disable($id,Request $request){
         $company = Company::find($id);
         if ($company) {
@@ -73,6 +111,14 @@ class CompanyController extends Controller
         }
         return response()->json(['error' => 'error'], 422);
     }
+    /**
+     * restore a shop(company).
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function restore($id,Request $request){
         $company = Company::find($id);
         if ($company) {
@@ -82,6 +128,14 @@ class CompanyController extends Controller
         }
         return response()->json(['error' => 'error'], 422);
     }
+    /**
+     * delete a shop(company).
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function destroy($id,Request $request){
         $company = Company::find($id);
         $photoPath = $company->logo;
@@ -107,6 +161,14 @@ class CompanyController extends Controller
         return response()->json($data);
         
     }
+    /**
+     * update a shop(company).
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function update($id,Request $request)
     {
         try {
@@ -151,6 +213,14 @@ class CompanyController extends Controller
             return response()->json(array('status'=>'failed'));
         }
     }
+    /**
+     * show a shop(company).
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function show($id,Request $request){
         $company = Company::find($id);
         $size = 'small';
@@ -174,6 +244,14 @@ class CompanyController extends Controller
         }
         return response()->json(array('status'=>'ok','company'=>$company));    
     }
+    /**
+     * get a shop(company) on frontend.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function view($id,Request $request){
         $company = Company::find($id);
         $user = $request->user('api');
@@ -230,6 +308,14 @@ class CompanyController extends Controller
         }
         return $objDateTime->format('Y-m-d');
     }
+    /**
+     * search shops(company) on front.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function home(Request $request){
         $company = new Company;
         $company->assignFrontSearch($request);

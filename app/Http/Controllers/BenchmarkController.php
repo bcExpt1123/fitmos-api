@@ -7,12 +7,25 @@ use App\Benchmark;
 use App\Event;
 use App\BenchmarkResult;
 use Illuminate\Support\Facades\Validator;
+/**
+ * @group Benchmark
+ *
+ * APIs for managing  benchmark
+ */
 
 class BenchmarkController extends Controller
 {
     public function __construct(){
         $this->middleware('BenchmarkChangeData');
     }
+    /**
+     * create a benchmark.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function store(Request $request)
     {
         $user = $request->user('api');
@@ -36,6 +49,14 @@ class BenchmarkController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * update a benchmark.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function update($id,Request $request)
     {
         $user = $request->user('api');
@@ -59,6 +80,14 @@ class BenchmarkController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * show a benchmark.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function show($id,Request $request){
         $user = $request->user('api');
         if($user->can('benchmarks')){
@@ -75,6 +104,14 @@ class BenchmarkController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * delete a benchmark.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function destroy($id,Request $request){
         $user = $request->user('api');
         if($user->can('benchmarks')){
@@ -98,6 +135,14 @@ class BenchmarkController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * search benchmarks.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function index(Request $request){
         $user = $request->user('api');
         if($user->can('benchmarks')){
@@ -108,6 +153,14 @@ class BenchmarkController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * get published benchmarks.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function published(Request $request){
         $user = $request->user('api');
         $customer_id = $user->customer->id;
@@ -122,6 +175,14 @@ class BenchmarkController extends Controller
         }
         return response()->json(['published'=>$result]);
     }
+    /**
+     * disable a benchmark.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function disable($id,Request $request)
     {
         $user = $request->user('api');
@@ -137,6 +198,14 @@ class BenchmarkController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * active a benchmark.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function active($id,Request $request)
     {
         $user = $request->user('api');

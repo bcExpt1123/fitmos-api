@@ -29,7 +29,7 @@ class Comment extends Model
     }
     /**
      * param id; comment from id or to id
-     * param type; appendNext or appendPrevious 
+     * param type; appendNext or appendNextReplies 
      */
     public function search(){
         $comment = self::find($this->id);

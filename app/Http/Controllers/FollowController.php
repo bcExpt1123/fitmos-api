@@ -4,24 +4,48 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Customer;
+/**
+ * @group Following    on social part
+ *
+ * APIs for managing  followings
+ */
 
 class FollowController extends Controller
 {
     /**
-     * Get the authenticated User
-     *
-     * @return [json] user object
+     * get pending follow requests of authenticated customer.
+     * 
+     * @group Follow
+     * This endpoint returns followers with pending following status
+     * @authenticated
+     * @response {
+     *      "requests":[
+     *          {customer}
+     *      ]
+     * }
      */
     public function index(Request $request)
     {
         $user = $request->user();
         $requests = DB::table("follows")->select("*")->where('customer_id',$user->customer->id)->whereIn('status',['pending'])->get();
-        foreach( $requests as $request ){
-            $request->customer = Customer::find($request->follower_id);
-            $request->customer->getAvatar();
+        foreach( $requests as $item ){
+            $item->customer = Customer::find($item->follower_id);
+            $item->customer->getAvatar();
         }
         return response()->json(['requests'=>$requests]);
     }
+    /**
+     * create follow request.
+     * 
+     * @group Follow
+     * This endpoint.
+     * @bodyParam customer_id integer required
+     * @authenticated
+     * @response {
+     *  "status":"accepted", // or pending when customer type is private
+     *  "customer":{customer}
+     * }
+     */
     public function store(Request $request)
     {
         $user = $request->user();
@@ -49,6 +73,18 @@ class FollowController extends Controller
         }
         return response()->json(array('status'=>'ok'));
     }
+    /**
+     * accept follow request.
+     * 
+     * @group Follow
+     * This endpoint.
+     * @authenticated
+     * @urlParam id integer required
+     * @response {
+     *  "status":"accepted"
+     *  "customer":{customer}
+     * }
+     */
     public function accept($id,Request $request)
     {
         $user = $request->user();
@@ -61,6 +97,18 @@ class FollowController extends Controller
         }
         return response()->json(array('status'=>'failed'),403);    
     }
+    /**
+     * reject follow request.
+     * 
+     * @group Follow
+     * This endpoint.
+     * @authenticated
+     * @urlParam id integer required
+     * @response {
+     *  "status":"rejected"
+     *  "customer":{customer}
+     * }
+     */
     public function reject($id,Request $request)
     {
         $user = $request->user();
@@ -73,6 +121,18 @@ class FollowController extends Controller
         }
         return response()->json(array('status'=>'failed'),403);    
     }
+    /**
+     * unfollow a customer.
+     * 
+     * @group Follow
+     * This endpoint.
+     * @authenticated
+     * @urlParam id integer required
+     * @response {
+     *  "status":"ok"
+     *  "customer":{customer}
+     * }
+     */
     public function unfollow(Request $request){
         $user = $request->user();
         $customerId = $request->customer_id;
@@ -80,6 +140,19 @@ class FollowController extends Controller
         $customer = $this->findCustomer($customerId, $user);
         return response()->json(array('status'=>'ok','customer'=>$customer));
     }
+    /**
+     * block a customer.
+     * 
+     * @group Block and mute
+     * This endpoint.
+     * @authenticated
+     * @bodyParam customer_id integer required
+     * @authenticated
+     * @response {
+     *  "status":"ok",
+     *  "customer":{customer}
+     * }
+     */
     public function block(Request $request){
         $user = $request->user();
         $customerId = $request->customer_id;
@@ -91,6 +164,19 @@ class FollowController extends Controller
         $customer = $this->findCustomer($customerId, $user);
         return response()->json(array('status'=>'ok','customer'=>$customer));
     }
+    /**
+     * unblock a customer.
+     * 
+     * @group Block and mute
+     * This endpoint.
+     * @authenticated
+     * @bodyParam customer_id integer required
+     * @authenticated
+     * @response {
+     *  "status":"ok",
+     *  "customer":{customer}
+     * }
+     */
     public function unblock(Request $request){
         $user = $request->user();
         $customerId = $request->customer_id;
@@ -98,13 +184,26 @@ class FollowController extends Controller
         $customer = $this->findCustomer($customerId, $user);
         return response()->json(array('status'=>'ok','customer'=>$customer));
     }
+    /**
+     * mute a customer.
+     * 
+     * @group Block and mute
+     * This endpoint.
+     * @authenticated
+     * @bodyParam customer_id integer required
+     * @authenticated
+     * @response {
+     *  "status":"ok",
+     *  "customer":{customer}
+     * }
+     */
     public function mute(Request $request){
         $user = $request->user();
         $customerId = $request->customer_id;
-        $relation = DB::table("follows")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->first();
-        if($relation && $relation->status == 'blocked'){
-            return response()->json(array('status'=>'failed'),421);    
-        }
+        $relation = DB::table("customers_relations")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->first();
+        // if($relation && $relation->status == 'blocked'){
+        //     return response()->json(array('status'=>'failed'),421);    
+        // }
         DB::table('customers_relations')->updateOrInsert(
             ['status' =>'muted'],
             ['customer_id' => $customerId,
@@ -113,13 +212,26 @@ class FollowController extends Controller
         $customer = $this->findCustomer($customerId, $user);
         return response()->json(array('status'=>'ok','customer'=>$customer));
     }
+    /**
+     * unmute a customer.
+     * 
+     * @group Block and mute
+     * This endpoint.
+     * @authenticated
+     * @bodyParam customer_id integer required
+     * @authenticated
+     * @response {
+     *  "status":"ok",
+     *  "customer":{customer}
+     * }
+     */
     public function unmute(Request $request){
         $user = $request->user();
         $customerId = $request->customer_id;
-        $relation = DB::table("follows")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->first();
-        if($relation && $relation->status == 'blocked'){
-            return response()->json(array('status'=>'failed'),421);    
-        }
+        $relation = DB::table("customers_relations")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->first();
+        // if($relation && $relation->status == 'blocked'){
+        //     return response()->json(array('status'=>'failed'),421);    
+        // }
         DB::table("customers_relations")->select("*")->where('customer_id',$customerId)->whereFollowerId($user->customer->id)->delete();
         $customer = $this->findCustomer($customerId, $user);
         return response()->json(array('status'=>'ok','customer'=>$customer));
@@ -132,6 +244,19 @@ class FollowController extends Controller
         $user->customer->touch();
         return $customer;
     }
+    /**
+     * search followings or followers by 20 per page.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @bodyParam customer_id integer required
+     * @bodyParam type string required followings or follower
+     * @bodyParam page_number integer
+     * @response {
+     *      "follows":[{customer}],
+     *      "next":5,
+     * }
+     */
     public function customerIndex(Request $request){
         $user = $request->user();
         $customer = Customer::find($request->customer_id);

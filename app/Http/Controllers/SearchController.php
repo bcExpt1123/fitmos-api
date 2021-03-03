@@ -12,9 +12,26 @@ use App\Company;
 use App\Config;
 use App\Models\Post;
 
+/**
+ * @group Search   
+ *
+ * APIs for searching people, eventos, posts
+ */
 
 class SearchController extends Controller
 {
+    /**
+     * search customers, shops, posts.
+     * 
+     * This endpoint searchs customers and shops and posts
+     * @authenticated
+     * @bodyParam search string required
+     * @response {
+     *  "people":[{customer}],
+     *  "shop":[{company}],
+     *  "posts":[{post}],
+     * }
+     */
     public function all(Request $request){
         $user = $request->user('api');
         if($user->customer){
@@ -64,6 +81,16 @@ class SearchController extends Controller
             'errors' => ['result'=>[['error'=>'failed']]]
         ], 403);
     }
+    /**
+     * search customers.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @bodyParam search string required
+     * @response {
+     *  "customers":[{customer}],
+     * }
+     */
     public function customers(Request $request){
         $user = $request->user('api');
         if($user->customer){
@@ -92,6 +119,16 @@ class SearchController extends Controller
             'errors' => ['result'=>[['error'=>'failed']]]
         ], 403);
     }
+    /**
+     * search companies.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @bodyParam search string required
+     * @response {
+     *  "companies":[{company}],
+     * }
+     */
     public function companies(Request $request){
         $user = $request->user('api');
         if($user->customer){
@@ -126,6 +163,16 @@ class SearchController extends Controller
             'errors' => ['result'=>[['error'=>'failed']]]
         ], 403);
     }
+    /**
+     * search posts.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @bodyParam search string required
+     * @response {
+     *  "posts":[{post}],
+     * }
+     */
     public function posts(Request $request){
         $user = $request->user('api');
         if($user->customer){
@@ -146,6 +193,61 @@ class SearchController extends Controller
             'errors' => ['result'=>[['error'=>'failed']]]
         ], 403);
     }
+    /**
+     * find customer or shop by username.
+     * 
+     * This endpoint
+     * It find only shop unauthenticated, and it searchs customer or shop when authenticated.
+     * @bodyParam u string required
+     * @response scenario=customer{
+     *      "id":5,
+     *      "type":"customer",
+     *      "username":"unique_user_name",    
+     *      "first_name":"First",
+     *      "last_name":"Last",
+     *      "postCount":10,
+     *      "following":{follow},
+     *      "followers":[{follow}],
+     *      "followings":[{follow}],
+     *      "relation":false,//it shows blocked or muted
+     *      "medals":{
+     *           'fromWorkout':100,// current level workout number
+     *           'fromWorkoutImage':$src,//image
+     *           'toWorkout':200,// next level workout number
+     *           'toWorkoutImage':$toWorkoutImage,//image
+     *           'workoutCount':75,// this total completed workout count
+     *           'levelMedalImage':$src // level medal image
+     *           'fromMonthWorkout':15,// current level month workout number
+     *           'fromMonthWorkoutImage':$src,// current level month workout image
+     *           'toMonthWorkout':25,// next level month workout number
+     *           'toMonthWorkoutImage':$src,// next level month workout image
+     *           'monthWorkoutCount':45, // this month total completed workout count 
+     *           'monthWorkoutTotal':46, // this month total workout count
+     *           'monthShortName':"Feb",// spanish month short name
+     *           'monthPercent':$monthPercent
+     *      },
+     * }
+     * @response scenario=company{
+     *      "id":5,
+     *      "type":"company",
+     *      "username":"unique_user_name",    
+     *      "name":"name",
+     *      "description":"description",
+     *      "phone":"phone",
+     *      "mail":"email@gmail.com",
+     *      "is_all_countries":"yes",// or "no"
+     *      "mobile_phone":"1231231",
+     *      "website_url":"https://www.fitemos.com",
+     *      "address":"address",
+     *      "facebook":"facebook",
+     *      "instagram":"instagram",
+     *      "twitter":"twitter",
+     *      "horario":"horario",
+     *      "logo":"src"
+     * }
+     * @response  status=403 scenario="Not found"{
+     * }
+     */
     public function username(Request $request){
         $user = $request->user('api');
         $username = $request->u;
@@ -160,22 +262,41 @@ class SearchController extends Controller
             $company = Company::whereUsername($username)->first();
             if($company){
                 $company->type = 'company';
+                if($company->logo)$company->logo = url("storage/".$company->logo);                
                 return response()->json($company);
             }
         }else{
             $company = Company::where('username','=',$username)->whereStatus('Active')->first();
             if($company){
                 $company->type = 'company';
+                if($company->logo)$company->logo = url("storage/".$company->logo);                
                 return response()->json($company);
             }
         }
-        return response()->json(null);
+        return response()->json(null, 403);
     }
+    /**
+     * get notifications.
+     * 
+     * This endpoint shows latest 30 notifications.
+     * @authenticated
+     * @response {
+     *  notifications:[{notification}]
+     * }
+     */
     public function notifications(Request $request){
         $user = $request->user('api');
         $notifications = \App\Models\Notification::whereCustomerId($user->customer->id)->orderBy('id','desc')->limit(30)->first();
         return response()->json(['notifications'=>$notifications]);
     }
+    /**
+     * sync.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function sync($id){
         $customer = Customer::find($id);
         if($customer) {

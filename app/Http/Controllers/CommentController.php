@@ -7,15 +7,78 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Activity;
 use App\Models\Comment;
 use App\Models\Post;
+/**
+ * @group Comment on social part
+ *
+ * APIs for managing  comment
+ */
 
 class CommentController extends Controller
 {
+    /**
+     * search comments.
+     * 
+     * This endpoint get comments on several scenarios.
+     * Only comments with level1 = 0 can have replies.
+     * <p>Replies  level1 > 0.</p>
+     * <p>type = appendNext, it searchs only 4 comments with level1=0 from id</p>
+     * <p>type = appendNextReplies, it searchs only 4 comments(replies) with level1>0 from id</p>
+     * <p>type = append, it searchs only 4 previous comments with level1=0 from id</p>
+     * @authenticated
+     * @bodyParam id integer required comment from id or to id
+     * @bodyParam type string required appendNext or appendNextReplies or append
+     * @response{
+     *  "comments":[
+     *      {
+     *          "id":1,
+     *          "activity_id":13,
+     *          "post_id":3,
+     *          "customer_id":9, 
+     *          "parent_activity_id":4, parent item can be post or comment, so it means post or comment activity id
+     *          "content":"content", it contains multi mentioned user such as @[Marlon Cañas](132) same as post content
+     *          "level0":1,
+     *          "level1":0,
+     *          "likesCount":2,
+     *          "like":false,
+     *          "children":[], it exists when level1=0
+     *          "nextChildrenCount":8,it exists when level1=0
+     *      },
+     *  ]
+     * }
+     */
     public function index(Request $request){
         $comment = new Comment;
         $comment->assignFrontSearch($request);    
         $comments = $comment->search();
         return response()->json(['comments'=>$comments]);
     }
+    /**
+     * create a comment.
+     * 
+     * This endpoint.
+     * @bodyParam post_id integer required post ID
+     * @bodyParam content string required it contains multi mentioned user such as @[Marlon Cañas](132) same as post content
+     * @bodyParam parent_activity_id optional if exists, it is reply if no it is comment with level1=0
+     * @bodyParam condition object optional when comment leve1 = 0 
+     * @bodyParam condition.from_id integer it shows viewable comment first id
+     * @authenticated
+     * @response  scenario="creating comment"{
+     *      "comment":{comment},// just created new comment
+     *      "previousCommentsCount":5,
+     *      "comments":[{comment}], comments from id to current new comment
+     *      "nextCommentsCount":0,
+     *      "commentsCount":14, total comment count, which contains replies
+     * }
+     * @response  scenario="creating comment reply"{
+     *      "comment":{comment},// just created new comment
+     *      "comments":[{comment}], all replies  to current new reply
+     *      "nextChildrenCount":0,
+     *      "commentsCount":14, total comment count, which contains replies
+     * }
+     * @response  status=403 scenario=failed{
+     *      "status":"failed"
+     * }
+     */
     public function store(Request $request){
         $user = $request->user();
         try {
@@ -96,6 +159,30 @@ class CommentController extends Controller
         }
         
     }
+    /**
+     * delete a comment.
+     * 
+     * This endpoint deletes the comment and child replies and return comment struction.
+     * @authenticated
+     * @urlParam comment integer required comment ID
+     * @bodyParam from_id integer it shows viewable comment first id when level1=0 required
+     * @bodyParam to_id integer it shows viewable comment last id when level1=0 required
+     * @authenticated
+     * @response  scenario="creating comment"{
+     *      "previousCommentsCount":5,
+     *      "comments":[{comment}], comments from id to current new comment
+     *      "nextCommentsCount":0,
+     *      "commentsCount":14, total comment count, which contains replies
+     * }
+     * @response  scenario="creating comment reply"{
+     *      "comments":[{comment}], all replies  to current new reply
+     *      "nextChildrenCount":0,
+     *      "commentsCount":14, total comment count, which contains replies
+     * }
+     * @response status=403 scenario=failed {
+     *      "status":"0"
+     * }
+     */
     public function destroy($id,Request $request){
         $user = $request->user();
         $comment = Comment::find($id);
@@ -153,10 +240,31 @@ class CommentController extends Controller
         ];
         return response()->json($data,403);
     }
+    /**
+     * show a comment.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @urlParam comment integer required comment ID
+     * @response {
+     * }
+     */
     public function show($id,Request $request){
         $comment = Comment::find($id);
         return response()->json($comment);    
     }
+    /**
+     * update a comment.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @urlParam comment integer required comment ID
+     * @bodyParam content string required it contains multi mentioned user such as @[Marlon Cañas](132) same as post content
+     * @response {
+     *  "status":"ok",
+     *  "comment":{comment}
+     * }
+     */
     public function update($id,Request $request)
     {
         $comment = Comment::find($id);

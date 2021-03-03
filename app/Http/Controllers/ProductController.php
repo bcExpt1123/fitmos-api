@@ -9,8 +9,22 @@ use Image;
 use PDF;
 use App\ProductImage;
 use Illuminate\Support\Facades\Validator;
+/**
+ * @group Product   on shop part
+ *
+ * APIs for managing  products
+ */
+
 class ProductController extends Controller
 {
+    /**
+     * search products.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function index(Request $request){
         $product = new Product;
         $productImage = new ProductImage;
@@ -23,6 +37,14 @@ class ProductController extends Controller
         }
         return response()->json(array('status'=>'ok','indexData'=>$indexData));
     }
+    /**
+     * create a product.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function store(Request $request){
         $validator = Validator::make($request->all(), Product::validateRules());
         $upload=explode('M',ini_get('upload_max_filesize'));
@@ -68,6 +90,14 @@ class ProductController extends Controller
         }
         
     }
+    /**
+     * disable a product.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function disable($id,Request $request){
         $product = Product::find($id);
         if ($product) {
@@ -77,6 +107,14 @@ class ProductController extends Controller
         }
         return response()->json(['error' => 'error'], 422);
     }
+    /**
+     * restore a product.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function restore($id,Request $request){
         $product = Product::find($id);
         if ($product) {
@@ -86,6 +124,14 @@ class ProductController extends Controller
         }
         return response()->json(['error' => 'error'], 422);
     }
+    /**
+     * delete a product.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function destroy($id,Request $request){
         $product = Product::find($id);
         ProductImage::where('product_id',$id)->delete();
@@ -106,6 +152,14 @@ class ProductController extends Controller
         return response()->json($data);
         
     }
+    /**
+     * show a product.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function show($id,Request $request){
         $product = Product::find($id);
         $productImage=ProductImage::Where('product_id',$id)->get();
@@ -115,6 +169,14 @@ class ProductController extends Controller
         $product['companyMatchId'] = $product->company_id;
         return response()->json(array('status'=>'ok','product'=>$product,'productImage'=>$productImage ));    
     }
+    /**
+     * update a product.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function update($id,Request $request)
     {
         try {
@@ -162,6 +224,14 @@ class ProductController extends Controller
             return response()->json(array('status'=>'failed'));
         }
     }
+    /**
+     * view a product images.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function viewImages($id){
         $viewImage = new ProductImage;
         $viewImageData = ProductImage::where('product_id',$id)->select('image')->get();
@@ -172,6 +242,14 @@ class ProductController extends Controller
         }
         return response()->json(array('status'=>'ok','viewImages'=>$viewImageData));
     }
+    /**
+     * delete a product image.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function deleteImageItem(Request $request){
         $deleteImageItemRequest=$request->input();
         $deleteImageItem = $deleteImageItemRequest['image'];
@@ -185,6 +263,14 @@ class ProductController extends Controller
         }
         return response()->json(array('status'=>'ok','productId'=>$productId[0]['product_id'],'gallery'=>$productGallery));
     }    
+    /**
+     * show a product on front.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function showFront($id,Request $request){
         $product = Product::find($id);
         $user = $request->user('api');
@@ -208,6 +294,14 @@ class ProductController extends Controller
             return response()->json(array('status'=>'failed'), 422);    
         }
     }
+    /**
+     * download a product.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function download($id,Request $request){
         $product = Product::find($id);
         $user = $request->user('api');

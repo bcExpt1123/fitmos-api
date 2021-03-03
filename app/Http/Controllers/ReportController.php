@@ -12,6 +12,11 @@ use App\ActivityWorkout;
 use App\Workout;
 use App\Done;
 use Maatwebsite\Excel\Facades\Excel;
+/**
+ * @group Report   
+ *
+ * APIs for managing  report
+ */
 
 class ReportController extends Controller
 {
@@ -19,6 +24,14 @@ class ReportController extends Controller
     {
         $this->middleware(['permission:settings'])->except("customerWorkouts");;
     }
+    /**
+     * get customer report.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function customers(Request $request){
         $fromDate = $request->input("from");
         $nextDate = $fromDate;
@@ -95,6 +108,14 @@ class ReportController extends Controller
         $reports['complete'][] = round($completeCount/$i);
         return $reports;
     }
+    /**
+     * export customers.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function exportCustomers(Request $request){
         $from = $request->input("from");
         $to = $request->input("to");
@@ -171,6 +192,14 @@ class ReportController extends Controller
         ]);
         return Excel::download($export,'customers.xlsx');   
     }
+    /**
+     * export usage.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function exportUsage(Request $request){
         $fromDate = $request->input("from");
         $toDate = $request->input("to");
@@ -198,6 +227,14 @@ class ReportController extends Controller
         ]);
         return Excel::download($export,'usage.xlsx');   
     }
+    /**
+     * get customer workouts.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function customerWorkouts(Request $request){
         if($request->exists("from")){
             $fromDate = $request->input("from");
@@ -300,6 +337,14 @@ class ReportController extends Controller
         }
         return response()->json(['data'=>$results,'month'=>$month]);
     }
+    /**
+     * export subscriptions.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function exportSubscriptions(Request $request){
         $fromDate = $request->input("from");
         $toDate = $request->input("to");

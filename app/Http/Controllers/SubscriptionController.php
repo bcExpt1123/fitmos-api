@@ -18,9 +18,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Cart;
+/**
+ * @group Subscription   
+ *
+ * APIs for managing  subscription
+ */
 
 class SubscriptionController extends Controller
 {
+    /**
+     * create a subscription.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function store(Request $request)
     {
         $paymentSubscription = new PaymentSubscription;
@@ -30,6 +43,14 @@ class SubscriptionController extends Controller
         if($cart)$cart->delete();
         return response()->json(['status' => 'ok', 'now' => $now]);
     }
+    /**
+     * show a subscription.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function show($id,Request $request)
     {
         $user = $request->user('api');
@@ -49,6 +70,14 @@ class SubscriptionController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * search subscriptions.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function index(Request $request)
     {
         $user = $request->user('api');
@@ -60,6 +89,14 @@ class SubscriptionController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * create a free subscription.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function free(Request $request)
     {
         $user = $request->user('api');
@@ -81,6 +118,14 @@ class SubscriptionController extends Controller
         //Mail::to($user->email)->send(new VerifyMail($user));
         return response()->json(['status' => 'ok', 'subscription' => $subscription]);
     }
+    /**
+     * export subscriptions.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function export(Request $request)
     {
         $user = $request->user('api');
@@ -108,10 +153,26 @@ class SubscriptionController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * checkout.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function checkout()
     {
         return response()->json(['mode' => env('PAYMENT_TEST_MODE')]);
     }
+    /**
+     * renewal a subscription.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function renewal($id,Request $request){
         $user = $request->user('api');
         $frequency = $request->input('frequency');
@@ -246,6 +307,14 @@ class SubscriptionController extends Controller
         //get price, frequency from coupon_id,
         return [$now,'ok', "",200];
     }
+    /**
+     * purchase a subscription by nmi.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function nmi(Request $request){
         if($request->exists('kind') && $request->input('kind') == 'activate_with_trial'){
             list($now, $status,$errors, $code) = $this->freeTrial($request);
@@ -263,6 +332,14 @@ class SubscriptionController extends Controller
         }
         else return response()->json(['status' => $status, 'now' => $now,'errors'=>$errors], $code);
     }
+    /**
+     * find a paypal plan.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function findPaypalPlan(Request $request)
     {
         $plan = SubscriptionPlan::where('service_id', '=', 1)->where('type', '=', 'Paid')->first();
@@ -291,6 +368,14 @@ class SubscriptionController extends Controller
             return response()->json(['error' => 'error'], 422);
         }
     }
+    /**
+     * cancel a subscription.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function cancel(Request $request)
     {
         $serviceId = $request->input('serviceId');
@@ -317,6 +402,14 @@ class SubscriptionController extends Controller
 
         return response()->json(['error' => 'error'], 422);
     }
+    /**
+     * disable a subscription.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function disable($id,Request $request)
     {
         $user = $request->user('api');
@@ -335,6 +428,14 @@ class SubscriptionController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * restore a subscription.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function restore($id,Request $request)
     {
         $user = $request->user('api');
@@ -354,6 +455,14 @@ class SubscriptionController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * paypal ipn.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function paypalIpn(Request $request)
     {
         $ipn = new PaypalIPNListener();

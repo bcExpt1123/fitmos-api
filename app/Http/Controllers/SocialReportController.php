@@ -4,9 +4,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Report;
+/**
+ * @group reporting    on social part
+ *
+ * APIs for reporting
+ */
 
 class SocialReportController extends Controller
 {
+    /**
+     * create a report.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function store(Request $request)
     {
         $user = $request->user('api');
@@ -20,6 +33,14 @@ class SocialReportController extends Controller
         $report->save();
         return response()->json(array('status'=>'ok','report'=>$report));
     }
+    /**
+     * update a report.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function update($id,Request $request)
     {
         $user = $request->user('api');
@@ -29,6 +50,14 @@ class SocialReportController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * delete a report.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function destroy($id,Request $request){
         $user = $request->user('api');
         if($user->can('events')){
@@ -52,11 +81,27 @@ class SocialReportController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * show a report.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function show($id,Request $request){
         $user = $request->user('api');
         $report = Report::find($id);
         return response()->json($report);
     }
+    /**
+     * search reports.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function index(Request $request){
         $user = $request->user('api');
         if($user->can('events')){
@@ -67,6 +112,14 @@ class SocialReportController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * complete a report.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function complete($id,Request $request)
     {
         $user = $request->user('api');
@@ -82,6 +135,14 @@ class SocialReportController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    /**
+     * return a report as pending.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function restore($id,Request $request)
     {
         $user = $request->user('api');

@@ -7,9 +7,22 @@ use App\Models\Activity;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Like;
+/**
+ * @group Like   
+ *
+ * APIs for managing  likes for post and comment on social part
+ */
 
 class LikeController extends Controller
 {
+    /**
+     * create a like.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function store(Request $request){
         $user = $request->user();
         if(!$request->exists('activity_id')){
@@ -37,6 +50,14 @@ class LikeController extends Controller
             );        
         
     }
+    /**
+     * delete a like.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function destroy($id,Request $request){
         $user = $request->user();
         $activity = Activity::find($id);

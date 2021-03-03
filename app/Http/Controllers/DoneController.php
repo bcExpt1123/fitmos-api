@@ -4,8 +4,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Done;
 use App\Setting;
+/**
+ * @group Workout done
+ *
+ * APIs for managing  workout done
+ */
+
 class DoneController extends Controller
 {
+    /**
+     * workout complete
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function check(Request $request){
         $user = $request->user('api');
         $this->validate($request, ['date'=>'required|string|min:10|max:10']);
@@ -23,10 +37,26 @@ class DoneController extends Controller
         if($user->customer)\App\Jobs\Activity::dispatch($user->customer);
         return response()->json($user->customer->findMedal());
     }
+    /**
+     * workout start
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function startWorkout(Request $request){
         $user = $request->user('api');
         if($user->customer)\App\Jobs\StartWorkout::dispatch($user->customer,$request->input('date'));
     }
+    /**
+     * get workouts on specific date.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function workouts(Request $request){
         $user = $request->user('api');
         if($request->exists('date'))$workouts = $user->customer->findWorkouts($request->input('date'));
@@ -35,6 +65,14 @@ class DoneController extends Controller
         if($user->customer)\App\Jobs\Activity::dispatch($user->customer);
         return response()->json(['workouts'=>$workouts,'profile'=>$user->customer->findMedal(),'tagLine'=>$tagLine]);
     }
+    /**
+     * save answer for "How did you find out about us?"
+     * 
+     * This endpoint.
+     * @authenticated
+     * @response {
+     * }
+     */
     public function question(Request $request){
         $user = $request->user('api');
         if($request->exists('question')){
