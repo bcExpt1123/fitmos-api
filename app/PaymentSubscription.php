@@ -222,6 +222,10 @@ class PaymentSubscription extends Model
                             $subscription->transaction_id = $result['transaction']->id;
 			                if($subscription->end_date)$subscription->end_date = null;
                             $subscription->save();
+                            if($couponId){
+                                $coupon = Coupon::find($couponId);
+                                if($coupon)$subscription->customer->setFriendShip($coupon);
+                            }
                         }else{
                             if(in_array($customerId, Subscription::TRACK_CUSTOMER_IDS))Log::channel('nmiTrack')->info("---- end_date ----");
                             $subscription->end_date = date('Y-m-d H:i:s');
@@ -319,6 +323,7 @@ class PaymentSubscription extends Model
                     $this->save();
                 }
                 $this->renewalSendMail($transaction);
+                \App\Models\Notification::paymentRenewal($transaction->customer_id, $transaction);
                     // Return thank you page redirect
                 return array(
                     'result' => 'success',
@@ -331,6 +336,7 @@ class PaymentSubscription extends Model
                     $this->status = 'Cancelled';
                     $this->save();
                 }
+                \App\Models\Notification::declinedPayment($transaction->customer_id);
                 return [
                     'result' => 'failed',
                     'error_message' => $e->getMessage(),

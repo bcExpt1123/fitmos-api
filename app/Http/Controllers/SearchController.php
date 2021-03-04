@@ -286,7 +286,13 @@ class SearchController extends Controller
      */
     public function notifications(Request $request){
         $user = $request->user('api');
-        $notifications = \App\Models\Notification::whereCustomerId($user->customer->id)->orderBy('id','desc')->limit(30)->first();
+        $notifications = \App\Models\Notification::whereCustomerId($user->customer->id)->orderBy('id','desc')->limit(30)->get();
+        foreach($notifications as $notification){
+            if($notification->action_type=="customer"){
+                $notification->action = Customer::find($notification->action_id);
+                $notification->action->getAvatar();
+            }
+        }
         return response()->json(['notifications'=>$notifications]);
     }
     /**

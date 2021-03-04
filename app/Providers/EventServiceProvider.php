@@ -10,6 +10,8 @@ use App\Subscription;
 use App\Observers\SubscriptionObserver;
 use App\Models\Post;
 use App\Observers\PostObserver;
+use App\Models\Comment;
+use App\Observers\CommentObserver;
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -38,6 +40,7 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
         Subscription::observe(SubscriptionObserver::class);
         Post::observe(PostObserver::class);
+        Comment::observe(CommentObserver::class);
         //
     }
 }

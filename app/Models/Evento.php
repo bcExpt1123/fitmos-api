@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
-
+use App\Jobs\EventAttend;
+use Carbon\Carbon;
 
 class Evento extends Model
 {
@@ -80,7 +81,7 @@ class Evento extends Model
                 $dates = explode(' ',$evento->done_date);
                 $items[$index]['date'] = $dates[0];
                 $items[$index]['spanish_date'] = iconv('ISO-8859-2', 'UTF-8', strftime("%B %d, %Y ", strtotime($evento->done_date)));
-                $items[$index]['spanish_time'] = date("j:i a",strtotime($evento->done_date));
+                $items[$index]['spanish_time'] = date("h:i a",strtotime($evento->done_date));
                 $items[$index]['datetime'] = substr($dates[1],0,5);
                 $items[$index]['participants'] = $evento->customers->count();
             }      
@@ -125,7 +126,11 @@ class Evento extends Model
             DB::table('eventos_customers')->insert([
                 'customer_id' => $customer->id,
                 'evento_id' => $this->id
-            ]);            
+            ]);
+            $dt = Carbon::createFromFormat('Y-m-d H:i:s', $this->done_date, 'America/Panama');
+            $dt->sub('1 day');
+            $now =  Carbon::now();
+            if($now->lessThan($dt))EventAttend::dispatch($customer->id, $this->id)->delay($dt);
         }
         $this->refresh();
         $this['participants'] = $this->customers->count();

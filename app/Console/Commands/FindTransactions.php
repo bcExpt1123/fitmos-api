@@ -32,6 +32,7 @@ use App\Payment\Bank;
 use App\BankTransferRequest;
 use App\Done;
 use App\Models\Media;
+use Carbon\Carbon;
 
 class FindTransactions extends Command
 {
@@ -304,11 +305,19 @@ class FindTransactions extends Command
             $this->deleteComments();
         }
         if(true){
-            $this->checkUnique();
+            $this->checkCarbon();
         }
     }
-    private function checkUnique(){
-        var_dump(env('CDN_WEBSITE'));
+    private function checkCarbon(){
+        $doneDate = "2021-03-05 2:30:00";
+        $dt = Carbon::createFromFormat('Y-m-d H:i:s', $doneDate, 'America/Panama');
+        $dt->sub('1 day');
+        $now =  Carbon::now();
+        $datatime = iconv('ISO-8859-2', 'UTF-8', strftime("%B %d, %Y ", strtotime($doneDate))).date(" h:i a",strtotime($doneDate));
+        if($now->lessThan($dt)){
+            print_r($datatime);
+            \App\Jobs\EventAttend::dispatch(3,1, $doneDate)->delay($dt);
+        }
     }
     private function deleteComments(){
         $comments = Comment::all();

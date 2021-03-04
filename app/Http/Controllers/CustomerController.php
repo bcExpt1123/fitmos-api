@@ -87,7 +87,7 @@ class CustomerController extends Controller
      */
     public function show($id,Request $request){
         $user = $request->user('api');
-        if($user->can('customers')){
+        if($user->can('customers')|| $user->can('social')){
             $customer = Customer::find($id);
             $customer->extends();
             //$customer['created_date'] = date("F d Y H:i",strtotime($customer->created_at));
@@ -106,7 +106,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request){
         $user = $request->user('api');
-        if($user->can('customers')){
+        if($user->can('customers') || $user->can('social')){
             $customer = new Customer;
             $customer->assignSearch($request);
             $result = $customer->search();
@@ -378,9 +378,13 @@ class CustomerController extends Controller
      */
     public function recentWorkouts(Request $request){
         $user = $request->user('api');
-        $workouts = $user->customer->recentWorkouts();
-        if($user->customer)\App\Jobs\Activity::dispatch($user->customer);
-        return response()->json(['workouts'=>$workouts,'profile'=>$user->customer->findMedal()]);
+        if($user->customer){
+            $workouts = $user->customer->recentWorkouts();
+            if($user->customer)\App\Jobs\Activity::dispatch($user->customer);
+            return response()->json(['workouts'=>$workouts,'profile'=>$user->customer->findMedal()]);
+        }else{
+            return response()->json(array('status'=>'forbidden'), 403);            
+        }
     }
     /**
      * export customers.
@@ -637,10 +641,11 @@ class CustomerController extends Controller
      */
     public function profile($id, Request $request){
         $user = $request->user('api');
-        if($user->customer){
+        if($user->customer || $user->can('social')){
             $customer = Customer::find($id);
             $customer->getSocialDetails($user->customer->id);
             $customer['medals'] = $customer->findMedal();
+            $customer['type'] = "customer";
             return response()->json($customer);
         }
         return response()->json(['status'=>false],401);

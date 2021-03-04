@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+// 'payment_renewal','declined_payment', 'expiration','partners','social','events','other'
 class Notification extends Model
 {
     protected $table = 'notifications';
@@ -11,5 +11,112 @@ class Notification extends Model
     public function customer()
     {
         return $this->belongsTo('App\Customer', 'customer_id');
+    }
+    // La membresía se renovó con éxito.
+    // Vigente del 23/11/2020 al 23/12/2020.    
+    public static function paymentRenewal($customerId, $transaction){// reconsider
+        $from = "";
+        $to = "";
+        $notification = new Notification;
+        $notification->type = "payment_renewal";
+        $notification->customer_id = $customerId;
+        $notification->content = "La membresía se renovó con éxito.\n Vigente del $from al $to";
+        $notification->action_type = "fitemos";
+        $notification->save();
+    }
+    // Error al renovar la membresía.
+    // Favor verificar el método de pago. Tiene 24 horas antes de que se cancele su membresía.
+    public static function declinedPayment($customerId){// reconsider
+        $notification = new Notification;
+        $notification->type = "declined_payment";
+        $notification->customer_id = $customerId;
+        $notification->content = "Error al renovar la membresía.\n Favor verificar el método de pago. Tiene 24 horas antes de que se cancele su membresía.";
+        $notification->action_type = "fitemos";
+        $notification->save();
+    }
+    // La membresía expira en 14 días.
+    // Haz click aquí para renovar con anticipación.
+    
+    // note--> this nofification is sent 14, 7, 3 and 1 day before expiration
+    public static function bankExpiration($customerId, $days){
+        $notification = new Notification;
+        $notification->type = "expiration";
+        $notification->customer_id = $customerId;
+        $notification->content = "La membresía expira en $days días.\n Haz click aquí para renovar con anticipación.";
+        $notification->action_type = "fitemos";
+        $notification->save();
+    }
+    // When your referal join to fitemos. --> {name} se unió a Fitemos con tu invitación. Ahora ambos tienen 20% de descuento mensual.”
+    public static function referralJoin($customerId, $action){
+        $notification = new Notification;
+        $notification->type = "partners";
+        $notification->customer_id = $customerId;
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> se unió a Fitemos con tu invitación.\n Ahora ambos tienen 20% de descuento mensual.";
+        $notification->action_type = "customer";
+        $notification->action_id = $action->id;
+        $notification->save();
+    }
+    // when referall leave fitemos --> {name} se abandonó Fitemos. La tarifa de la membresía se reestablece.
+    public static function referralLeave($customerId, $action){
+        $notification = new Notification;
+        $notification->type = "partners";
+        $notification->customer_id = $customerId;
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> se abandonó Fitemos.\n La tarifa de la membresía se reestablece.";
+        $notification->action_type = "customer";
+        $notification->action_id = $action->id;
+        $notification->save();
+    }
+    // comment on post you own --> {name} comentó en tu publicación.
+    public static function commentOnPost($customerId, $action){
+        $actionId = $action->id;
+        $notification = new Notification;
+        $notification->type = "social";
+        $notification->customer_id = $customerId;
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> comentó en tu publicación.";
+        $notification->action_type = "customer";
+        $notification->action_id = $actionId;
+        $notification->save();
+    }
+    // Tag on post--> {name} te etiquetó en una foto.
+    public static function tagOn($customerId, $actionId){
+        $action = \App\Customer::find($actionId);
+        $notification = new Notification;
+        $notification->type = "social";
+        $notification->customer_id = $customerId;
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> te etiquetó en una foto.";
+        $notification->action_type = "customer";
+        $notification->action_id = $actionId;
+        $notification->save();
+    }
+    // mention on post--> {name} te mencionó en una foto.
+    public static function mentionOnPost($customerId, $actionId){
+        $action = \App\Customer::find($actionId);
+        $notification = new Notification;
+        $notification->type = "social";
+        $notification->customer_id = $customerId;
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> te mencionó en una foto.";
+        $notification->action_type = "customer";
+        $notification->action_id = $actionId;
+        $notification->save();
+    }
+    // mention in comment --> {name} te mencionó en un comentario.
+    public static function mentionOnComment($customerId, $actionId){
+        $action = \App\Customer::find($actionId);
+        $notification = new Notification;
+        $notification->type = "social";
+        $notification->customer_id = $customerId;
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> te mencionó en un comentario.";
+        $notification->action_type = "customer";
+        $notification->action_id = $actionId;
+        $notification->save();
+    }
+    //24 hours before event --> El vento {bold font - event name} es mañana a las {time}.
+    public static function events($customerId, $datatime, $eventTitle){
+        $notification = new Notification;
+        $notification->type = "events";
+        $notification->customer_id = $customerId;
+        $notification->content = "El vento <b>$eventTitle</b> es mañana a las $datatime.";
+        $notification->action_type = "fitemos";
+        $notification->save();
     }
 }

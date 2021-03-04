@@ -26,16 +26,21 @@ class ProductController extends Controller
      * }
      */
     public function index(Request $request){
-        $product = new Product;
-        $productImage = new ProductImage;
-        $product->assignSearch($request);
-        $indexData = $product->search();
-        $size = 'x-small';
-        foreach($indexData as $index=>$item){
-            $logo= $indexData[$index]['thumbnail'];
-            $indexData[$index]['thumbnail'] = $productImage->getImageSize($logo,$size);
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $product = new Product;
+            $productImage = new ProductImage;
+            $product->assignSearch($request);
+            $indexData = $product->search();
+            $size = 'x-small';
+            foreach($indexData as $index=>$item){
+                $logo= $indexData[$index]['thumbnail'];
+                $indexData[$index]['thumbnail'] = $productImage->getImageSize($logo,$size);
+            }
+            return response()->json(array('status'=>'ok','indexData'=>$indexData));
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
-        return response()->json(array('status'=>'ok','indexData'=>$indexData));
     }
     /**
      * create a product.
@@ -46,49 +51,53 @@ class ProductController extends Controller
      * }
      */
     public function store(Request $request){
-        $validator = Validator::make($request->all(), Product::validateRules());
-        $upload=explode('M',ini_get('upload_max_filesize'));
-        $uploadMaxSize = $upload[0]*1024;
-        if ($validator->fails()) {
-            return response()->json(array('status'=>'failed','errors'=>$validator->errors()));
-        }  
-        try {
-            \DB::beginTransaction();
-            $product = new Product;
-            $productImage = new ProductImage;
-            $product->assign($request);        
-            $product->save();
-            if($request->hasFile(0)){ 
-                foreach($request->file() as $index=>$file){
-                    $request->validate([
-                        $index  => 'mimes:jpeg,jpg,png,gif|required|max:'.$uploadMaxSize,
-                    ]);
-                    $fileExtension = $file->extension();
-                    $fileName = ($index).'.'.$fileExtension;
-                    $year = date("Y");
-                    $month = date("m");
-                    $photoPath ='media/shop/product/gallery/'.$year.'/'.$month.'/'.$product->id;
-                    $imagePath= $photoPath.'/'.$fileName;
-                    $productImage=ProductImage::create(array('product_id'=>$product->id,'image'=>$imagePath));
-                    $productImageGallery=ProductImage::where('product_id',$product->id)->get();
-                    $imageGalleryId = $productImageGallery[$index]['id'];
-                    $fileNameUpdate = ($imageGalleryId).'.'.$fileExtension;
-                    $imagePathUpdate= $photoPath.'/'.$fileNameUpdate;
-                    $pro = ProductImage::find($imageGalleryId);
-                    $pro->image = $imagePathUpdate;
-                    $pro->save();
-                    $file->storeAs($photoPath,$fileNameUpdate);
-                    $productImage->resizeImage($photoPath,$imageGalleryId,$fileExtension,$fileNameUpdate);
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $validator = Validator::make($request->all(), Product::validateRules());
+            $upload=explode('M',ini_get('upload_max_filesize'));
+            $uploadMaxSize = $upload[0]*1024;
+            if ($validator->fails()) {
+                return response()->json(array('status'=>'failed','errors'=>$validator->errors()));
+            }  
+            try {
+                \DB::beginTransaction();
+                $product = new Product;
+                $productImage = new ProductImage;
+                $product->assign($request);        
+                $product->save();
+                if($request->hasFile(0)){ 
+                    foreach($request->file() as $index=>$file){
+                        $request->validate([
+                            $index  => 'mimes:jpeg,jpg,png,gif|required|max:'.$uploadMaxSize,
+                        ]);
+                        $fileExtension = $file->extension();
+                        $fileName = ($index).'.'.$fileExtension;
+                        $year = date("Y");
+                        $month = date("m");
+                        $photoPath ='media/shop/product/gallery/'.$year.'/'.$month.'/'.$product->id;
+                        $imagePath= $photoPath.'/'.$fileName;
+                        $productImage=ProductImage::create(array('product_id'=>$product->id,'image'=>$imagePath));
+                        $productImageGallery=ProductImage::where('product_id',$product->id)->get();
+                        $imageGalleryId = $productImageGallery[$index]['id'];
+                        $fileNameUpdate = ($imageGalleryId).'.'.$fileExtension;
+                        $imagePathUpdate= $photoPath.'/'.$fileNameUpdate;
+                        $pro = ProductImage::find($imageGalleryId);
+                        $pro->image = $imagePathUpdate;
+                        $pro->save();
+                        $file->storeAs($photoPath,$fileNameUpdate);
+                        $productImage->resizeImage($photoPath,$imageGalleryId,$fileExtension,$fileNameUpdate);
+                    }
                 }
+                \DB::commit();
+                return response()->json(array('status'=>'ok','product'=>$product));
+            
+            } catch (Throwable $e) {
+                \DB::rollback();
+                return response()->json(array('status'=>'failed'));
             }
-            \DB::commit();
-            return response()->json(array('status'=>'ok','product'=>$product));
-        
-        } catch (Throwable $e) {
-            \DB::rollback();
-            return response()->json(array('status'=>'failed'));
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
-        
     }
     /**
      * disable a product.
@@ -99,13 +108,18 @@ class ProductController extends Controller
      * }
      */
     public function disable($id,Request $request){
-        $product = Product::find($id);
-        if ($product) {
-            $product->status = 'Disabled';
-            $product->save();
-            return response()->json(['success' => 'success']);
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $product = Product::find($id);
+            if ($product) {
+                $product->status = 'Disabled';
+                $product->save();
+                return response()->json(['success' => 'success']);
+            }
+            return response()->json(['error' => 'error'], 422);
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
-        return response()->json(['error' => 'error'], 422);
     }
     /**
      * restore a product.
@@ -116,13 +130,18 @@ class ProductController extends Controller
      * }
      */
     public function restore($id,Request $request){
-        $product = Product::find($id);
-        if ($product) {
-            $product->status = 'Active';
-            $product->save();
-            return response()->json(['success' => 'success']);
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $product = Product::find($id);
+            if ($product) {
+                $product->status = 'Active';
+                $product->save();
+                return response()->json(['success' => 'success']);
+            }
+            return response()->json(['error' => 'error'], 422);
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
-        return response()->json(['error' => 'error'], 422);
     }
     /**
      * delete a product.
@@ -133,24 +152,28 @@ class ProductController extends Controller
      * }
      */
     public function destroy($id,Request $request){
-        $product = Product::find($id);
-        ProductImage::where('product_id',$id)->delete();
-        if($product){
-            $destroy=Product::destroy($id);
-        }
-        if ($destroy){
-            $data=[
-                'status'=>'1',
-                'msg'=>'success'
-            ];
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $product = Product::find($id);
+            ProductImage::where('product_id',$id)->delete();
+            if($product){
+                $destroy=Product::destroy($id);
+            }
+            if ($destroy){
+                $data=[
+                    'status'=>'1',
+                    'msg'=>'success'
+                ];
+            }else{
+                $data=[
+                    'status'=>'0',
+                    'msg'=>'fail'
+                ];
+            }        
+            return response()->json($data);
         }else{
-            $data=[
-                'status'=>'0',
-                'msg'=>'fail'
-            ];
-        }        
-        return response()->json($data);
-        
+            return response()->json(['status'=>'failed'],403);
+        }
     }
     /**
      * show a product.
@@ -179,49 +202,54 @@ class ProductController extends Controller
      */
     public function update($id,Request $request)
     {
-        try {
-            \DB::beginTransaction();
-            $upload=explode('M',ini_get('upload_max_filesize'));
-            $uploadMaxSize = $upload[0]*1024;
-            $validator = Validator::make($request->all(), Product::validateRules($id));
-            if ($validator->fails()) {
-                return response()->json(array('status'=>'failed','errors'=>$validator->errors()));
-            }   
-                $product = new Product;
-                $productImage = new ProductImage;
-                $product = Product::find($id);
-                $productId = ProductImage::where('product_id',$id)->select('id')->get();
-                $indexValue= count($productId);
-                $product->assign($request);
-                $product->save();
-                if($request->hasFile(0)){ 
-                    foreach($request->file() as $index=>$file){
-                        $request->validate([
-                            $index  => 'mimes:jpeg,jpg,png,gif|required|max:'.$uploadMaxSize,
-                        ]);
-                        $fileExtension = $file->extension();
-                        $fileName = ($index).'.'.$fileExtension;
-                        $year = date("Y");
-                        $month = date("m");
-                        $photoPath ='media/shop/product/gallery/'.$year.'/'.$month.'/'.$id;
-                        $imagePath= $photoPath.'/'.$fileName;
-                        ProductImage::create(array('product_id'=>$id,'image'=>$imagePath));
-                        $productImageGallery=ProductImage::where('product_id',$id)->get();
-                        $imageGalleryId = $productImageGallery[$index+$indexValue]['id'];
-                        $fileNameUpdate = ($imageGalleryId).'.'.$fileExtension;
-                        $imagePathUpdate= $photoPath.'/'.$fileNameUpdate;
-                        $proUpdate = ProductImage::find($imageGalleryId);
-                        $proUpdate->image = $imagePathUpdate;
-                        $proUpdate->save();
-                        $file->storeAs($photoPath,$fileNameUpdate);
-                        $productImage->resizeImage($photoPath,$imageGalleryId,$fileExtension,$fileNameUpdate);
-                    }
-                } 
-                \DB::commit();    
-                return response()->json(array('status'=>'ok','product'=>$product));
-        } catch (Throwable $e) {
-            \DB::rollback();
-            return response()->json(array('status'=>'failed'));
+        $user = $request->user('api');
+        if($user->can('shops')){
+            try {
+                \DB::beginTransaction();
+                $upload=explode('M',ini_get('upload_max_filesize'));
+                $uploadMaxSize = $upload[0]*1024;
+                $validator = Validator::make($request->all(), Product::validateRules($id));
+                if ($validator->fails()) {
+                    return response()->json(array('status'=>'failed','errors'=>$validator->errors()));
+                }   
+                    $product = new Product;
+                    $productImage = new ProductImage;
+                    $product = Product::find($id);
+                    $productId = ProductImage::where('product_id',$id)->select('id')->get();
+                    $indexValue= count($productId);
+                    $product->assign($request);
+                    $product->save();
+                    if($request->hasFile(0)){ 
+                        foreach($request->file() as $index=>$file){
+                            $request->validate([
+                                $index  => 'mimes:jpeg,jpg,png,gif|required|max:'.$uploadMaxSize,
+                            ]);
+                            $fileExtension = $file->extension();
+                            $fileName = ($index).'.'.$fileExtension;
+                            $year = date("Y");
+                            $month = date("m");
+                            $photoPath ='media/shop/product/gallery/'.$year.'/'.$month.'/'.$id;
+                            $imagePath= $photoPath.'/'.$fileName;
+                            ProductImage::create(array('product_id'=>$id,'image'=>$imagePath));
+                            $productImageGallery=ProductImage::where('product_id',$id)->get();
+                            $imageGalleryId = $productImageGallery[$index+$indexValue]['id'];
+                            $fileNameUpdate = ($imageGalleryId).'.'.$fileExtension;
+                            $imagePathUpdate= $photoPath.'/'.$fileNameUpdate;
+                            $proUpdate = ProductImage::find($imageGalleryId);
+                            $proUpdate->image = $imagePathUpdate;
+                            $proUpdate->save();
+                            $file->storeAs($photoPath,$fileNameUpdate);
+                            $productImage->resizeImage($photoPath,$imageGalleryId,$fileExtension,$fileNameUpdate);
+                        }
+                    } 
+                    \DB::commit();    
+                    return response()->json(array('status'=>'ok','product'=>$product));
+            } catch (Throwable $e) {
+                \DB::rollback();
+                return response()->json(array('status'=>'failed'));
+            }
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
     }
     /**
@@ -251,17 +279,22 @@ class ProductController extends Controller
      * }
      */
     public function deleteImageItem(Request $request){
-        $deleteImageItemRequest=$request->input();
-        $deleteImageItem = $deleteImageItemRequest['image'];
-        $delete = explode('storage/',$deleteImageItem);
-        $productImage = new ProductImage;
-        $productId = ProductImage::where('image',$delete[1])->select('product_id')->get();
-        $productImage = ProductImage::where('image',$delete[1])->delete();
-        $productGallery = ProductImage::where('product_id',$productId[0]['product_id'])->get();
-        foreach($productGallery as $index=>$item){
-            $productGallery[$index]['image'] = url('storage/'.$productGallery[$index]['image']);
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $deleteImageItemRequest=$request->input();
+            $deleteImageItem = $deleteImageItemRequest['image'];
+            $delete = explode('storage/',$deleteImageItem);
+            $productImage = new ProductImage;
+            $productId = ProductImage::where('image',$delete[1])->select('product_id')->get();
+            $productImage = ProductImage::where('image',$delete[1])->delete();
+            $productGallery = ProductImage::where('product_id',$productId[0]['product_id'])->get();
+            foreach($productGallery as $index=>$item){
+                $productGallery[$index]['image'] = url('storage/'.$productGallery[$index]['image']);
+            }
+            return response()->json(array('status'=>'ok','productId'=>$productId[0]['product_id'],'gallery'=>$productGallery));
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
-        return response()->json(array('status'=>'ok','productId'=>$productId[0]['product_id'],'gallery'=>$productGallery));
     }    
     /**
      * show a product on front.

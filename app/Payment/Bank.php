@@ -31,17 +31,29 @@ class Bank
             }
         }
         $timeDiff = round((time() - strtotime($endDate))/3600);
+        if($timeDiff >= -14 * 24){
+            //notification;
+            \App\Models\Notification::bankExpiration($subscription->customer_id, 14);
+        }
         if($timeDiff >= -7 * 24 && $subscription->reminder_before_seven!=1){
             //send mail reminder
             Mail::to($subscription->customer->email)->send(new RenewalPaymentBankReminder($subscription->customer->first_name,$endDate,'before_seven'));
             $subscription->reminder_before_seven = 1;
             $subscription->save();
+            //notification;
+            \App\Models\Notification::bankExpiration($subscription->customer_id, 7);
+        }
+        if($timeDiff >= -3 * 24){
+            //notification;
+            \App\Models\Notification::bankExpiration($subscription->customer_id, 3);
         }
         if($timeDiff >= -24 && $subscription->reminder_before_one!=1){
             //send mail reminder
             Mail::to($subscription->customer->email)->send(new RenewalPaymentBankReminder($subscription->customer->first_name,$endDate,'before_one'));
             $subscription->reminder_before_one = 1;
             $subscription->save();
+            //notification;
+            \App\Models\Notification::bankExpiration($subscription->customer_id, 1);
         }
         if($timeDiff >= 24 && $subscription->reminder_after_one!=1){
             //send mail reminder

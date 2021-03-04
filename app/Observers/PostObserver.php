@@ -21,6 +21,7 @@ class PostObserver
             $lines = explode("\n",$post->content);
             $texts = [];
             $jsons = [];
+            $ids = [];
             foreach( $lines as $line){
                 preg_match_all($pattern, $line, $matches);
                 // print_r($matches);
@@ -31,6 +32,7 @@ class PostObserver
                         $jsonLine = str_replace($search,"$".$matches[2][$index]."$",$jsonLine);
                     }
                     $jsons[] = ['content'=>$jsonLine,'ids'=>$matches[2]];
+                    $ids = array_merge($ids,$matches[2]);
                 }else{
                     $jsons[] = ['content'=>$jsonLine];
                 }
@@ -39,6 +41,12 @@ class PostObserver
             $post->searchable_content = implode("\n",$texts);
             $post->json_content = $jsons;
             $post->save();
+            foreach($ids as $id){
+                \App\Models\Notification::mentionOnPost($id, $post->customer_id);
+            }    
+            foreach($post->tag_followers as $id){
+                \App\Models\Notification::tagOn($id, $post->customer_id);
+            }    
         });
     }
 }

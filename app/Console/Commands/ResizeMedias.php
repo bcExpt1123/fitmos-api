@@ -42,7 +42,7 @@ class ResizeMedias extends Command
     public function handle()
     {
         $medias = Media::whereType('image')
-            ->whereIn('id',[130])
+            //->whereIn('id',[130])
             ->get();
         foreach($medias as $media){
             // $this->oldDeletes($media);

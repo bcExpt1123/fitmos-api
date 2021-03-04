@@ -110,6 +110,9 @@ class PostController extends Controller
                 $post->assignFrontSearch($request);
                 $indexData = $post->search($user);
             }
+        }else if($user->can('social')){
+            $post->assignFrontSearch($request);
+            $indexData = $post->search();
         }
         return response()->json(array('status'=>'ok','posts'=>$indexData,'customerProfile'=>$profile));
     }
@@ -181,24 +184,28 @@ class PostController extends Controller
      */
     public function destroy($id,Request $request){
         $post = Post::find($id);
-        if($post){
-            $post->status = 0;
-            $post->save();
-            DeleteAsyncPost::dispatch($id);
-        }
-        if ($post){
-            $data=[
-                'status'=>'1',
-                'msg'=>'success'
-            ];
+        $user = $request->user();
+        if($user->type=="customer" && $user->customer->id == $post->customer_id || $user->can('social')){
+            if($post){
+                $post->status = 0;
+                $post->save();
+                DeleteAsyncPost::dispatch($id);
+            }
+            if ($post){
+                $data=[
+                    'status'=>'1',
+                    'msg'=>'success'
+                ];
+            }else{
+                $data=[
+                    'status'=>'0',
+                    'msg'=>'fail'
+                ];
+            }        
+            return response()->json($data);
         }else{
-            $data=[
-                'status'=>'0',
-                'msg'=>'fail'
-            ];
-        }        
-        return response()->json($data);
-        
+            return response()->json(array('status'=>'forbidden'), 403);
+        }
     }
     /**
      * show a post.
@@ -287,34 +294,38 @@ class PostController extends Controller
         $post = Post::find($id);
         $validator = Validator::make($request->all(), Post::validateRules());
         $user = $request->user();
-        try {
-            \DB::beginTransaction();
-            $oldMedias = $post->medias;
-            $post->fill(['content'=>$request->content,'location'=>$request->location,'tag_followers'=>json_decode($request->tag_followers)]);
-            $post->save();
-            if(isset($request->media_ids)){
-                $mediaIds = $request->media_ids;
-                foreach($mediaIds as $mediaId){
-                    $oldMedias = $oldMedias->reject(function($media,$key) use ( $mediaId ){
-                        return $media->id == $mediaId;
-                    });
+        if($user->type=="customer" && $user->customer->id == $post->customer_id || $user->can('social')){
+            try {
+                \DB::beginTransaction();
+                $oldMedias = $post->medias;
+                $post->fill(['content'=>$request->content,'location'=>$request->location,'tag_followers'=>json_decode($request->tag_followers)]);
+                $post->save();
+                if(isset($request->media_ids)){
+                    $mediaIds = $request->media_ids;
+                    foreach($mediaIds as $mediaId){
+                        $oldMedias = $oldMedias->reject(function($media,$key) use ( $mediaId ){
+                            return $media->id == $mediaId;
+                        });
+                    }
                 }
+                if($oldMedias&&$oldMedias->count()){
+                    $oldMedias->each(function($media){
+                        Storage::disk('s3')->delete($media->src);
+                        $media->delete();
+                    });
+                }            
+                if(isset($request->medias)){
+                    $post->uploadMedias($request->medias);
+                }
+                \DB::commit();
+                return response()->json(array('status'=>'ok','post'=>$post));
+            
+            } catch (Throwable $e) {
+                \DB::rollback();
+                return response()->json(array('status'=>'failed'), 501);
             }
-            if($oldMedias&&$oldMedias->count()){
-                $oldMedias->each(function($media){
-                    Storage::disk('s3')->delete($media->src);
-                    $media->delete();
-                });
-            }            
-            if(isset($request->medias)){
-                $post->uploadMedias($request->medias);
-            }
-            \DB::commit();
-            return response()->json(array('status'=>'ok','post'=>$post));
-        
-        } catch (Throwable $e) {
-            \DB::rollback();
-            return response()->json(array('status'=>'failed'));
+        }else{
+            return response()->json(array('status'=>'forbidden'), 403);
         }
     }
     /**

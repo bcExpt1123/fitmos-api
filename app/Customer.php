@@ -592,10 +592,12 @@ class Customer extends Model
                 $this->friend_id = $coupon->customer_id;
                 $this->friend = "yes";
                 $this->save();
+                \App\Models\Notification::referralJoin($coupon->customer_id, $this);
             }
         }
     }
     public function removeFriendShip(){
+        if($this->friend_id)\App\Models\Notification::referralLeave($this->friend_id, $this);
         $this->friend_id = null;
         $this->friend = "no";
         $this->save();
@@ -1286,8 +1288,8 @@ class Customer extends Model
             $query->whereDoesntHave('mutedRelations',function($q){
                 $q->where("customers_relations.follower_id",$this->id); 
             });
+            $query->orwhere('customer_id','=',$this->id);
         });
-        $where->orwhere('customer_id','=',$this->id);
         // $followings = DB::table("follows")->select("*")->where('follower_id',$this->id)->whereIn('status',['accepted'])->get();
         // $ids = [];
         // foreach($followings as $following){
@@ -1297,7 +1299,7 @@ class Customer extends Model
         $where->whereDoesntHave('readingCustomers',function($query){
             $query->where("reading_posts.customer_id",$this->id);
         });
-        $result = $where->where('posts.status',1)->orderBy('posts.id','desc')->limit(8)->get();
+        $result = $where->whereStatus('1')->orderBy('id','desc')->limit(8)->get();
         foreach($result as $index=>$post){
             $post->extend(null, $this->user);
         }
@@ -1353,9 +1355,9 @@ class Customer extends Model
     public function isConnecting($customer){
         if($this->id == $customer->id) return true;
         if($customer->profile=='public') return true;
-        $block = DB::table("customers_relations")->select("*")->where('customer_id',$this->id)->where('follower_id',$customer->id)->first();
+        $block = DB::table("customers_relations")->select("*")->where('customer_id',$customer->id)->where('follower_id',$this->id)->first();
         if($block) return false;
-        $item = DB::table("follows")->select("*")->where('customer_id',$this->id)->where('follower_id',$customer->id)->whereIn('status',['accepted'])->first();
+        $item = DB::table("follows")->select("*")->where('customer_id',$customer->id)->where('follower_id',$this->id)->whereIn('status',['accepted'])->first();
         if($item)return true;
         return false;
     }

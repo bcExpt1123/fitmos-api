@@ -26,15 +26,20 @@ class CompanyController extends Controller
      * }
      */
     public function index(Request $request){
-        $company = new Company;
-        $company->assignSearch($request);
-        $indexData = $company->search();
-        $size = 'x-small';
-        foreach($indexData as $index=>$item){
-            $logo= $indexData[$index]['logo'];
-            $indexData[$index]['logo'] = $company->getImageSize($logo,$size);
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $company = new Company;
+            $company->assignSearch($request);
+            $indexData = $company->search();
+            $size = 'x-small';
+            foreach($indexData as $index=>$item){
+                $logo= $indexData[$index]['logo'];
+                $indexData[$index]['logo'] = $company->getImageSize($logo,$size);
+            }
+            return response()->json($indexData);
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
-        return response()->json($indexData);
     }
     /**
      * create a shop(company).
@@ -45,42 +50,47 @@ class CompanyController extends Controller
      * }
      */
     public function store(Request $request){ 
-        $validator = Validator::make($request->all(), Company::validateRules());
-        if ($validator->fails()) {
-            return response()->json(array('status'=>'failed','errors'=>$validator->errors()));
-        }
-        try {
-            \DB::beginTransaction();
-            $company = new Company;
-            $countryArr = explode(',', $request->allCountries);
-            $year = date("Y");
-            $month = date("m");
-            $company->assign($request);  
-            $company->save();
-            if($request->hasFile('logo')&&$request->file('logo')->isValid()){ 
-                $fileExtension = $request->file('logo')->extension();
-                $fileName = $company->id.'.'.$fileExtension;
-                $photoPath = 'media/shop/company/'.$year.'/'.$month.'/'.$company->id;
-                $request->file('logo')->storeAs($photoPath,$fileName);
-                $company->logo = $photoPath.'/'.$fileName;
-                $company->save();
-                $company->resizeImage($photoPath,$fileExtension);
-            }  
-            if(!empty($countryArr[0])){
-                for ($i = 0; $i<count($countryArr); $i++){
-                    $resultShortName=Country::where('long_name',$countryArr[$i])->Select('short_name')->get();
-                    foreach($resultShortName as $short)
-                    {
-                        $shortName[$i] = $short->short_name;
-                    }
-                    CompanyCountry::create(array('company_id'=>$company->id,'country'=>$shortName[$i]));
-                }
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $validator = Validator::make($request->all(), Company::validateRules());
+            if ($validator->fails()) {
+                return response()->json(array('status'=>'failed','errors'=>$validator->errors()));
             }
-            \DB::commit();    
-            return response()->json(array('status'=>'ok','company'=>$company));
-        } catch (Throwable $e) {
-            \DB::rollback();
-            return response()->json(array('status'=>'failed'));
+            try {
+                \DB::beginTransaction();
+                $company = new Company;
+                $countryArr = explode(',', $request->allCountries);
+                $year = date("Y");
+                $month = date("m");
+                $company->assign($request);  
+                $company->save();
+                if($request->hasFile('logo')&&$request->file('logo')->isValid()){ 
+                    $fileExtension = $request->file('logo')->extension();
+                    $fileName = $company->id.'.'.$fileExtension;
+                    $photoPath = 'media/shop/company/'.$year.'/'.$month.'/'.$company->id;
+                    $request->file('logo')->storeAs($photoPath,$fileName);
+                    $company->logo = $photoPath.'/'.$fileName;
+                    $company->save();
+                    $company->resizeImage($photoPath,$fileExtension);
+                }  
+                if(!empty($countryArr[0])){
+                    for ($i = 0; $i<count($countryArr); $i++){
+                        $resultShortName=Country::where('long_name',$countryArr[$i])->Select('short_name')->get();
+                        foreach($resultShortName as $short)
+                        {
+                            $shortName[$i] = $short->short_name;
+                        }
+                        CompanyCountry::create(array('company_id'=>$company->id,'country'=>$shortName[$i]));
+                    }
+                }
+                \DB::commit();    
+                return response()->json(array('status'=>'ok','company'=>$company));
+            } catch (Throwable $e) {
+                \DB::rollback();
+                return response()->json(array('status'=>'failed'));
+            }
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
     }
     /**
@@ -103,13 +113,18 @@ class CompanyController extends Controller
      * }
      */
     public function disable($id,Request $request){
-        $company = Company::find($id);
-        if ($company) {
-            $company->status = 'Disable';
-            $company->save();
-            return response()->json(['success' => 'success']);
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $company = Company::find($id);
+            if ($company) {
+                $company->status = 'Disable';
+                $company->save();
+                return response()->json(['success' => 'success']);
+            }
+            return response()->json(['error' => 'error'], 422);
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
-        return response()->json(['error' => 'error'], 422);
     }
     /**
      * restore a shop(company).
@@ -120,13 +135,18 @@ class CompanyController extends Controller
      * }
      */
     public function restore($id,Request $request){
-        $company = Company::find($id);
-        if ($company) {
-            $company->status = 'Active';
-            $company->save();
-            return response()->json(['success' => 'success']);
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $company = Company::find($id);
+            if ($company) {
+                $company->status = 'Active';
+                $company->save();
+                return response()->json(['success' => 'success']);
+            }
+            return response()->json(['error' => 'error'], 422);
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
-        return response()->json(['error' => 'error'], 422);
     }
     /**
      * delete a shop(company).
@@ -137,29 +157,33 @@ class CompanyController extends Controller
      * }
      */
     public function destroy($id,Request $request){
-        $company = Company::find($id);
-        $photoPath = $company->logo;
-        
-        CompanyCountry::where('company_id',$id)->delete();
-        if($company){
-            if(\Storage::exists($photoPath)){
-                \Storage::delete($photoPath);
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $company = Company::find($id);
+            $photoPath = $company->logo;
+            
+            CompanyCountry::where('company_id',$id)->delete();
+            if($company){
+                if(\Storage::exists($photoPath)){
+                    \Storage::delete($photoPath);
+                }
+                $destroy=Company::destroy($id);
             }
-            $destroy=Company::destroy($id);
-        }
-        if ($destroy){
-            $data=[
-                'status'=>'1',
-                'msg'=>'success'
-            ];
+            if ($destroy){
+                $data=[
+                    'status'=>'1',
+                    'msg'=>'success'
+                ];
+            }else{
+                $data=[
+                    'status'=>'0',
+                    'msg'=>'fail'
+                ];
+            }        
+            return response()->json($data);
         }else{
-            $data=[
-                'status'=>'0',
-                'msg'=>'fail'
-            ];
-        }        
-        return response()->json($data);
-        
+            return response()->json(['status'=>'failed'],403);
+        }
     }
     /**
      * update a shop(company).
@@ -171,46 +195,51 @@ class CompanyController extends Controller
      */
     public function update($id,Request $request)
     {
-        try {
-            $validator = Validator::make($request->all(), Company::validateRules($id));
-                if ($validator->fails()) {
-                    return response()->json(array('status'=>'failed','errors'=>$validator->errors()));
-            }
-            \DB::beginTransaction();
-            $companyCountry = new CompanyCountry;
-            $company = new Company;
-            $country = new Country;
-            $company = Company::find($id);
-            CompanyCountry::where('company_id',$id)->delete();
-            $countryArr = explode(',', $request->allCountries);
-            $year = date("Y");
-            $month = date("m");
-            if($request->hasFile('logo')&&$request->file('logo')->isValid()){ 
-                $fileExtension = $request->file('logo')->extension();
-                $fileName = $company->id.'.'.$fileExtension;
-                $photoPath = 'media/shop/company/'.$year.'/'.$month.'/'.$company->id;
-                $request->file('logo')->storeAs($photoPath,$fileName);
-                $company->logo = $photoPath.'/'.$fileName;
-                $company->save();
-                $company->resizeImage($photoPath,$fileExtension);
-            }
-            $company->assign($request);
-            $company->save();
-            if(!empty($countryArr[0])){
-                for ($i = 0; $i<count($countryArr); $i++){
-                    $resultShortName=Country::where('long_name',$countryArr[$i])->select('short_name')->get();
-                    foreach($resultShortName as $short)
-                        {
-                            $shortName[$i] = $short->short_name;
-                        }
-                    CompanyCountry::create(array('company_id'=>$company->id,'country'=>$shortName[$i]));
+        $user = $request->user('api');
+        if($user->can('shops')){
+            try {
+                $validator = Validator::make($request->all(), Company::validateRules($id));
+                    if ($validator->fails()) {
+                        return response()->json(array('status'=>'failed','errors'=>$validator->errors()));
                 }
+                \DB::beginTransaction();
+                $companyCountry = new CompanyCountry;
+                $company = new Company;
+                $country = new Country;
+                $company = Company::find($id);
+                CompanyCountry::where('company_id',$id)->delete();
+                $countryArr = explode(',', $request->allCountries);
+                $year = date("Y");
+                $month = date("m");
+                if($request->hasFile('logo')&&$request->file('logo')->isValid()){ 
+                    $fileExtension = $request->file('logo')->extension();
+                    $fileName = $company->id.'.'.$fileExtension;
+                    $photoPath = 'media/shop/company/'.$year.'/'.$month.'/'.$company->id;
+                    $request->file('logo')->storeAs($photoPath,$fileName);
+                    $company->logo = $photoPath.'/'.$fileName;
+                    $company->save();
+                    $company->resizeImage($photoPath,$fileExtension);
+                }
+                $company->assign($request);
+                $company->save();
+                if(!empty($countryArr[0])){
+                    for ($i = 0; $i<count($countryArr); $i++){
+                        $resultShortName=Country::where('long_name',$countryArr[$i])->select('short_name')->get();
+                        foreach($resultShortName as $short)
+                            {
+                                $shortName[$i] = $short->short_name;
+                            }
+                        CompanyCountry::create(array('company_id'=>$company->id,'country'=>$shortName[$i]));
+                    }
+                }
+                \DB::commit();    
+                return response()->json(array('status'=>'ok','company'=>$company));
+            } catch (Throwable $e) {
+                \DB::rollback();
+                return response()->json(array('status'=>'failed'));
             }
-            \DB::commit();    
-            return response()->json(array('status'=>'ok','company'=>$company));
-        } catch (Throwable $e) {
-            \DB::rollback();
-            return response()->json(array('status'=>'failed'));
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
     }
     /**
@@ -222,27 +251,32 @@ class CompanyController extends Controller
      * }
      */
     public function show($id,Request $request){
-        $company = Company::find($id);
-        $size = 'small';
-        $logo = $company['logo'];
-        $company['logo'] = url('storage/'.$logo);
-        $company['image'] = $company->getImageSize($logo,$size);
-        $nullAttributes = ["mobile_phone","website_url","horario","facebook","instagram","twitter"];
-        foreach($nullAttributes as $attribute){
-            if($company->{$attribute} == null){
-                $company->{$attribute} = "";
+        $user = $request->user('api');
+        if($user->can('shops')){
+            $company = Company::find($id);
+            $size = 'small';
+            $logo = $company['logo'];
+            $company['logo'] = url('storage/'.$logo);
+            $company['image'] = $company->getImageSize($logo,$size);
+            $nullAttributes = ["mobile_phone","website_url","horario","facebook","instagram","twitter"];
+            foreach($nullAttributes as $attribute){
+                if($company->{$attribute} == null){
+                    $company->{$attribute} = "";
+                }
             }
+            if($company->is_all_countries=="no"){
+                $companyCountries=CompanyCountry::where('company_id',$id)->select("country")->get(); 
+                $countryLongNames = [];
+                foreach($companyCountries as $index=>$country){
+                    $countryObject=Country::where('short_name',$country->country)->first();
+                    $countryLongNames[$index] = $countryObject->long_name;    
+                }  
+                return response()->json(array('status'=>'ok','company'=>$company,'country'=>$countryLongNames));
+            }
+            return response()->json(array('status'=>'ok','company'=>$company));    
+        }else{
+            return response()->json(['status'=>'failed'],403);
         }
-        if($company->is_all_countries=="no"){
-            $companyCountries=CompanyCountry::where('company_id',$id)->select("country")->get(); 
-            $countryLongNames = [];
-            foreach($companyCountries as $index=>$country){
-                $countryObject=Country::where('short_name',$country->country)->first();
-                $countryLongNames[$index] = $countryObject->long_name;    
-            }  
-            return response()->json(array('status'=>'ok','company'=>$company,'country'=>$countryLongNames));
-        }
-        return response()->json(array('status'=>'ok','company'=>$company));    
     }
     /**
      * get a shop(company) on frontend.

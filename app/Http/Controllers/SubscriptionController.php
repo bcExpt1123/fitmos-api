@@ -246,7 +246,7 @@ class SubscriptionController extends Controller
                 $paymentSubscription = new PaymentSubscription;
                 list($now, $paymentSubscription) = $paymentSubscription->createFromPlan($subscription,$paymentPlan);
                 $paymentSubscription->sendFirstFreeMail($subscription);
-                $user->customer->setFriendShip($coupon);
+                // $user->customer->setFriendShip($coupon);
             }
         }else{
             return [false,'failed', $response['error_message'],422];
