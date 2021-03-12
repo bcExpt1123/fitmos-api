@@ -229,4 +229,5 @@ Route::resource('social-reports', 'SocialReportController')->middleware('auth:ap
 Route::post('sync/{id}', 'SearchController@sync')->where('id', '[0-9]+');
 Route::get('chat/verify', 'ChatController@verify');
 Route::get('chat/verify-local', 'ChatController@verifyLocal');
+Route::post('chat/user-id', 'ChatController@userId')->middleware('auth:api');
 

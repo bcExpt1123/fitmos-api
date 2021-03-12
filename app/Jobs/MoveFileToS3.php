@@ -11,7 +11,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
-use Intervention\Image\ImageManagerStatic as Image;
 use Owenoj\LaravelGetId3\GetId3;
 use App\Models\Media;
 

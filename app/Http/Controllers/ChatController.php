@@ -32,6 +32,7 @@ class ChatController extends Controller
      */
     public function verifyLocal(Request $request)
     {   
+        JWT::$leeway = 46;
         $userId = $request->id;
         $token = $request->token;
         $publicKey = file_get_contents(storage_path('oauth-public.key'));
@@ -44,5 +45,22 @@ class ChatController extends Controller
         }
         // print_r($res->sub);die;
         return response()->json(['status'=>'failed'],403);
+    }
+    /**
+     * save user's chat id.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @bodyParam chat_id integer required
+     * @response {
+     * }
+     */
+    public function userId(Request $request){
+        $user = $request->user();
+        if(!$user->chat_id){
+            $user->chat_id = $request->chat_id;
+            $user->save();
+        }
+        return response()->json(['status'=>'ok']);
     }
 }

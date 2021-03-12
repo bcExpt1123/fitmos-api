@@ -226,7 +226,7 @@ trait WorkoutTrait
         $weekday = strtolower(date('l', strtotime($publishDate)));
         if (isset($workoutCondition[$weekday]) && $workoutCondition[$weekday]) {
             $block = ['content'=>$record->comentario,'slug'=>'comentario'];
-            if($record->image_path)$block['image_path'] = env('APP_URL').$record->image_path;
+            if($record->image_path)$block['image_path'] = env('APP_URL').$record->image_path."?time=".strtotime($record->update_at);
             $blocks = [$block];
             $block = self::getNotes($record,'calentamiento');
             if($block)$blocks[] = $block;

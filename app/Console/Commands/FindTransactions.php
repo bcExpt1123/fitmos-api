@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Subscription;
 use App\PaymentSubscription;
 use App\Transaction;
@@ -304,9 +307,16 @@ class FindTransactions extends Command
         if(false){
             $this->deleteComments();
         }
-        if(true){
+        if(false){
             $this->checkCarbon();
         }
+        if(true){
+            $this->checkVideo();
+        }
+    }
+    private function checkVideo(){
+        $video = new File(storage_path('app/files/25.qt'));
+        print_r($video->getMimeType());
     }
     private function checkCarbon(){
         $doneDate = "2021-03-05 2:30:00";

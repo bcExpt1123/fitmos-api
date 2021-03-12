@@ -21,7 +21,7 @@ class Post extends Model
         return array(
             'content'=>'max:5000',
             'medias'=>'array|max:50',
-            'medias.*'=>'image|max:209715200, mimetypes:mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|max:209715200',
+            'medias.*'=>'image|max:209715200',
             'tag_followers'=>'array|max:191',
             'location'=>'max:191',
         );

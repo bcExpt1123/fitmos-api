@@ -47,6 +47,7 @@ class SearchController extends Controller
             })->where('id','!=',$user->customer->id)->limit(4)->get();
             foreach($customers as $customer){
                 $customer->getAvatar();
+                $customer->getSocialDetails($user->customer->id);
             }
             // DB::enableQueryLog();
             $shops = Company::where('name','like',"%$search%")
@@ -110,6 +111,7 @@ class SearchController extends Controller
             $customers = $where->orderBy('id','desc')->limit(20)->get();
             foreach($customers as $customer){
                 $customer->getAvatar();
+                $customer->getSocialDetails($user->customer->id);
             }
             return response()->json([
                 'customers'=>$customers
