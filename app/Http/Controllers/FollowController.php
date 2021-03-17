@@ -241,6 +241,7 @@ class FollowController extends Controller
         $customer->type="customer";
         $customer->getSocialDetails($user->customer->id);
         $customer['medals'] = $customer->findMedal();
+        if($customer->user->chat_id)$customer->chat_id = $customer->user->chat_id;
         $user->customer->touch();
         return $customer;
     }

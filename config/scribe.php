@@ -113,6 +113,7 @@ return [
                 'api/users',
                 'roles*',
                 'oauth*',
+                'chat/verify-local',
             ],
 
             /*

@@ -1211,7 +1211,7 @@ class Customer extends Model
         foreach($follows as $follow){
             $followerIds[] = $follow->follower_id;
         }
-        $where = Customer::whereProfile('public');
+        $where = Customer::with("user")->whereProfile('public');
         $where->where(function($query){
             $query->whereHas('user', function($q){
                 $q->where('active','=','1');
@@ -1224,6 +1224,8 @@ class Customer extends Model
         foreach($customers as $customer){
             $customer->display = $customer->first_name.' '.$customer->last_name;
             $customer->getAvatar();
+            $customer->chat_id = $customer->user->chat_id;
+            unset($customer->user);
         }
         return $customers;
     }

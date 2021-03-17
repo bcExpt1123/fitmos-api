@@ -38,7 +38,7 @@ class ChatController extends Controller
         $publicKey = file_get_contents(storage_path('oauth-public.key'));
         try {
             $res = JWT::decode($token, $publicKey, array('RS256'));
-            if($userId == $res->sub) return response()->json(['status'=>'ok','uid'=>$res->sub,'user'=>['id'=>$res->sub]]);
+            if($userId == $res->sub) return response()->json(['status'=>'ok','uid'=>$res->sub,'user'=>['id'=>$res->sub,'full_name'=>'full_name'.$res->sub,'email'=>'email'.$res->sub.'@gmail.com']]);
 
         }catch(\Exception $e){
             return response()->json(['status'=>'failed'],403);
