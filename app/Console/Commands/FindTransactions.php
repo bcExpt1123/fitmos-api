@@ -99,7 +99,7 @@ class FindTransactions extends Command
         if(false){
             $customer = Customer::find(3);
             // $customer->changeCoupon(10);
-            $friends = $customer->getPeople();
+            [$friends, $non] = $customer->getPeople();
             foreach($friends as $friend){
                 if(in_array($friend->id, [28, 46, 60, 111])){print_r($friend->id);print_r("@");}
             }

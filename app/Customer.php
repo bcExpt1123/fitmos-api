@@ -1211,7 +1211,7 @@ class Customer extends Model
         foreach($follows as $follow){
             $followerIds[] = $follow->follower_id;
         }
-        $where = Customer::with("user")->whereProfile('public');
+        $where = Customer::with("user");
         $where->where(function($query){
             $query->whereHas('user', function($q){
                 $q->where('active','=','1');
@@ -1220,14 +1220,21 @@ class Customer extends Model
                 $q->where('status','=',"Active");
             });
         });
-        $customers = $where->orWhereIn('id',$followerIds)->get();
+        $publicProfiles = [];//public and following private profiles
+        $provateProfiles = [];
+        $customers = $where->get();
         foreach($customers as $customer){
             $customer->display = $customer->first_name.' '.$customer->last_name;
             $customer->getAvatar();
             $customer->chat_id = $customer->user->chat_id;
             unset($customer->user);
+            if($customer->profile=='private' && in_array($followerIds, $customer->id)==false){
+                $provateProfiles[] = $customer;
+            }else{
+                $publicProfiles[] = $customer;
+            }
         }
-        return $customers;
+        return [$publicProfiles, $provateProfiles];
     }
     public function generateUsername(){
         $names = explode('@',$this->email);
