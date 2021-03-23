@@ -584,11 +584,17 @@ class CustomerController extends Controller
         return response()->json(['status'=>false],401);
     }
     /**
-     * get people.
+     * get public customers and private customers.
      * 
      * This endpoint.
      * @authenticated
      * @response {
+     *  "people"=>[
+     *      customers    
+     *  ],
+     *  "privateProfiles"=>[
+     *  customers
+     *  ],
      * }
      */
     public function people(Request $request){
@@ -600,10 +606,11 @@ class CustomerController extends Controller
         return response()->json(['status'=>false],401);
     }    
     /**
-     * get newsfeed.
+     * get newsfeed or suggested posts.
      * 
      * This endpoint.
      * @authenticated
+     * @bodyParam suggested integer required    //if it is 0, it returns newsfeed, if it is 1, it returns suggested posts;
      * @response {
      * }
      */

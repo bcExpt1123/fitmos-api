@@ -285,7 +285,7 @@ class FollowController extends Controller
             $follows = $where->get();
             $where = DB::table("follows")->select("*")->where('customer_id',$customer->id);
             if($customer->id != $user->customer->id)$where->whereIn('status',['accepted']);
-            $where->orderBy('id')->offset(($pageNumber+1) * $pageSize)->limit($pageSize)->count();
+            $where->orderBy('id')->offset(($pageNumber+1) * $pageSize)->limit($pageSize);
             $next = $where->get()->count();
         }
         foreach( $follows as $follow){

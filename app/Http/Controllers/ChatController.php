@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \Firebase\JWT\JWT;
+use App\User;
 /**
  * @group Chat
  *
@@ -20,7 +21,24 @@ class ChatController extends Controller
      */
     public function verify(Request $request)
     {
-        return response()->json(['status'=>'ok','cart'=>null]);
+        JWT::$leeway = 46;
+        $userId = $request->id;
+        $token = $request->token;
+        $publicKey = file_get_contents(storage_path('oauth-public.key'));
+        try {
+            $res = JWT::decode($token, $publicKey, array('RS256'));
+            if($userId == $res->sub){
+                $user = User::find($res->sub);
+                if($user){
+                    return response()->json(['status'=>'ok','uid'=>$res->sub,'user'=>['id'=>$res->sub,'full_name'=>$user->customer->first_name.' '.$user->customer->last_name,'email'=>$user->email]]);
+                }
+            } 
+
+        }catch(\Exception $e){
+            return response()->json(['status'=>'failed'],403);
+        }
+        // print_r($res->sub);die;
+        return response()->json(['status'=>'failed'],403);
     }
     /**
      * verify from local.

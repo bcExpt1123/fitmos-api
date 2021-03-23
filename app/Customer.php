@@ -1297,7 +1297,11 @@ class Customer extends Model
             $query->whereDoesntHave('mutedRelations',function($q){
                 $q->where("customers_relations.follower_id",$this->id); 
             });
-            $query->orwhere('customer_id','=',$this->id);
+            if($suggested == 0){
+                $query->orwhere('customer_id','=',$this->id);
+            }else{
+                $query->where('customer_id','!=',$this->id);
+            }
         });
         // $followings = DB::table("follows")->select("*")->where('follower_id',$this->id)->whereIn('status',['accepted'])->get();
         // $ids = [];
@@ -1360,6 +1364,22 @@ class Customer extends Model
             $relation = DB::table("customers_relations")->select("*")->where('follower_id',$authId)->where('customer_id',$this->id)->first();
             if($relation)$this['relation'] = $relation->status;
         }
+        $chatBlocked = DB::table("customers_relations")->select("*")->where('customer_id',$this->id)->orWhere('follower_id',$this->id)->get();
+        $chatBlockIds = [];
+        foreach($chatBlocked as $record){
+            if($record->follower_id == $this->id){
+                $chatBlockIds[] = $record->customer_id;
+            }
+            if($record->customer_id == $this->id){
+                $chatBlockIds[] = $record->follower_id;
+            }
+        }
+        $chatBlockers = Customer::with('user')->whereIn('id',$chatBlockIds)->get();
+        $blockedChatIds = [];
+        foreach($chatBlockers as $customer){
+            if($customer->user->chat_id)$blockedChatIds[] = $customer->user->chat_id;
+        }
+        $this['blockedChatIds'] = $blockedChatIds;
     }
     public function isConnecting($customer){
         if($this->id == $customer->id) return true;

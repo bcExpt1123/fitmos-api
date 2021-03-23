@@ -20,6 +20,7 @@ class LikeController extends Controller
      * 
      * This endpoint.
      * @authenticated
+     * @bodyParam activity_id integer required
      * @response {
      * }
      */
@@ -55,6 +56,7 @@ class LikeController extends Controller
      * 
      * This endpoint.
      * @authenticated
+     * @urlParam id integer required
      * @response {
      * }
      */
@@ -75,4 +77,33 @@ class LikeController extends Controller
         ];
         return response()->json($data,403);
     }
+    /**
+     * get liker(customer) list for an activity 10 per page.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @queryParam activity_id integer required
+     * @queryParam pageNumber integer
+     * @response {
+     * [
+     *  {
+     *  "id"=>1,
+     *  "activity_id"=>1,
+     *  "customer_id"=>1,
+     *  "customer"=>{
+     *      "first_name"=>'first',
+     *      "last_name"=>'last',
+     *      "avatarUrls"=>[]
+     *  }
+     *  }]
+     * }
+     */
+    public function index(Request $request){
+        // $likes = Like::with('customer')->whereActivityId($request->activity_id)->get();
+        $like = new Like;
+        $like->assignSearch($request);
+        $data = $like->search();
+        return response()->json($data);
+    }
+
 }
