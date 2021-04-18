@@ -74,23 +74,23 @@ class Workout extends Model
     {
         if (date('w', strtotime($date)) == 0) {
             $week = [
-                date('Y-m-d', strtotime('monday this week', strtotime($date))),
-                date('Y-m-d', strtotime('tuesday this week', strtotime($date))),
-                date('Y-m-d', strtotime('wednesday this week', strtotime($date))),
-                date('Y-m-d', strtotime('thursday this week', strtotime($date))),
-                date('Y-m-d', strtotime('friday this week', strtotime($date))),
-                date('Y-m-d', strtotime('saturday this week', strtotime($date))),
                 date('Y-m-d', strtotime('sunday', strtotime($date))),
+                date('Y-m-d', strtotime('monday next week', strtotime($date))),
+                date('Y-m-d', strtotime('tuesday next week', strtotime($date))),
+                date('Y-m-d', strtotime('wednesday next week', strtotime($date))),
+                date('Y-m-d', strtotime('thursday next week', strtotime($date))),
+                date('Y-m-d', strtotime('friday next week', strtotime($date))),
+                date('Y-m-d', strtotime('saturday next week', strtotime($date))),
             ];
         } else {
             $week = [
+                date('Y-m-d', strtotime('sunday last week', strtotime($date))),
                 date('Y-m-d', strtotime('monday this week', strtotime($date))),
                 date('Y-m-d', strtotime('tuesday this week', strtotime($date))),
                 date('Y-m-d', strtotime('wednesday this week', strtotime($date))),
                 date('Y-m-d', strtotime('thursday this week', strtotime($date))),
                 date('Y-m-d', strtotime('friday this week', strtotime($date))),
                 date('Y-m-d', strtotime('saturday this week', strtotime($date))),
-                date('Y-m-d', strtotime('sunday this week', strtotime($date))),
             ];
         }
         $columns  = ['comentario','image_path','blog','blog_timer_type','blog_timer_work','blog_timer_round','blog_timer_rest','blog_timer_description'];

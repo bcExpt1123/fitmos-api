@@ -1211,7 +1211,10 @@ class Customer extends Model
         foreach($follows as $follow){
             $followerIds[] = $follow->follower_id;
         }
-        $where = Customer::with("user");
+        $where = Customer::with("user")->with(['mutedRelations' => function ($query) {
+            $query->where('customers_relations.follower_id', $this->id);
+            $query->where('customers_relations.status', 'muted');
+        }]);
         $where->where(function($query){
             $query->whereHas('user', function($q){
                 $q->where('active','=','1');
@@ -1228,6 +1231,9 @@ class Customer extends Model
             $customer->getAvatar();
             $customer->chat_id = $customer->user->chat_id;
             unset($customer->user);
+            if($customer->mutedRelations->count()>0){
+                $customer['relation'] = $customer->mutedRelations[0]->pivot->status;
+            }
             if($customer->profile=='private' && in_array($followerIds, $customer->id)==false){
                 $provateProfiles[] = $customer;
             }else{
