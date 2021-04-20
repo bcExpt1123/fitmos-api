@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 use Twilio\Rest\Client;
-use App\Jobs\SendEmail;
+//use App\Jobs\SendEmail;
 use App\Exports\CustomersExport;
 use App\Payment\Bank;
 use Mail;
@@ -1318,9 +1318,28 @@ class Customer extends Model
         $where->whereDoesntHave('readingCustomers',function($query){
             $query->where("reading_posts.customer_id",$this->id);
         });
-        $result = $where->whereStatus('1')->orderBy('id','desc')->limit(8)->get();
+        $result = $where->whereStatus('1')->orderBy('id','desc')->limit(9)->get();
         foreach($result as $index=>$post){
             $post->extend(null, $this->user);
+        }
+        // get id(date) customerIds from date;
+        if(Cache::has('activeCustomerIds')){
+            $activeCustomerIds = Cache::get('activeCustomerIds');
+        }else{
+            $customers = Customer::where(function($query){
+                $query->whereHas('user', function($q){
+                    $q->where('active','=','1');
+                });
+                $query->whereHas('subscriptions', function($q){
+                    $q->where('status','=',"Active")->whereNull('end_date');
+                });
+            })->get();
+            $activeCustomerIds = [];
+            foreach($customers as $customer){
+                $activeCustomerIds[] = $customer->id;
+            }
+            // Cache::forever('activeCustomerIds', $activeCustomerIds);
+            Cache::add('activeCustomerIds', $activeCustomerIds, 3600*24);
         }
         return $result;
     }

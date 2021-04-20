@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Cache;
 use App\Subscription;
 use App\PaymentSubscription;
 use App\Transaction;
@@ -310,8 +311,21 @@ class FindTransactions extends Command
         if(false){
             $this->checkCarbon();
         }
-        if(true){
+        if(false){
             $this->checkVideo();
+        }
+        if(true){
+            $this->testingCache();
+        }
+    }
+    private function testingCache(){
+        // Cache::forget('activeCustomerIds');
+        if(Cache::has('activeCustomerIds')){
+            $value = Cache::get('activeCustomerIds');
+            var_dump($value);
+        }else{
+            // Cache::forever('activeCustomerIds', [1,2,3,4,5,6,7,8,9,10]);    
+            Cache::add('activeCustomerIds', [1,2,3,4,5,6,7,8,9,10], 10);
         }
     }
     private function checkVideo(){

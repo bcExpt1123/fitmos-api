@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use Illuminate\Support\Facades\Cache;
 use App\Subscription;
 use App\Config;
 
@@ -17,5 +18,6 @@ class SubscriptionObserver
     {
         $config = new Config;
         $config->updateConfig('public_profile', time());
+        Cache::forget('activeCustomerIds');
     }
 }

@@ -12,6 +12,14 @@ use App\Models\Post;
 use App\Observers\PostObserver;
 use App\Models\Comment;
 use App\Observers\CommentObserver;
+use App\Benchmark;
+use App\Observers\BenchmarkObserver;
+use App\Observers\EventObserver;
+use App\Models\Evento;
+use App\Observers\EventoObserver;
+use App\Company;
+use App\Observers\CompanyObserver;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -41,6 +49,10 @@ class EventServiceProvider extends ServiceProvider
         Subscription::observe(SubscriptionObserver::class);
         Post::observe(PostObserver::class);
         Comment::observe(CommentObserver::class);
+        Benchmark::observe(BenchmarkObserver::class);
+        \App\Event::observe(EventoObserver::class);
+        Company::observe(CompanyObserver::class);
+        Evento::observe(EventObserver::class);
         //
     }
 }

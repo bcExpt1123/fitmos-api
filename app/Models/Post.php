@@ -140,5 +140,7 @@ class Post extends Model
             $this->workout_spanish_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B del %Y", strtotime($this->workout_date))));
             $this->workout_spanish_short_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B", strtotime($this->workout_date))));
         }
+        //if type is shop, it is avatar
+        //if type is shop, event, blogs, benchmark, get medias from their images, get content from source
     }
 }
