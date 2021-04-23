@@ -17,15 +17,15 @@ class BenchmarkObserver
      */
     public function created(Benchmark $benchmark)
     {
-        if($benchmark->status == 'Publish'){
+        // if($benchmark->status == 'Publish'){
             $activity = new Activity;
             $activity->save();
             $post = new Post;
-            $post->fill(['activity_id'=>$activity->id,'customer_id'=>0,'type'=>'benchmark']);
+            $post->fill(['activity_id'=>$activity->id,'customer_id'=>0,'type'=>'benchmark','object_id'=>$benchmark->id]);
             Post::withoutEvents(function () use ($post) {
                 $post->status = 1;
                 $post->save();
             });
-        }
+        // }
     }
 }

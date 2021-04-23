@@ -314,9 +314,36 @@ class FindTransactions extends Command
         if(false){
             $this->checkVideo();
         }
-        if(true){
+        if(false){
             $this->testingCache();
         }
+        if(false){
+            $this->generateBirthdayPosts();
+        }
+        if(true){
+            $this->generateArticlePosts();
+        }
+    }
+    private function generateArticlePosts(){
+        $event = \App\Company::find(22);
+        $activity = new \App\Models\Activity;
+        $activity->save();
+        $post = new Post;
+        $post->fill(['activity_id'=>$activity->id,'customer_id'=>0,'type'=>'shop','object_id'=>$event->id]);
+        Post::withoutEvents(function () use ($post) {
+            $post->status = 1;
+            $post->save();
+        });
+    }
+    private function generateBirthdayPosts(){
+        $customer = Customer::find(3);
+        // $firstDate = "2021-03-05 2:30:00";
+        // $firstDate = Carbon::createFromFormat('Y-m-d H:i:s', $firstDate, 'America/Panama');
+        // $secondDate = Carbon::createFromFormat('Y-m-d H:i:s', $firstDate, 'America/Panama');
+        // $secondDate->add('2','day');
+        // $secondDate->add('5','hour');
+        $posts = $customer->getNewsfeed(-1, 1);
+        // print_r($posts);
     }
     private function testingCache(){
         // Cache::forget('activeCustomerIds');

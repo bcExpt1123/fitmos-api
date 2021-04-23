@@ -242,4 +242,20 @@ class ServiceController extends Controller
             return response()->json(['status'=>'failed'],403);
         }
     }
+    public function removeImage(Request $request){
+        $user = $request->user('api');
+        if($user->can('subscription pricing') || $user->can('subscription workout content')){
+            return Workout::removeImage($request);
+        }else{
+            return response()->json(['status'=>'failed'],403);
+        }
+    }
+    public function pendingworkoutRemoveImage(Request $request){
+        $user = $request->user('api');
+        if($user->can('subscription pricing') || $user->can('subscription workout content')){
+            return StaticWorkout::removeImage($request);
+        }else{
+            return response()->json(['status'=>'failed'],403);
+        }
+    }    
 }

@@ -12,14 +12,14 @@ This endpoint.
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/users/expedita" \
+    "http://127.0.0.4/api/users/modi" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/expedita"
+    "http://127.0.0.4/api/users/modi"
 );
 
 let headers = {
@@ -81,14 +81,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/users/quis" \
+    -G "http://127.0.0.4/api/users/nam" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/quis"
+    "http://127.0.0.4/api/users/nam"
 );
 
 let headers = {
@@ -150,14 +150,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/users/minima" \
+    "http://127.0.0.4/api/users/laudantium" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/minima"
+    "http://127.0.0.4/api/users/laudantium"
 );
 
 let headers = {
@@ -347,7 +347,9 @@ This endpoint.
 curl -X POST \
     "http://127.0.0.4/api/users/customerUpdate" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"first_name":"facere","last_name":"quisquam","username":"asperiores","gender":"veniam","current_height":"assumenda","whatsapp_phone_number":"repellendus","country":"et","country_code":"amet","description":"asperiores"}'
+
 ```
 
 ```javascript
@@ -360,10 +362,22 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "first_name": "facere",
+    "last_name": "quisquam",
+    "username": "asperiores",
+    "gender": "veniam",
+    "current_height": "assumenda",
+    "whatsapp_phone_number": "repellendus",
+    "country": "et",
+    "country_code": "amet",
+    "description": "asperiores"
+}
 
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response => response.json());
 ```
 
@@ -395,6 +409,53 @@ fetch(url, {
 <p>
 <label id="auth-POSTapi-users-customerUpdate" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-users-customerUpdate" data-component="header"></label>
 </p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>first_name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="first_name" data-endpoint="POSTapi-users-customerUpdate" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>last_name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="last_name" data-endpoint="POSTapi-users-customerUpdate" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>username</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="username" data-endpoint="POSTapi-users-customerUpdate" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>gender</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="gender" data-endpoint="POSTapi-users-customerUpdate" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>current_height</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="current_height" data-endpoint="POSTapi-users-customerUpdate" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>whatsapp_phone_number</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="whatsapp_phone_number" data-endpoint="POSTapi-users-customerUpdate" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>country</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="country" data-endpoint="POSTapi-users-customerUpdate" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>country_code</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="country_code" data-endpoint="POSTapi-users-customerUpdate" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>description</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="description" data-endpoint="POSTapi-users-customerUpdate" data-component="body"  hidden>
+<br>
+</p>
+
 </form>
 
 

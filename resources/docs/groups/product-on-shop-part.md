@@ -12,14 +12,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/viewImages/praesentium" \
+    -G "http://127.0.0.4/api/viewImages/itaque" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/viewImages/praesentium"
+    "http://127.0.0.4/api/viewImages/itaque"
 );
 
 let headers = {
@@ -81,14 +81,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/products/quod/home" \
+    -G "http://127.0.0.4/api/products/tempora/home" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/products/quod/home"
+    "http://127.0.0.4/api/products/tempora/home"
 );
 
 let headers = {
@@ -150,14 +150,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/products/nesciunt/download" \
+    -G "http://127.0.0.4/api/products/amet/download" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/products/nesciunt/download"
+    "http://127.0.0.4/api/products/amet/download"
 );
 
 let headers = {

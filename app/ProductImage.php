@@ -11,6 +11,9 @@ class ProductImage extends Model
 {
     protected $table='product_gallery';
     protected $fillable = ['product_id','image']; 
+    public function product(){
+        return $this->belongsTo('App\Product');
+    }
     public function getImageSize($logo,$size) 
     {
         $image =  implode('-' . Setting::IMAGE_SIZES[$size] . '.', explode('.', $logo));

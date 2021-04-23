@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "33f88659-7699-413b-821d-1bdd29967874",
+        "_postman_id": "c9366451-a3a6-4f3f-9a72-ee1bd71c3c1f",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -46,7 +46,7 @@
                     "response": []
                 },
                 {
-                    "name": "create a user.",
+                    "name": "register a user.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -266,7 +266,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "cumque",
+                                    "value": "facilis",
                                     "description": ""
                                 }
                             ]
@@ -326,12 +326,78 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "nulla",
+                                    "value": "fugiat",
                                     "description": ""
                                 }
                             ]
                         },
                         "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Benchmark API",
+            "description": "\nAPIs for managing  benchmark",
+            "item": [
+                {
+                    "name": "get published benchmarks.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/benchmarks\/published",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/benchmarks\/published"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a benchmark.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/benchmarks\/:benchmark",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/benchmarks\/:benchmark",
+                            "variable": [
+                                {
+                                    "id": "benchmark",
+                                    "key": "benchmark",
+                                    "value": "in",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -366,7 +432,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quis",
+                                    "value": "sit",
                                     "description": ""
                                 }
                             ]
@@ -478,7 +544,7 @@
                                 {
                                     "id": "benchmarkResult",
                                     "key": "benchmarkResult",
-                                    "value": "quo",
+                                    "value": "eaque",
                                     "description": ""
                                 }
                             ]
@@ -512,7 +578,7 @@
                                 {
                                     "id": "benchmarkResult",
                                     "key": "benchmarkResult",
-                                    "value": "quod",
+                                    "value": "optio",
                                     "description": ""
                                 }
                             ]
@@ -546,7 +612,7 @@
                                 {
                                     "id": "benchmarkResult",
                                     "key": "benchmarkResult",
-                                    "value": "aliquam",
+                                    "value": "tempora",
                                     "description": ""
                                 }
                             ]
@@ -596,7 +662,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 17\n}"
+                            "raw": "{\n    \"customer_id\": 3\n}"
                         },
                         "description": ""
                     },
@@ -625,7 +691,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 15\n}"
+                            "raw": "{\n    \"customer_id\": 12\n}"
                         },
                         "description": ""
                     },
@@ -654,7 +720,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 7\n}"
+                            "raw": "{\n    \"customer_id\": 3\n}"
                         },
                         "description": ""
                     },
@@ -683,7 +749,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 19\n}"
+                            "raw": "{\n    \"customer_id\": 3\n}"
                         },
                         "description": ""
                     },
@@ -760,7 +826,7 @@
                                 {
                                     "id": "cart",
                                     "key": "cart",
-                                    "value": "porro",
+                                    "value": "modi",
                                     "description": ""
                                 }
                             ]
@@ -838,6 +904,35 @@
                         "description": "This endpoint."
                     },
                     "response": []
+                },
+                {
+                    "name": "save user's chat id.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/chat\/user-id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/chat\/user-id"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"chat_id\": 16\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
                 }
             ]
         },
@@ -868,7 +963,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"id\": 15,\n    \"type\": \"nulla\"\n}"
+                            "raw": "{\n    \"id\": 9,\n    \"type\": \"dolore\"\n}"
                         },
                         "description": "This endpoint get comments on several scenarios.\nOnly comments with level1 = 0 can have replies.\n<p>Replies  level1 > 0.<\/p>\n<p>type = appendNext, it searchs only 4 comments with level1=0 from id<\/p>\n<p>type = appendNextReplies, it searchs only 4 comments(replies) with level1>0 from id<\/p>\n<p>type = append, it searchs only 4 previous comments with level1=0 from id<\/p>"
                     },
@@ -897,7 +992,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"post_id\": 17,\n    \"content\": \"animi\",\n    \"parent_activity_id\": \"quis\",\n    \"condition\": {\n        \"from_id\": 3\n    }\n}"
+                            "raw": "{\n    \"post_id\": 19,\n    \"content\": \"illum\",\n    \"parent_activity_id\": \"sit\",\n    \"condition\": {\n        \"from_id\": 1\n    }\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -916,7 +1011,7 @@
                                 {
                                     "id": "comment",
                                     "key": "comment",
-                                    "value": "14",
+                                    "value": "15",
                                     "description": "comment ID"
                                 }
                             ]
@@ -950,7 +1045,7 @@
                                 {
                                     "id": "comment",
                                     "key": "comment",
-                                    "value": "15",
+                                    "value": "16",
                                     "description": "comment ID"
                                 }
                             ]
@@ -968,7 +1063,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"content\": \"molestias\"\n}"
+                            "raw": "{\n    \"content\": \"fugiat\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -987,7 +1082,7 @@
                                 {
                                     "id": "comment",
                                     "key": "comment",
-                                    "value": "2",
+                                    "value": "3",
                                     "description": "comment ID"
                                 }
                             ]
@@ -1005,7 +1100,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"from_id\": 7,\n    \"to_id\": 5\n}"
+                            "raw": "{\n    \"from_id\": 8,\n    \"to_id\": 2\n}"
                         },
                         "description": "This endpoint deletes the comment and child replies and return comment struction."
                     },
@@ -1056,7 +1151,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "qui",
+                                    "value": "hic",
                                     "description": ""
                                 }
                             ]
@@ -1824,7 +1919,7 @@
                     "response": []
                 },
                 {
-                    "name": "get people.",
+                    "name": "get public customers and private customers.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -1845,12 +1940,12 @@
                             }
                         ],
                         "body": null,
-                        "description": "This endpoint."
+                        "description": "This endpoint gets all public customers and private customers with active subscriptions."
                     },
                     "response": []
                 },
                 {
-                    "name": "get newsfeed.",
+                    "name": "get newsfeed or suggested posts.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -1870,8 +1965,11 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
-                        "description": "This endpoint."
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"suggested\": 19,\n    \"post_id\": 9\n}"
+                        },
+                        "description": "This endpoint returns newsfeed or suggested posts(posts id desc) ."
                     },
                     "response": []
                 },
@@ -1896,8 +1994,11 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
-                        "description": "This endpoint."
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"post_id\": 2\n}"
+                        },
+                        "description": "This endpoint returns already reading newsfeed."
                     },
                     "response": []
                 },
@@ -1914,7 +2015,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "qui",
+                                    "value": "eius",
                                     "description": ""
                                 }
                             ]
@@ -2025,7 +2126,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"pageSize\": 16,\n    \"pageNumber\": 1\n}"
+                            "raw": "{\n    \"pageSize\": 20,\n    \"pageNumber\": 1\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2070,7 +2171,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "iste",
+                                    "value": "reiciendis",
                                     "description": ""
                                 }
                             ]
@@ -2104,7 +2205,7 @@
                                 {
                                     "id": "evento",
                                     "key": "evento",
-                                    "value": "7",
+                                    "value": "16",
                                     "description": ""
                                 }
                             ]
@@ -2196,7 +2297,7 @@
                                 {
                                     "id": "evento_comment",
                                     "key": "evento_comment",
-                                    "value": "et",
+                                    "value": "deleniti",
                                     "description": ""
                                 }
                             ]
@@ -2230,7 +2331,7 @@
                                 {
                                     "id": "evento_comment",
                                     "key": "evento_comment",
-                                    "value": "quo",
+                                    "value": "fugiat",
                                     "description": ""
                                 }
                             ]
@@ -2264,7 +2365,7 @@
                                 {
                                     "id": "evento_comment",
                                     "key": "evento_comment",
-                                    "value": "ullam",
+                                    "value": "quas",
                                     "description": ""
                                 }
                             ]
@@ -2302,10 +2403,10 @@
                             "raw": "http:\/\/{{baseUrl}}\/api\/follows\/unfollow",
                             "variable": [
                                 {
-                                    "id": "id",
-                                    "key": "id",
-                                    "value": "8",
-                                    "description": ""
+                                    "id": "customer_id",
+                                    "key": "customer_id",
+                                    "value": "3",
+                                    "description": "\/\/customer id"
                                 }
                             ]
                         },
@@ -2338,8 +2439,8 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "5",
-                                    "description": ""
+                                    "value": "11",
+                                    "description": "\/\/customer id"
                                 }
                             ]
                         },
@@ -2372,8 +2473,8 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "4",
-                                    "description": ""
+                                    "value": "8",
+                                    "description": "\/\/customer id"
                                 }
                             ]
                         },
@@ -2442,7 +2543,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 7\n}"
+                            "raw": "{\n    \"customer_id\": 12\n}"
                         },
                         "description": ""
                     },
@@ -2477,7 +2578,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 7,\n    \"type\": \"explicabo\",\n    \"page_number\": 14\n}"
+                            "raw": "{\n    \"customer_id\": 2,\n    \"type\": \"cumque\",\n    \"page_number\": 4\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2554,7 +2655,7 @@
                                 {
                                     "id": "levelTest",
                                     "key": "levelTest",
-                                    "value": "adipisci",
+                                    "value": "sed",
                                     "description": ""
                                 }
                             ]
@@ -2588,7 +2689,7 @@
                                 {
                                     "id": "levelTest",
                                     "key": "levelTest",
-                                    "value": "molestiae",
+                                    "value": "ea",
                                     "description": ""
                                 }
                             ]
@@ -2616,6 +2717,45 @@
             "description": "\nAPIs for managing  likes for post and comment on social part",
             "item": [
                 {
+                    "name": "get liker(customer) list for an activity 10 per page.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/likes",
+                            "query": [
+                                {
+                                    "key": "activity_id",
+                                    "value": "16",
+                                    "description": "",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "pageNumber",
+                                    "value": "8",
+                                    "description": "",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/likes?activity_id=16&pageNumber=8"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
                     "name": "create a like.",
                     "request": {
                         "url": {
@@ -2636,7 +2776,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"activity_id\": 7\n}"
+                        },
                         "description": "This endpoint."
                     },
                     "response": []
@@ -2654,12 +2797,265 @@
                                 {
                                     "id": "like",
                                     "key": "like",
-                                    "value": "error",
+                                    "value": "molestias",
+                                    "description": ""
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "12",
                                     "description": ""
                                 }
                             ]
                         },
                         "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "News",
+            "description": "\nAPIs for managing  news",
+            "item": [
+                {
+                    "name": "disable a blog.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/events\/:id\/disable",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/events\/:id\/disable",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "delectus",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "restore a blog.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/events\/:id\/restore",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/events\/:id\/restore",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "dicta",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "search blogs on front.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/events\/home",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/events\/home"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "recent 3 blogs.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/events\/recent",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/events\/recent"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "subscribe on blog with facebook.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/events\/subscribeWithFacebook",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/events\/subscribeWithFacebook"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "subscribe on blog with googl.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/events\/subscribeWithGoogle",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/events\/subscribeWithGoogle"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "subscribe on blog.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/events\/subscribe",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/events\/subscribe"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "show a blog.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/events\/:event",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/events\/:event",
+                            "variable": [
+                                {
+                                    "id": "event",
+                                    "key": "event",
+                                    "value": "aut",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -2746,7 +3142,7 @@
                                 {
                                     "id": "tocken",
                                     "key": "tocken",
-                                    "value": "laudantium",
+                                    "value": "in",
                                     "description": ""
                                 }
                             ]
@@ -2780,7 +3176,7 @@
                                 {
                                     "id": "tocken",
                                     "key": "tocken",
-                                    "value": "placeat",
+                                    "value": "esse",
                                     "description": ""
                                 }
                             ]
@@ -2814,7 +3210,7 @@
                                 {
                                     "id": "tocken",
                                     "key": "tocken",
-                                    "value": "aut",
+                                    "value": "optio",
                                     "description": ""
                                 }
                             ]
@@ -2864,7 +3260,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"ids\": [\n        1,\n        3\n    ]\n}"
+                            "raw": "{\n    \"ids\": [\n        3,\n        18\n    ]\n}"
                         },
                         "description": "This endpoint gets current posts with ids"
                     },
@@ -2883,7 +3279,7 @@
                                 {
                                     "id": "customerId",
                                     "key": "customerId",
-                                    "value": "8",
+                                    "value": "15",
                                     "description": ""
                                 }
                             ]
@@ -2927,7 +3323,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 20,\n    \"media_id\": 6\n}"
+                            "raw": "{\n    \"customer_id\": 5,\n    \"media_id\": 4\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2956,7 +3352,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"ids\": [\n        {\n            \"id\": 5,\n            \"from_id\": 7,\n            \"to_id\": 13\n        },\n        {\n            \"id\": 5,\n            \"from_id\": 7,\n            \"to_id\": 13\n        }\n    ]\n}"
+                            "raw": "{\n    \"ids\": [\n        {\n            \"id\": 14,\n            \"from_id\": 4,\n            \"to_id\": 7\n        },\n        {\n            \"id\": 14,\n            \"from_id\": 4,\n            \"to_id\": 7\n        }\n    ]\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2975,7 +3371,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "18",
+                                    "value": "9",
                                     "description": ""
                                 }
                             ]
@@ -3019,7 +3415,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 6,\n    \"post_id\": 19\n}"
+                            "raw": "{\n    \"customer_id\": 17,\n    \"post_id\": 8\n}"
                         },
                         "description": "This endpoint returns 3 posts from post_id order by post id desc"
                     },
@@ -3051,25 +3447,25 @@
                             "formdata": [
                                 {
                                     "key": "location",
-                                    "value": "porro",
+                                    "value": "officia",
                                     "type": "text"
                                 },
                                 {
                                     "key": "content",
-                                    "value": "voluptatem",
+                                    "value": "fugiat",
                                     "type": "text"
                                 },
                                 {
                                     "key": "tag_followers",
                                     "value": [
-                                        16,
-                                        19
+                                        7,
+                                        2
                                     ],
                                     "type": "text"
                                 },
                                 {
                                     "key": "workout_date",
-                                    "value": "rem",
+                                    "value": "officia",
                                     "type": "text"
                                 },
                                 {
@@ -3096,7 +3492,7 @@
                                 {
                                     "id": "post",
                                     "key": "post",
-                                    "value": "13",
+                                    "value": "12",
                                     "description": ""
                                 }
                             ]
@@ -3114,7 +3510,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"comment\": 17\n}"
+                            "raw": "{\n    \"comment\": 20\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3154,32 +3550,32 @@
                             "formdata": [
                                 {
                                     "key": "location",
-                                    "value": "sapiente",
+                                    "value": "tempore",
                                     "type": "text"
                                 },
                                 {
                                     "key": "content",
-                                    "value": "non",
+                                    "value": "et",
                                     "type": "text"
                                 },
                                 {
                                     "key": "tag_followers",
                                     "value": [
-                                        4,
-                                        19
+                                        17,
+                                        7
                                     ],
                                     "type": "text"
                                 },
                                 {
                                     "key": "workout_date",
-                                    "value": "dolor",
+                                    "value": "enim",
                                     "type": "text"
                                 },
                                 {
                                     "key": "media_ids",
                                     "value": [
-                                        16,
-                                        20
+                                        10,
+                                        10
                                     ],
                                     "type": "text"
                                 },
@@ -3207,7 +3603,7 @@
                                 {
                                     "id": "post",
                                     "key": "post",
-                                    "value": "11",
+                                    "value": "20",
                                     "description": "the id of post"
                                 }
                             ]
@@ -3247,7 +3643,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "praesentium",
+                                    "value": "itaque",
                                     "description": ""
                                 }
                             ]
@@ -3281,7 +3677,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quod",
+                                    "value": "tempora",
                                     "description": ""
                                 }
                             ]
@@ -3315,7 +3711,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "nesciunt",
+                                    "value": "amet",
                                     "description": ""
                                 }
                             ]
@@ -3501,7 +3897,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"officia\"\n}"
+                            "raw": "{\n    \"search\": \"non\"\n}"
                         },
                         "description": "This endpoint searchs customers and shops and posts"
                     },
@@ -3530,7 +3926,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"atque\"\n}"
+                            "raw": "{\n    \"search\": \"doloremque\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3559,7 +3955,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"ipsam\"\n}"
+                            "raw": "{\n    \"search\": \"sit\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3588,7 +3984,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"assumenda\"\n}"
+                            "raw": "{\n    \"search\": \"et\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3617,7 +4013,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"u\": \"atque\"\n}"
+                            "raw": "{\n    \"u\": \"voluptatem\"\n}"
                         },
                         "description": "This endpoint\nIt find only shop unauthenticated, and it searchs customer or shop when authenticated.",
                         "auth": {
@@ -3865,7 +4261,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "sed",
+                                    "value": "voluptatem",
                                     "description": ""
                                 }
                             ]
@@ -3951,7 +4347,7 @@
                                 {
                                     "id": "subscription",
                                     "key": "subscription",
-                                    "value": "numquam",
+                                    "value": "voluptatum",
                                     "description": ""
                                 }
                             ]
@@ -4081,7 +4477,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "expedita",
+                                    "value": "modi",
                                     "description": ""
                                 }
                             ]
@@ -4115,7 +4511,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quis",
+                                    "value": "nam",
                                     "description": ""
                                 }
                             ]
@@ -4149,7 +4545,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "minima",
+                                    "value": "laudantium",
                                     "description": ""
                                 }
                             ]
@@ -4243,7 +4639,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"first_name\": \"facere\",\n    \"last_name\": \"quisquam\",\n    \"username\": \"asperiores\",\n    \"gender\": \"veniam\",\n    \"current_height\": \"assumenda\",\n    \"whatsapp_phone_number\": \"repellendus\",\n    \"country\": \"et\",\n    \"country_code\": \"amet\",\n    \"description\": \"asperiores\"\n}"
+                        },
                         "description": "This endpoint."
                     },
                     "response": []
@@ -4611,7 +5010,7 @@
                                 {
                                     "id": "social_report",
                                     "key": "social_report",
-                                    "value": "soluta",
+                                    "value": "iste",
                                     "description": ""
                                 }
                             ]
@@ -4645,7 +5044,7 @@
                                 {
                                     "id": "social_report",
                                     "key": "social_report",
-                                    "value": "vitae",
+                                    "value": "reprehenderit",
                                     "description": ""
                                 }
                             ]
@@ -4679,7 +5078,7 @@
                                 {
                                     "id": "social_report",
                                     "key": "social_report",
-                                    "value": "voluptatum",
+                                    "value": "repudiandae",
                                     "description": ""
                                 }
                             ]

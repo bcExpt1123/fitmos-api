@@ -9,7 +9,7 @@ use App\Jobs\CompleteUploadJob;
 class Post extends Model
 {
     protected $table = 'posts';
-    protected $fillable = ['customer_id','content','activity_id','location','tag_followers'];
+    protected $fillable = ['customer_id','content','activity_id','location','tag_followers','type','object_id'];
     protected $lastId;
     protected $casts = [
         'tag_followers' => 'array',
@@ -136,11 +136,100 @@ class Post extends Model
             $like = Like::whereActivityId($this->activity_id)->whereCustomerId($user->customer->id)->first();
             $this->like = $like?true:false;
         }
-        if($this->type == 'workout'){
-            $this->workout_spanish_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B del %Y", strtotime($this->workout_date))));
-            $this->workout_spanish_short_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B", strtotime($this->workout_date))));
-        }
         //if type is shop, it is avatar
         //if type is shop, event, blogs, benchmark, get medias from their images, get content from source
+        switch($this->type){
+            case 'workout':
+                $this->workout_spanish_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B del %Y", strtotime($this->workout_date))));
+                $this->workout_spanish_short_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B", strtotime($this->workout_date))));
+                break;
+            case 'shop':
+                $company = \App\Company::find($this->object_id);
+                $this->title = $company->name;
+                $this->content = $company->description;
+                $this->json_content = $this->convertJson($company->description);
+                $this->contentFollowers = [];
+                $this->shopUsername = $company->username;
+                $this->shopLogo = ['small'=>config('app.url').'/storage/'.$company->logo];
+                //latest product image
+                $image = \App\ProductImage::whereHas('product',function($query) use ($company){
+                    $query->whereCompanyId($company->id);
+                })->orderBy('id','desc')->first();
+                if($image){
+                    if($image->width==null){
+                        $data = getimagesize(config('app.url').'/storage/'.$image->image);
+                        if(isset($data[0])){
+                            $image->width = $data[0];
+                            $image->height = $data[1];
+                            $image->save();
+                        }                        
+                    }
+                    unset($this->medias);
+                    $medias = [['url'=>config('app.url').'/storage/'.$image->image,'post_id'=>$this->id,'type'=>'image','width'=>$image->width,'height'=>$image->height]];
+                    $this->medias = $medias;
+                }
+                break;
+            case 'blog':
+                $blog = \App\Event::find($this->object_id);
+                $this->title = $blog->title;
+                $this->content = $blog->description;
+                $this->contentType = "html";
+                if($blog->image){
+                    if($blog->image_width==null){
+                        $data = getimagesize(config('app.url').'/storage/'.$blog->image);
+                        if(isset($data[0])){
+                            $blog->image_width = $data[0];
+                            $blog->image_height = $data[1];
+                            $blog->save();
+                        }                        
+                    }
+                    unset($this->medias);
+                    $medias = [['url'=>config('app.url').'/storage/'.$blog->image,'post_id'=>$this->id,'type'=>'image','width'=>$blog->image_width,'height'=>$blog->image_height]];
+                    $this->medias = $medias;
+                }
+                break;
+            case 'benchmark':
+                $benchmark = \App\Benchmark::find($this->object_id);
+                $this->title = $benchmark->title;
+                $this->content = $benchmark->description;
+                $this->json_content = $this->convertJson($benchmark->description);
+                $this->contentFollowers = [];
+                if($benchmark->image){
+                    if($benchmark->image_width==null){
+                        $data = getimagesize(config('app.url').'/storage/'.$benchmark->image);
+                        if(isset($data[0])){
+                            $benchmark->image_width = $data[0];
+                            $benchmark->image_height = $data[1];
+                            $benchmark->save();
+                        }                        
+                    }
+                    unset($this->medias);
+                    $medias = [['url'=>config('app.url').'/storage/'.$benchmark->image,'post_id'=>$this->id,'type'=>'image','width'=>$benchmark->image_width,'height'=>$benchmark->image_height]];
+                    $this->medias = $medias;
+                }
+                break;
+            case 'evento':
+                $evento = \App\Models\Evento::find($this->object_id);
+                $this->title = $evento->title;
+                $this->content = $evento->description;
+                $this->contentType = "html";
+                if(count($evento->medias)>0){
+                    unset($this->medias);
+                    $evento->getImages();
+                    $this->medias = $evento->images;
+                    foreach($this->medias as $media){
+                        $media->post_id = $this->id;
+                    }
+                }
+                break;
+        }
+    }
+    private function convertJson($content){
+        $lines = explode("\n",$content);
+        $json = [];
+        foreach($lines as $line){
+            $json[] = ['content'=>$line];
+        }
+        return $json;
     }
 }

@@ -24,7 +24,7 @@ class CreatePostsTable extends Migration
             $table->json('tag_followers')->nullable();
             $table->string('location')->nullable();
             $table->boolean('status')->default(0);
-            $table->enum('type',['general','workout','shop','blog','benchmark','evento','birthday'])->default("general");
+            $table->enum('type',['general','workout','shop','blog','benchmark','evento'])->default("general");
             $table->timestamps();
         });
     }

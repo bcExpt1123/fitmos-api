@@ -22,7 +22,7 @@ use App\Session;
 class AuthController extends Controller
 {
     /**
-     * create a user.
+     * register a user.
      * 
      * This endpoint.
      * @authenticated

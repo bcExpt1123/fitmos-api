@@ -39,7 +39,7 @@ paths:
                 - Auth
     /api/register:
         post:
-            summary: 'create a user.'
+            summary: 'register a user.'
             description: 'This endpoint.'
             parameters:
                 -
@@ -312,7 +312,7 @@ paths:
                 in: path
                 name: token
                 description: ''
-                example: cumque
+                example: facilis
                 required: true
                 schema:
                     type: string
@@ -381,7 +381,76 @@ paths:
                 in: path
                 name: token
                 description: ''
-                example: nulla
+                example: fugiat
+                required: true
+                schema:
+                    type: string
+    /api/benchmarks/published:
+        get:
+            summary: 'get published benchmarks.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Benchmark API'
+    '/api/benchmarks/{benchmark}':
+        get:
+            summary: 'show a benchmark.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - 'Benchmark API'
+        parameters:
+            -
+                in: path
+                name: benchmark
+                description: ''
+                example: in
                 required: true
                 schema:
                     type: string
@@ -420,7 +489,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: quis
+                example: sit
                 required: true
                 schema:
                     type: string
@@ -606,7 +675,7 @@ paths:
                 in: path
                 name: benchmarkResult
                 description: ''
-                example: quo
+                example: eaque
                 required: true
                 schema:
                     type: string
@@ -649,7 +718,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 17
+                                    example: 3
                             required:
                                 - customer_id
     /api/follows/unblock:
@@ -691,7 +760,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 15
+                                    example: 12
                             required:
                                 - customer_id
     /api/follows/mute:
@@ -733,7 +802,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 7
+                                    example: 3
                             required:
                                 - customer_id
     /api/follows/unmute:
@@ -775,7 +844,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 19
+                                    example: 3
                             required:
                                 - customer_id
     /api/cart/inside:
@@ -873,7 +942,7 @@ paths:
                 in: path
                 name: cart
                 description: ''
-                example: porro
+                example: modi
                 required: true
                 schema:
                     type: string
@@ -937,6 +1006,49 @@ paths:
                                 properties: {  }
             tags:
                 - Chat
+    /api/chat/user-id:
+        post:
+            summary: 'save user''s chat id.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - Chat
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                chat_id:
+                                    type: integer
+                                    description: ''
+                                    example: 16
+                            required:
+                                - chat_id
     /api/comments:
         get:
             summary: 'search comments.'
@@ -976,11 +1088,11 @@ paths:
                                 id:
                                     type: integer
                                     description: 'comment from id or to id'
-                                    example: 15
+                                    example: 9
                                 type:
                                     type: string
                                     description: 'appendNext or appendNextReplies or append'
-                                    example: nulla
+                                    example: dolore
                             required:
                                 - id
                                 - type
@@ -1029,20 +1141,20 @@ paths:
                                 post_id:
                                     type: integer
                                     description: 'post ID'
-                                    example: 17
+                                    example: 19
                                 content:
                                     type: string
                                     description: 'it contains multi mentioned user such as @[Marlon Cañas](132) same as post content'
-                                    example: animi
+                                    example: illum
                                 parent_activity_id:
                                     type: optional
                                     description: 'if exists, it is reply if no it is comment with level1=0'
-                                    example: quis
+                                    example: sit
                                 condition:
                                     type: object
                                     description: 'optional when comment leve1 = 0'
                                     example: []
-                                    properties: { from_id: { type: integer, description: 'it shows viewable comment first id', example: 3 } }
+                                    properties: { from_id: { type: integer, description: 'it shows viewable comment first id', example: 1 } }
                             required:
                                 - post_id
                                 - content
@@ -1114,7 +1226,7 @@ paths:
                                 content:
                                     type: string
                                     description: 'it contains multi mentioned user such as @[Marlon Cañas](132) same as post content'
-                                    example: molestias
+                                    example: fugiat
                             required:
                                 - content
         delete:
@@ -1165,17 +1277,17 @@ paths:
                                 from_id:
                                     type: integer
                                     description: 'it shows viewable comment first id when level1=0 required'
-                                    example: 7
+                                    example: 8
                                 to_id:
                                     type: integer
                                     description: 'it shows viewable comment last id when level1=0 required'
-                                    example: 5
+                                    example: 2
         parameters:
             -
                 in: path
                 name: comment
                 description: 'comment ID'
-                example: 14
+                example: 15
                 required: true
                 schema:
                     type: integer
@@ -1244,7 +1356,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: qui
+                example: hic
                 required: true
                 schema:
                     type: string
@@ -2087,8 +2199,8 @@ paths:
                 - Customer
     /api/customers/people:
         post:
-            summary: 'get people.'
-            description: 'This endpoint.'
+            summary: 'get public customers and private customers.'
+            description: 'This endpoint gets all public customers and private customers with active subscriptions.'
             parameters:
                 -
                     in: header
@@ -2108,17 +2220,16 @@ paths:
                 200:
                     description: '200'
                     content:
-                        application/json:
+                        text/plain:
                             schema:
-                                type: object
-                                example: {  }
-                                properties: {  }
+                                type: string
+                                example: "{\n \"people\"=>[\n     customers\n ],\n \"privateProfiles\"=>[\n customers\n ],\n}"
             tags:
                 - Customer
     /api/customers/newsfeed:
         post:
-            summary: 'get newsfeed.'
-            description: 'This endpoint.'
+            summary: 'get newsfeed or suggested posts.'
+            description: 'This endpoint returns newsfeed or suggested posts(posts id desc) .'
             parameters:
                 -
                     in: header
@@ -2138,17 +2249,33 @@ paths:
                 200:
                     description: '200'
                     content:
-                        application/json:
+                        text/plain:
                             schema:
-                                type: object
-                                example: {  }
-                                properties: {  }
+                                type: string
+                                example: "{\n[\n {\n     id:'1',\n     content:\"this is general post\",\n     type:\"general\", // workout\n     medias:[\n         {\n         url:\"https://aws3.domain.com/shop.png\"\n         type:\"image\", //or video,\n         width:400,\n         height:300,\n     }\n     ]\n },\n {\n     id:'2',\n     content:\"this is workout post\",\n     type:\"workout\", //\n },\n {\n     id:'3',\n     type:\"shop\", // bechmark, blog, evento,\n     title:\"This is shop title\",\n     content:\"This is shop content\",\n     contentType:\"html\", //blog, evento\n     shopUsername:\"shopusername\",\n     shopLogo:{small:\"https://aws3.domain.com/shop.png\"},\n     customers:[\n         {\n             id:345,\n             chat_id:\"4242\"\n         }\n     ]\n }\n {\n     id:'2021-04-30',\n     type:\"birthday\", //\n     label:\"15 de abril\",\n     customers:[\n         {\n             id:345,\n             chat_id:\"4242\"\n         }\n     ]\n }\n]\n}"
             tags:
                 - Customer
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                suggested:
+                                    type: integer
+                                    description: '//if it is 0, it returns newsfeed, if it is 1, it returns suggested posts;'
+                                    example: 19
+                                post_id:
+                                    type: integer
+                                    description: '//latest post id, when appending post, it is used'
+                                    example: 9
+                            required:
+                                - suggested
     /api/customers/oldnewsfeed:
         post:
             summary: 'get old newsfeed.'
-            description: 'This endpoint.'
+            description: 'This endpoint returns already reading newsfeed.'
             parameters:
                 -
                     in: header
@@ -2175,6 +2302,19 @@ paths:
                                 properties: {  }
             tags:
                 - Customer
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                post_id:
+                                    type: integer
+                                    description: '//latest post id, when appending post, it is used if post_id is -1, it returns first post list'
+                                    example: 2
+                            required:
+                                - post_id
     '/api/customers/{id}/profile':
         get:
             summary: 'show customer profile.'
@@ -2210,7 +2350,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: qui
+                example: eius
                 required: true
                 schema:
                     type: string
@@ -2307,7 +2447,7 @@ paths:
                                 pageSize:
                                     type: integer
                                     description: ''
-                                    example: 16
+                                    example: 20
                                 pageNumber:
                                     type: integer
                                     description: ''
@@ -2378,7 +2518,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: iste
+                example: reiciendis
                 required: true
                 schema:
                     type: string
@@ -2416,7 +2556,7 @@ paths:
                 in: path
                 name: evento
                 description: ''
-                example: 7
+                example: 16
                 required: true
                 schema:
                     type: integer
@@ -2572,7 +2712,7 @@ paths:
                 in: path
                 name: evento_comment
                 description: ''
-                example: et
+                example: deleniti
                 required: true
                 schema:
                     type: string
@@ -2608,9 +2748,9 @@ paths:
         parameters:
             -
                 in: path
-                name: id
-                description: ''
-                example: 8
+                name: customer_id
+                description: '//customer id'
+                example: 3
                 required: true
                 schema:
                     type: integer
@@ -2647,8 +2787,8 @@ paths:
             -
                 in: path
                 name: id
-                description: ''
-                example: 5
+                description: '//customer id'
+                example: 11
                 required: true
                 schema:
                     type: integer
@@ -2685,8 +2825,8 @@ paths:
             -
                 in: path
                 name: id
-                description: ''
-                example: 4
+                description: '//customer id'
+                example: 8
                 required: true
                 schema:
                     type: integer
@@ -2757,7 +2897,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 7
+                                    example: 12
                             required:
                                 - customer_id
     /api/follows/customer:
@@ -2799,15 +2939,15 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 7
+                                    example: 2
                                 type:
                                     type: string
                                     description: 'followings or follower'
-                                    example: explicabo
+                                    example: cumque
                                 page_number:
                                     type: integer
                                     description: ''
-                                    example: 14
+                                    example: 4
                             required:
                                 - customer_id
                                 - type
@@ -2934,11 +3074,59 @@ paths:
                 in: path
                 name: levelTest
                 description: ''
-                example: adipisci
+                example: sed
                 required: true
                 schema:
                     type: string
     /api/likes:
+        get:
+            summary: 'get liker(customer) list for an activity 10 per page.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: query
+                    name: activity_id
+                    description: ''
+                    example: 16
+                    required: true
+                    schema:
+                        type: integer
+                        description: ''
+                        example: 16
+                -
+                    in: query
+                    name: pageNumber
+                    description: ''
+                    example: 8
+                    required: false
+                    schema:
+                        type: integer
+                        description: ''
+                        example: 8
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: "{\n[\n {\n \"id\"=>1,\n \"activity_id\"=>1,\n \"customer_id\"=>1,\n \"customer\"=>{\n     \"first_name\"=>'first',\n     \"last_name\"=>'last',\n     \"avatarUrls\"=>[]\n }\n }]\n}"
+            tags:
+                - 'Like   '
         post:
             summary: 'create a like.'
             description: 'This endpoint.'
@@ -2968,6 +3156,19 @@ paths:
                                 properties: {  }
             tags:
                 - 'Like   '
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                activity_id:
+                                    type: integer
+                                    description: ''
+                                    example: 7
+                            required:
+                                - activity_id
     '/api/likes/{like}':
         delete:
             summary: 'delete a like.'
@@ -3003,7 +3204,285 @@ paths:
                 in: path
                 name: like
                 description: ''
-                example: error
+                example: molestias
+                required: true
+                schema:
+                    type: string
+            -
+                in: path
+                name: id
+                description: ''
+                example: 12
+                required: true
+                schema:
+                    type: integer
+    '/api/events/{id}/disable':
+        get:
+            summary: 'disable a blog.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - News
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: delectus
+                required: true
+                schema:
+                    type: string
+    '/api/events/{id}/restore':
+        get:
+            summary: 'restore a blog.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - News
+        parameters:
+            -
+                in: path
+                name: id
+                description: ''
+                example: dicta
+                required: true
+                schema:
+                    type: string
+    /api/events/home:
+        get:
+            summary: 'search blogs on front.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - News
+    /api/events/recent:
+        get:
+            summary: 'recent 3 blogs.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - News
+    /api/events/subscribeWithFacebook:
+        post:
+            summary: 'subscribe on blog with facebook.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - News
+            security: []
+    /api/events/subscribeWithGoogle:
+        post:
+            summary: 'subscribe on blog with googl.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - News
+            security: []
+    /api/events/subscribe:
+        post:
+            summary: 'subscribe on blog.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - News
+            security: []
+    '/api/events/{event}':
+        get:
+            summary: 'show a blog.'
+            description: 'This endpoint.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example: {  }
+                                properties: {  }
+            tags:
+                - News
+        parameters:
+            -
+                in: path
+                name: event
+                description: ''
+                example: aut
                 required: true
                 schema:
                     type: string
@@ -3159,7 +3638,7 @@ paths:
                 in: path
                 name: tocken
                 description: ''
-                example: laudantium
+                example: in
                 required: true
                 schema:
                     type: string
@@ -3202,7 +3681,7 @@ paths:
                                 ids:
                                     type: array
                                     description: ''
-                                    example: [1, 3]
+                                    example: [3, 18]
                                     items: { type: integer }
     '/api/posts/random-medias/{customerId}':
         get:
@@ -3238,7 +3717,7 @@ paths:
                 in: path
                 name: customerId
                 description: ''
-                example: 8
+                example: 15
                 required: true
                 schema:
                     type: integer
@@ -3281,11 +3760,11 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 20
+                                    example: 5
                                 media_id:
                                     type: integer
                                     description: '// from media_id'
-                                    example: 6
+                                    example: 4
                             required:
                                 - customer_id
     /api/posts/sync:
@@ -3328,7 +3807,7 @@ paths:
                                     type: array
                                     description: ''
                                     example: [[], []]
-                                    items: { type: object, properties: { id: { type: integer, description: post_id, example: 5 }, from_id: { type: integer, description: 'from comment_id', example: 7 }, to_id: { type: integer, description: 'to comment_id', example: 13 } }, required: [id, from_id, to_id] }
+                                    items: { type: object, properties: { id: { type: integer, description: post_id, example: 14 }, from_id: { type: integer, description: 'from comment_id', example: 4 }, to_id: { type: integer, description: 'to comment_id', example: 7 } }, required: [id, from_id, to_id] }
                             required:
                                 - ids
     '/api/posts/{id}/read':
@@ -3366,7 +3845,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: 18
+                example: 9
                 required: true
                 schema:
                     type: integer
@@ -3409,11 +3888,11 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 6
+                                    example: 17
                                 post_id:
                                     type: integer
                                     description: 'last post id'
-                                    example: 19
+                                    example: 8
                             required:
                                 - customer_id
         post:
@@ -3454,20 +3933,20 @@ paths:
                                 location:
                                     type: string
                                     description: ''
-                                    example: porro
+                                    example: officia
                                 content:
                                     type: string
                                     description: 'contains multi mentioned user such as @[Marlon Cañas](132)'
-                                    example: voluptatem
+                                    example: fugiat
                                 tag_followers:
                                     type: array
                                     description: ''
-                                    example: [16, 19]
+                                    example: [7, 2]
                                     items: { type: integer }
                                 workout_date:
                                     type: string
                                     description: ''
-                                    example: rem
+                                    example: officia
                                 medias:
                                     type: array
                                     description: 'video, image max size 200M'
@@ -3514,7 +3993,7 @@ paths:
                                 comment:
                                     type: integer
                                     description: 'when comment = 1, it contains all comments, but not include replies'
-                                    example: 17
+                                    example: 20
         put:
             summary: 'update a post.'
             description: 'This endpoint update post data. but image or videos has not been update immediately, because fitemos saves medias asynchronously'
@@ -3553,24 +4032,24 @@ paths:
                                 location:
                                     type: string
                                     description: ''
-                                    example: sapiente
+                                    example: tempore
                                 content:
                                     type: string
                                     description: 'contains multi mentioned user such as @[Marlon Cañas](132)'
-                                    example: non
+                                    example: et
                                 tag_followers:
                                     type: array
                                     description: ''
-                                    example: [4, 19]
+                                    example: [17, 7]
                                     items: { type: integer }
                                 workout_date:
                                     type: string
                                     description: ''
-                                    example: dolor
+                                    example: enim
                                 media_ids:
                                     type: array
                                     description: 'original medias'
-                                    example: [16, 20]
+                                    example: [10, 10]
                                     items: { type: integer }
                                 medias:
                                     type: array
@@ -3617,7 +4096,7 @@ paths:
                 in: path
                 name: post
                 description: ''
-                example: 13
+                example: 12
                 required: true
                 schema:
                     type: integer
@@ -3656,7 +4135,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: praesentium
+                example: itaque
                 required: true
                 schema:
                     type: string
@@ -3695,7 +4174,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: quod
+                example: tempora
                 required: true
                 schema:
                     type: string
@@ -3734,7 +4213,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: nesciunt
+                example: amet
                 required: true
                 schema:
                     type: string
@@ -3927,7 +4406,7 @@ paths:
                                 search:
                                     type: string
                                     description: ''
-                                    example: officia
+                                    example: non
                             required:
                                 - search
     /api/search/customers:
@@ -3969,7 +4448,7 @@ paths:
                                 search:
                                     type: string
                                     description: ''
-                                    example: atque
+                                    example: doloremque
                             required:
                                 - search
     /api/search/companies:
@@ -4011,7 +4490,7 @@ paths:
                                 search:
                                     type: string
                                     description: ''
-                                    example: ipsam
+                                    example: sit
                             required:
                                 - search
     /api/search/posts:
@@ -4053,7 +4532,7 @@ paths:
                                 search:
                                     type: string
                                     description: ''
-                                    example: assumenda
+                                    example: et
                             required:
                                 - search
     /api/search/username:
@@ -4103,7 +4582,7 @@ paths:
                                 u:
                                     type: string
                                     description: ''
-                                    example: atque
+                                    example: voluptatem
                             required:
                                 - u
             security: []
@@ -4381,7 +4860,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: sed
+                example: voluptatem
                 required: true
                 schema:
                     type: string
@@ -4480,7 +4959,7 @@ paths:
                 in: path
                 name: subscription
                 description: ''
-                example: numquam
+                example: voluptatum
                 required: true
                 schema:
                     type: string
@@ -4667,7 +5146,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: expedita
+                example: modi
                 required: true
                 schema:
                     type: string
@@ -4761,6 +5240,58 @@ paths:
                                 properties: {  }
             tags:
                 - 'User   '
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                first_name:
+                                    type: string
+                                    description: ''
+                                    example: facere
+                                last_name:
+                                    type: string
+                                    description: ''
+                                    example: quisquam
+                                username:
+                                    type: string
+                                    description: ''
+                                    example: asperiores
+                                gender:
+                                    type: string
+                                    description: ''
+                                    example: veniam
+                                current_height:
+                                    type: string
+                                    description: ''
+                                    example: assumenda
+                                whatsapp_phone_number:
+                                    type: string
+                                    description: ''
+                                    example: repellendus
+                                country:
+                                    type: string
+                                    description: ''
+                                    example: et
+                                country_code:
+                                    type: string
+                                    description: ''
+                                    example: amet
+                                description:
+                                    type: string
+                                    description: ''
+                                    example: asperiores
+                            required:
+                                - first_name
+                                - last_name
+                                - username
+                                - gender
+                                - current_height
+                                - whatsapp_phone_number
+                                - country
+                                - country_code
     /api/users/email-only:
         put:
             summary: 'update email.'
@@ -5242,7 +5773,7 @@ paths:
                 in: path
                 name: social_report
                 description: ''
-                example: soluta
+                example: iste
                 required: true
                 schema:
                     type: string

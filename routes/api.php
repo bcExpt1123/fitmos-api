@@ -52,6 +52,8 @@ Route::get('services/{id}/pending', 'ServiceController@pending')->where('id', '[
 Route::post('services/workout', 'ServiceController@workout')->middleware('auth:api');
 Route::post('services/pendingworkout', 'ServiceController@pendingworkout')->middleware('auth:api');
 Route::put('services/previewPendingWorkout', 'ServiceController@previewPendingWorkout')->middleware('auth:api');
+Route::post('services/remove-image', 'ServiceController@removeImage')->middleware('auth:api');
+Route::post('services/pendingworkout-remove-image', 'ServiceController@pendingworkoutRemoveImage')->middleware('auth:api');
 Route::resource('services', 'ServiceController')->except(['show'])->middleware('auth:api');
 Route::resource('services', 'ServiceController')->only(['show'])->middleware('api');
 Route::get('customers/{id}/disable', 'CustomerController@disable')->where('id', '[0-9]+')->middleware('auth:api');

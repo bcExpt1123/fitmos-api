@@ -50,9 +50,9 @@ class EventServiceProvider extends ServiceProvider
         Post::observe(PostObserver::class);
         Comment::observe(CommentObserver::class);
         Benchmark::observe(BenchmarkObserver::class);
-        \App\Event::observe(EventoObserver::class);
+        \App\Event::observe(EventObserver::class);
         Company::observe(CompanyObserver::class);
-        Evento::observe(EventObserver::class);
+        Evento::observe(EventoObserver::class);
         //
     }
 }

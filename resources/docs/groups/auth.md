@@ -65,7 +65,7 @@ fetch(url, {
 </form>
 
 
-## create a user.
+## register a user.
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -579,14 +579,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/verify/cumque" \
+    -G "http://127.0.0.4/api/verify/facilis" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/verify/cumque"
+    "http://127.0.0.4/api/verify/facilis"
 );
 
 let headers = {
@@ -711,14 +711,14 @@ This endpoint.
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/password/reset/nulla" \
+    "http://127.0.0.4/api/password/reset/fugiat" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/password/reset/nulla"
+    "http://127.0.0.4/api/password/reset/fugiat"
 );
 
 let headers = {

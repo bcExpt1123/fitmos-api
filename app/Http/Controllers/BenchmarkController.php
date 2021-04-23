@@ -8,7 +8,7 @@ use App\Event;
 use App\BenchmarkResult;
 use Illuminate\Support\Facades\Validator;
 /**
- * @group Benchmark
+ * @group Benchmark API
  *
  * APIs for managing  benchmark
  */

@@ -7,6 +7,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 use Twilio\Rest\Client;
 //use App\Jobs\SendEmail;
 use App\Exports\CustomersExport;
@@ -870,7 +871,7 @@ class Customer extends Model
             $coupon->renewal = 1;
             $coupon->save();
         }
-        return env('APP_URL').Coupon::REFERRAL_URL.$code;
+        return config('app.url').Coupon::REFERRAL_URL.$code;
     }
     public function findPartners(){
         $partners = Customer::whereFriendId($this->id)->get();
@@ -1309,20 +1310,17 @@ class Customer extends Model
                 $query->where('customer_id','!=',$this->id);
             }
         });
-        // $followings = DB::table("follows")->select("*")->where('follower_id',$this->id)->whereIn('status',['accepted'])->get();
-        // $ids = [];
-        // foreach($followings as $following){
-        //     $ids[] = $following->customer_id;
-        // }
-        // $where->whereIn('customer_id',$ids);        
+        /** get article types post such as shop, benchmark, blog, evento */
+        if($suggested == 0){
+            $where->orWhere(function($query){
+                $query->whereCustomerId(0)->whereIn('type',['shop', 'benchmark', 'blog', 'evento']);
+            });
+        }
         $where->whereDoesntHave('readingCustomers',function($query){
             $query->where("reading_posts.customer_id",$this->id);
         });
         $result = $where->whereStatus('1')->orderBy('id','desc')->limit(9)->get();
-        foreach($result as $index=>$post){
-            $post->extend(null, $this->user);
-        }
-        // get id(date) customerIds from date;
+        /** get birthdays */
         if(Cache::has('activeCustomerIds')){
             $activeCustomerIds = Cache::get('activeCustomerIds');
         }else{
@@ -1341,7 +1339,25 @@ class Customer extends Model
             // Cache::forever('activeCustomerIds', $activeCustomerIds);
             Cache::add('activeCustomerIds', $activeCustomerIds, 3600*24);
         }
-        return $result;
+        $followings = DB::table("follows")->select("*")->where('follower_id',$this->id)->whereIn('status',['accepted'])->get();
+        $followingIds = [];
+        foreach($followings as $following){
+            $followingIds[] = $following->customer_id;
+        }
+        $posts = [];
+        foreach($result as $index=>$post){
+            if(($fromId==null || $fromId<0) && $index == 0 ){
+                $birthdays = $this->generateBirthdayPosts(Carbon::now(), $result[$index]->created_at, $activeCustomerIds,$followingIds,$suggested);
+                if(count($birthdays)>0)$posts = array_merge($posts, $birthdays);
+            }
+            if($index<8 && isset($result[$index+1])){
+                $post->extend(null, $this->user);
+                $posts[] = $post;
+                $birthdays = $this->generateBirthdayPosts($post->created_at, $result[$index+1]->created_at, $activeCustomerIds,$followingIds,$suggested);
+                if(count($birthdays)>0)$posts = array_merge($posts, $birthdays);
+            }
+        }
+        return $posts;
     }
     public function getOldNewsfeed($fromId){
         $where = \App\Models\Post::with(['customer','medias']);
@@ -1365,6 +1381,49 @@ class Customer extends Model
             $post->extend(null, $this->user);
         }
         return $result;
+    }
+    private function generateBirthdayPosts($firstDate, $secondDate, $activeCustomerIds,$followingIds,$suggested){
+        // get id(date) customerIds from date;
+        $startDate = $firstDate->format("Y-m-d")." 07:00:00";
+        $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $startDate, 'America/Panama');
+        $endDate = $secondDate->format("Y-m-d")." 07:00:00";
+        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $endDate, 'America/Panama');
+        $posts = [];
+        $date = $firstDate->format("Y-m-d")." 07:00:00";
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $date, $this->timezone);
+        if($date->greaterThan($firstDate)){
+            $date->add(-1,'day');
+        }
+        setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
+        while($date->lessThan($firstDate) && $date->greaterThan($secondDate)){
+            $birthday = $date->format("m-d");
+            // if($birthday == '04-16'){
+                $where = Customer::with('user')
+                ->where('birthday','like',"%".$birthday)
+                ->whereIn('id',$activeCustomerIds);
+                if($suggested == 0 ){
+                    $where->whereIn('id',$followingIds);
+                }else{
+                    $where->whereNotIn('id',$followingIds);
+                }
+                $where->where('id','!=',$this->id);
+                $customers = $where->get();
+                if($customers->count()>0){
+                    $spanishDate = iconv('ISO-8859-2', 'UTF-8', strftime("%d de %B", strtotime($date->format("Y-m-d"))));
+                    foreach($customers as $customer){
+                        $customer->getAvatar();
+                        $customer->chat_id = $customer->user->chat_id;
+                        unset($customer->user);
+                        if($customer->mutedRelations->count()>0){
+                            $customer['relation'] = $customer->mutedRelations[0]->pivot->status;
+                        }            
+                    }
+                    $posts[] = ['id'=>$date->format("Y-m-d").'-'.$suggested,'type'=>'birthday','label'=>$spanishDate,'customers'=>$customers];
+                }
+            // }
+            $date->add(-1,'day');
+        }
+        return $posts;
     }
     public function getSocialDetails($authId = null){
         if($this->avatarUrls == null)$this->getAvatar();

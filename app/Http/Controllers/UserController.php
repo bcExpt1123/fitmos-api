@@ -229,6 +229,15 @@ class UserController extends Controller
      * 
      * This endpoint.
      * @authenticated
+     * @bodyParam first_name string required
+     * @bodyParam last_name string required
+     * @bodyParam username string required
+     * @bodyParam gender string required
+     * @bodyParam current_height string required
+     * @bodyParam whatsapp_phone_number string required
+     * @bodyParam country string required
+     * @bodyParam country_code string required
+     * @bodyParam description string
      * @response {
      * }
      */

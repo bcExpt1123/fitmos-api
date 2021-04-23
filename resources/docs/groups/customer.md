@@ -1199,11 +1199,11 @@ fetch(url, {
 </form>
 
 
-## get people.
+## get public customers and private customers.
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint.
+This endpoint gets all public customers and private customers with active subscriptions.
 
 > Example request:
 
@@ -1235,7 +1235,15 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{}
+
+{
+ "people"=>[
+     customers
+ ],
+ "privateProfiles"=>[
+ customers
+ ],
+}
 ```
 <div id="execution-results-POSTapi-customers-people" hidden>
     <blockquote>Received response<span id="execution-response-status-POSTapi-customers-people"></span>:</blockquote>
@@ -1262,11 +1270,11 @@ fetch(url, {
 </form>
 
 
-## get newsfeed.
+## get newsfeed or suggested posts.
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint.
+This endpoint returns newsfeed or suggested posts(posts id desc) .
 
 > Example request:
 
@@ -1274,7 +1282,9 @@ This endpoint.
 curl -X POST \
     "http://127.0.0.4/api/customers/newsfeed" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"suggested":19,"post_id":9}'
+
 ```
 
 ```javascript
@@ -1287,10 +1297,15 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "suggested": 19,
+    "post_id": 9
+}
 
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response => response.json());
 ```
 
@@ -1298,7 +1313,55 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{}
+
+{
+[
+ {
+     id:'1',
+     content:"this is general post",
+     type:"general", // workout
+     medias:[
+         {
+         url:"https://aws3.domain.com/shop.png"
+         type:"image", //or video,
+         width:400,
+         height:300,
+     }
+     ]
+ },
+ {
+     id:'2',
+     content:"this is workout post",
+     type:"workout", //
+ },
+ {
+     id:'3',
+     type:"shop", // bechmark, blog, evento,
+     title:"This is shop title",
+     content:"This is shop content",
+     contentType:"html", //blog, evento
+     shopUsername:"shopusername",
+     shopLogo:{small:"https://aws3.domain.com/shop.png"},
+     customers:[
+         {
+             id:345,
+             chat_id:"4242"
+         }
+     ]
+ }
+ {
+     id:'2021-04-30',
+     type:"birthday", //
+     label:"15 de abril",
+     customers:[
+         {
+             id:345,
+             chat_id:"4242"
+         }
+     ]
+ }
+]
+}
 ```
 <div id="execution-results-POSTapi-customers-newsfeed" hidden>
     <blockquote>Received response<span id="execution-response-status-POSTapi-customers-newsfeed"></span>:</blockquote>
@@ -1322,6 +1385,18 @@ fetch(url, {
 <p>
 <label id="auth-POSTapi-customers-newsfeed" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-customers-newsfeed" data-component="header"></label>
 </p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>suggested</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="suggested" data-endpoint="POSTapi-customers-newsfeed" data-component="body" required  hidden>
+<br>
+//if it is 0, it returns newsfeed, if it is 1, it returns suggested posts;</p>
+<p>
+<b><code>post_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="post_id" data-endpoint="POSTapi-customers-newsfeed" data-component="body"  hidden>
+<br>
+//latest post id, when appending post, it is used</p>
+
 </form>
 
 
@@ -1329,7 +1404,7 @@ fetch(url, {
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint.
+This endpoint returns already reading newsfeed.
 
 > Example request:
 
@@ -1337,7 +1412,9 @@ This endpoint.
 curl -X POST \
     "http://127.0.0.4/api/customers/oldnewsfeed" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"post_id":2}'
+
 ```
 
 ```javascript
@@ -1350,10 +1427,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "post_id": 2
+}
 
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response => response.json());
 ```
 
@@ -1385,6 +1466,13 @@ fetch(url, {
 <p>
 <label id="auth-POSTapi-customers-oldnewsfeed" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-customers-oldnewsfeed" data-component="header"></label>
 </p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>post_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="post_id" data-endpoint="POSTapi-customers-oldnewsfeed" data-component="body" required  hidden>
+<br>
+//latest post id, when appending post, it is used if post_id is -1, it returns first post list</p>
+
 </form>
 
 
@@ -1398,14 +1486,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/customers/qui/profile" \
+    -G "http://127.0.0.4/api/customers/eius/profile" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/customers/qui/profile"
+    "http://127.0.0.4/api/customers/eius/profile"
 );
 
 let headers = {

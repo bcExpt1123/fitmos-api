@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// 'payment_renewal','declined_payment', 'expiration','partners','social','events','other'
+// 'payment_renewal','declined_payment', 'expiration','partners','social','events','follow','other'
 class Notification extends Model
 {
     protected $table = 'notifications';
@@ -117,6 +117,16 @@ class Notification extends Model
         $notification->customer_id = $customerId;
         $notification->content = "El vento <b>$eventTitle</b> es mañana a las $datatime.";
         $notification->action_type = "fitemos";
+        $notification->save();
+    }
+    //Sui started following you.
+    public static function follow($customerId, $action){
+        $notification = new Notification;
+        $notification->type = "follow";
+        $notification->customer_id = $customerId;
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> empezó a seguirte.";
+        $notification->action_type = "customer";
+        $notification->action_id = $action->id;
         $notification->save();
     }
 }

@@ -74,23 +74,23 @@ class Workout extends Model
     {
         if (date('w', strtotime($date)) == 0) {
             $week = [
-                date('Y-m-d', strtotime('sunday', strtotime($date))),
-                date('Y-m-d', strtotime('monday next week', strtotime($date))),
-                date('Y-m-d', strtotime('tuesday next week', strtotime($date))),
-                date('Y-m-d', strtotime('wednesday next week', strtotime($date))),
-                date('Y-m-d', strtotime('thursday next week', strtotime($date))),
-                date('Y-m-d', strtotime('friday next week', strtotime($date))),
-                date('Y-m-d', strtotime('saturday next week', strtotime($date))),
-            ];
-        } else {
-            $week = [
-                date('Y-m-d', strtotime('sunday last week', strtotime($date))),
                 date('Y-m-d', strtotime('monday this week', strtotime($date))),
                 date('Y-m-d', strtotime('tuesday this week', strtotime($date))),
                 date('Y-m-d', strtotime('wednesday this week', strtotime($date))),
                 date('Y-m-d', strtotime('thursday this week', strtotime($date))),
                 date('Y-m-d', strtotime('friday this week', strtotime($date))),
                 date('Y-m-d', strtotime('saturday this week', strtotime($date))),
+                date('Y-m-d', strtotime('sunday', strtotime($date))),
+            ];
+        } else {
+            $week = [
+                date('Y-m-d', strtotime('monday this week', strtotime($date))),
+                date('Y-m-d', strtotime('tuesday this week', strtotime($date))),
+                date('Y-m-d', strtotime('wednesday this week', strtotime($date))),
+                date('Y-m-d', strtotime('thursday this week', strtotime($date))),
+                date('Y-m-d', strtotime('friday this week', strtotime($date))),
+                date('Y-m-d', strtotime('saturday this week', strtotime($date))),
+                date('Y-m-d', strtotime('sunday this week', strtotime($date))),
             ];
         }
         $columns  = ['comentario','image_path','blog','blog_timer_type','blog_timer_work','blog_timer_round','blog_timer_rest','blog_timer_description'];
@@ -117,7 +117,7 @@ class Workout extends Model
                     }
                 }
                 if ($record) {
-                    if($column == 'image_path' && $record[$column])$contents[$index] = env('APP_URL').$record[$column];
+                    if($column == 'image_path' && $record[$column])$contents[$index] = config('app.url').$record[$column];
                     else $contents[$index] = $record[$column];
                     //$workouts[] = ['con_content' => $record->con_content ? $record->con_content : "", 'sin_content' => $record->sin_content ? $record->sin_content : "", 'strong_male' => $record->strong_male ? $record->strong_male : "", 'strong_female' => $record->strong_female ? $record->strong_female : "", 'fit' => $record->fit ? $record->fit : "", 'cardio' => $record->cardio ? $record->cardio : "", 'activo' => $record->activo ? $record->activo : "", 'blog' => $record->blog ? $record->blog : ""];
                 } else {
@@ -173,7 +173,14 @@ class Workout extends Model
             $workout->image_path = '/storage/' . $basePath . '/' . $fileName;
             $workout->save();
         }        
-        if($workout->image_path!=null)$workout->image_path = env('APP_URL').$workout->image_path;
+        if($workout->image_path!=null)$workout->image_path = config('app.url').$workout->image_path;
+        return $workout;
+    }
+    public static function removeImage($request){
+        $date = date('Y-m-d', strtotime($request->input('date')));
+        $workout = Workout::where('publish_date', '=', $date)->first();
+        $workout->image_path = null;
+        $workout->save();
         return $workout;
     }
     public static function preview($request)

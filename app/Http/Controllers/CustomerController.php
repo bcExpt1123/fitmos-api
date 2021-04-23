@@ -586,7 +586,7 @@ class CustomerController extends Controller
     /**
      * get public customers and private customers.
      * 
-     * This endpoint.
+     * This endpoint gets all public customers and private customers with active subscriptions.
      * @authenticated
      * @response {
      *  "people"=>[
@@ -608,10 +608,57 @@ class CustomerController extends Controller
     /**
      * get newsfeed or suggested posts.
      * 
-     * This endpoint.
+     * This endpoint returns newsfeed or suggested posts(posts id desc) .
      * @authenticated
      * @bodyParam suggested integer required    //if it is 0, it returns newsfeed, if it is 1, it returns suggested posts;
+     * @bodyParam post_id integer //latest post id, when appending post, it is used
      * @response {
+     * [
+     *  {
+     *      id:'1',
+     *      content:"this is general post",
+     *      type:"general", // workout    
+     *      medias:[
+     *          {
+     *          url:"https://aws3.domain.com/shop.png"
+     *          type:"image", //or video,
+     *          width:400,
+     *          height:300,
+     *      }
+     *      ]
+     *  },
+     *  {
+     *      id:'2',
+     *      content:"this is workout post",
+     *      type:"workout", // 
+     *  },
+     *  {
+     *      id:'3',
+     *      type:"shop", // bechmark, blog, evento,
+     *      title:"This is shop title",
+     *      content:"This is shop content",
+     *      contentType:"html", //blog, evento
+     *      shopUsername:"shopusername",
+     *      shopLogo:{small:"https://aws3.domain.com/shop.png"},
+     *      customers:[
+     *          {
+     *              id:345,
+     *              chat_id:"4242"
+     *          }
+     *      ]
+     *  }
+     *  {
+     *      id:'2021-04-30',
+     *      type:"birthday", // 
+     *      label:"15 de abril",
+     *      customers:[
+     *          {
+     *              id:345,
+     *              chat_id:"4242"
+     *          }
+     *      ]
+     *  }
+     * ]
      * }
      */
     public function newsfeed(Request $request){
@@ -625,8 +672,9 @@ class CustomerController extends Controller
     /**
      * get old newsfeed.
      * 
-     * This endpoint.
+     * This endpoint returns already reading newsfeed.
      * @authenticated
+     * @bodyParam post_id integer required //latest post id, when appending post, it is used if post_id is -1, it returns first post list
      * @response {
      * }
      */

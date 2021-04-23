@@ -67,10 +67,10 @@ fetch(url, {
 </p>
 <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
 <p>
-<b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-<input type="number" name="id" data-endpoint="POSTapi-follows-unfollow" data-component="url" required  hidden>
+<b><code>customer_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="customer_id" data-endpoint="POSTapi-follows-unfollow" data-component="url" required  hidden>
 <br>
-</p>
+//customer id</p>
 </form>
 
 
@@ -84,14 +84,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/follows/5/accept" \
+    "http://127.0.0.4/api/follows/11/accept" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/follows/5/accept"
+    "http://127.0.0.4/api/follows/11/accept"
 );
 
 let headers = {
@@ -143,7 +143,7 @@ fetch(url, {
 <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
 <input type="number" name="id" data-endpoint="POSTapi-follows--id--accept" data-component="url" required  hidden>
 <br>
-</p>
+//customer id</p>
 </form>
 
 
@@ -157,14 +157,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/follows/4/reject" \
+    "http://127.0.0.4/api/follows/8/reject" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/follows/4/reject"
+    "http://127.0.0.4/api/follows/8/reject"
 );
 
 let headers = {
@@ -216,7 +216,7 @@ fetch(url, {
 <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
 <input type="number" name="id" data-endpoint="POSTapi-follows--id--reject" data-component="url" required  hidden>
 <br>
-</p>
+//customer id</p>
 </form>
 
 
@@ -301,7 +301,7 @@ curl -X POST \
     "http://127.0.0.4/api/follows" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"customer_id":7}'
+    -d '{"customer_id":12}'
 
 ```
 
@@ -316,7 +316,7 @@ let headers = {
 };
 
 let body = {
-    "customer_id": 7
+    "customer_id": 12
 }
 
 fetch(url, {

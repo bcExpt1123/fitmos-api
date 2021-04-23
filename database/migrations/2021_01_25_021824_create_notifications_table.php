@@ -15,7 +15,7 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type', ['payment_renewal','declined_payment', 'expiration','partners','social','events','other'])->default('payment_renewal');
+            $table->enum('type', ['payment_renewal','declined_payment', 'expiration','partners','social','events','follow','other'])->default('payment_renewal');
             $table->string('content');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->string('action_type')->nullable();//shop or user

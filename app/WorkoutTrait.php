@@ -18,7 +18,7 @@ trait WorkoutTrait
         $content = str_ireplace("{/h2}", "</h2>", $content);
         $shortcodes = Shortcode::where('status', '=', 'Active')->get();
         foreach ($shortcodes as $shortcode) {
-            $url = env('APP_URL').'/api/customers/link?shortcode_id='.$shortcode->id;
+            $url = config('app.url').'/api/customers/link?shortcode_id='.$shortcode->id;
             if($customerId)$url = $url.'&&customer_id='.$customerId;
             else $url = $shortcode->link;
             $content = str_replace("{{$shortcode->name}}", "<a href='$url' target='_blank'>$shortcode->name</a>", $content);
@@ -226,7 +226,7 @@ trait WorkoutTrait
         $weekday = strtolower(date('l', strtotime($publishDate)));
         if (isset($workoutCondition[$weekday]) && $workoutCondition[$weekday]) {
             $block = ['content'=>$record->comentario,'slug'=>'comentario'];
-            if($record->image_path)$block['image_path'] = env('APP_URL').$record->image_path."?time=".strtotime($record->update_at);
+            if($record->image_path)$block['image_path'] = config('app.url').$record->image_path."?time=".strtotime($record->update_at);
             $blocks = [$block];
             $block = self::getNotes($record,'calentamiento');
             if($block)$blocks[] = $block;
@@ -311,7 +311,7 @@ trait WorkoutTrait
                         $content = "{h2}$title{/h2}\n".$record->blog;
                     }
                     $block = ['content'=>$record->blog,'timer_type'=>$record->blog_timer_type,'timer_work'=>$record->blog_timer_work,'timer_rest'=>$record->blog_timer_rest,'timer_round'=>$record->blog_timer_round,'timer_description'=>$record->blog_timer_description];
-                    if($record->image_path)$block['image_path'] = env('APP_URL').$record->image_path;
+                    if($record->image_path)$block['image_path'] = config('app.url').$record->image_path;
                     $blocks = [$block];
                 }else{
                     $content = null;
@@ -486,7 +486,7 @@ trait WorkoutTrait
                         if(isset($customer))$afterContent = str_ireplace("{name}", $customer->first_name, $afterContent);
                         if(isset($line['video'])){
                             if($email){
-                                $url = env('APP_URL').'/api/customers/link?shortcode_id='.$line['video']['id'];
+                                $url = config('app.url').'/api/customers/link?shortcode_id='.$line['video']['id'];
                                 if($customerId)$url = $url.'&&customer_id='.$customerId;            
                                 $result .= "<p>".$beforeContent."<a href=".$url.">".$line['video']['name']."</a>".$afterContent."</p>";
                             }
@@ -507,7 +507,7 @@ trait WorkoutTrait
         $content = '';
         if (isset($workoutCondition[$weekday]) && $workoutCondition[$weekday]) {
             $block = self::getNotes($record,'comentario',$customerId);
-            if($record->image_path)$block['image_path'] = env('APP_URL').$record->image_path;
+            if($record->image_path)$block['image_path'] = config('app.url').$record->image_path;
             $blocks = [$block];
             $block = self::getNotes($record,'calentamiento',$customerId);
             if($block)$blocks[] = $block;
@@ -572,7 +572,7 @@ trait WorkoutTrait
                 if($record->blog){
                     // $content = self::convertArray($record->blog_element,'blog',true,$customerId)[0];
                     $block = self::getNotes($record,'blog',$customerId);
-                    if($record->image_path)$block['image_path'] = env('APP_URL').$record->image_path;
+                    if($record->image_path)$block['image_path'] = config('app.url').$record->image_path;
                     $blocks = [$block];
                 }else{
                     // $content = null;
@@ -612,7 +612,7 @@ trait WorkoutTrait
                                         $content = $content.$line['before_content'];
                                     }
                                     if(isset($line['video']) && $line['video']){
-                                        $url = env('APP_URL').'/api/customers/link?shortcode_id='.$line['video']['id'];
+                                        $url = config('app.url').'/api/customers/link?shortcode_id='.$line['video']['id'];
                                         if($customerId)$url = $url.'&&customer_id='.$customerId;
                                         $content = $content."<a href='".$url."' target='_blank'>".$line['video']['name']."</a>";
                                     }

@@ -68,6 +68,7 @@ class FollowController extends Controller
                 ]);
                 $status = 'accepted';
             }
+            \App\Models\Notification::follow($customer->id, $user->customer);
             $customer = $this->findCustomer($customerId, $user);
             return response()->json(array('status'=>$status,'customer'=>$customer));
         }
@@ -79,7 +80,7 @@ class FollowController extends Controller
      * @group Follow
      * This endpoint.
      * @authenticated
-     * @urlParam id integer required
+     * @urlParam id integer required //customer id
      * @response {
      *  "status":"accepted"
      *  "customer":{customer}
@@ -103,7 +104,7 @@ class FollowController extends Controller
      * @group Follow
      * This endpoint.
      * @authenticated
-     * @urlParam id integer required
+     * @urlParam id integer required //customer id
      * @response {
      *  "status":"rejected"
      *  "customer":{customer}
@@ -127,7 +128,7 @@ class FollowController extends Controller
      * @group Follow
      * This endpoint.
      * @authenticated
-     * @urlParam id integer required
+     * @urlParam customer_id integer required //customer id
      * @response {
      *  "status":"ok"
      *  "customer":{customer}

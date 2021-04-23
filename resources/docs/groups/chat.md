@@ -128,4 +128,80 @@ fetch(url, {
 </form>
 
 
+## save user&#039;s chat id.
+
+<small class="badge badge-darkred">requires authentication</small>
+
+This endpoint.
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://127.0.0.4/api/chat/user-id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"chat_id":16}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://127.0.0.4/api/chat/user-id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "chat_id": 16
+}
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response => response.json());
+```
+
+
+> Example response (200):
+
+```json
+{}
+```
+<div id="execution-results-POSTapi-chat-user-id" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-chat-user-id"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-chat-user-id"></code></pre>
+</div>
+<div id="execution-error-POSTapi-chat-user-id" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-chat-user-id"></code></pre>
+</div>
+<form id="form-POSTapi-chat-user-id" data-method="POST" data-path="api/chat/user-id" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-chat-user-id', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-chat-user-id" onclick="tryItOut('POSTapi-chat-user-id');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-chat-user-id" onclick="cancelTryOut('POSTapi-chat-user-id');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-chat-user-id" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>api/chat/user-id</code></b>
+</p>
+<p>
+<label id="auth-POSTapi-chat-user-id" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-chat-user-id" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>chat_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="chat_id" data-endpoint="POSTapi-chat-user-id" data-component="body" required  hidden>
+<br>
+</p>
+
+</form>
+
+
 

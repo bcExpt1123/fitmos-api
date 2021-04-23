@@ -2,6 +2,100 @@
 
 APIs for managing  likes for post and comment on social part
 
+## get liker(customer) list for an activity 10 per page.
+
+<small class="badge badge-darkred">requires authentication</small>
+
+This endpoint.
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://127.0.0.4/api/likes?activity_id=16&pageNumber=8" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://127.0.0.4/api/likes"
+);
+
+let params = {
+    "activity_id": "16",
+    "pageNumber": "8",
+};
+Object.keys(params)
+    .forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response => response.json());
+```
+
+
+> Example response (200):
+
+```json
+
+{
+[
+ {
+ "id"=>1,
+ "activity_id"=>1,
+ "customer_id"=>1,
+ "customer"=>{
+     "first_name"=>'first',
+     "last_name"=>'last',
+     "avatarUrls"=>[]
+ }
+ }]
+}
+```
+<div id="execution-results-GETapi-likes" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-likes"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-likes"></code></pre>
+</div>
+<div id="execution-error-GETapi-likes" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-likes"></code></pre>
+</div>
+<form id="form-GETapi-likes" data-method="GET" data-path="api/likes" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-likes', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-likes" onclick="tryItOut('GETapi-likes');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-likes" onclick="cancelTryOut('GETapi-likes');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-likes" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/likes</code></b>
+</p>
+<p>
+<label id="auth-GETapi-likes" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-likes" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p>
+<b><code>activity_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="activity_id" data-endpoint="GETapi-likes" data-component="query" required  hidden>
+<br>
+</p>
+<p>
+<b><code>pageNumber</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="pageNumber" data-endpoint="GETapi-likes" data-component="query"  hidden>
+<br>
+</p>
+</form>
+
+
 ## create a like.
 
 <small class="badge badge-darkred">requires authentication</small>
@@ -14,7 +108,9 @@ This endpoint.
 curl -X POST \
     "http://127.0.0.4/api/likes" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"activity_id":7}'
+
 ```
 
 ```javascript
@@ -27,10 +123,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "activity_id": 7
+}
 
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response => response.json());
 ```
 
@@ -62,6 +162,13 @@ fetch(url, {
 <p>
 <label id="auth-POSTapi-likes" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-likes" data-component="header"></label>
 </p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>activity_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="activity_id" data-endpoint="POSTapi-likes" data-component="body" required  hidden>
+<br>
+</p>
+
 </form>
 
 
@@ -75,14 +182,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/likes/error" \
+    "http://127.0.0.4/api/likes/molestias" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/likes/error"
+    "http://127.0.0.4/api/likes/molestias"
 );
 
 let headers = {
@@ -129,6 +236,11 @@ fetch(url, {
 <p>
 <b><code>like</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
 <input type="text" name="like" data-endpoint="DELETEapi-likes--like-" data-component="url" required  hidden>
+<br>
+</p>
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="id" data-endpoint="DELETEapi-likes--like-" data-component="url" required  hidden>
 <br>
 </p>
 </form>
