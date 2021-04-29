@@ -12,14 +12,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/benchmarkResults/sit/benchmark" \
+    -G "http://127.0.0.4/api/benchmarkResults/culpa/benchmark" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/benchmarkResults/sit/benchmark"
+    "http://127.0.0.4/api/benchmarkResults/culpa/benchmark"
 );
 
 let headers = {
@@ -270,14 +270,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/benchmarkResults/eaque" \
+    -G "http://127.0.0.4/api/benchmarkResults/iusto" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/benchmarkResults/eaque"
+    "http://127.0.0.4/api/benchmarkResults/iusto"
 );
 
 let headers = {
@@ -339,14 +339,14 @@ This endpoint.
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/benchmarkResults/optio" \
+    "http://127.0.0.4/api/benchmarkResults/doloremque" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/benchmarkResults/optio"
+    "http://127.0.0.4/api/benchmarkResults/doloremque"
 );
 
 let headers = {
@@ -412,14 +412,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/benchmarkResults/tempora" \
+    "http://127.0.0.4/api/benchmarkResults/eveniet" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/benchmarkResults/tempora"
+    "http://127.0.0.4/api/benchmarkResults/eveniet"
 );
 
 let headers = {

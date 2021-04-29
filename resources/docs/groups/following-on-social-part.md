@@ -15,7 +15,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/follows/customer" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"customer_id":2,"type":"cumque","page_number":4}'
+    -d '{"customer_id":3,"type":"sint","page_number":9}'
 
 ```
 
@@ -30,9 +30,9 @@ let headers = {
 };
 
 let body = {
-    "customer_id": 2,
-    "type": "cumque",
-    "page_number": 4
+    "customer_id": 3,
+    "type": "sint",
+    "page_number": 9
 }
 
 fetch(url, {

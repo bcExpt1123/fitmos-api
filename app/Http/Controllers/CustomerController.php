@@ -613,6 +613,7 @@ class CustomerController extends Controller
      * @bodyParam suggested integer required    //if it is 0, it returns newsfeed, if it is 1, it returns suggested posts;
      * @bodyParam post_id integer //latest post id, when appending post, it is used
      * @response {
+     * 'newsfeed':
      * [
      *  {
      *      id:'1',
@@ -648,7 +649,7 @@ class CustomerController extends Controller
      *      ]
      *  }
      *  {
-     *      id:'2021-04-30',
+     *      id:'2021-04-30-0',
      *      type:"birthday", // 
      *      label:"15 de abril",
      *      customers:[
@@ -658,14 +659,34 @@ class CustomerController extends Controller
      *          }
      *      ]
      *  }
-     * ]
+     * ,
+     *  {
+     *      id:'9',
+     *      type:"join", // new customer
+     *      customer:
+     *          {
+     *              id:345,
+     *              first_name:"a",
+     *              chat_id:"4242"
+     *          }
+     *  }
+     * ,
+     *  {
+     *      id:'2021-04-23-w',
+     *      type:"workout-post", // workout content
+     *      title:"23 de abril, 2021",
+     *      content:"<p>This is workout content</p>",
+     *      contentType:"html",
+     *  }
+     * ],
+     * 'next':true //if true, it has next element, if false, it hasn't next element,
      * }
      */
     public function newsfeed(Request $request){
         $user = $request->user('api');
         if($user->customer){
-            $newsfeed = $user->customer->getNewsfeed($request->post_id,$request->suggested);
-            return response()->json(['newsfeed'=>$newsfeed]);
+            [$newsfeed, $next] = $user->customer->getNewsfeed($request->post_id,$request->suggested);
+            return response()->json(['newsfeed'=>$newsfeed,'next'=>$next]);
         }
         return response()->json(['status'=>false],401);
     }
@@ -681,8 +702,8 @@ class CustomerController extends Controller
     public function oldnewsfeed(Request $request){
         $user = $request->user('api');
         if($user->customer){
-            $newsfeed = $user->customer->getOldNewsfeed($request->post_id);
-            return response()->json(['oldNewsfeed'=>$newsfeed]);
+            [$newsfeed,$next] = $user->customer->getOldNewsfeed($request->post_id);
+            return response()->json(['oldNewsfeed'=>$newsfeed,'next'=>$next]);
         }
         return response()->json(['status'=>false],401);
     }

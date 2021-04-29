@@ -78,7 +78,7 @@ class Notification extends Model
         $notification->save();
     }
     // Tag on post--> {name} te etiquetó en una foto.
-    public static function tagOn($customerId, $actionId){
+    public static function tagOn($customerId, $actionId, $post){
         $action = \App\Customer::find($actionId);
         $notification = new Notification;
         $notification->type = "social";
@@ -86,10 +86,12 @@ class Notification extends Model
         $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> te etiquetó en una foto.";
         $notification->action_type = "customer";
         $notification->action_id = $actionId;
+        $notification->object_id = $post->id;
+        $notification->object_type = "post";
         $notification->save();
     }
     // mention on post--> {name} te mencionó en una foto.
-    public static function mentionOnPost($customerId, $actionId){
+    public static function mentionOnPost($customerId, $actionId, $post){
         $action = \App\Customer::find($actionId);
         $notification = new Notification;
         $notification->type = "social";
@@ -97,6 +99,8 @@ class Notification extends Model
         $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> te mencionó en una foto.";
         $notification->action_type = "customer";
         $notification->action_id = $actionId;
+        $notification->object_id = $post->id;
+        $notification->object_type = "post";
         $notification->save();
     }
     // mention in comment --> {name} te mencionó en un comentario.
@@ -127,6 +131,18 @@ class Notification extends Model
         $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> empezó a seguirte.";
         $notification->action_type = "customer";
         $notification->action_id = $action->id;
+        $notification->save();
+    }
+    //Sui likes your post.
+    public static function likePost($customerId, $action, $post){
+        $notification = new Notification;
+        $notification->type = "social";
+        $notification->customer_id = $customerId;
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> likes your post";
+        $notification->action_type = "customer";
+        $notification->action_id = $action->id;
+        $notification->object_id = $post->id;
+        $notification->object_type = "post";
         $notification->save();
     }
 }

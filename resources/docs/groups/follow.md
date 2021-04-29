@@ -84,14 +84,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/follows/11/accept" \
+    "http://127.0.0.4/api/follows/3/accept" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/follows/11/accept"
+    "http://127.0.0.4/api/follows/3/accept"
 );
 
 let headers = {
@@ -157,14 +157,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/follows/8/reject" \
+    "http://127.0.0.4/api/follows/19/reject" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/follows/8/reject"
+    "http://127.0.0.4/api/follows/19/reject"
 );
 
 let headers = {
@@ -301,7 +301,7 @@ curl -X POST \
     "http://127.0.0.4/api/follows" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"customer_id":12}'
+    -d '{"customer_id":4}'
 
 ```
 
@@ -316,7 +316,7 @@ let headers = {
 };
 
 let body = {
-    "customer_id": 12
+    "customer_id": 4
 }
 
 fetch(url, {

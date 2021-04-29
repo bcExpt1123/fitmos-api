@@ -320,8 +320,42 @@ class FindTransactions extends Command
         if(false){
             $this->generateBirthdayPosts();
         }
-        if(true){
+        if(false){
             $this->generateArticlePosts();
+        }
+        if(false){
+            $this->likeNotification();
+        }
+        if(false){
+            $this->generateJoinPost();
+        }
+        if(true){
+            $this->generateWorkoutPost();
+        }
+    }
+    private function generateWorkoutPost(){
+        $customer = Customer::find(3);
+        // $startDate = Carbon::createFromFormat('Y-m-d H:i:s', "2021-02-24 19:01:00", 'America/Panama');
+        // $endDate = Carbon::createFromFormat('Y-m-d H:i:s', "2021-02-22 19:00:00", 'America/Panama');
+        $post = $customer->generateWorkoutPost();
+        print_r($post);
+    }
+    private function generateJoinPost(){
+        $activity = new \App\Models\Activity;
+        $activity->save();
+        $post = new \App\Models\Post;
+        $post->fill(['activity_id'=>$activity->id,'customer_id'=>0,'type'=>'join','object_id'=>5882]);
+        \App\Models\Post::withoutEvents(function () use ($post) {
+            $post->status = 1;
+            $post->save();
+        });
+    }
+    private function likeNotification(){
+        $activityId = 154;
+        $user = User::find(11);
+        $post = Post::whereActivityId($activityId)->first();
+        if($post && $post->customer_id != $user->customer->id){
+            if($post->customer_id>0)\App\Models\Notification::likePost($post->customer_id, $user->customer, $post);
         }
     }
     private function generateArticlePosts(){

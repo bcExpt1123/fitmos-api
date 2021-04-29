@@ -222,7 +222,15 @@ class Post extends Model
                     }
                 }
                 break;
-        }
+            case 'join':
+                $customer = \App\Customer::find($this->object_id);
+                $customer->getAvatar();
+                $customer->chat_id = $customer->user->chat_id;
+                unset($customer->user);
+                unset($this->customer);
+                $this->customer = $customer;
+                break;
+            }
     }
     private function convertJson($content){
         $lines = explode("\n",$content);

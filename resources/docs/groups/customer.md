@@ -1283,7 +1283,7 @@ curl -X POST \
     "http://127.0.0.4/api/customers/newsfeed" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"suggested":19,"post_id":9}'
+    -d '{"suggested":8,"post_id":2}'
 
 ```
 
@@ -1298,8 +1298,8 @@ let headers = {
 };
 
 let body = {
-    "suggested": 19,
-    "post_id": 9
+    "suggested": 8,
+    "post_id": 2
 }
 
 fetch(url, {
@@ -1315,6 +1315,7 @@ fetch(url, {
 ```json
 
 {
+'newsfeed':
 [
  {
      id:'1',
@@ -1350,7 +1351,7 @@ fetch(url, {
      ]
  }
  {
-     id:'2021-04-30',
+     id:'2021-04-30-0',
      type:"birthday", //
      label:"15 de abril",
      customers:[
@@ -1360,7 +1361,27 @@ fetch(url, {
          }
      ]
  }
-]
+,
+ {
+     id:'9',
+     type:"join", // new customer
+     customer:
+         {
+             id:345,
+             first_name:"a",
+             chat_id:"4242"
+         }
+ }
+,
+ {
+     id:'2021-04-23-w',
+     type:"workout-post", // workout content
+     title:"23 de abril, 2021",
+     content:"<p>This is workout content</p>",
+     contentType:"html",
+ }
+],
+'next':true //if true, it has next element, if false, it hasn't next element,
 }
 ```
 <div id="execution-results-POSTapi-customers-newsfeed" hidden>
@@ -1413,7 +1434,7 @@ curl -X POST \
     "http://127.0.0.4/api/customers/oldnewsfeed" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"post_id":2}'
+    -d '{"post_id":6}'
 
 ```
 
@@ -1428,7 +1449,7 @@ let headers = {
 };
 
 let body = {
-    "post_id": 2
+    "post_id": 6
 }
 
 fetch(url, {
@@ -1486,14 +1507,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/customers/eius/profile" \
+    -G "http://127.0.0.4/api/customers/repellat/profile" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/customers/eius/profile"
+    "http://127.0.0.4/api/customers/repellat/profile"
 );
 
 let headers = {

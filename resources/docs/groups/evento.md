@@ -15,7 +15,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/eventos/home" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"pageSize":20,"pageNumber":1}'
+    -d '{"pageSize":20,"pageNumber":12}'
 
 ```
 
@@ -31,7 +31,7 @@ let headers = {
 
 let body = {
     "pageSize": 20,
-    "pageNumber": 1
+    "pageNumber": 12
 }
 
 fetch(url, {
@@ -162,14 +162,14 @@ This endpoint.
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/eventos/reiciendis/toggle-attend" \
+    "http://127.0.0.4/api/eventos/in/toggle-attend" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/eventos/reiciendis/toggle-attend"
+    "http://127.0.0.4/api/eventos/in/toggle-attend"
 );
 
 let headers = {
@@ -234,14 +234,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/eventos/16" \
+    -G "http://127.0.0.4/api/eventos/14" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/eventos/16"
+    "http://127.0.0.4/api/eventos/14"
 );
 
 let headers = {

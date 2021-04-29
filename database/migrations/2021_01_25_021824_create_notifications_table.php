@@ -18,8 +18,10 @@ class CreateNotificationsTable extends Migration
             $table->enum('type', ['payment_renewal','declined_payment', 'expiration','partners','social','events','follow','other'])->default('payment_renewal');
             $table->string('content');
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->string('action_type')->nullable();//shop or user
+            $table->string('action_type')->nullable();//actor such as shop or user
             $table->unsignedBigInteger('action_id')->nullable();
+            $table->string('object_type')->nullable();//object such as post or evento
+            $table->unsignedBigInteger('object_id')->nullable();
             $table->string('route')->nullable();
             $table->timestamps();
         });

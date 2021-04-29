@@ -698,6 +698,17 @@ class Customer extends Model
         if($workout){
             $this->send($workout);
         }
+        $this->createJoinPost();
+    }
+    private function createJoinPost(){
+        $activity = new \App\Models\Activity;
+        $activity->save();
+        $post = new \App\Models\Post;
+        $post->fill(['activity_id'=>$activity->id,'customer_id'=>0,'type'=>'join','object_id'=>$this->id]);
+        \App\Models\Post::withoutEvents(function () use ($post) {
+            $post->status = 1;
+            $post->save();
+        });
     }
     public function send($workout){
         if($this->active_email){
@@ -1287,38 +1298,41 @@ class Customer extends Model
         }
     }
     public function getNewsfeed($fromId,$suggested){
-        $where = \App\Models\Post::with(['customer','medias']);
-        if($fromId>0){
-            $where->where('id','<',$fromId);
-        }
-        $where->whereHas('customer',function($query) use ($suggested){
-            if($suggested == 0){
-                $query->whereHas('followers',function($q){
-                    $q->where("follows.follower_id",$this->id); 
+        $where = \App\Models\Post::where(function($query) use ($suggested){
+            with(['customer','medias']);
+            $query->whereHas('customer',function($query) use ($suggested){
+                if($suggested == 0){
+                    $query->whereHas('followers',function($q){
+                        $q->where("follows.follower_id",$this->id); 
+                    });
+                }else{
+                    $query->whereDoesntHave('followers',function($q){
+                        $q->where("follows.follower_id",$this->id); 
+                    });
+                }
+                $query->whereDoesntHave('mutedRelations',function($q){
+                    $q->where("customers_relations.follower_id",$this->id); 
                 });
-            }else{
-                $query->whereDoesntHave('followers',function($q){
-                    $q->where("follows.follower_id",$this->id); 
-                });
-            }
-            $query->whereDoesntHave('mutedRelations',function($q){
-                $q->where("customers_relations.follower_id",$this->id); 
+                if($suggested == 0){
+                    $query->orwhere('customer_id','=',$this->id);
+                }else{
+                    $query->where('customer_id','!=',$this->id);
+                }
             });
             if($suggested == 0){
-                $query->orwhere('customer_id','=',$this->id);
-            }else{
-                $query->where('customer_id','!=',$this->id);
+                $query->orWhere(function($query){
+                    $query->whereCustomerId(0)->whereIn('type',['shop', 'benchmark', 'blog', 'evento','join']);
+                });
             }
         });
+
         /** get article types post such as shop, benchmark, blog, evento */
-        if($suggested == 0){
-            $where->orWhere(function($query){
-                $query->whereCustomerId(0)->whereIn('type',['shop', 'benchmark', 'blog', 'evento']);
-            });
-        }
         $where->whereDoesntHave('readingCustomers',function($query){
             $query->where("reading_posts.customer_id",$this->id);
         });
+        if($fromId>0){
+            $where->where('id','<',$fromId);
+        }
         $result = $where->whereStatus('1')->orderBy('id','desc')->limit(9)->get();
         /** get birthdays */
         if(Cache::has('activeCustomerIds')){
@@ -1345,6 +1359,10 @@ class Customer extends Model
             $followingIds[] = $following->customer_id;
         }
         $posts = [];
+        if(($fromId<0 || $fromId == null ) && $suggested == '0'){
+            $workoutPost = $this->generateWorkoutPost();
+            if($workoutPost)$posts = [$workoutPost];
+        }
         foreach($result as $index=>$post){
             if(($fromId==null || $fromId<0) && $index == 0 ){
                 $birthdays = $this->generateBirthdayPosts(Carbon::now(), $result[$index]->created_at, $activeCustomerIds,$followingIds,$suggested);
@@ -1357,7 +1375,7 @@ class Customer extends Model
                 if(count($birthdays)>0)$posts = array_merge($posts, $birthdays);
             }
         }
-        return $posts;
+        return [$posts, isset($result[8])];
     }
     public function getOldNewsfeed($fromId){
         $where = \App\Models\Post::with(['customer','medias']);
@@ -1376,11 +1394,46 @@ class Customer extends Model
         $where->whereHas('readingCustomers',function($query){
             $query->where("reading_posts.customer_id",$this->id);
         });
-        $result = $where->where('posts.status',1)->orderBy('posts.id','desc')->limit(8)->get();
+        $where->where('type','!=','join');
+        $result = $where->where('posts.status',1)->orderBy('posts.id','desc')->limit(9)->get();
+        $posts = [];
         foreach($result as $index=>$post){
-            $post->extend(null, $this->user);
+            if($index<8 && isset($result[$index+1])){
+                $post->extend(null, $this->user);
+                $posts[] = $post;
+            }
         }
-        return $result;
+        return [$posts, isset($result[8])];
+    }
+    public function generateWorkoutPost(){
+        setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
+        $workout = $this->getSendableWorkout(1);
+        // $workout = $this->findSendableWorkout('2021-02-23');
+        $post = null;
+        if($workout){
+            $done = \App\Done::whereCustomerId($this->id)->whereDoneDate($workout['publish_date'])->first();
+            if($done == null){
+                $post = ['id'=>$workout['publish_date'].'-w',
+                'type'=>'workout-post',
+                'title'=>$workout['date'],
+                'content'=>$workout['content'],
+                'contentType'=>'html',
+                ];
+                if(isset($workout['image_path'])){
+                    $data = getimagesize($workout['image_path']);
+                    if(isset($data[0])){
+                        $post['medias'] = [[
+                            'post_id'=>$workout['publish_date'].'-w',
+                            'url'=>$workout['image_path'],
+                            'type'=>'image',
+                            'width'=>$data[0], 
+                            'height'=>$data[0],
+                        ]];
+                    }
+                }                        
+            }
+        }
+        return $post;
     }
     private function generateBirthdayPosts($firstDate, $secondDate, $activeCustomerIds,$followingIds,$suggested){
         // get id(date) customerIds from date;
@@ -1395,7 +1448,7 @@ class Customer extends Model
             $date->add(-1,'day');
         }
         setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
-        while($date->lessThan($firstDate) && $date->greaterThan($secondDate)){
+        while($date->lessThan($firstDate) && $date->greaterThanOrEqualTo($secondDate)){
             $birthday = $date->format("m-d");
             // if($birthday == '04-16'){
                 $where = Customer::with('user')

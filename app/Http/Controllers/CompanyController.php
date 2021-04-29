@@ -325,6 +325,7 @@ class CompanyController extends Controller
                     return response()->json(['company'=>$company,'products'=>$results]);
                 }else{
                     if($user && $user->customer){
+                        return response()->json(['company'=>$company,'products'=>[]]);
                     }else{
                         return response()->json(['company'=>$company,'products'=>[]]);
                     }

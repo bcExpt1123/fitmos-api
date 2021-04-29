@@ -116,11 +116,11 @@ class Company extends Model
             })
             ->whereStatus('active')
             ->where('is_all_countries','=','no')
-            ->orWhere('is_all_countries','=','yes')
-            ->whereHas('products',function($query){
-                $query->where('status', '=', "Active")
-                    ->where('expiration_date', '>=', $this->expirationDate);
-            });
+            ->orWhere('is_all_countries','=','yes');
+            // ->whereHas('products',function($query){
+            //     $query->where('status', '=', "Active")
+            //         ->where('expiration_date', '>=', $this->expirationDate);
+            // });
         $currentPage = $this->pageNumber+1;
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;

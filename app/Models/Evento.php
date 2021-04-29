@@ -53,7 +53,7 @@ class Evento extends Model
         if(is_array($this->medias)){
             foreach($this->medias as $id){
                 $media = Media::find($id);
-                $images[] = $media;
+                if($media)$images[] = $media;
             }
             $this->images = $images;
         }
@@ -130,7 +130,7 @@ class Evento extends Model
             $dt = Carbon::createFromFormat('Y-m-d H:i:s', $this->done_date, 'America/Panama');
             $dt->sub('1 day');
             $now =  Carbon::now();
-            if($now->lessThan($dt))EventAttend::dispatch($customer->id, $this->id)->delay($dt);
+            if($now->lessThan($dt))EventAttend::dispatch($customer->id, $this->id, $this->done_date)->delay($dt);
         }
         $this->refresh();
         $this['participants'] = $this->customers->count();

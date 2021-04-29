@@ -138,14 +138,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/cart/modi" \
+    -G "http://127.0.0.4/api/cart/eaque" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/cart/modi"
+    "http://127.0.0.4/api/cart/eaque"
 );
 
 let headers = {

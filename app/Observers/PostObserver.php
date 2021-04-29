@@ -42,10 +42,10 @@ class PostObserver
             $post->json_content = $jsons;
             $post->save();
             foreach($ids as $id){
-                \App\Models\Notification::mentionOnPost($id, $post->customer_id);
+                \App\Models\Notification::mentionOnPost($id, $post->customer_id, $post);
             }    
             foreach($post->tag_followers as $id){
-                \App\Models\Notification::tagOn($id, $post->customer_id);
+                \App\Models\Notification::tagOn($id, $post->customer_id, $post);
             }    
         });
     }

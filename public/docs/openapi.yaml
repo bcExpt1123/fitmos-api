@@ -312,7 +312,7 @@ paths:
                 in: path
                 name: token
                 description: ''
-                example: facilis
+                example: placeat
                 required: true
                 schema:
                     type: string
@@ -381,7 +381,7 @@ paths:
                 in: path
                 name: token
                 description: ''
-                example: fugiat
+                example: error
                 required: true
                 schema:
                     type: string
@@ -450,7 +450,7 @@ paths:
                 in: path
                 name: benchmark
                 description: ''
-                example: in
+                example: quia
                 required: true
                 schema:
                     type: string
@@ -489,7 +489,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: sit
+                example: culpa
                 required: true
                 schema:
                     type: string
@@ -675,7 +675,7 @@ paths:
                 in: path
                 name: benchmarkResult
                 description: ''
-                example: eaque
+                example: iusto
                 required: true
                 schema:
                     type: string
@@ -718,7 +718,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 3
+                                    example: 12
                             required:
                                 - customer_id
     /api/follows/unblock:
@@ -760,7 +760,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 12
+                                    example: 10
                             required:
                                 - customer_id
     /api/follows/mute:
@@ -802,7 +802,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 3
+                                    example: 1
                             required:
                                 - customer_id
     /api/follows/unmute:
@@ -844,7 +844,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 3
+                                    example: 8
                             required:
                                 - customer_id
     /api/cart/inside:
@@ -942,7 +942,7 @@ paths:
                 in: path
                 name: cart
                 description: ''
-                example: modi
+                example: eaque
                 required: true
                 schema:
                     type: string
@@ -1088,11 +1088,11 @@ paths:
                                 id:
                                     type: integer
                                     description: 'comment from id or to id'
-                                    example: 9
+                                    example: 15
                                 type:
                                     type: string
                                     description: 'appendNext or appendNextReplies or append'
-                                    example: dolore
+                                    example: quia
                             required:
                                 - id
                                 - type
@@ -1141,20 +1141,20 @@ paths:
                                 post_id:
                                     type: integer
                                     description: 'post ID'
-                                    example: 19
+                                    example: 14
                                 content:
                                     type: string
                                     description: 'it contains multi mentioned user such as @[Marlon Cañas](132) same as post content'
-                                    example: illum
+                                    example: consectetur
                                 parent_activity_id:
                                     type: optional
                                     description: 'if exists, it is reply if no it is comment with level1=0'
-                                    example: sit
+                                    example: et
                                 condition:
                                     type: object
                                     description: 'optional when comment leve1 = 0'
                                     example: []
-                                    properties: { from_id: { type: integer, description: 'it shows viewable comment first id', example: 1 } }
+                                    properties: { from_id: { type: integer, description: 'it shows viewable comment first id', example: 16 } }
                             required:
                                 - post_id
                                 - content
@@ -1226,7 +1226,7 @@ paths:
                                 content:
                                     type: string
                                     description: 'it contains multi mentioned user such as @[Marlon Cañas](132) same as post content'
-                                    example: fugiat
+                                    example: odit
                             required:
                                 - content
         delete:
@@ -1277,17 +1277,17 @@ paths:
                                 from_id:
                                     type: integer
                                     description: 'it shows viewable comment first id when level1=0 required'
-                                    example: 8
+                                    example: 3
                                 to_id:
                                     type: integer
                                     description: 'it shows viewable comment last id when level1=0 required'
-                                    example: 2
+                                    example: 5
         parameters:
             -
                 in: path
                 name: comment
                 description: 'comment ID'
-                example: 15
+                example: 6
                 required: true
                 schema:
                     type: integer
@@ -1356,7 +1356,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: hic
+                example: blanditiis
                 required: true
                 schema:
                     type: string
@@ -2252,7 +2252,7 @@ paths:
                         text/plain:
                             schema:
                                 type: string
-                                example: "{\n[\n {\n     id:'1',\n     content:\"this is general post\",\n     type:\"general\", // workout\n     medias:[\n         {\n         url:\"https://aws3.domain.com/shop.png\"\n         type:\"image\", //or video,\n         width:400,\n         height:300,\n     }\n     ]\n },\n {\n     id:'2',\n     content:\"this is workout post\",\n     type:\"workout\", //\n },\n {\n     id:'3',\n     type:\"shop\", // bechmark, blog, evento,\n     title:\"This is shop title\",\n     content:\"This is shop content\",\n     contentType:\"html\", //blog, evento\n     shopUsername:\"shopusername\",\n     shopLogo:{small:\"https://aws3.domain.com/shop.png\"},\n     customers:[\n         {\n             id:345,\n             chat_id:\"4242\"\n         }\n     ]\n }\n {\n     id:'2021-04-30',\n     type:\"birthday\", //\n     label:\"15 de abril\",\n     customers:[\n         {\n             id:345,\n             chat_id:\"4242\"\n         }\n     ]\n }\n]\n}"
+                                example: "{\n'newsfeed':\n[\n {\n     id:'1',\n     content:\"this is general post\",\n     type:\"general\", // workout\n     medias:[\n         {\n         url:\"https://aws3.domain.com/shop.png\"\n         type:\"image\", //or video,\n         width:400,\n         height:300,\n     }\n     ]\n },\n {\n     id:'2',\n     content:\"this is workout post\",\n     type:\"workout\", //\n },\n {\n     id:'3',\n     type:\"shop\", // bechmark, blog, evento,\n     title:\"This is shop title\",\n     content:\"This is shop content\",\n     contentType:\"html\", //blog, evento\n     shopUsername:\"shopusername\",\n     shopLogo:{small:\"https://aws3.domain.com/shop.png\"},\n     customers:[\n         {\n             id:345,\n             chat_id:\"4242\"\n         }\n     ]\n }\n {\n     id:'2021-04-30-0',\n     type:\"birthday\", //\n     label:\"15 de abril\",\n     customers:[\n         {\n             id:345,\n             chat_id:\"4242\"\n         }\n     ]\n }\n,\n {\n     id:'9',\n     type:\"join\", // new customer\n     customer:\n         {\n             id:345,\n             first_name:\"a\",\n             chat_id:\"4242\"\n         }\n }\n,\n {\n     id:'2021-04-23-w',\n     type:\"workout-post\", // workout content\n     title:\"23 de abril, 2021\",\n     content:\"<p>This is workout content</p>\",\n     contentType:\"html\",\n }\n],\n'next':true //if true, it has next element, if false, it hasn't next element,\n}"
             tags:
                 - Customer
             requestBody:
@@ -2265,11 +2265,11 @@ paths:
                                 suggested:
                                     type: integer
                                     description: '//if it is 0, it returns newsfeed, if it is 1, it returns suggested posts;'
-                                    example: 19
+                                    example: 8
                                 post_id:
                                     type: integer
                                     description: '//latest post id, when appending post, it is used'
-                                    example: 9
+                                    example: 2
                             required:
                                 - suggested
     /api/customers/oldnewsfeed:
@@ -2312,7 +2312,7 @@ paths:
                                 post_id:
                                     type: integer
                                     description: '//latest post id, when appending post, it is used if post_id is -1, it returns first post list'
-                                    example: 2
+                                    example: 6
                             required:
                                 - post_id
     '/api/customers/{id}/profile':
@@ -2350,7 +2350,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: eius
+                example: repellat
                 required: true
                 schema:
                     type: string
@@ -2451,7 +2451,7 @@ paths:
                                 pageNumber:
                                     type: integer
                                     description: ''
-                                    example: 1
+                                    example: 12
                             required:
                                 - pageSize
                                 - pageNumber
@@ -2518,7 +2518,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: reiciendis
+                example: in
                 required: true
                 schema:
                     type: string
@@ -2556,7 +2556,7 @@ paths:
                 in: path
                 name: evento
                 description: ''
-                example: 16
+                example: 14
                 required: true
                 schema:
                     type: integer
@@ -2712,7 +2712,7 @@ paths:
                 in: path
                 name: evento_comment
                 description: ''
-                example: deleniti
+                example: magni
                 required: true
                 schema:
                     type: string
@@ -2750,7 +2750,7 @@ paths:
                 in: path
                 name: customer_id
                 description: '//customer id'
-                example: 3
+                example: 12
                 required: true
                 schema:
                     type: integer
@@ -2788,7 +2788,7 @@ paths:
                 in: path
                 name: id
                 description: '//customer id'
-                example: 11
+                example: 3
                 required: true
                 schema:
                     type: integer
@@ -2826,7 +2826,7 @@ paths:
                 in: path
                 name: id
                 description: '//customer id'
-                example: 8
+                example: 19
                 required: true
                 schema:
                     type: integer
@@ -2897,7 +2897,7 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 12
+                                    example: 4
                             required:
                                 - customer_id
     /api/follows/customer:
@@ -2939,15 +2939,15 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 2
+                                    example: 3
                                 type:
                                     type: string
                                     description: 'followings or follower'
-                                    example: cumque
+                                    example: sint
                                 page_number:
                                     type: integer
                                     description: ''
-                                    example: 4
+                                    example: 9
                             required:
                                 - customer_id
                                 - type
@@ -3074,7 +3074,7 @@ paths:
                 in: path
                 name: levelTest
                 description: ''
-                example: sed
+                example: qui
                 required: true
                 schema:
                     type: string
@@ -3087,22 +3087,22 @@ paths:
                     in: query
                     name: activity_id
                     description: ''
-                    example: 16
+                    example: 8
                     required: true
                     schema:
                         type: integer
                         description: ''
-                        example: 16
+                        example: 8
                 -
                     in: query
                     name: pageNumber
                     description: ''
-                    example: 8
+                    example: 18
                     required: false
                     schema:
                         type: integer
                         description: ''
-                        example: 8
+                        example: 18
                 -
                     in: header
                     name: Content-Type
@@ -3166,7 +3166,7 @@ paths:
                                 activity_id:
                                     type: integer
                                     description: ''
-                                    example: 7
+                                    example: 15
                             required:
                                 - activity_id
     '/api/likes/{like}':
@@ -3204,7 +3204,7 @@ paths:
                 in: path
                 name: like
                 description: ''
-                example: molestias
+                example: quisquam
                 required: true
                 schema:
                     type: string
@@ -3212,7 +3212,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: 12
+                example: 16
                 required: true
                 schema:
                     type: integer
@@ -3251,7 +3251,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: delectus
+                example: cum
                 required: true
                 schema:
                     type: string
@@ -3290,7 +3290,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: dicta
+                example: et
                 required: true
                 schema:
                     type: string
@@ -3482,7 +3482,7 @@ paths:
                 in: path
                 name: event
                 description: ''
-                example: aut
+                example: odio
                 required: true
                 schema:
                     type: string
@@ -3638,7 +3638,7 @@ paths:
                 in: path
                 name: tocken
                 description: ''
-                example: in
+                example: quibusdam
                 required: true
                 schema:
                     type: string
@@ -3681,7 +3681,7 @@ paths:
                                 ids:
                                     type: array
                                     description: ''
-                                    example: [3, 18]
+                                    example: [11, 13]
                                     items: { type: integer }
     '/api/posts/random-medias/{customerId}':
         get:
@@ -3717,7 +3717,7 @@ paths:
                 in: path
                 name: customerId
                 description: ''
-                example: 15
+                example: 7
                 required: true
                 schema:
                     type: integer
@@ -3764,7 +3764,7 @@ paths:
                                 media_id:
                                     type: integer
                                     description: '// from media_id'
-                                    example: 4
+                                    example: 3
                             required:
                                 - customer_id
     /api/posts/sync:
@@ -3807,7 +3807,7 @@ paths:
                                     type: array
                                     description: ''
                                     example: [[], []]
-                                    items: { type: object, properties: { id: { type: integer, description: post_id, example: 14 }, from_id: { type: integer, description: 'from comment_id', example: 4 }, to_id: { type: integer, description: 'to comment_id', example: 7 } }, required: [id, from_id, to_id] }
+                                    items: { type: object, properties: { id: { type: integer, description: post_id, example: 3 }, from_id: { type: integer, description: 'from comment_id', example: 7 }, to_id: { type: integer, description: 'to comment_id', example: 16 } }, required: [id, from_id, to_id] }
                             required:
                                 - ids
     '/api/posts/{id}/read':
@@ -3845,7 +3845,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: 9
+                example: 5
                 required: true
                 schema:
                     type: integer
@@ -3888,11 +3888,11 @@ paths:
                                 customer_id:
                                     type: integer
                                     description: ''
-                                    example: 17
+                                    example: 2
                                 post_id:
                                     type: integer
                                     description: 'last post id'
-                                    example: 8
+                                    example: 16
                             required:
                                 - customer_id
         post:
@@ -3933,20 +3933,20 @@ paths:
                                 location:
                                     type: string
                                     description: ''
-                                    example: officia
+                                    example: cumque
                                 content:
                                     type: string
                                     description: 'contains multi mentioned user such as @[Marlon Cañas](132)'
-                                    example: fugiat
+                                    example: minus
                                 tag_followers:
                                     type: array
                                     description: ''
-                                    example: [7, 2]
+                                    example: [7, 20]
                                     items: { type: integer }
                                 workout_date:
                                     type: string
                                     description: ''
-                                    example: officia
+                                    example: excepturi
                                 medias:
                                     type: array
                                     description: 'video, image max size 200M'
@@ -3993,7 +3993,7 @@ paths:
                                 comment:
                                     type: integer
                                     description: 'when comment = 1, it contains all comments, but not include replies'
-                                    example: 20
+                                    example: 7
         put:
             summary: 'update a post.'
             description: 'This endpoint update post data. but image or videos has not been update immediately, because fitemos saves medias asynchronously'
@@ -4032,24 +4032,24 @@ paths:
                                 location:
                                     type: string
                                     description: ''
-                                    example: tempore
+                                    example: dolorem
                                 content:
                                     type: string
                                     description: 'contains multi mentioned user such as @[Marlon Cañas](132)'
-                                    example: et
+                                    example: hic
                                 tag_followers:
                                     type: array
                                     description: ''
-                                    example: [17, 7]
+                                    example: [3, 11]
                                     items: { type: integer }
                                 workout_date:
                                     type: string
                                     description: ''
-                                    example: enim
+                                    example: nostrum
                                 media_ids:
                                     type: array
                                     description: 'original medias'
-                                    example: [10, 10]
+                                    example: [4, 15]
                                     items: { type: integer }
                                 medias:
                                     type: array
@@ -4135,7 +4135,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: itaque
+                example: laborum
                 required: true
                 schema:
                     type: string
@@ -4174,7 +4174,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: tempora
+                example: porro
                 required: true
                 schema:
                     type: string
@@ -4213,7 +4213,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: amet
+                example: maxime
                 required: true
                 schema:
                     type: string
@@ -4406,7 +4406,7 @@ paths:
                                 search:
                                     type: string
                                     description: ''
-                                    example: non
+                                    example: doloribus
                             required:
                                 - search
     /api/search/customers:
@@ -4448,7 +4448,7 @@ paths:
                                 search:
                                     type: string
                                     description: ''
-                                    example: doloremque
+                                    example: sed
                             required:
                                 - search
     /api/search/companies:
@@ -4490,7 +4490,7 @@ paths:
                                 search:
                                     type: string
                                     description: ''
-                                    example: sit
+                                    example: qui
                             required:
                                 - search
     /api/search/posts:
@@ -4532,7 +4532,7 @@ paths:
                                 search:
                                     type: string
                                     description: ''
-                                    example: et
+                                    example: recusandae
                             required:
                                 - search
     /api/search/username:
@@ -4582,7 +4582,7 @@ paths:
                                 u:
                                     type: string
                                     description: ''
-                                    example: voluptatem
+                                    example: mollitia
                             required:
                                 - u
             security: []
@@ -4860,7 +4860,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: voluptatem
+                example: ratione
                 required: true
                 schema:
                     type: string
@@ -4959,7 +4959,7 @@ paths:
                 in: path
                 name: subscription
                 description: ''
-                example: voluptatum
+                example: qui
                 required: true
                 schema:
                     type: string
@@ -5146,7 +5146,7 @@ paths:
                 in: path
                 name: id
                 description: ''
-                example: modi
+                example: laboriosam
                 required: true
                 schema:
                     type: string
@@ -5250,39 +5250,39 @@ paths:
                                 first_name:
                                     type: string
                                     description: ''
-                                    example: facere
+                                    example: laboriosam
                                 last_name:
                                     type: string
                                     description: ''
-                                    example: quisquam
+                                    example: vero
                                 username:
                                     type: string
                                     description: ''
-                                    example: asperiores
+                                    example: porro
                                 gender:
                                     type: string
                                     description: ''
-                                    example: veniam
+                                    example: molestias
                                 current_height:
                                     type: string
                                     description: ''
-                                    example: assumenda
+                                    example: nulla
                                 whatsapp_phone_number:
                                     type: string
                                     description: ''
-                                    example: repellendus
+                                    example: omnis
                                 country:
                                     type: string
                                     description: ''
-                                    example: et
+                                    example: ea
                                 country_code:
                                     type: string
                                     description: ''
-                                    example: amet
+                                    example: reprehenderit
                                 description:
                                     type: string
                                     description: ''
-                                    example: asperiores
+                                    example: ipsam
                             required:
                                 - first_name
                                 - last_name
@@ -5773,7 +5773,7 @@ paths:
                 in: path
                 name: social_report
                 description: ''
-                example: iste
+                example: excepturi
                 required: true
                 schema:
                     type: string

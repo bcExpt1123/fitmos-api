@@ -625,20 +625,20 @@ class PaymentSubscription extends Model
     }
     public function sendFirstFreeMail($subscription){
         $customer = $this->customer;
-        list($provider, $planId, $customerId, $frequency, $couponId, $slug) = $this->analyzeSlug();
-        if($customer==null){
-            $customer = Customer::find($customerId);
-        }
-        $plan = SubscriptionPlan::find($planId);
-        $frequencyString = $subscription->convertFrequencyString($frequency);
-        if($couponId){
-            $coupon = Coupon::find($couponId);
-        }else{
-            $coupon = null;
-        }
-        $cycles = $subscription->plan->free_duration;
-        $nextPaymentDate = date('d/m/Y',strtotime($subscription->start_date." +$cycles day"));
-        $nextPaymentTotal = $this->nextPaymentAmount($coupon);
+        // list($provider, $planId, $customerId, $frequency, $couponId, $slug) = $this->analyzeSlug();
+        // if($customer==null){
+        //     $customer = Customer::find($customerId);
+        // }
+        // $plan = SubscriptionPlan::find($planId);
+        // $frequencyString = $subscription->convertFrequencyString($frequency);
+        // if($couponId){
+        //     $coupon = Coupon::find($couponId);
+        // }else{
+        //     $coupon = null;
+        // }
+        // $cycles = $subscription->plan->free_duration;
+        // $nextPaymentDate = date('d/m/Y',strtotime($subscription->start_date." +$cycles day"));
+        // $nextPaymentTotal = $this->nextPaymentAmount($coupon);
         if( $customer->user )SendEmail::dispatch($customer,new VerifyMail($customer->user));
         NotifySubscriber::dispatch($customer,new \App\Mail\NotifySubscriber($customer))->delay(now()->addDays(7));
         $data = ['first_name'=>$customer->first_name,'last_name'=>$customer->last_name,'email'=>$customer->email,'gender'=>$customer->gender,'view_file'=>'emails.customers.create','subject'=>'Checkout Completed Customer for free trial'];

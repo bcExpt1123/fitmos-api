@@ -12,14 +12,14 @@ This endpoint.
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/users/modi" \
+    "http://127.0.0.4/api/users/laboriosam" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/modi"
+    "http://127.0.0.4/api/users/laboriosam"
 );
 
 let headers = {
@@ -81,14 +81,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/users/nam" \
+    -G "http://127.0.0.4/api/users/fuga" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/nam"
+    "http://127.0.0.4/api/users/fuga"
 );
 
 let headers = {
@@ -150,14 +150,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/users/laudantium" \
+    "http://127.0.0.4/api/users/dolorem" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/laudantium"
+    "http://127.0.0.4/api/users/dolorem"
 );
 
 let headers = {
@@ -348,7 +348,7 @@ curl -X POST \
     "http://127.0.0.4/api/users/customerUpdate" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"first_name":"facere","last_name":"quisquam","username":"asperiores","gender":"veniam","current_height":"assumenda","whatsapp_phone_number":"repellendus","country":"et","country_code":"amet","description":"asperiores"}'
+    -d '{"first_name":"laboriosam","last_name":"vero","username":"porro","gender":"molestias","current_height":"nulla","whatsapp_phone_number":"omnis","country":"ea","country_code":"reprehenderit","description":"ipsam"}'
 
 ```
 
@@ -363,15 +363,15 @@ let headers = {
 };
 
 let body = {
-    "first_name": "facere",
-    "last_name": "quisquam",
-    "username": "asperiores",
-    "gender": "veniam",
-    "current_height": "assumenda",
-    "whatsapp_phone_number": "repellendus",
-    "country": "et",
-    "country_code": "amet",
-    "description": "asperiores"
+    "first_name": "laboriosam",
+    "last_name": "vero",
+    "username": "porro",
+    "gender": "molestias",
+    "current_height": "nulla",
+    "whatsapp_phone_number": "omnis",
+    "country": "ea",
+    "country_code": "reprehenderit",
+    "description": "ipsam"
 }
 
 fetch(url, {

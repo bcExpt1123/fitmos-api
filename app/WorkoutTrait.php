@@ -507,7 +507,7 @@ trait WorkoutTrait
         $content = '';
         if (isset($workoutCondition[$weekday]) && $workoutCondition[$weekday]) {
             $block = self::getNotes($record,'comentario',$customerId);
-            if($record->image_path)$block['image_path'] = config('app.url').$record->image_path;
+            if($record->image_path)$block['image_path'] = config('app.url').$record->image_path.'?time='.$record->updated_at->timestamp;
             $blocks = [$block];
             $block = self::getNotes($record,'calentamiento',$customerId);
             if($block)$blocks[] = $block;
@@ -572,7 +572,7 @@ trait WorkoutTrait
                 if($record->blog){
                     // $content = self::convertArray($record->blog_element,'blog',true,$customerId)[0];
                     $block = self::getNotes($record,'blog',$customerId);
-                    if($record->image_path)$block['image_path'] = config('app.url').$record->image_path;
+                    if($record->image_path)$block['image_path'] = config('app.url').$record->image_path.'?time='.$record->updated_at->timestamp;
                     $blocks = [$block];
                 }else{
                     // $content = null;
@@ -626,7 +626,7 @@ trait WorkoutTrait
                     }
                 }
             }
-            if($content)return ['date' => $spanishDate,'short_date' => $spanishShortDate, 'content' => $content,'blog'=>$blog,'blocks'=>$blocks];
+            if($content)return ['date' => $spanishDate,'short_date' => $spanishShortDate, 'content' => $content,'blog'=>$blog,'blocks'=>$blocks,'image_path'=>$record->image_path?config('app.url').$record->image_path.'?time='.$record->updated_at->timestamp:null,'publish_date'=>$publishDate];
         }    
         return null;
     }

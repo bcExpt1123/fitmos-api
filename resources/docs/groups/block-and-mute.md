@@ -14,7 +14,7 @@ curl -X POST \
     "http://127.0.0.4/api/follows/block" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"customer_id":3}'
+    -d '{"customer_id":12}'
 
 ```
 
@@ -29,7 +29,7 @@ let headers = {
 };
 
 let body = {
-    "customer_id": 3
+    "customer_id": 12
 }
 
 fetch(url, {
@@ -94,7 +94,7 @@ curl -X POST \
     "http://127.0.0.4/api/follows/unblock" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"customer_id":12}'
+    -d '{"customer_id":10}'
 
 ```
 
@@ -109,7 +109,7 @@ let headers = {
 };
 
 let body = {
-    "customer_id": 12
+    "customer_id": 10
 }
 
 fetch(url, {
@@ -174,7 +174,7 @@ curl -X POST \
     "http://127.0.0.4/api/follows/mute" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"customer_id":3}'
+    -d '{"customer_id":1}'
 
 ```
 
@@ -189,7 +189,7 @@ let headers = {
 };
 
 let body = {
-    "customer_id": 3
+    "customer_id": 1
 }
 
 fetch(url, {
@@ -254,7 +254,7 @@ curl -X POST \
     "http://127.0.0.4/api/follows/unmute" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"customer_id":3}'
+    -d '{"customer_id":8}'
 
 ```
 
@@ -269,7 +269,7 @@ let headers = {
 };
 
 let body = {
-    "customer_id": 3
+    "customer_id": 8
 }
 
 fetch(url, {

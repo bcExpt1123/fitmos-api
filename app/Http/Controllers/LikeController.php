@@ -30,9 +30,9 @@ class LikeController extends Controller
             return response()->json(array('status'=>'failed'),422);
         }
         $post = Post::whereActivityId($request->activity_id)->first();
-        // if($post && $post->customer_id == $user->customer->id){
-            // return response()->json(array('status'=>'you made activity'),423);
-        // }
+        if($post && $post->customer_id != $user->customer->id){
+            if($post->customer_id>0)\App\Models\Notification::likePost($post->customer_id, $user->customer, $post);
+        }
         $comment = Comment::whereActivityId($request->activity_id)->first();
         // if($comment && $comment->customer_id == $user->customer->id){
         //     return response()->json(array('status'=>'you made activity'),423);

@@ -138,14 +138,14 @@ This endpoint.
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/levelTests/sed" \
+    "http://127.0.0.4/api/levelTests/qui" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/levelTests/sed"
+    "http://127.0.0.4/api/levelTests/qui"
 );
 
 let headers = {
@@ -211,14 +211,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/levelTests/ea" \
+    "http://127.0.0.4/api/levelTests/illo" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/levelTests/ea"
+    "http://127.0.0.4/api/levelTests/illo"
 );
 
 let headers = {

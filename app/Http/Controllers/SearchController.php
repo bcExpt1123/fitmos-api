@@ -1,12 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-//use App\Rules\UniqueEmail;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
-use App\User;
 use App\Customer;
 use App\Company;
 use App\Config;
@@ -290,9 +284,11 @@ class SearchController extends Controller
         $user = $request->user('api');
         $notifications = \App\Models\Notification::whereCustomerId($user->customer->id)->orderBy('id','desc')->limit(30)->get();
         foreach($notifications as $notification){
-            if($notification->action_type=="customer"){
-                $notification->action = Customer::find($notification->action_id);
-                $notification->action->getAvatar();
+            switch($notification->action_type){
+                case "customer":
+                    $notification->action = Customer::find($notification->action_id);
+                    $notification->action->getAvatar();
+                    break;
             }
         }
         return response()->json(['notifications'=>$notifications]);
