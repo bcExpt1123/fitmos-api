@@ -330,7 +330,8 @@ class FindTransactions extends Command
             $this->generateJoinPost();
         }
         if(true){
-            $this->generateWorkoutPost();
+            var_dump(config('database.connections.mysql.username'));
+            // $this->generateWorkoutPost();
         }
     }
     private function generateWorkoutPost(){

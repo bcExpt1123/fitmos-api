@@ -235,7 +235,7 @@ class AuthController extends Controller
      */
     public function loginGoogle(Request $request){
         $provider = 'google';
-        $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);  // Specify the CLIENT_ID of the app that accesses the backend
+        $client = new Google_Client(['client_id' => config('services.google.client_id')]);  // Specify the CLIENT_ID of the app that accesses the backend
         $payload = $client->verifyIdToken($request->input('access_token'));
         if($payload){
             $user = User::where('provider_id','=',$payload['sub'])->first();
@@ -278,7 +278,7 @@ class AuthController extends Controller
      */
     public function registerGoogle(Request $request){
         $provider = 'google';
-        $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);  // Specify the CLIENT_ID of the app that accesses the backend
+        $client = new Google_Client(['client_id' => config('services.google.client_id')]);  // Specify the CLIENT_ID of the app that accesses the backend
         $payload = $client->verifyIdToken($request->input('access_token'));
         if ($payload) {
             $user = User::where('provider_id','=',$payload['sub'])->first();

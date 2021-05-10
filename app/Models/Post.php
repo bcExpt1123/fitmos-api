@@ -151,23 +151,29 @@ class Post extends Model
                 $this->contentFollowers = [];
                 $this->shopUsername = $company->username;
                 $this->shopLogo = ['small'=>config('app.url').'/storage/'.$company->logo];
-                //latest product image
-                $image = \App\ProductImage::whereHas('product',function($query) use ($company){
-                    $query->whereCompanyId($company->id);
-                })->orderBy('id','desc')->first();
-                if($image){
-                    if($image->width==null){
-                        $data = getimagesize(config('app.url').'/storage/'.$image->image);
-                        if(isset($data[0])){
-                            $image->width = $data[0];
-                            $image->height = $data[1];
-                            $image->save();
-                        }                        
-                    }
-                    unset($this->medias);
-                    $medias = [['url'=>config('app.url').'/storage/'.$image->image,'post_id'=>$this->id,'type'=>'image','width'=>$image->width,'height'=>$image->height]];
-                    $this->medias = $medias;
+                unset($this->medias);
+                $this->medias = [];
+                if($company->post_image_id){
+                    $media = Media::find($company->post_image_id);
+                    $this->medias = [$media];
                 }
+                //latest product image
+                // $image = \App\ProductImage::whereHas('product',function($query) use ($company){
+                //     $query->whereCompanyId($company->id);
+                // })->orderBy('id','desc')->first();
+                // if($image){
+                //     if($image->width==null){
+                //         $data = getimagesize(config('app.url').'/storage/'.$image->image);
+                //         if(isset($data[0])){
+                //             $image->width = $data[0];
+                //             $image->height = $data[1];
+                //             $image->save();
+                //         }                        
+                //     }
+                //     unset($this->medias);
+                //     $medias = [['url'=>config('app.url').'/storage/'.$image->image,'post_id'=>$this->id,'type'=>'image','width'=>$image->width,'height'=>$image->height]];
+                //     $this->medias = $medias;
+                // }
                 break;
             case 'blog':
                 $blog = \App\Event::find($this->object_id);

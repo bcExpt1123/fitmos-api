@@ -116,11 +116,11 @@ class Company extends Model
             })
             ->whereStatus('active')
             ->where('is_all_countries','=','no')
-            ->orWhere('is_all_countries','=','yes');
-            // ->whereHas('products',function($query){
-            //     $query->where('status', '=', "Active")
-            //         ->where('expiration_date', '>=', $this->expirationDate);
-            // });
+            ->orWhere('is_all_countries','=','yes')
+            ->whereHas('products',function($query){
+                $query->where('status', '=', "Active")
+                    ->where('expiration_date', '>=', $this->expirationDate);
+            });
         $currentPage = $this->pageNumber+1;
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
@@ -133,5 +133,11 @@ class Company extends Model
         }
         // dd(DB::getQueryLog());
         return $response;
+    }
+    public function uploadMedia($file){
+        $media = new \App\Models\Media;
+        $media->attachment="other";
+        $media->uploadSingle($file);
+        $this->post_image_id = $media->id;
     }
 }

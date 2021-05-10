@@ -62,7 +62,7 @@ class Cart extends Model
             $diff = time() - strtotime($item->updated_at->toString());
             if($item->mail == "no"){
                 if($item->out == 'no'){
-                    if($diff>env('SESSION_TIMEOUT')*60){
+                    if($diff>config('app.session_timeout')*60){
                         $item->out = time();
                         $item->save();
                     }

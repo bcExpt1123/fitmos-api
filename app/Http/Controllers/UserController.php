@@ -286,10 +286,10 @@ class UserController extends Controller
     }
     private function cropImage($filePath,  $width=60,$height=60) {
         $data = pathinfo($filePath);
-        $image = new File(storage_path('app/public/'.$filePath));        
+        $image = new File(storage_path('app/public/'.$filePath));      
         $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];
         $resizeImg = \App\Models\Media::makeCroppedImage($image, [$width, $height]);
-        $resizeImg->save('storage/app/public/'. $avatarFile);
+        $resizeImg->save(storage_path('app/public/'). $avatarFile);
     }
     /**
      * update email active.
@@ -400,7 +400,7 @@ class UserController extends Controller
      */
     public function addGoogle(Request $request){
         $user = $request->user('api');
-        $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);  // Specify the CLIENT_ID of the app that accesses the backend
+        $client = new Google_Client(['client_id' => config('services.google.client_id')]);  // Specify the CLIENT_ID of the app that accesses the backend
         $payload = $client->verifyIdToken($request->input('id_token'));
         if($payload){
             $user->google_provider_id = $payload['sub'];

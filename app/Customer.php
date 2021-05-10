@@ -1298,7 +1298,24 @@ class Customer extends Model
         }
     }
     public function getNewsfeed($fromId,$suggested){
-        $where = \App\Models\Post::where(function($query) use ($suggested){
+        $companyIds = [];
+        if($suggested == 0){
+            $expirationDate = $this->currentDate();
+            $companies = Company::whereHas('countries',function($query){
+                $query->where('country','=',strtoupper($this->country_code));
+                })
+                ->whereStatus('active')
+                ->where('is_all_countries','=','no')
+                ->orWhere('is_all_countries','=','yes')
+                ->whereHas('products',function($query) use ($expirationDate) {
+                    $query->where('status', '=', "Active")
+                        ->where('expiration_date', '>=', $expirationDate);
+                })->get();
+            foreach($companies as $company){
+                $companyIds[] = $company->id;
+            }    
+        }
+        $where = \App\Models\Post::where(function($query) use ($suggested, $companyIds){
             with(['customer','medias']);
             $query->whereHas('customer',function($query) use ($suggested){
                 if($suggested == 0){
@@ -1321,7 +1338,13 @@ class Customer extends Model
             });
             if($suggested == 0){
                 $query->orWhere(function($query){
-                    $query->whereCustomerId(0)->whereIn('type',['shop', 'benchmark', 'blog', 'evento','join']);
+                    $query->whereCustomerId(0)->whereIn('type',['benchmark', 'blog', 'evento']);
+                });
+                $query->orWhere(function($query){
+                    $query->whereCustomerId(0)->whereIn('type',['join'])->where('object_id','!=',$this->id);
+                });
+                $query->orWhere(function($query) use ($companyIds){
+                    $query->whereCustomerId(0)->whereIn('type',['shop'])->whereIn('object_id',$companyIds);
                 });
             }
         });

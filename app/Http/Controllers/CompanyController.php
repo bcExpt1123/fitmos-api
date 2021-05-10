@@ -73,6 +73,10 @@ class CompanyController extends Controller
                     $company->save();
                     $company->resizeImage($photoPath,$fileExtension);
                 }  
+                if($request->hasFile('post_image')&&$request->file('post_image')->isValid()){
+                    $company->uploadMedia($request->post_image);
+                    $company->save();
+                }    
                 if(!empty($countryArr[0])){
                     for ($i = 0; $i<count($countryArr); $i++){
                         $resultShortName=Country::where('long_name',$countryArr[$i])->Select('short_name')->get();
@@ -211,6 +215,9 @@ class CompanyController extends Controller
                 $countryArr = explode(',', $request->allCountries);
                 $year = date("Y");
                 $month = date("m");
+                if($request->hasFile('post_image')&&$request->file('post_image')->isValid()){
+                    $company->uploadMedia($request->post_image);
+                }    
                 if($request->hasFile('logo')&&$request->file('logo')->isValid()){ 
                     $fileExtension = $request->file('logo')->extension();
                     $fileName = $company->id.'.'.$fileExtension;
@@ -258,6 +265,12 @@ class CompanyController extends Controller
             $logo = $company['logo'];
             $company['logo'] = url('storage/'.$logo);
             $company['image'] = $company->getImageSize($logo,$size);
+            if($company->post_image_id){
+                $media = \App\Models\Media::find($company->post_image_id);
+                $company['post_image'] = $media->url;
+            }else{
+                $company['post_image'] = "";
+            }
             $nullAttributes = ["mobile_phone","website_url","horario","facebook","instagram","twitter"];
             foreach($nullAttributes as $attribute){
                 if($company->{$attribute} == null){

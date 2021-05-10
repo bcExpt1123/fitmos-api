@@ -163,7 +163,7 @@ class SubscriptionController extends Controller
      */
     public function checkout()
     {
-        return response()->json(['mode' => env('PAYMENT_TEST_MODE')]);
+        return response()->json(['mode' => config('app.payment_test_mode')]);
     }
     /**
      * renewal a subscription.
@@ -466,7 +466,7 @@ class SubscriptionController extends Controller
     public function paypalIpn(Request $request)
     {
         $ipn = new PaypalIPNListener();
-        $ipn->use_sandbox = env('PAYMENT_TEST_MODE');
+        $ipn->use_sandbox = config('app.payment_test_mode');
 
         $verified = $ipn->processIpn();
 

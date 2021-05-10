@@ -147,7 +147,7 @@ class EventoController extends Controller
             $dates = explode(' ',$evento->done_date);
             setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
             $evento['spanish_date'] = iconv('ISO-8859-2', 'UTF-8', strftime("%B %d, %Y ", strtotime($evento->done_date)));
-            $evento['spanish_time'] = date("j:i a",strtotime($evento->done_date));
+            $evento['spanish_time'] = date("h:i a",strtotime($evento->done_date));
             $evento['participants'] = $evento->customers->count();
             $evento['date'] = $dates[0];
             $evento['datetime'] = substr($dates[1],0,5);

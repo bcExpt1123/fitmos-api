@@ -328,6 +328,7 @@ class ReportController extends Controller
                     'pos'=>$pos,
                     'avatar_url'=>$avatarUrls,
                     'name'=>$item->first_name.' '.$item->last_name,
+                    'username'=>$item->username,
                     'workout_completeness'=>round($customer['workouts']/$workoutCount*100),
                     'workout_complete_count'=>$customer['workouts'].'/'.$workoutCount,
                     'total'=>count($workouts)

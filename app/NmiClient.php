@@ -13,9 +13,9 @@ class NmiClient
     private $customerReceipt = false;
     public function __construct()
     {
-        $this->username = env('NMI_USERNAME');
-        $this->password = env('NMI_PASSWORD');
-        $this->securityKey = env('NMI_SECURITY_KEY');
+        $this->username = config('app.nmi_username');
+        $this->password = config('app.nmi_password');
+        $this->securityKey = config('app.nmi_security_key');
     }
     public function deleteCustomerVault($token,$customerId){
         $args = [
@@ -366,7 +366,7 @@ class NmiClient
 
     private function nmiRequest($args)
     {
-        $gatewayDebug = env('PAYMENT_TEST_MODE');
+        $gatewayDebug = config('app.payment_test_mode');
         $nmiRequest = new NmiRequest($this->username, $this->password, $gatewayDebug);
 
         if (isset($args['customer_vault'])) {

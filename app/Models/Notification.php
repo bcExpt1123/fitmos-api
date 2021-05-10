@@ -15,14 +15,18 @@ class Notification extends Model
     // La membresía se renovó con éxito.
     // Vigente del 23/11/2020 al 23/12/2020.    
     public static function paymentRenewal($customerId, $transaction){// reconsider
-        $from = "";
-        $to = "";
-        $notification = new Notification;
-        $notification->type = "payment_renewal";
-        $notification->customer_id = $customerId;
-        $notification->content = "La membresía se renovó con éxito.\n Vigente del $from al $to";
-        $notification->action_type = "fitemos";
-        $notification->save();
+        $paymentSubscription = \App\PaymentSubscription::whereSubscriptionId($transaction->payment_subscription_id)->first();
+        setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
+        if($paymentSubscription){
+            $from = iconv('ISO-8859-2', 'UTF-8', strftime("%d/%B/%Y", strtotime($transaction->done_date)));
+            $to = iconv('ISO-8859-2', 'UTF-8', strftime("%d/%B/%Y", strtotime($paymentSubscription->getEndDate($transaction))));
+            $notification = new Notification;
+            $notification->type = "payment_renewal";
+            $notification->customer_id = $customerId;
+            $notification->content = "La membresía se renovó con éxito.\n Vigente del $from al $to";
+            $notification->action_type = "fitemos";
+            $notification->save();
+        }
     }
     // Error al renovar la membresía.
     // Favor verificar el método de pago. Tiene 24 horas antes de que se cancele su membresía.

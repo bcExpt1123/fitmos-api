@@ -24,10 +24,10 @@ class NmiRequest {
 		if( $url ) {
 			$this->url = $url;
 		}
-        $this->_username = env('NMI_USERNAME');
-        $this->_password = env('NMI_PASSWORD');
+        $this->_username = config('app.nmi_username');
+        $this->_password = config('app.nmi_password');
 		$this->_logging = $logging;
-        //$this->_sandbox = env('PAYMENT_TEST_MODE');
+        //$this->_sandbox = config('app.payment_test_mode');
         $this->_log_file = false;        
 	}
 
