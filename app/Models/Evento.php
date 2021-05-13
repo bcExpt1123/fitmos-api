@@ -114,7 +114,7 @@ class Evento extends Model
     public function assignFrontSearch($request){
         $this->search = null;
         $this->status = 'Publish';
-        // $this->done_date = date("Y-m-d H:i:s");
+        $this->done_date = date("Y-m-d H:i:s");
         $this->pageSize = $request->input('pageSize');
         $this->pageNumber = $request->input('pageNumber');
     }

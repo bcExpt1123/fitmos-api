@@ -40,8 +40,9 @@ class Event extends Model
         });      
         $response = $where->orderBy('post_date', 'DESC')->paginate($this->pageSize);
         $items = $response->items();
+        setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
         foreach($items as $index=> $event){
-            $items[$index]['created_date'] = date('M d, Y',strtotime($event->post_date));
+            $items[$index]['created_date'] = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%B, %d %Y", strtotime($this->workout_date))));
             $event->category;
             $items[$index]['excerpt'] = $this->extractExcerpt($event->description);
             if($event->image)  $event->image = url('storage/'.$event->image);        

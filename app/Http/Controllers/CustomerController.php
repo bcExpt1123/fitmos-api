@@ -575,11 +575,14 @@ class CustomerController extends Controller
     public function alternateShortcode(Request $request){
         $user = $request->user('api');
         if($user->customer){
-            $customerShortcode = CustomerShortcode::updateOrCreate(
-                ['customer_id' => $user->customer->id, 'shortcode_id' => $request->shortcode_id],
-                ['alternate_id' => $request->alternate_id]
-            );
-            return response()->json(['item'=>$customerShortcode]);
+            $shortcode = Shortcode::find($request->shortcode_id);
+            if($user->customer->current_condition>=$shortcode->level){
+                $customerShortcode = CustomerShortcode::updateOrCreate(
+                    ['customer_id' => $user->customer->id, 'shortcode_id' => $request->shortcode_id],
+                    ['alternate_id' => $request->alternate_id]
+                );
+                return response()->json(['item'=>$customerShortcode]);
+            }
         }
         return response()->json(['status'=>false],401);
     }

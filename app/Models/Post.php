@@ -61,6 +61,7 @@ class Post extends Model
         return $posts;
     }
     public function extend($condition=null, $user=null){
+        setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
         $tagFollowers = [];
         if($this->customer){
             $this->customer->getAvatar();

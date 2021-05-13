@@ -94,13 +94,13 @@ class Notification extends Model
         $notification->object_type = "post";
         $notification->save();
     }
-    // mention on post--> {name} te mencionó en una foto.
+    // mention on post--> {name} te mencionó en una publicación.
     public static function mentionOnPost($customerId, $actionId, $post){
         $action = \App\Customer::find($actionId);
         $notification = new Notification;
         $notification->type = "social";
         $notification->customer_id = $customerId;
-        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> te mencionó en una foto.";
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> te mencionó en una publicación.";
         $notification->action_type = "customer";
         $notification->action_id = $actionId;
         $notification->object_id = $post->id;
@@ -142,7 +142,7 @@ class Notification extends Model
         $notification = new Notification;
         $notification->type = "social";
         $notification->customer_id = $customerId;
-        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> likes your post";
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> le ha gustado tu publicación";
         $notification->action_type = "customer";
         $notification->action_id = $action->id;
         $notification->object_id = $post->id;
