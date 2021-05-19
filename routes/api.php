@@ -175,6 +175,7 @@ Route::get('reports/customers', 'ReportController@customers')->middleware('auth:
 Route::get('reports/export-customers', 'ReportController@exportCustomers')->middleware('auth:api');
 Route::get('reports/export-usage', 'ReportController@exportUsage')->middleware('auth:api');
 Route::get('reports/customer-workouts', 'ReportController@customerWorkouts')->middleware('auth:api');
+Route::get('reports/customer-workouts-range', 'ReportController@customerWorkoutsRange')->middleware('auth:api');
 Route::get('reports/export-subscriptions', 'ReportController@exportSubscriptions')->middleware('auth:api');
 Route::get('countries', 'CompanyController@fetchCountries')->middleware('auth:api');
 Route::get('companies/{id}/disable', 'CompanyController@disable')->where('id', '[0-9]+')->middleware('auth:api');
