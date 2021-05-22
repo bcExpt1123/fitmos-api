@@ -209,7 +209,7 @@ Route::get('search/companies', 'SearchController@companies')->middleware('auth:a
 Route::get('search/posts', 'SearchController@posts')->middleware('auth:api');
 Route::get('search/username', 'SearchController@username');
 Route::get('search/notifications', 'SearchController@notifications')->middleware('auth:api');
-// Route::get('search/customers', 'SearchController@customers')->middleware('auth:api');
+Route::get('search/members', 'SearchController@members')->middleware('auth:api');
 Route::post('follows/unfollow', 'FollowController@unfollow')->middleware('auth:api');
 Route::post('follows/{id}/accept', 'FollowController@accept')->middleware('auth:api');
 Route::post('follows/{id}/reject', 'FollowController@reject')->middleware('auth:api');

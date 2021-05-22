@@ -318,4 +318,48 @@ class SearchController extends Controller
             'newsfeed'=>$newsfeed,
         ]);
     }
+    /**
+     * add the list of all members with this order:  (active or inactive Will be included)
+     *   Users with more interactions ( total workouts / latest 30 days   🡪 but now sure if Will exist Good performance calculating this each time the sectin Will be loaded)  
+     *   Users with pictures
+     *   Users without pictures
+     *   Inactive users 
+     * 
+     * @authenticated
+     * 
+     * @response {
+     *  "customers":[{customer}],
+     * }
+     */
+    public function members(Request $request){
+        $user = $request->user('api');
+        if($request->exists('page')){
+            $page = $request->input('page');
+        }else{
+            $page = 1;
+        }
+        if($user->customer){
+            $where = Customer::where(function($query) use ($search) {
+                $query->whereHas('user', function($q) use ($search){
+                    $q->where('active','=','1');
+                });
+            })->where('id','!=',$user->customer->id);
+            if($request->id>0){
+                $where = $where->where('id','<',$request->id);
+            }
+            $config = new Config;
+            $orderColumn = $config->findByName('customer_display_order_column');    
+            $customers = $where->orderBy($orderColumn,'desc')->skip(($page - 1) * 20)->take(20)->get();
+            foreach($customers as $customer){
+                $customer->getAvatar();
+                $customer->getSocialDetails($user->customer->id);
+            }
+            return response()->json([
+                'customers'=>$customers
+            ]);
+        }
+        return response()->json([
+            'errors' => ['result'=>[['error'=>'failed']]]
+        ], 403);
+    }
 }

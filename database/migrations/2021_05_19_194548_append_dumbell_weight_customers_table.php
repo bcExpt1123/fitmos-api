@@ -15,6 +15,8 @@ class AppendDumbellWeightCustomersTable extends Migration
     {
         Schema::table('customers', function (Blueprint $table) {
             $table->float('dumbells_weight')->nullable();//media
+            $table->unsignedBigInteger('first_order_id')->default(0);
+            $table->unsignedBigInteger('second_order_id')->default(0);
         });
     }
 
@@ -27,6 +29,8 @@ class AppendDumbellWeightCustomersTable extends Migration
     {
         Schema::table('customers', function (Blueprint $table) {
             $table->dropColumn('dumbells_weight');
+            $table->dropColumn('first_order_id');
+            $table->dropColumn('second_order_id');
         });
     }
 }
