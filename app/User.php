@@ -219,7 +219,7 @@ class User extends Authenticatable
     public static function findDetails($user){
         $hasWorkoutSubscription = false;
         $hasActiveWorkoutSubscription = false;
-        if($user->customer){
+        if($user->customer){// related with workout subscription
             $hasWorkoutSubscription = $user->customer->hasSubscription();
             $subscription = $user->customer->getActiveWorkoutSubscription(); 
             if($subscription){
@@ -291,7 +291,7 @@ class User extends Authenticatable
         }
         $defaultCoupon = Coupon::whereCode(Coupon::DEFAULT)->first();
         if($defaultCoupon)$user['defaultCouponId'] = $defaultCoupon->id;
-        if($user->customer){
+        if($user->customer){// related with social and other
             $user->customer->getSocialDetails();
             $heightValue = Height::convert($user->customer->current_height,$user->customer->current_height_unit)/100;
             if($heightValue==0)$heightValue = Height::convert($user->customer->initial_height,$user->customer->initial_height_unit)/100;

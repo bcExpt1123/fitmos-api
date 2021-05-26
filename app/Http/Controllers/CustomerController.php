@@ -364,6 +364,9 @@ class CustomerController extends Controller
         $user = $request->user('api');
         $weights = $request->input('weights');
         $user->customer->weights = $weights;
+        if($user->customer->weights === 'sin pesas'){
+            $user->customer->dumbells_weight = null;
+        }
         $user->customer->save();
         if($user->customer)\App\Jobs\Activity::dispatch($user->customer);
         return response()->json(['weights'=>$user->customer->weights]);
@@ -726,6 +729,25 @@ class CustomerController extends Controller
             $customer['medals'] = $customer->findMedal();
             $customer['type'] = "customer";
             return response()->json($customer);
+        }
+        return response()->json(['status'=>false],401);
+    }
+    /**
+     * update self's bumbells weight
+     * @authenticated
+     * @bodyParam weight float required
+     */
+    public function updateDumbellsWeight(Request $request){
+        $user = $request->user('api');
+        $validator = Validator::make($request->all(), array('weight'=>['required','numeric']));
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()],422);
+        }
+        if($user->customer){
+            $user->customer->dumbells_weight = $request->weight;
+            $user->customer->save();
+            $me = User::findDetails($user);
+            return response()->json(['user' => $me]);
         }
         return response()->json(['status'=>false],401);
     }

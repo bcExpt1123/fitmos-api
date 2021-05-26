@@ -206,6 +206,7 @@ class Customer extends Model
         if($this->search!=null){
             $where->where('first_name','like','%'.$this->search.'%');
             $where->orWhere('last_name','like','%'.$this->search.'%');
+            $where->orWhere('username','like','%'.$this->search.'%');
             $where->orWhere('email','like','%'.$this->search.'%');
             $where->orWhere('country','like','%'.$this->search.'%');
         }
@@ -445,7 +446,7 @@ class Customer extends Model
         $objDateTime = new \DateTime('NOW');
         $objDateTime->setTimezone($userTimezone);
         $fiveHours = \DateInterval::createFromDateString('+5 hours');
-        $objDateTime->add($fiveHours);
+        // $objDateTime->add($fiveHours);
         return $objDateTime->format('Y-m-d');
     }
     private function setActiveWorkoutSubscription(){
@@ -1315,9 +1316,10 @@ class Customer extends Model
                 $companyIds[] = $company->id;
             }    
         }
-        $where = \App\Models\Post::where(function($query) use ($suggested, $companyIds){
+        $profileManagerIds = $this->getProfileMangerIds();
+        $where = \App\Models\Post::where(function($query) use ($suggested, $companyIds, $profileManagerIds){
             with(['customer','medias']);
-            $query->whereHas('customer',function($query) use ($suggested){
+            $query->whereHas('customer',function($query) use ($suggested, $profileManagerIds){
                 if($suggested == 0){
                     $query->whereHas('followers',function($q){
                         $q->where("follows.follower_id",$this->id); 
@@ -1332,8 +1334,10 @@ class Customer extends Model
                 });
                 if($suggested == 0){
                     $query->orwhere('customer_id','=',$this->id);
+                    $query->orWhereIn('customer_id',$profileManagerIds);
                 }else{
                     $query->where('customer_id','!=',$this->id);
+                    $query->whereNotIn('customer_id',$profileManagerIds);
                 }
             });
             if($suggested == 0){
@@ -1400,7 +1404,21 @@ class Customer extends Model
         }
         return [$posts, isset($result[8])];
     }
+    private function getProfileMangerIds(){
+        if(Cache::has('profileManagerIds')){
+            $profileManagerIds = Cache::get('profileManagerIds');
+        }else{
+            $users = \App\User::whereHas("roles", function($q){ $q->where("name", "profileManager"); })->get();
+            $profileManagerIds = [];
+            foreach($users as $user){
+                if($user->customer)$profileManagerIds[] = $user->customer->id;
+            }
+            Cache::forever('profileManagerIds', $profileManagerIds);
+        }
+        return $profileManagerIds;
+    }
     public function getOldNewsfeed($fromId){
+        $profileManagerIds = $this->getProfileMangerIds();
         $where = \App\Models\Post::with(['customer','medias']);
         if($fromId>0){
             $where->where('id','<',$fromId);
@@ -1414,6 +1432,7 @@ class Customer extends Model
             });
         });
         $where->orwhere('customer_id','=',$this->id);
+        $where->orWhereIn('customer_id',$profileManagerIds);
         $where->whereHas('readingCustomers',function($query){
             $query->where("reading_posts.customer_id",$this->id);
         });
@@ -1540,6 +1559,8 @@ class Customer extends Model
             if($customer->user->chat_id)$blockedChatIds[] = $customer->user->chat_id;
         }
         $this['blockedChatIds'] = $blockedChatIds;
+        //with profile manager?
+        $this['is_mamager'] = $this->user->hasRole('profileManager');
     }
     public function isConnecting($customer){
         if($this->id == $customer->id) return true;

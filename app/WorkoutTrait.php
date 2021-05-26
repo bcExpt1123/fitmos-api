@@ -181,9 +181,20 @@ trait WorkoutTrait
                         $result['timer_rest'] = $record->{$slug.'_timer_rest'};
                     }
                 }
+                $result['has_comment'] = self::hasComment($slug, $record->publish_date, $customer);
             }
         }
         return $result;
+    }
+    private function hasComment($slug, $publishDate, $customer){
+        if(in_array($slug,['sin_content','con_content'])){
+            $comment = \App\Models\WorkoutComment::whereCustomerId($customer->id)->whereType('basic')->wherePublishDate($publishDate)->first();
+            return $comment?true:false;
+        }else if(in_array($slug,['extra_sin', 'fit', 'strong_male', 'strong_female', 'cardio'])){
+            $comment = \App\Models\WorkoutComment::whereCustomerId($customer->id)->whereType('extra')->wherePublishDate($publishDate)->first();
+            return $comment?true:false;
+        }
+        return null;
     }
     protected static function  getTitleFromColumn($column){
         switch($column){

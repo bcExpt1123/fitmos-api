@@ -141,8 +141,13 @@ class Post extends Model
         //if type is shop, event, blogs, benchmark, get medias from their images, get content from source
         switch($this->type){
             case 'workout':
-                $this->workout_spanish_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B del %Y", strtotime($this->workout_date))));
-                $this->workout_spanish_short_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B", strtotime($this->workout_date))));
+                $workoutComment = WorkoutComment::find($this->object_id);
+                $this->content = $workoutComment->content;
+                if($workoutComment->dumbells_weight)$this->dumbells_weight = $workoutComment->dumbells_weight;
+                $this->json_content = $this->convertJson($workoutComment->content);
+                $this->contentFollowers = [];
+                $this->workout_spanish_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B del %Y", strtotime($workoutComment->publish_date))));
+                $this->workout_spanish_short_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B", strtotime($workoutComment->publish_date))));
                 break;
             case 'shop':
                 $company = \App\Company::find($this->object_id);

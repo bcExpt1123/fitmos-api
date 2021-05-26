@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Customer;
+use App\Mail\MailQueue;
+use Mail;
+
 /**
  * @group Following    on social part
  *
@@ -67,6 +70,10 @@ class FollowController extends Controller
                     'status' =>'accepted'
                 ]);
                 $status = 'accepted';
+            }
+            if(!$customer->hasActiveSubscription()){
+                $data = ['sender_first_name'=>$user->customer->first_name,'receiver_first_name'=>$customer->first_name,'email'=>$customer->email,'view_file'=>'emails.customers.following','subject'=>$customer->first_name.' y otras personas te empezaron a seguir en Fitemos'];
+                Mail::to(config('mail.from.address'), config('mail.from.name'))->queue(new MailQueue($data));                       
             }
             \App\Models\Notification::follow($customer->id, $user->customer);
             $customer = $this->findCustomer($customerId, $user);

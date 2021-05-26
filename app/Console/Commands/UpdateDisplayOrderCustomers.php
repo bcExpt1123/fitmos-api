@@ -50,14 +50,14 @@ class UpdateDisplayOrderCustomers extends Command
         $customers = Customer::all();
         // $i = 0;
         $lastMonthDay = date('y-m-d',strtotime( '-1 month', time() ));
-        $lastMonthDay = '2020-11-21';
+        // $lastMonthDay = '2020-11-21';
         foreach($customers as $customer){
             $latestCompletedWorkoutCount = Done::whereCustomerId($customer->id)->where('done_date','>',$lastMonthDay)->count();
             $isPicture = $customer->user->avatar?true:false;
             $active = $customer->hasActiveSubscription();
             $orderWeight = $latestCompletedWorkoutCount*4;
             if ( $isPicture ) $orderWeight += 2;
-            if ( !$active ) $orderWeight += 100000;            
+            if ( !$active ) $orderWeight += 100000;
             // if($latestCompletedWorkoutCount>20){
             //     print_r($customer->id);
             //     var_dump($isPicture);

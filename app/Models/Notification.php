@@ -149,4 +149,28 @@ class Notification extends Model
         $notification->object_type = "post";
         $notification->save();
     }
+    //When someone you follow comment a post of any other user you should receive a notification
+    //Tu partner {Jose} comentó en la publicación de {Juanito}
+    public static function commentOnOtherPost($customerId, $action, $post){
+        $notification = new Notification;
+        $notification->type = "social";
+        $notification->customer_id = $customerId;
+        $notification->content = "Tu partner <b>".$action->first_name." ".$action->last_name."</b> comentó en la publicación de <b>".$post->customer->first_name." ".$post->customer->last_name."</b>";
+        $notification->action_type = "customer";
+        $notification->action_id = $action->id;
+        $notification->object_id = $post->id;
+        $notification->object_type = "post";
+        $notification->save();
+    }
+    //When a customer comment on fitemos post such as shop, evento, blog, benchmark, all other customers receive
+    //{Roderick} comentó en el “evento/artículo/benchmark/shop” del viernes 18 de Febrero
+    public static function commentOnFitemosPost($customerId, $action, $type, $spanishDate){
+        $notification = new Notification;
+        $notification->type = "social";
+        $notification->customer_id = $customerId;
+        $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> comentó en el ".$type."  del viernes ".$spanishDate;
+        $notification->action_type = "customer";
+        $notification->action_id = $action->id;
+        $notification->save();
+    }
 }

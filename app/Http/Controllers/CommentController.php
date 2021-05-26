@@ -124,7 +124,7 @@ class CommentController extends Controller
                 $comment->post->touch();
             });
             DB::commit();
-            if($comment->post->customer_id!=$user->customer->id)\App\Models\Notification::commentOnPost($comment->post->customer_id, $user->customer);
+            \App\Jobs\CommentOnPost::dispatch($comment, $user->customer);
             $comment->customer->getAvatar();
             $comment->getLike($user);
             $nextCommentsCount = 0;

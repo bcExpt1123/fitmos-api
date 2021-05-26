@@ -329,9 +329,13 @@ class FindTransactions extends Command
         if(false){
             $this->generateJoinPost();
         }
+        if(false){
+            $this->generateWorkoutPost();
+        }
         if(true){
-            var_dump(config('database.connections.mysql.username'));
-            // $this->generateWorkoutPost();
+            $comment = Comment::find(80);
+            $customer = Customer::find(15);
+            \App\Jobs\CommentOnPost::dispatch($comment, $customer);
         }
     }
     private function generateWorkoutPost(){
