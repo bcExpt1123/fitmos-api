@@ -26,5 +26,6 @@ class WorkoutCommentObserver
                 $post->save();
             });
         }
+        $customer = \App\Customer::find($workoutComment->customer_id);
     }
 }

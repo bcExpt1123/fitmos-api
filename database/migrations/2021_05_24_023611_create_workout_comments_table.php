@@ -18,6 +18,7 @@ class CreateWorkoutCommentsTable extends Migration
             $table->date('publish_date');
             $table->enum('type',['basic', 'extra'])->default('basic');
             $table->text('content');
+            $table->text('workout');
             $table->float('dumbells_weight')->nullable();
             $table->unsignedBigInteger('customer_id');
             $table->timestamps();

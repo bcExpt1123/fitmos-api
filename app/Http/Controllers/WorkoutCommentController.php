@@ -23,6 +23,7 @@ class WorkoutCommentController extends Controller
      * @bodyParam publish_date string required date such as '2021-05-23'
      * @bodyParam content string required
      * @bodyParam type string required basic or extra
+     * @bodyParam workout string required // the content of workout block JSON.stringify(workouts.current.blocks[step].content)
      * @bodyParam dumbells_weight float
      * @response {
      * }
@@ -38,11 +39,42 @@ class WorkoutCommentController extends Controller
             'publish_date'=>$request->publish_date,
             'type'=>$request->type,
             'content'=>$request->content,
+            'workout'=>$request->workout,
             'dumbells_weight'=>$request->dumbells_weight
         ]);
         return response()->json([
             'comment'=>$comment
         ]);
+    }
+    /**
+     * update a workout comment.
+     * 
+     * This endpoint.
+     * @authenticated
+     * @urlParam id integer required comment id
+     * @bodyParam content string required
+     * @bodyParam dumbells_weight float
+     * @response {
+     * }
+     */
+    public function update($id, Request $request){
+        $validator = Validator::make($request->all(), WorkoutComment::validateRules($id));
+        if ($validator->fails()) {
+            return response()->json(array('status'=>'failed','errors'=>$validator->errors()),422);
+        }        
+        $user = $request->user('api');
+        $comment = WorkoutComment::find($id);
+        if($comment->customer_id === $user->customer->id){
+            $comment->fill([
+                'content'=>$request->content,
+                'dumbells_weight'=>$request->dumbells_weight
+            ]);
+            $comment->save();
+            return response()->json([
+                'comment'=>$comment
+            ]);
+        }
+        return response()->json(array('status'=>'forbidden'), 403);
     }
      /**
      * get a workout list with a customer's comment.
@@ -100,5 +132,45 @@ class WorkoutCommentController extends Controller
             // }
         }
         return response()->json($records);
+    }
+     /**
+     * get a workout block list with a customer's comment for a specific day.
+     * 
+     * @authenticated
+     * @queryParam publish_date string required
+     * @queryParam customer_id integer
+     * @response {
+     * [
+     *  {
+     *   'publish_date':'2021-05-23',
+     *   'type':'basic', // or extra   
+     *   'block':{workout_block},
+     *   'comment':{comment}
+     * },
+     * ]
+     * }
+     */
+    public function workout(Request $request){
+        $user = $request->user('api');
+        if($request->exists('publish_date')){
+            $date = $request->input('publish_date');
+        }else{
+            $date = date('Y-m-d');
+        }
+        if($request->exists('publish_date')){
+            $customerId = $request->input('customer_id');
+        }else{
+            $customerId = $user->customer->id;
+        }
+        $comments = \App\Models\WorkoutComment::with('customer')->wherePublishDate($date)->whereCustomerId($customerId)->get();
+        $results = [];
+        setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
+        foreach($comments as $comment){
+            $comment->workout = json_decode($comment->workout);
+            $comment->workout_spanish_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B del %Y", strtotime($date))));
+            $comment->customer->getAvatar();
+            $results[] = $comment;
+        }
+        return response()->json($results);
     }
 }

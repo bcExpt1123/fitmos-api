@@ -475,10 +475,6 @@ class Customer extends Model
         }else{
             $workout = Workout::sendable($today,$workoutCondition,$weightsCondition,$objective,$gender,$this->id);
         }
-        if($workout){
-            $post = \App\Models\Post::where('customer_id',$this->id)->whereWorkoutDate($today)->first();
-            $workout['hasPost'] = $post?true:false;
-        }
         return $workout;
     }
     public function findPartnerDiscount(){
@@ -1560,7 +1556,7 @@ class Customer extends Model
         }
         $this['blockedChatIds'] = $blockedChatIds;
         //with profile manager?
-        $this['is_mamager'] = $this->user->hasRole('profileManager');
+        $this['is_manager'] = $this->user->hasRole('profileManager');
     }
     public function isConnecting($customer){
         if($this->id == $customer->id) return true;

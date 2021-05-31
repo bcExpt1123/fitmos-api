@@ -124,7 +124,6 @@ class PostController extends Controller
      * @bodyParam location string
      * @bodyParam content string  contains multi mentioned user such as @[Marlon Cañas](132)
      * @bodyParam tag_followers integer[]
-     * @bodyParam workout_date string  required
      * @bodyParam medias file[]  video, image max size 200M
      * @response {
      *  "status:"ok",
@@ -145,10 +144,10 @@ class PostController extends Controller
             $activity->save();
             $post = new Post;
             $post->fill(['activity_id'=>$activity->id,'customer_id'=>$user->customer->id,'content'=>$request->content,'location'=>$request->location,'tag_followers'=>json_decode($request->tag_followers)]);
-            if($request->exists('workout_date')){
-                $post->workout_date = $request->workout_date;
-                $post->type = 'workout';
-            }
+            // if($request->exists('workout_date')){
+            //     $post->workout_date = $request->workout_date;
+            //     $post->type = 'workout';
+            // }
             $post->save();
             if(isset($request->medias)){
                 $post->uploadMedias($request->medias);
@@ -276,7 +275,6 @@ class PostController extends Controller
      * @bodyParam location string
      * @bodyParam content string  contains multi mentioned user such as @[Marlon Cañas](132)
      * @bodyParam tag_followers integer[]
-     * @bodyParam workout_date string  required
      * @bodyParam media_ids integer[] original medias
      * @bodyParam medias file[]  new meidas
      * @response {

@@ -237,4 +237,5 @@ Route::get('chat/verify-local', 'ChatController@verifyLocal');
 Route::post('chat/user-id', 'ChatController@userId')->middleware('auth:api');
 Route::resource('profile-managers', 'ProfileManagerController')->only(['index','store','destroy'])->middleware('auth:api');
 Route::get('workout-comments/publish', 'WorkoutCommentController@publish');
+Route::get('workout-comments/workout', 'WorkoutCommentController@workout');
 Route::resource('workout-comments', 'WorkoutCommentController')->only(['store','update'])->middleware('auth:api');
