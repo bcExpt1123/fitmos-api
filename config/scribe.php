@@ -122,6 +122,7 @@ return [
                 'roles*',
                 'oauth*',
                 'chat/verify-local',
+                'admin-actions*',
             ],
 
             /*

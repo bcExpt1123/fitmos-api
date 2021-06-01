@@ -239,3 +239,4 @@ Route::resource('profile-managers', 'ProfileManagerController')->only(['index','
 Route::get('workout-comments/publish', 'WorkoutCommentController@publish');
 Route::get('workout-comments/workout', 'WorkoutCommentController@workout');
 Route::resource('workout-comments', 'WorkoutCommentController')->only(['store','update'])->middleware('auth:api');
+Route::resource('admin-actions', 'AdminActionController')->only(['store'])->middleware('auth:api');

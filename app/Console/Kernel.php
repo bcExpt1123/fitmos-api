@@ -71,6 +71,10 @@ class Kernel extends ConsoleKernel
             ->everyTenMinutes()
             ->evenInMaintenanceMode()
             ->timezone('America/Panama');
+        $schedule->command('customer:updateDisplayOrder')
+            ->everyThirtyMinutes()
+            ->evenInMaintenanceMode()
+            ->timezone('America/Panama');
     }
     private function isRunQueue(){
         exec("ps -eo cmd", $output, $return);

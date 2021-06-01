@@ -173,4 +173,16 @@ class Notification extends Model
         $notification->action_id = $action->id;
         $notification->save();
     }
+    //When admin mute on customer, the customer receives the notification
+    //Hola {Name}, has sido silenciado por {days} días por incumplir con las normas de la comunidad. Para apelar contactarnos a hola@fitemos.com.
+    public static function muteByAdmin($customerId, $actionId, $days){
+        $notification = new Notification;
+        $notification->type = "other";
+        $notification->customer_id = $customerId;
+        $customer = \App\Customer::find($customerId);
+        $notification->content = "Hola ".$customer->first_name." ".$customer->last_name.", has sido silenciado por ".$days." días por incumplir con las normas de la comunidad. Para apelar contactarnos a hola@fitemos.com";
+        $notification->action_type = "fitemos";
+        $notification->action_id = $actionId; //user id
+        $notification->save();
+    }
 }

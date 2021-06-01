@@ -102,6 +102,15 @@ class Customer extends Model
             }
         }
     }
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name.$this->last_name;
+    }    
     public static function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
         $output = NULL;
         if (filter_var($ip, FILTER_VALIDATE_IP) === FALSE) {
@@ -166,6 +175,22 @@ class Customer extends Model
         }
         return $output;
     }    
+    /**
+     * Get the customers's social mute status
+     *
+     * @return boolean
+     */
+    public function getMuteStatusAttribute()
+    {
+        $action = \App\Models\AdminAction::whereObjectId($this->id)->whereObjectType('customer')->whereIn('type',['mute','unmute'])->orderBy('id','desc')->first();
+        if($action === null)return false;
+        if($action->type === 'unmute')return false;
+        $now = Carbon::now();
+        if($action->content['days']){
+            $now->subDays($action->content['days']);
+        }
+        return $now->lessThan($action->created_at);
+    }
     public function extends(){
         $this['age'] = \DateTime::createFromFormat('Y-m-d', $this->birthday)->diff(new \DateTime('now'))->y;
         $dates = explode (' ',$this->created_at);
@@ -200,6 +225,7 @@ class Customer extends Model
             }
             $this['status'] = $status;
         }
+        $this['muteStatus'] = $this->muteStatus;
     }
     public function search(){
         $where = Customer::whereRaw('1');

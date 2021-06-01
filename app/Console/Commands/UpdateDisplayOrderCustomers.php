@@ -57,7 +57,7 @@ class UpdateDisplayOrderCustomers extends Command
             $active = $customer->hasActiveSubscription();
             $orderWeight = $latestCompletedWorkoutCount*4;
             if ( $isPicture ) $orderWeight += 2;
-            if ( !$active ) $orderWeight += 100000;
+            if ( !$active ) $orderWeight += 1;
             // if($latestCompletedWorkoutCount>20){
             //     print_r($customer->id);
             //     var_dump($isPicture);

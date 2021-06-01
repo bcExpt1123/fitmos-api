@@ -54,6 +54,7 @@ class EventServiceProvider extends ServiceProvider
         Company::observe(CompanyObserver::class);
         Evento::observe(EventoObserver::class);
         \App\Models\WorkoutComment::observe(\App\Observers\WorkoutCommentObserver::class);
+        \App\Models\AdminAction::observe(\App\Observers\AdminActionObserver::class);
         //
     }
 }
