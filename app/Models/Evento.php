@@ -64,7 +64,7 @@ class Evento extends Model
             $query->orWhere('description','like','%'.$this->search.'%');
         });
         if($this->status)$where->where('status',$this->status);
-        if($this->done_date)$where->where('done_date','<',$this->done_date);
+        if($this->done_date)$where->where('done_date','>=',$this->done_date);
         $currentPage = $this->pageNumber+1;
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;

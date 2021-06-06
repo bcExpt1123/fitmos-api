@@ -248,6 +248,7 @@ class User extends Authenticatable
                 $user->customer['currentWorkoutMonths'] = $subscription->convertMonths();
                 $user->customer['currentWorkoutPaymentType'] = $subscription->gateway;
                 $user->customer['medals'] = $user->customer->findMedal();
+                $user->customer['muteStatus'] = $user->customer->muteStatus;
             }else{
                 $service =Service::find(1);
                 $s = ['serviceName'=>$service->title];

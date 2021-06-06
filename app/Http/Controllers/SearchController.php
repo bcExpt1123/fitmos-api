@@ -249,8 +249,13 @@ class SearchController extends Controller
         $username = $request->u;
         if($user && $user->customer){
             $customer = Customer::whereUsername($username)->first();
-            if($customer && $customer->hasActiveSubscription()){
+            if($customer){
                 $customer->type = 'customer';
+                if($customer->hasActiveSubscription()){
+                    $customer->getSocialDetails($user->customer->id);
+                    $customer['medals'] = $customer->findMedal();    
+                    return response()->json($customer);    
+                }
                 $customer->getSocialDetails($user->customer->id);
                 $customer['medals'] = $customer->findMedal();    
                 return response()->json($customer);

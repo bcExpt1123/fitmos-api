@@ -29,7 +29,7 @@ class CommentObserver
             }
         }
         foreach($ids as $id){
-            \App\Models\Notification::mentionOnComment($id, $comment->customer_id);
+            \App\Models\Notification::mentionOnComment($id, $comment->customer_id, $comment->post);
         }
     }
 }

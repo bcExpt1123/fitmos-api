@@ -496,7 +496,7 @@ class Customer extends Model
                 $fromDate = date('w',strtotime($fromDate))-1;
                 if($fromDate<0)$fromDate+=7;
                 if($fromDate>6)$fromDate-=7;
-                $workout = StaticWorkout::sendable($fromDate,$weekdate,$today,$workoutCondition,$weightsCondition,$objective,$gender,$this->id);    
+                $workout = StaticWorkout::sendable($fromDate,$weekdate,$today,$workoutCondition,$weightsCondition,$objective,$gender,$this->id);
             }
         }else{
             $workout = Workout::sendable($today,$workoutCondition,$weightsCondition,$objective,$gender,$this->id);

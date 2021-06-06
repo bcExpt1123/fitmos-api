@@ -108,7 +108,7 @@ class Notification extends Model
         $notification->save();
     }
     // mention in comment --> {name} te mencionó en un comentario.
-    public static function mentionOnComment($customerId, $actionId){
+    public static function mentionOnComment($customerId, $actionId, $post){
         $action = \App\Customer::find($actionId);
         $notification = new Notification;
         $notification->type = "social";
@@ -116,6 +116,8 @@ class Notification extends Model
         $notification->content = "<b>".$action->first_name." ".$action->last_name."</b> te mencionó en un comentario.";
         $notification->action_type = "customer";
         $notification->action_id = $actionId;
+        $notification->object_id = $post->id;
+        $notification->object_type = "post";
         $notification->save();
     }
     //24 hours before event --> El vento {bold font - event name} es mañana a las {time}.
