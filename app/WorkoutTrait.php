@@ -103,7 +103,7 @@ trait WorkoutTrait
         }
         return $results;
     }
-    private static function getNotes($record, $slug,$customerId = null){
+    private static function getNotes($record, $slug,$customerId = null, $publishDate=null){
         $result = null;
         if($customerId){
             $customer = Customer::find($customerId);
@@ -181,8 +181,10 @@ trait WorkoutTrait
                         $result['timer_rest'] = $record->{$slug.'_timer_rest'};
                     }
                 }
-                $result['comment'] = self::hasComment($slug, $record->publish_date, $customer);
-                $result['has_comment'] = $result['comment']?true:false;
+                if($publishDate){
+                    $result['comment'] = self::hasComment($slug, $publishDate, $customer);
+                    $result['has_comment'] = $result['comment']?true:false;
+                }
             }
         }
         return $result;
@@ -518,10 +520,10 @@ trait WorkoutTrait
         $weekday = strtolower(date('l', strtotime($publishDate)));
         $content = '';
         if (isset($workoutCondition[$weekday]) && $workoutCondition[$weekday]) {
-            $block = self::getNotes($record,'comentario',$customerId);
+            $block = self::getNotes($record,'comentario',$customerId, $publishDate);
             if($record->image_path)$block['image_path'] = config('app.url').$record->image_path.'?time='.$record->updated_at->timestamp;
             $blocks = [$block];
-            $block = self::getNotes($record,'calentamiento',$customerId);
+            $block = self::getNotes($record,'calentamiento',$customerId, $publishDate);
             if($block)$blocks[] = $block;
             // $content = self::convertArray($record->comentario_element,'comentario',true,$customerId)[0].self::convertArray($record->calentamiento_element,'calentamiento',true,$customerId)[0];
             $sinContent = false;
@@ -533,11 +535,11 @@ trait WorkoutTrait
             if (strpos($workoutFilter, 'Workout')!==false) {
                 if ($sinContent) {
                     // $content = $content.self::convertArray($record->sin_content_element,'sin_content',true,$customerId)[0];
-                    $block = self::getNotes($record,'sin_content',$customerId);
+                    $block = self::getNotes($record,'sin_content',$customerId, $publishDate);
                     if($block)$blocks[] = $block;
                 } else {
                     // $content = $content.self::convertArray($record->con_content_element,'con_content',true,$customerId)[0];
-                    $block = self::getNotes($record,'con_content',$customerId);
+                    $block = self::getNotes($record,'con_content',$customerId, $publishDate);
                     if($block)$blocks[] = $block;
                 }
             }
@@ -563,12 +565,12 @@ trait WorkoutTrait
             if (strpos($workoutFilter, 'Extra')!==false ) {
                 if($sinContent){
                     // $content = $content.self::convertArray($record->extra_sin_element,'extra_sin',true,$customerId)[0];
-                    $block = self::getNotes($record,'extra_sin',$customerId);
+                    $block = self::getNotes($record,'extra_sin',$customerId, $publishDate);
                     if($block)$blocks[] = $block;
                 }else {
                     // $content = $content . "\n" . $objectiveContent;
                     if( $objectKey ){
-                        $block = self::getNotes($record,$objectKey,$customerId);
+                        $block = self::getNotes($record,$objectKey,$customerId, $publishDate);
                         if($block)$blocks[] = $block;
                     }
                 }
@@ -576,14 +578,14 @@ trait WorkoutTrait
 
             if (strpos($workoutFilter, 'Activo')!==false) {
                 // $content = $content.self::convertArray($record->activo_element,'activo',true,$customerId)[0];
-                $block = self::getNotes($record,'activo',$customerId);
+                $block = self::getNotes($record,'activo',$customerId, $publishDate);
                 if($block)$blocks[] = $block;
             }
             if (strpos($workoutFilter, 'Blog')!==false) {
                 $blog = true;
                 if($record->blog){
                     // $content = self::convertArray($record->blog_element,'blog',true,$customerId)[0];
-                    $block = self::getNotes($record,'blog',$customerId);
+                    $block = self::getNotes($record,'blog',$customerId, $publishDate);
                     if($record->image_path)$block['image_path'] = config('app.url').$record->image_path.'?time='.$record->updated_at->timestamp;
                     $blocks = [$block];
                 }else{

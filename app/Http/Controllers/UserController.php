@@ -258,7 +258,7 @@ class UserController extends Controller
         $user->customer->country = $request->input('country');
         $user->customer->country_code = $request->input('country_code');
         $user->customer->description = $request->input('description');
-        if($user->customer->active_whatsapp && $user->customer->whatsapp_phone_number&&getenv("APP_ENV")!="local"){
+        if($user->customer->active_whatsapp && $user->customer->whatsapp_phone_number&&config('app.env')!="local"){
             $twilio = new Client(config('services.twilio.sid'), config('services.twilio.token'));
             try{
                 $phoneNumber =  $twilio->lookups->v1->phoneNumbers($user->customer->whatsapp_phone_number)->fetch();

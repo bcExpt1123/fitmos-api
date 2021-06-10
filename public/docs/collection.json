@@ -10,11 +10,43 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "4c6b7b02-b81f-48ee-ba5e-45e84fc9f04d",
+        "_postman_id": "bd9a32cf-d965-4d0f-88de-ddd30a6dd60c",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
+        {
+            "name": "Admin Action",
+            "description": "\nAPIs for managing  admin actions",
+            "item": [
+                {
+                    "name": "create a admin action.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin-actions",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/admin-actions"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
         {
             "name": "Auth",
             "description": "\nAPIs for managing  auth",
@@ -266,7 +298,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "placeat",
+                                    "value": "rerum",
                                     "description": ""
                                 }
                             ]
@@ -326,7 +358,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "error",
+                                    "value": "omnis",
                                     "description": ""
                                 }
                             ]
@@ -392,7 +424,7 @@
                                 {
                                     "id": "benchmark",
                                     "key": "benchmark",
-                                    "value": "quia",
+                                    "value": "vel",
                                     "description": ""
                                 }
                             ]
@@ -432,7 +464,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "culpa",
+                                    "value": "omnis",
                                     "description": ""
                                 }
                             ]
@@ -544,7 +576,7 @@
                                 {
                                     "id": "benchmarkResult",
                                     "key": "benchmarkResult",
-                                    "value": "iusto",
+                                    "value": "eaque",
                                     "description": ""
                                 }
                             ]
@@ -578,7 +610,7 @@
                                 {
                                     "id": "benchmarkResult",
                                     "key": "benchmarkResult",
-                                    "value": "doloremque",
+                                    "value": "dolores",
                                     "description": ""
                                 }
                             ]
@@ -612,7 +644,7 @@
                                 {
                                     "id": "benchmarkResult",
                                     "key": "benchmarkResult",
-                                    "value": "eveniet",
+                                    "value": "velit",
                                     "description": ""
                                 }
                             ]
@@ -662,7 +694,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 12\n}"
+                            "raw": "{\n    \"customer_id\": 10\n}"
                         },
                         "description": ""
                     },
@@ -691,7 +723,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 10\n}"
+                            "raw": "{\n    \"customer_id\": 4\n}"
                         },
                         "description": ""
                     },
@@ -720,7 +752,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 1\n}"
+                            "raw": "{\n    \"customer_id\": 17\n}"
                         },
                         "description": ""
                     },
@@ -749,7 +781,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 8\n}"
+                            "raw": "{\n    \"customer_id\": 7\n}"
                         },
                         "description": ""
                     },
@@ -826,7 +858,7 @@
                                 {
                                     "id": "cart",
                                     "key": "cart",
-                                    "value": "eaque",
+                                    "value": "ut",
                                     "description": ""
                                 }
                             ]
@@ -928,7 +960,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"chat_id\": 16\n}"
+                            "raw": "{\n    \"chat_id\": 20\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -963,7 +995,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"id\": 15,\n    \"type\": \"quia\"\n}"
+                            "raw": "{\n    \"id\": 18,\n    \"type\": \"aspernatur\"\n}"
                         },
                         "description": "This endpoint get comments on several scenarios.\nOnly comments with level1 = 0 can have replies.\n<p>Replies  level1 > 0.<\/p>\n<p>type = appendNext, it searchs only 4 comments with level1=0 from id<\/p>\n<p>type = appendNextReplies, it searchs only 4 comments(replies) with level1>0 from id<\/p>\n<p>type = append, it searchs only 4 previous comments with level1=0 from id<\/p>"
                     },
@@ -992,7 +1024,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"post_id\": 14,\n    \"content\": \"consectetur\",\n    \"parent_activity_id\": \"et\",\n    \"condition\": {\n        \"from_id\": 16\n    }\n}"
+                            "raw": "{\n    \"post_id\": 12,\n    \"content\": \"soluta\",\n    \"parent_activity_id\": \"et\",\n    \"condition\": {\n        \"from_id\": 10\n    }\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -1045,7 +1077,7 @@
                                 {
                                     "id": "comment",
                                     "key": "comment",
-                                    "value": "7",
+                                    "value": "2",
                                     "description": "comment ID"
                                 }
                             ]
@@ -1063,7 +1095,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"content\": \"odit\"\n}"
+                            "raw": "{\n    \"content\": \"recusandae\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -1082,7 +1114,7 @@
                                 {
                                     "id": "comment",
                                     "key": "comment",
-                                    "value": "17",
+                                    "value": "5",
                                     "description": "comment ID"
                                 }
                             ]
@@ -1100,7 +1132,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"from_id\": 3,\n    \"to_id\": 5\n}"
+                            "raw": "{\n    \"from_id\": 19,\n    \"to_id\": 14\n}"
                         },
                         "description": "This endpoint deletes the comment and child replies and return comment struction."
                     },
@@ -1151,7 +1183,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "blanditiis",
+                                    "value": "aliquam",
                                     "description": ""
                                 }
                             ]
@@ -1967,7 +1999,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"suggested\": 8,\n    \"post_id\": 2\n}"
+                            "raw": "{\n    \"suggested\": 1,\n    \"post_id\": 15\n}"
                         },
                         "description": "This endpoint returns newsfeed or suggested posts(posts id desc) ."
                     },
@@ -1996,7 +2028,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"post_id\": 6\n}"
+                            "raw": "{\n    \"post_id\": 2\n}"
                         },
                         "description": "This endpoint returns already reading newsfeed."
                     },
@@ -2015,7 +2047,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "repellat",
+                                    "value": "maxime",
                                     "description": ""
                                 }
                             ]
@@ -2033,6 +2065,35 @@
                         ],
                         "body": null,
                         "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update self's bumbells weight",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/update-dumbells-weight",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/update-dumbells-weight"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"weight\": 1.3\n}"
+                        },
+                        "description": ""
                     },
                     "response": []
                 },
@@ -2126,7 +2187,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"pageSize\": 20,\n    \"pageNumber\": 12\n}"
+                            "raw": "{\n    \"pageSize\": 18,\n    \"pageNumber\": 13\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2171,7 +2232,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "in",
+                                    "value": "odit",
                                     "description": ""
                                 }
                             ]
@@ -2205,7 +2266,7 @@
                                 {
                                     "id": "evento",
                                     "key": "evento",
-                                    "value": "14",
+                                    "value": "13",
                                     "description": ""
                                 }
                             ]
@@ -2297,7 +2358,7 @@
                                 {
                                     "id": "evento_comment",
                                     "key": "evento_comment",
-                                    "value": "magni",
+                                    "value": "maxime",
                                     "description": ""
                                 }
                             ]
@@ -2331,7 +2392,7 @@
                                 {
                                     "id": "evento_comment",
                                     "key": "evento_comment",
-                                    "value": "est",
+                                    "value": "nihil",
                                     "description": ""
                                 }
                             ]
@@ -2365,7 +2426,7 @@
                                 {
                                     "id": "evento_comment",
                                     "key": "evento_comment",
-                                    "value": "sint",
+                                    "value": "at",
                                     "description": ""
                                 }
                             ]
@@ -2405,7 +2466,7 @@
                                 {
                                     "id": "customer_id",
                                     "key": "customer_id",
-                                    "value": "12",
+                                    "value": "18",
                                     "description": "\/\/customer id"
                                 }
                             ]
@@ -2439,7 +2500,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "3",
+                                    "value": "16",
                                     "description": "\/\/customer id"
                                 }
                             ]
@@ -2473,7 +2534,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "19",
+                                    "value": "5",
                                     "description": "\/\/customer id"
                                 }
                             ]
@@ -2543,7 +2604,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 4\n}"
+                            "raw": "{\n    \"customer_id\": 19\n}"
                         },
                         "description": ""
                     },
@@ -2578,7 +2639,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 3,\n    \"type\": \"sint\",\n    \"page_number\": 9\n}"
+                            "raw": "{\n    \"customer_id\": 17,\n    \"type\": \"dolorem\",\n    \"page_number\": 7\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2655,7 +2716,7 @@
                                 {
                                     "id": "levelTest",
                                     "key": "levelTest",
-                                    "value": "qui",
+                                    "value": "pariatur",
                                     "description": ""
                                 }
                             ]
@@ -2689,7 +2750,7 @@
                                 {
                                     "id": "levelTest",
                                     "key": "levelTest",
-                                    "value": "illo",
+                                    "value": "aliquam",
                                     "description": ""
                                 }
                             ]
@@ -2726,18 +2787,18 @@
                             "query": [
                                 {
                                     "key": "activity_id",
-                                    "value": "8",
+                                    "value": "16",
                                     "description": "",
                                     "disabled": false
                                 },
                                 {
                                     "key": "pageNumber",
-                                    "value": "18",
+                                    "value": "19",
                                     "description": "",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/{{baseUrl}}\/api\/likes?activity_id=8&pageNumber=18"
+                            "raw": "http:\/\/{{baseUrl}}\/api\/likes?activity_id=16&pageNumber=19"
                         },
                         "method": "GET",
                         "header": [
@@ -2778,7 +2839,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"activity_id\": 15\n}"
+                            "raw": "{\n    \"activity_id\": 10\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2797,13 +2858,13 @@
                                 {
                                     "id": "like",
                                     "key": "like",
-                                    "value": "quisquam",
+                                    "value": "voluptatem",
                                     "description": ""
                                 },
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "16",
+                                    "value": "6",
                                     "description": ""
                                 }
                             ]
@@ -2843,7 +2904,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "cum",
+                                    "value": "ipsam",
                                     "description": ""
                                 }
                             ]
@@ -2877,7 +2938,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "neque",
                                     "description": ""
                                 }
                             ]
@@ -3050,7 +3111,7 @@
                                 {
                                     "id": "event",
                                     "key": "event",
-                                    "value": "odio",
+                                    "value": "ut",
                                     "description": ""
                                 }
                             ]
@@ -3142,7 +3203,7 @@
                                 {
                                     "id": "tocken",
                                     "key": "tocken",
-                                    "value": "quibusdam",
+                                    "value": "voluptatem",
                                     "description": ""
                                 }
                             ]
@@ -3176,7 +3237,7 @@
                                 {
                                     "id": "tocken",
                                     "key": "tocken",
-                                    "value": "dolore",
+                                    "value": "tempora",
                                     "description": ""
                                 }
                             ]
@@ -3210,7 +3271,7 @@
                                 {
                                     "id": "tocken",
                                     "key": "tocken",
-                                    "value": "exercitationem",
+                                    "value": "accusamus",
                                     "description": ""
                                 }
                             ]
@@ -3260,7 +3321,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"ids\": [\n        11,\n        13\n    ]\n}"
+                            "raw": "{\n    \"ids\": [\n        16,\n        15\n    ]\n}"
                         },
                         "description": "This endpoint gets current posts with ids"
                     },
@@ -3279,7 +3340,7 @@
                                 {
                                     "id": "customerId",
                                     "key": "customerId",
-                                    "value": "7",
+                                    "value": "2",
                                     "description": ""
                                 }
                             ]
@@ -3323,7 +3384,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 5,\n    \"media_id\": 3\n}"
+                            "raw": "{\n    \"customer_id\": 8,\n    \"media_id\": 20\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3352,7 +3413,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"ids\": [\n        {\n            \"id\": 3,\n            \"from_id\": 7,\n            \"to_id\": 16\n        },\n        {\n            \"id\": 3,\n            \"from_id\": 7,\n            \"to_id\": 16\n        }\n    ]\n}"
+                            "raw": "{\n    \"ids\": [\n        {\n            \"id\": 13,\n            \"from_id\": 2,\n            \"to_id\": 10\n        },\n        {\n            \"id\": 13,\n            \"from_id\": 2,\n            \"to_id\": 10\n        }\n    ]\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3371,7 +3432,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "5",
+                                    "value": "18",
                                     "description": ""
                                 }
                             ]
@@ -3415,7 +3476,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 2,\n    \"post_id\": 16\n}"
+                            "raw": "{\n    \"customer_id\": 20,\n    \"post_id\": 7\n}"
                         },
                         "description": "This endpoint returns 3 posts from post_id order by post id desc"
                     },
@@ -3447,25 +3508,20 @@
                             "formdata": [
                                 {
                                     "key": "location",
-                                    "value": "cumque",
+                                    "value": "voluptatem",
                                     "type": "text"
                                 },
                                 {
                                     "key": "content",
-                                    "value": "minus",
+                                    "value": "aliquid",
                                     "type": "text"
                                 },
                                 {
                                     "key": "tag_followers",
                                     "value": [
                                         7,
-                                        20
+                                        4
                                     ],
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "workout_date",
-                                    "value": "excepturi",
                                     "type": "text"
                                 },
                                 {
@@ -3492,7 +3548,7 @@
                                 {
                                     "id": "post",
                                     "key": "post",
-                                    "value": "12",
+                                    "value": "9",
                                     "description": ""
                                 }
                             ]
@@ -3510,7 +3566,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"comment\": 7\n}"
+                            "raw": "{\n    \"comment\": 10\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3529,7 +3585,7 @@
                                 {
                                     "id": "post",
                                     "key": "post",
-                                    "value": "6",
+                                    "value": "13",
                                     "description": ""
                                 }
                             ]
@@ -3550,32 +3606,27 @@
                             "formdata": [
                                 {
                                     "key": "location",
-                                    "value": "dolorem",
+                                    "value": "asperiores",
                                     "type": "text"
                                 },
                                 {
                                     "key": "content",
-                                    "value": "hic",
+                                    "value": "cum",
                                     "type": "text"
                                 },
                                 {
                                     "key": "tag_followers",
                                     "value": [
-                                        3,
-                                        11
+                                        18,
+                                        17
                                     ],
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "workout_date",
-                                    "value": "nostrum",
                                     "type": "text"
                                 },
                                 {
                                     "key": "media_ids",
                                     "value": [
-                                        4,
-                                        15
+                                        19,
+                                        16
                                     ],
                                     "type": "text"
                                 },
@@ -3603,7 +3654,7 @@
                                 {
                                     "id": "post",
                                     "key": "post",
-                                    "value": "11",
+                                    "value": "16",
                                     "description": "the id of post"
                                 }
                             ]
@@ -3643,7 +3694,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "laborum",
+                                    "value": "quia",
                                     "description": ""
                                 }
                             ]
@@ -3677,7 +3728,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "porro",
+                                    "value": "aliquam",
                                     "description": ""
                                 }
                             ]
@@ -3711,12 +3762,113 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "maxime",
+                                    "value": "quam",
                                     "description": ""
                                 }
                             ]
                         },
                         "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "ProfileManager   ",
+            "description": "\nAPIs for managing  likes for post and comment on social part",
+            "item": [
+                {
+                    "name": "get customers with profileManager Role.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/profile-managers",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/profile-managers"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a profileManager.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/profile-managers",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/profile-managers"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"activity_id\": 17\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete a profileManager.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/profile-managers\/:profile_manager",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/profile-managers\/:profile_manager",
+                            "variable": [
+                                {
+                                    "id": "profile_manager",
+                                    "key": "profile_manager",
+                                    "value": "ad",
+                                    "description": ""
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "6",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -3843,6 +3995,45 @@
                     "response": []
                 },
                 {
+                    "name": "get customer workouts.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reports\/customer-workouts-range",
+                            "query": [
+                                {
+                                    "key": "range",
+                                    "value": "minus",
+                                    "description": "\/\/ all , current, last",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "gender",
+                                    "value": "consequatur",
+                                    "description": "\/\/ all , Male, Female, MaleMaster, FemaleMaster",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/reports\/customer-workouts-range?range=minus&gender=consequatur"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
                     "name": "export subscriptions.",
                     "request": {
                         "url": {
@@ -3897,7 +4088,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"doloribus\"\n}"
+                            "raw": "{\n    \"search\": \"est\"\n}"
                         },
                         "description": "This endpoint searchs customers and shops and posts"
                     },
@@ -3926,7 +4117,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"sed\"\n}"
+                            "raw": "{\n    \"search\": \"consequatur\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3955,7 +4146,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"qui\"\n}"
+                            "raw": "{\n    \"search\": \"quibusdam\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3984,7 +4175,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"recusandae\"\n}"
+                            "raw": "{\n    \"search\": \"ea\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -4013,7 +4204,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"u\": \"mollitia\"\n}"
+                            "raw": "{\n    \"u\": \"omnis\"\n}"
                         },
                         "description": "This endpoint\nIt find only shop unauthenticated, and it searchs customer or shop when authenticated.",
                         "auth": {
@@ -4045,6 +4236,32 @@
                         ],
                         "body": null,
                         "description": "This endpoint shows latest 30 notifications."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "add the list of all members with this order:  (active or inactive Will be included)\n  Users with more interactions ( total workouts \/ latest 30 days   \ud83e\udc6a but now sure if Will exist Good performance calculating this each time the sectin Will be loaded)\n  Users with pictures\n  Users without pictures\n  Inactive users",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/search\/members",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/search\/members"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
                     },
                     "response": []
                 }
@@ -4261,7 +4478,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ratione",
+                                    "value": "ipsam",
                                     "description": ""
                                 }
                             ]
@@ -4347,7 +4564,7 @@
                                 {
                                     "id": "subscription",
                                     "key": "subscription",
-                                    "value": "qui",
+                                    "value": "fugiat",
                                     "description": ""
                                 }
                             ]
@@ -4477,7 +4694,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "laboriosam",
+                                    "value": "quis",
                                     "description": ""
                                 }
                             ]
@@ -4511,7 +4728,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "fuga",
+                                    "value": "aut",
                                     "description": ""
                                 }
                             ]
@@ -4545,7 +4762,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "dolorem",
+                                    "value": "et",
                                     "description": ""
                                 }
                             ]
@@ -4641,7 +4858,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"first_name\": \"laboriosam\",\n    \"last_name\": \"vero\",\n    \"username\": \"porro\",\n    \"gender\": \"molestias\",\n    \"current_height\": \"nulla\",\n    \"whatsapp_phone_number\": \"omnis\",\n    \"country\": \"ea\",\n    \"country_code\": \"reprehenderit\",\n    \"description\": \"ipsam\"\n}"
+                            "raw": "{\n    \"first_name\": \"voluptatum\",\n    \"last_name\": \"doloremque\",\n    \"username\": \"qui\",\n    \"gender\": \"maiores\",\n    \"current_height\": \"minima\",\n    \"whatsapp_phone_number\": \"vitae\",\n    \"country\": \"incidunt\",\n    \"country_code\": \"nisi\",\n    \"description\": \"qui\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -4858,6 +5075,168 @@
             ]
         },
         {
+            "name": "Workout Comments   ",
+            "description": "\nAPIs for managing  likes for post and comment on social part",
+            "item": [
+                {
+                    "name": "get a workout list with a customer's comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/workout-comments\/publish",
+                            "query": [
+                                {
+                                    "key": "customer_id",
+                                    "value": "12",
+                                    "description": "",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "page_size",
+                                    "value": "3",
+                                    "description": "if not, it is 20",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "page_number",
+                                    "value": "18",
+                                    "description": "if not, it is 1, from 1",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/workout-comments\/publish?customer_id=12&page_size=3&page_number=18"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get a workout block list with a customer's comment for a specific day.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/workout-comments\/workout",
+                            "query": [
+                                {
+                                    "key": "publish_date",
+                                    "value": "tempora",
+                                    "description": "",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "customer_id",
+                                    "value": "7",
+                                    "description": "",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/workout-comments\/workout?publish_date=tempora&customer_id=7"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create a workout comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/workout-comments",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/workout-comments"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"publish_date\": \"debitis\",\n    \"content\": \"nihil\",\n    \"type\": \"quo\",\n    \"workout\": \"ut\",\n    \"dumbells_weight\": 660.9907154\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update a workout comment.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/workout-comments\/:workout_comment",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/workout-comments\/:workout_comment",
+                            "variable": [
+                                {
+                                    "id": "workout_comment",
+                                    "key": "workout_comment",
+                                    "value": "omnis",
+                                    "description": ""
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "12",
+                                    "description": "comment id"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"rerum\",\n    \"dumbells_weight\": 482855047.798032\n}"
+                        },
+                        "description": "This endpoint."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
             "name": "Workout done",
             "description": "\nAPIs for managing  workout done",
             "item": [
@@ -5010,7 +5389,7 @@
                                 {
                                     "id": "social_report",
                                     "key": "social_report",
-                                    "value": "excepturi",
+                                    "value": "fugiat",
                                     "description": ""
                                 }
                             ]
@@ -5044,7 +5423,7 @@
                                 {
                                     "id": "social_report",
                                     "key": "social_report",
-                                    "value": "ad",
+                                    "value": "expedita",
                                     "description": ""
                                 }
                             ]
@@ -5078,7 +5457,7 @@
                                 {
                                     "id": "social_report",
                                     "key": "social_report",
-                                    "value": "earum",
+                                    "value": "recusandae",
                                     "description": ""
                                 }
                             ]

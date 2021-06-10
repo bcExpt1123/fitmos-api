@@ -8,12 +8,12 @@
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="css/style.css?time=5" media="screen" />
-        <link rel="stylesheet" href="css/print.css?time=5" media="print" />
-        <script src="js/all.js?time=5"></script>
+        <link rel="stylesheet" href="css/style.css" media="screen" />
+        <link rel="stylesheet" href="css/print.css" media="print" />
+        <script src="js/all.js"></script>
 
-        <link rel="stylesheet" href="css/highlight-darcula.css?time=5" media="" />
-        <script src="js/highlight.pack.js?time=5"></script>
+        <link rel="stylesheet" href="css/highlight-darcula.css" media="" />
+        <script src="js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
 </head>
@@ -44,7 +44,7 @@
                             <li><a href='http://github.com/knuckleswtf/scribe'>Documentation powered by Scribe ✍</a></li>
                     </ul>
             <ul class="toc-footer" id="last-updated">
-            <li>Last updated: April 26 2021</li>
+            <li>Last updated: May 20 2021</li>
         </ul>
 </div>
 <div class="page-wrapper">
@@ -58,12 +58,63 @@ You can switch the language used with the tabs at the top right (or from the nav
 <script>
     var baseUrl = "http://127.0.0.4";
 </script>
-<script src="js/tryitout-2.4.2.js?time=5"></script>
+<script src="js/tryitout-2.4.2.js"></script>
 <blockquote>
 <p>Base URL</p>
 </blockquote>
 <pre><code class="language-yaml">http://127.0.0.4</code></pre><h1>Authenticating requests</h1>
-<p>This API is not authenticated.</p><h1>Auth</h1>
+<p>This API is not authenticated.</p><h1>Admin Action</h1>
+<p>APIs for managing  admin actions</p>
+<h2>create a admin action.</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://127.0.0.4/api/admin-actions" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.4/api/admin-actions"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{}</code></pre>
+<div id="execution-results-POSTapi-admin-actions" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-admin-actions"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-admin-actions"></code></pre>
+</div>
+<div id="execution-error-POSTapi-admin-actions" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-admin-actions"></code></pre>
+</div>
+<form id="form-POSTapi-admin-actions" data-method="POST" data-path="api/admin-actions" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-admin-actions', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-admin-actions" onclick="tryItOut('POSTapi-admin-actions');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-admin-actions" onclick="cancelTryOut('POSTapi-admin-actions');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-admin-actions" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>api/admin-actions</code></b>
+</p>
+<p>
+<label id="auth-POSTapi-admin-actions" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-admin-actions" data-component="header"></label>
+</p>
+</form><h1>Auth</h1>
 <p>APIs for managing  auth</p>
 <h2>login.</h2>
 <p><small class="badge badge-darkred">requires authentication</small></p>
@@ -7287,6 +7338,185 @@ fetch(url, {
 <input type="text" name="id" data-endpoint="GETapi-products--id--download" data-component="url" required  hidden>
 <br>
 </p>
+</form><h1>ProfileManager</h1>
+<p>APIs for managing  likes for post and comment on social part</p>
+<h2>get customers with profileManager Role.</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://127.0.0.4/api/profile-managers" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.4/api/profile-managers"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">
+{
+[{customer}]
+}</code></pre>
+<div id="execution-results-GETapi-profile-managers" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-profile-managers"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-profile-managers"></code></pre>
+</div>
+<div id="execution-error-GETapi-profile-managers" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-profile-managers"></code></pre>
+</div>
+<form id="form-GETapi-profile-managers" data-method="GET" data-path="api/profile-managers" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-profile-managers', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-profile-managers" onclick="tryItOut('GETapi-profile-managers');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-profile-managers" onclick="cancelTryOut('GETapi-profile-managers');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-profile-managers" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/profile-managers</code></b>
+</p>
+<p>
+<label id="auth-GETapi-profile-managers" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-profile-managers" data-component="header"></label>
+</p>
+</form>
+<h2>create a profileManager.</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://127.0.0.4/api/profile-managers" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"activity_id":17}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.4/api/profile-managers"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "activity_id": 17
+}
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{}</code></pre>
+<div id="execution-results-POSTapi-profile-managers" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-profile-managers"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-profile-managers"></code></pre>
+</div>
+<div id="execution-error-POSTapi-profile-managers" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-profile-managers"></code></pre>
+</div>
+<form id="form-POSTapi-profile-managers" data-method="POST" data-path="api/profile-managers" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-profile-managers', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-profile-managers" onclick="tryItOut('POSTapi-profile-managers');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-profile-managers" onclick="cancelTryOut('POSTapi-profile-managers');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-profile-managers" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>api/profile-managers</code></b>
+</p>
+<p>
+<label id="auth-POSTapi-profile-managers" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-profile-managers" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>activity_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="activity_id" data-endpoint="POSTapi-profile-managers" data-component="body" required  hidden>
+<br>
+</p>
+
+</form>
+<h2>delete a profileManager.</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE \
+    "http://127.0.0.4/api/profile-managers/ad" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.4/api/profile-managers/ad"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{}</code></pre>
+<div id="execution-results-DELETEapi-profile-managers--profile_manager-" hidden>
+    <blockquote>Received response<span id="execution-response-status-DELETEapi-profile-managers--profile_manager-"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-profile-managers--profile_manager-"></code></pre>
+</div>
+<div id="execution-error-DELETEapi-profile-managers--profile_manager-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-profile-managers--profile_manager-"></code></pre>
+</div>
+<form id="form-DELETEapi-profile-managers--profile_manager-" data-method="DELETE" data-path="api/profile-managers/{profile_manager}" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('DELETEapi-profile-managers--profile_manager-', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-DELETEapi-profile-managers--profile_manager-" onclick="tryItOut('DELETEapi-profile-managers--profile_manager-');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-DELETEapi-profile-managers--profile_manager-" onclick="cancelTryOut('DELETEapi-profile-managers--profile_manager-');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-DELETEapi-profile-managers--profile_manager-" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-red">DELETE</small>
+ <b><code>api/profile-managers/{profile_manager}</code></b>
+</p>
+<p>
+<label id="auth-DELETEapi-profile-managers--profile_manager-" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="DELETEapi-profile-managers--profile_manager-" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>profile_manager</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="profile_manager" data-endpoint="DELETEapi-profile-managers--profile_manager-" data-component="url" required  hidden>
+<br>
+</p>
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="id" data-endpoint="DELETEapi-profile-managers--profile_manager-" data-component="url" required  hidden>
+<br>
+</p>
 </form><h1>Report</h1>
 <p>APIs for managing  report</p>
 <h2>get customer report.</h2>
@@ -9696,6 +9926,339 @@ fetch(url, {
 <p>
 <label id="auth-POSTapi-users-facebook" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-users-facebook" data-component="header"></label>
 </p>
+</form><h1>Workout Comments</h1>
+<p>APIs for managing  likes for post and comment on social part</p>
+<h2>get a workout list with a customer&#039;s comment.</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://127.0.0.4/api/workout-comments/publish?customer_id=12&amp;page_size=3&amp;page_number=18" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.4/api/workout-comments/publish"
+);
+
+let params = {
+    "customer_id": "12",
+    "page_size": "3",
+    "page_number": "18",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">
+{
+[
+ {
+  'publish_date':'2021-05-23',
+  'comment_count':2,
+  'completed':true
+}
+]
+}</code></pre>
+<div id="execution-results-GETapi-workout-comments-publish" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-workout-comments-publish"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-workout-comments-publish"></code></pre>
+</div>
+<div id="execution-error-GETapi-workout-comments-publish" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-workout-comments-publish"></code></pre>
+</div>
+<form id="form-GETapi-workout-comments-publish" data-method="GET" data-path="api/workout-comments/publish" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-workout-comments-publish', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-workout-comments-publish" onclick="tryItOut('GETapi-workout-comments-publish');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-workout-comments-publish" onclick="cancelTryOut('GETapi-workout-comments-publish');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-workout-comments-publish" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/workout-comments/publish</code></b>
+</p>
+<p>
+<label id="auth-GETapi-workout-comments-publish" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-workout-comments-publish" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p>
+<b><code>customer_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="customer_id" data-endpoint="GETapi-workout-comments-publish" data-component="query" required  hidden>
+<br>
+</p>
+<p>
+<b><code>page_size</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="page_size" data-endpoint="GETapi-workout-comments-publish" data-component="query"  hidden>
+<br>
+if not, it is 20</p>
+<p>
+<b><code>page_number</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="page_number" data-endpoint="GETapi-workout-comments-publish" data-component="query"  hidden>
+<br>
+if not, it is 1, from 1</p>
+</form>
+<h2>get a workout block list with a customer&#039;s comment for a specific day.</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://127.0.0.4/api/workout-comments/workout?publish_date=tempora&amp;customer_id=7" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.4/api/workout-comments/workout"
+);
+
+let params = {
+    "publish_date": "tempora",
+    "customer_id": "7",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">
+{
+[
+ {
+  'publish_date':'2021-05-23',
+  'type':'basic', // or extra
+  'block':{workout_block},
+  'comment':{comment}
+},
+]
+}</code></pre>
+<div id="execution-results-GETapi-workout-comments-workout" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-workout-comments-workout"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-workout-comments-workout"></code></pre>
+</div>
+<div id="execution-error-GETapi-workout-comments-workout" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-workout-comments-workout"></code></pre>
+</div>
+<form id="form-GETapi-workout-comments-workout" data-method="GET" data-path="api/workout-comments/workout" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-workout-comments-workout', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-workout-comments-workout" onclick="tryItOut('GETapi-workout-comments-workout');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-workout-comments-workout" onclick="cancelTryOut('GETapi-workout-comments-workout');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-workout-comments-workout" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/workout-comments/workout</code></b>
+</p>
+<p>
+<label id="auth-GETapi-workout-comments-workout" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-workout-comments-workout" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p>
+<b><code>publish_date</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="publish_date" data-endpoint="GETapi-workout-comments-workout" data-component="query" required  hidden>
+<br>
+</p>
+<p>
+<b><code>customer_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="customer_id" data-endpoint="GETapi-workout-comments-workout" data-component="query"  hidden>
+<br>
+</p>
+</form>
+<h2>create a workout comment.</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://127.0.0.4/api/workout-comments" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"publish_date":"debitis","content":"nihil","type":"quo","workout":"ut","dumbells_weight":660.9907154}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.4/api/workout-comments"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "publish_date": "debitis",
+    "content": "nihil",
+    "type": "quo",
+    "workout": "ut",
+    "dumbells_weight": 660.9907154
+}
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{}</code></pre>
+<div id="execution-results-POSTapi-workout-comments" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-workout-comments"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-workout-comments"></code></pre>
+</div>
+<div id="execution-error-POSTapi-workout-comments" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-workout-comments"></code></pre>
+</div>
+<form id="form-POSTapi-workout-comments" data-method="POST" data-path="api/workout-comments" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-workout-comments', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-workout-comments" onclick="tryItOut('POSTapi-workout-comments');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-workout-comments" onclick="cancelTryOut('POSTapi-workout-comments');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-workout-comments" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>api/workout-comments</code></b>
+</p>
+<p>
+<label id="auth-POSTapi-workout-comments" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-workout-comments" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>publish_date</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="publish_date" data-endpoint="POSTapi-workout-comments" data-component="body" required  hidden>
+<br>
+date such as '2021-05-23'</p>
+<p>
+<b><code>content</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="content" data-endpoint="POSTapi-workout-comments" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>type</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="type" data-endpoint="POSTapi-workout-comments" data-component="body" required  hidden>
+<br>
+basic or extra</p>
+<p>
+<b><code>workout</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="workout" data-endpoint="POSTapi-workout-comments" data-component="body" required  hidden>
+<br>
+// the content of workout block JSON.stringify(workouts.current.blocks[step].content)</p>
+<p>
+<b><code>dumbells_weight</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+<input type="number" name="dumbells_weight" data-endpoint="POSTapi-workout-comments" data-component="body"  hidden>
+<br>
+</p>
+
+</form>
+<h2>update a workout comment.</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT \
+    "http://127.0.0.4/api/workout-comments/omnis" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"content":"rerum","dumbells_weight":482855047.798032}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.4/api/workout-comments/omnis"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "content": "rerum",
+    "dumbells_weight": 482855047.798032
+}
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{}</code></pre>
+<div id="execution-results-PUTapi-workout-comments--workout_comment-" hidden>
+    <blockquote>Received response<span id="execution-response-status-PUTapi-workout-comments--workout_comment-"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-workout-comments--workout_comment-"></code></pre>
+</div>
+<div id="execution-error-PUTapi-workout-comments--workout_comment-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-workout-comments--workout_comment-"></code></pre>
+</div>
+<form id="form-PUTapi-workout-comments--workout_comment-" data-method="PUT" data-path="api/workout-comments/{workout_comment}" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('PUTapi-workout-comments--workout_comment-', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-PUTapi-workout-comments--workout_comment-" onclick="tryItOut('PUTapi-workout-comments--workout_comment-');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-PUTapi-workout-comments--workout_comment-" onclick="cancelTryOut('PUTapi-workout-comments--workout_comment-');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-PUTapi-workout-comments--workout_comment-" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-darkblue">PUT</small>
+ <b><code>api/workout-comments/{workout_comment}</code></b>
+</p>
+<p>
+<small class="badge badge-purple">PATCH</small>
+ <b><code>api/workout-comments/{workout_comment}</code></b>
+</p>
+<p>
+<label id="auth-PUTapi-workout-comments--workout_comment-" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="PUTapi-workout-comments--workout_comment-" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>workout_comment</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="workout_comment" data-endpoint="PUTapi-workout-comments--workout_comment-" data-component="url" required  hidden>
+<br>
+</p>
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="id" data-endpoint="PUTapi-workout-comments--workout_comment-" data-component="url" required  hidden>
+<br>
+comment id</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>content</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="content" data-endpoint="PUTapi-workout-comments--workout_comment-" data-component="body" required  hidden>
+<br>
+</p>
+<p>
+<b><code>dumbells_weight</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+<input type="number" name="dumbells_weight" data-endpoint="PUTapi-workout-comments--workout_comment-" data-component="body"  hidden>
+<br>
+</p>
+
 </form><h1>Workout done</h1>
 <p>APIs for managing  workout done</p>
 <h2>workout complete</h2>

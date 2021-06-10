@@ -18,7 +18,7 @@ class Company extends Model
     private static $searchableColumns = ['search'];
     public const NOT_IN="workout,home,shop,benchmarks,partners,profile,profile, perfil,level,subscriptions,customers,
         search,search-people,search-shops,search-posts,pricing,checkout,settings,news,posts,ayuda,contact,terms_and_condition,
-        privacy,cookies,newsfeed,leaderboard,eventos,auth, miembro";
+        privacy,cookies,newsfeed,leaderboard,eventos,auth, miembros";
     public static function validateRules($id=null){
         $upload=explode('M',ini_get('upload_max_filesize'));
         $uploadMaxSize = $upload[0]*1024;

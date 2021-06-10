@@ -43,6 +43,8 @@ class AdminActionController extends Controller
             break;
         }
         $action->save();
+        $customer = \App\Customer::find($request->customer_id);
+        $customer->touch();
         return response()->json(array('status'=>'ok','action'=>$action));
     }
 }
