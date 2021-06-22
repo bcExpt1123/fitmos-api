@@ -75,14 +75,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/companies/blanditiis/home" \
+    -G "http://127.0.0.4/api/companies/qui/home" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/companies/blanditiis/home"
+    "http://127.0.0.4/api/companies/qui/home"
 );
 
 let headers = {

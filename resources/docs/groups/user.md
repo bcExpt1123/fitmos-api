@@ -12,14 +12,14 @@ This endpoint.
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/users/laboriosam" \
+    "http://127.0.0.4/api/users/et" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/laboriosam"
+    "http://127.0.0.4/api/users/et"
 );
 
 let headers = {
@@ -81,14 +81,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/users/fuga" \
+    -G "http://127.0.0.4/api/users/unde" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/fuga"
+    "http://127.0.0.4/api/users/unde"
 );
 
 let headers = {
@@ -150,14 +150,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/users/dolorem" \
+    "http://127.0.0.4/api/users/aut" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/dolorem"
+    "http://127.0.0.4/api/users/aut"
 );
 
 let headers = {
@@ -348,7 +348,7 @@ curl -X POST \
     "http://127.0.0.4/api/users/customerUpdate" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"first_name":"laboriosam","last_name":"vero","username":"porro","gender":"molestias","current_height":"nulla","whatsapp_phone_number":"omnis","country":"ea","country_code":"reprehenderit","description":"ipsam"}'
+    -d '{"first_name":"velit","last_name":"qui","username":"voluptas","gender":"earum","current_height":"sed","whatsapp_phone_number":"nihil","country":"esse","country_code":"vitae","description":"esse"}'
 
 ```
 
@@ -363,15 +363,15 @@ let headers = {
 };
 
 let body = {
-    "first_name": "laboriosam",
-    "last_name": "vero",
-    "username": "porro",
-    "gender": "molestias",
-    "current_height": "nulla",
-    "whatsapp_phone_number": "omnis",
-    "country": "ea",
-    "country_code": "reprehenderit",
-    "description": "ipsam"
+    "first_name": "velit",
+    "last_name": "qui",
+    "username": "voluptas",
+    "gender": "earum",
+    "current_height": "sed",
+    "whatsapp_phone_number": "nihil",
+    "country": "esse",
+    "country_code": "vitae",
+    "description": "esse"
 }
 
 fetch(url, {

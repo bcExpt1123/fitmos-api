@@ -15,7 +15,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/all" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"search":"doloribus"}'
+    -d '{"search":"voluptatem"}'
 
 ```
 
@@ -30,7 +30,7 @@ let headers = {
 };
 
 let body = {
-    "search": "doloribus"
+    "search": "voluptatem"
 }
 
 fetch(url, {
@@ -96,7 +96,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/customers" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"search":"sed"}'
+    -d '{"search":"explicabo"}'
 
 ```
 
@@ -111,7 +111,7 @@ let headers = {
 };
 
 let body = {
-    "search": "sed"
+    "search": "explicabo"
 }
 
 fetch(url, {
@@ -175,7 +175,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/companies" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"search":"qui"}'
+    -d '{"search":"eligendi"}'
 
 ```
 
@@ -190,7 +190,7 @@ let headers = {
 };
 
 let body = {
-    "search": "qui"
+    "search": "eligendi"
 }
 
 fetch(url, {
@@ -254,7 +254,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/posts" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"search":"recusandae"}'
+    -d '{"search":"sed"}'
 
 ```
 
@@ -269,7 +269,7 @@ let headers = {
 };
 
 let body = {
-    "search": "recusandae"
+    "search": "sed"
 }
 
 fetch(url, {
@@ -333,7 +333,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/username" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"u":"mollitia"}'
+    -d '{"u":"ad"}'
 
 ```
 
@@ -348,7 +348,7 @@ let headers = {
 };
 
 let body = {
-    "u": "mollitia"
+    "u": "ad"
 }
 
 fetch(url, {
@@ -509,6 +509,76 @@ fetch(url, {
 </p>
 <p>
 <label id="auth-GETapi-search-notifications" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-search-notifications" data-component="header"></label>
+</p>
+</form>
+
+
+## add the list of all members with this order:  (active or inactive Will be included)
+  Users with more interactions ( total workouts / latest 30 days   🡪 but now sure if Will exist Good performance calculating this each time the sectin Will be loaded)
+  Users with pictures
+  Users without pictures
+  Inactive users
+
+<small class="badge badge-darkred">requires authentication</small>
+
+
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://127.0.0.4/api/search/members" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://127.0.0.4/api/search/members"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response => response.json());
+```
+
+
+> Example response (200):
+
+```json
+
+{
+ "customers":[{customer}],
+}
+```
+<div id="execution-results-GETapi-search-members" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-search-members"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-search-members"></code></pre>
+</div>
+<div id="execution-error-GETapi-search-members" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-search-members"></code></pre>
+</div>
+<form id="form-GETapi-search-members" data-method="GET" data-path="api/search/members" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-search-members', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-search-members" onclick="tryItOut('GETapi-search-members');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-search-members" onclick="cancelTryOut('GETapi-search-members');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-search-members" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/search/members</code></b>
+</p>
+<p>
+<label id="auth-GETapi-search-members" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-search-members" data-component="header"></label>
 </p>
 </form>
 

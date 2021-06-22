@@ -264,14 +264,14 @@ This endpoint.
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/subscriptions/ratione/renewal" \
+    "http://127.0.0.4/api/subscriptions/sint/renewal" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/subscriptions/ratione/renewal"
+    "http://127.0.0.4/api/subscriptions/sint/renewal"
 );
 
 let headers = {
@@ -459,14 +459,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/subscriptions/qui" \
+    -G "http://127.0.0.4/api/subscriptions/omnis" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/subscriptions/qui"
+    "http://127.0.0.4/api/subscriptions/omnis"
 );
 
 let headers = {

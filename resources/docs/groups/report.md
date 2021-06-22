@@ -254,6 +254,87 @@ fetch(url, {
 </form>
 
 
+## get customer workouts.
+
+<small class="badge badge-darkred">requires authentication</small>
+
+This endpoint.
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://127.0.0.4/api/reports/customer-workouts-range?range=harum&gender=incidunt" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://127.0.0.4/api/reports/customer-workouts-range"
+);
+
+let params = {
+    "range": "harum",
+    "gender": "incidunt",
+};
+Object.keys(params)
+    .forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response => response.json());
+```
+
+
+> Example response (200):
+
+```json
+{}
+```
+<div id="execution-results-GETapi-reports-customer-workouts-range" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-reports-customer-workouts-range"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-reports-customer-workouts-range"></code></pre>
+</div>
+<div id="execution-error-GETapi-reports-customer-workouts-range" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-reports-customer-workouts-range"></code></pre>
+</div>
+<form id="form-GETapi-reports-customer-workouts-range" data-method="GET" data-path="api/reports/customer-workouts-range" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-reports-customer-workouts-range', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-reports-customer-workouts-range" onclick="tryItOut('GETapi-reports-customer-workouts-range');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-reports-customer-workouts-range" onclick="cancelTryOut('GETapi-reports-customer-workouts-range');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-reports-customer-workouts-range" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/reports/customer-workouts-range</code></b>
+</p>
+<p>
+<label id="auth-GETapi-reports-customer-workouts-range" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-reports-customer-workouts-range" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p>
+<b><code>range</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="range" data-endpoint="GETapi-reports-customer-workouts-range" data-component="query" required  hidden>
+<br>
+// all , current, last</p>
+<p>
+<b><code>gender</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="gender" data-endpoint="GETapi-reports-customer-workouts-range" data-component="query" required  hidden>
+<br>
+// all , Male, Female, MaleMaster, FemaleMaster</p>
+</form>
+
+
 ## export subscriptions.
 
 <small class="badge badge-darkred">requires authentication</small>

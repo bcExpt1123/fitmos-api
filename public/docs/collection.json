@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "bd9a32cf-d965-4d0f-88de-ddd30a6dd60c",
+        "_postman_id": "994aac6a-0368-4167-b891-b4769e384a7a",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -298,7 +298,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "rerum",
+                                    "value": "aliquid",
                                     "description": ""
                                 }
                             ]
@@ -358,7 +358,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "omnis",
+                                    "value": "sit",
                                     "description": ""
                                 }
                             ]
@@ -424,7 +424,7 @@
                                 {
                                     "id": "benchmark",
                                     "key": "benchmark",
-                                    "value": "vel",
+                                    "value": "eum",
                                     "description": ""
                                 }
                             ]
@@ -464,7 +464,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "omnis",
+                                    "value": "est",
                                     "description": ""
                                 }
                             ]
@@ -576,7 +576,7 @@
                                 {
                                     "id": "benchmarkResult",
                                     "key": "benchmarkResult",
-                                    "value": "eaque",
+                                    "value": "atque",
                                     "description": ""
                                 }
                             ]
@@ -610,7 +610,7 @@
                                 {
                                     "id": "benchmarkResult",
                                     "key": "benchmarkResult",
-                                    "value": "dolores",
+                                    "value": "accusantium",
                                     "description": ""
                                 }
                             ]
@@ -644,7 +644,7 @@
                                 {
                                     "id": "benchmarkResult",
                                     "key": "benchmarkResult",
-                                    "value": "velit",
+                                    "value": "repudiandae",
                                     "description": ""
                                 }
                             ]
@@ -694,7 +694,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 10\n}"
+                            "raw": "{\n    \"customer_id\": 15\n}"
                         },
                         "description": ""
                     },
@@ -723,7 +723,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 4\n}"
+                            "raw": "{\n    \"customer_id\": 16\n}"
                         },
                         "description": ""
                     },
@@ -752,7 +752,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 17\n}"
+                            "raw": "{\n    \"customer_id\": 9\n}"
                         },
                         "description": ""
                     },
@@ -781,7 +781,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 7\n}"
+                            "raw": "{\n    \"customer_id\": 17\n}"
                         },
                         "description": ""
                     },
@@ -858,7 +858,7 @@
                                 {
                                     "id": "cart",
                                     "key": "cart",
-                                    "value": "ut",
+                                    "value": "voluptas",
                                     "description": ""
                                 }
                             ]
@@ -960,7 +960,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"chat_id\": 20\n}"
+                            "raw": "{\n    \"chat_id\": 3\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -995,7 +995,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"id\": 18,\n    \"type\": \"aspernatur\"\n}"
+                            "raw": "{\n    \"id\": 9,\n    \"type\": \"delectus\"\n}"
                         },
                         "description": "This endpoint get comments on several scenarios.\nOnly comments with level1 = 0 can have replies.\n<p>Replies  level1 > 0.<\/p>\n<p>type = appendNext, it searchs only 4 comments with level1=0 from id<\/p>\n<p>type = appendNextReplies, it searchs only 4 comments(replies) with level1>0 from id<\/p>\n<p>type = append, it searchs only 4 previous comments with level1=0 from id<\/p>"
                     },
@@ -1024,7 +1024,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"post_id\": 12,\n    \"content\": \"soluta\",\n    \"parent_activity_id\": \"et\",\n    \"condition\": {\n        \"from_id\": 10\n    }\n}"
+                            "raw": "{\n    \"post_id\": 9,\n    \"content\": \"nobis\",\n    \"parent_activity_id\": \"qui\",\n    \"condition\": {\n        \"from_id\": 1\n    }\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -1043,7 +1043,7 @@
                                 {
                                     "id": "comment",
                                     "key": "comment",
-                                    "value": "6",
+                                    "value": "19",
                                     "description": "comment ID"
                                 }
                             ]
@@ -1077,7 +1077,7 @@
                                 {
                                     "id": "comment",
                                     "key": "comment",
-                                    "value": "2",
+                                    "value": "14",
                                     "description": "comment ID"
                                 }
                             ]
@@ -1095,7 +1095,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"content\": \"recusandae\"\n}"
+                            "raw": "{\n    \"content\": \"et\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -1114,7 +1114,7 @@
                                 {
                                     "id": "comment",
                                     "key": "comment",
-                                    "value": "5",
+                                    "value": "13",
                                     "description": "comment ID"
                                 }
                             ]
@@ -1132,7 +1132,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"from_id\": 19,\n    \"to_id\": 14\n}"
+                            "raw": "{\n    \"from_id\": 7,\n    \"to_id\": 18\n}"
                         },
                         "description": "This endpoint deletes the comment and child replies and return comment struction."
                     },
@@ -1183,7 +1183,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "aliquam",
+                                    "value": "qui",
                                     "description": ""
                                 }
                             ]
@@ -1999,7 +1999,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"suggested\": 1,\n    \"post_id\": 15\n}"
+                            "raw": "{\n    \"suggested\": 9,\n    \"post_id\": 12\n}"
                         },
                         "description": "This endpoint returns newsfeed or suggested posts(posts id desc) ."
                     },
@@ -2028,7 +2028,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"post_id\": 2\n}"
+                            "raw": "{\n    \"post_id\": 20\n}"
                         },
                         "description": "This endpoint returns already reading newsfeed."
                     },
@@ -2047,7 +2047,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "maxime",
+                                    "value": "facilis",
                                     "description": ""
                                 }
                             ]
@@ -2065,6 +2065,32 @@
                         ],
                         "body": null,
                         "description": "This endpoint."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get all customers except me containing expired customers",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/customers\/all",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/customers\/all"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
                     },
                     "response": []
                 },
@@ -2091,7 +2117,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"weight\": 1.3\n}"
+                            "raw": "{\n    \"weight\": 158851.98\n}"
                         },
                         "description": ""
                     },
@@ -2187,7 +2213,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"pageSize\": 18,\n    \"pageNumber\": 13\n}"
+                            "raw": "{\n    \"pageSize\": 7,\n    \"pageNumber\": 13\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2232,7 +2258,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "odit",
+                                    "value": "magnam",
                                     "description": ""
                                 }
                             ]
@@ -2266,7 +2292,7 @@
                                 {
                                     "id": "evento",
                                     "key": "evento",
-                                    "value": "13",
+                                    "value": "16",
                                     "description": ""
                                 }
                             ]
@@ -2358,7 +2384,7 @@
                                 {
                                     "id": "evento_comment",
                                     "key": "evento_comment",
-                                    "value": "maxime",
+                                    "value": "quia",
                                     "description": ""
                                 }
                             ]
@@ -2392,7 +2418,7 @@
                                 {
                                     "id": "evento_comment",
                                     "key": "evento_comment",
-                                    "value": "nihil",
+                                    "value": "sit",
                                     "description": ""
                                 }
                             ]
@@ -2426,7 +2452,7 @@
                                 {
                                     "id": "evento_comment",
                                     "key": "evento_comment",
-                                    "value": "at",
+                                    "value": "minima",
                                     "description": ""
                                 }
                             ]
@@ -2466,7 +2492,7 @@
                                 {
                                     "id": "customer_id",
                                     "key": "customer_id",
-                                    "value": "18",
+                                    "value": "16",
                                     "description": "\/\/customer id"
                                 }
                             ]
@@ -2500,7 +2526,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "16",
+                                    "value": "5",
                                     "description": "\/\/customer id"
                                 }
                             ]
@@ -2534,7 +2560,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "5",
+                                    "value": "3",
                                     "description": "\/\/customer id"
                                 }
                             ]
@@ -2604,7 +2630,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 19\n}"
+                            "raw": "{\n    \"customer_id\": 1\n}"
                         },
                         "description": ""
                     },
@@ -2639,7 +2665,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 17,\n    \"type\": \"dolorem\",\n    \"page_number\": 7\n}"
+                            "raw": "{\n    \"customer_id\": 17,\n    \"type\": \"omnis\",\n    \"page_number\": 9\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2716,7 +2742,7 @@
                                 {
                                     "id": "levelTest",
                                     "key": "levelTest",
-                                    "value": "pariatur",
+                                    "value": "nam",
                                     "description": ""
                                 }
                             ]
@@ -2750,7 +2776,7 @@
                                 {
                                     "id": "levelTest",
                                     "key": "levelTest",
-                                    "value": "aliquam",
+                                    "value": "in",
                                     "description": ""
                                 }
                             ]
@@ -2787,18 +2813,18 @@
                             "query": [
                                 {
                                     "key": "activity_id",
-                                    "value": "16",
+                                    "value": "20",
                                     "description": "",
                                     "disabled": false
                                 },
                                 {
                                     "key": "pageNumber",
-                                    "value": "19",
+                                    "value": "18",
                                     "description": "",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/{{baseUrl}}\/api\/likes?activity_id=16&pageNumber=19"
+                            "raw": "http:\/\/{{baseUrl}}\/api\/likes?activity_id=20&pageNumber=18"
                         },
                         "method": "GET",
                         "header": [
@@ -2839,7 +2865,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"activity_id\": 10\n}"
+                            "raw": "{\n    \"activity_id\": 4\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -2858,13 +2884,13 @@
                                 {
                                     "id": "like",
                                     "key": "like",
-                                    "value": "voluptatem",
+                                    "value": "deserunt",
                                     "description": ""
                                 },
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "6",
+                                    "value": "2",
                                     "description": ""
                                 }
                             ]
@@ -2904,7 +2930,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ipsam",
+                                    "value": "eum",
                                     "description": ""
                                 }
                             ]
@@ -2938,7 +2964,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "neque",
+                                    "value": "aliquid",
                                     "description": ""
                                 }
                             ]
@@ -3111,7 +3137,7 @@
                                 {
                                     "id": "event",
                                     "key": "event",
-                                    "value": "ut",
+                                    "value": "ea",
                                     "description": ""
                                 }
                             ]
@@ -3203,7 +3229,7 @@
                                 {
                                     "id": "tocken",
                                     "key": "tocken",
-                                    "value": "voluptatem",
+                                    "value": "at",
                                     "description": ""
                                 }
                             ]
@@ -3237,7 +3263,7 @@
                                 {
                                     "id": "tocken",
                                     "key": "tocken",
-                                    "value": "tempora",
+                                    "value": "culpa",
                                     "description": ""
                                 }
                             ]
@@ -3271,7 +3297,7 @@
                                 {
                                     "id": "tocken",
                                     "key": "tocken",
-                                    "value": "accusamus",
+                                    "value": "voluptates",
                                     "description": ""
                                 }
                             ]
@@ -3321,7 +3347,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"ids\": [\n        16,\n        15\n    ]\n}"
+                            "raw": "{\n    \"ids\": [\n        12,\n        10\n    ]\n}"
                         },
                         "description": "This endpoint gets current posts with ids"
                     },
@@ -3340,7 +3366,7 @@
                                 {
                                     "id": "customerId",
                                     "key": "customerId",
-                                    "value": "2",
+                                    "value": "7",
                                     "description": ""
                                 }
                             ]
@@ -3384,7 +3410,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 8,\n    \"media_id\": 20\n}"
+                            "raw": "{\n    \"customer_id\": 14,\n    \"media_id\": 16\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3413,7 +3439,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"ids\": [\n        {\n            \"id\": 13,\n            \"from_id\": 2,\n            \"to_id\": 10\n        },\n        {\n            \"id\": 13,\n            \"from_id\": 2,\n            \"to_id\": 10\n        }\n    ]\n}"
+                            "raw": "{\n    \"ids\": [\n        {\n            \"id\": 12,\n            \"from_id\": 17,\n            \"to_id\": 2\n        },\n        {\n            \"id\": 12,\n            \"from_id\": 17,\n            \"to_id\": 2\n        }\n    ]\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3432,7 +3458,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "18",
+                                    "value": "9",
                                     "description": ""
                                 }
                             ]
@@ -3476,7 +3502,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"customer_id\": 20,\n    \"post_id\": 7\n}"
+                            "raw": "{\n    \"customer_id\": 16,\n    \"post_id\": 8\n}"
                         },
                         "description": "This endpoint returns 3 posts from post_id order by post id desc"
                     },
@@ -3508,19 +3534,19 @@
                             "formdata": [
                                 {
                                     "key": "location",
-                                    "value": "voluptatem",
+                                    "value": "distinctio",
                                     "type": "text"
                                 },
                                 {
                                     "key": "content",
-                                    "value": "aliquid",
+                                    "value": "ut",
                                     "type": "text"
                                 },
                                 {
                                     "key": "tag_followers",
                                     "value": [
-                                        7,
-                                        4
+                                        4,
+                                        11
                                     ],
                                     "type": "text"
                                 },
@@ -3548,7 +3574,7 @@
                                 {
                                     "id": "post",
                                     "key": "post",
-                                    "value": "9",
+                                    "value": "6",
                                     "description": ""
                                 }
                             ]
@@ -3566,7 +3592,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"comment\": 10\n}"
+                            "raw": "{\n    \"comment\": 13\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3585,7 +3611,7 @@
                                 {
                                     "id": "post",
                                     "key": "post",
-                                    "value": "13",
+                                    "value": "2",
                                     "description": ""
                                 }
                             ]
@@ -3606,27 +3632,27 @@
                             "formdata": [
                                 {
                                     "key": "location",
-                                    "value": "asperiores",
+                                    "value": "dolorum",
                                     "type": "text"
                                 },
                                 {
                                     "key": "content",
-                                    "value": "cum",
+                                    "value": "id",
                                     "type": "text"
                                 },
                                 {
                                     "key": "tag_followers",
                                     "value": [
-                                        18,
-                                        17
+                                        6,
+                                        15
                                     ],
                                     "type": "text"
                                 },
                                 {
                                     "key": "media_ids",
                                     "value": [
-                                        19,
-                                        16
+                                        17,
+                                        17
                                     ],
                                     "type": "text"
                                 },
@@ -3654,7 +3680,7 @@
                                 {
                                     "id": "post",
                                     "key": "post",
-                                    "value": "16",
+                                    "value": "17",
                                     "description": "the id of post"
                                 }
                             ]
@@ -3694,7 +3720,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quia",
+                                    "value": "eius",
                                     "description": ""
                                 }
                             ]
@@ -3728,7 +3754,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "aliquam",
+                                    "value": "quia",
                                     "description": ""
                                 }
                             ]
@@ -3762,7 +3788,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quam",
+                                    "value": "culpa",
                                     "description": ""
                                 }
                             ]
@@ -3838,7 +3864,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"activity_id\": 17\n}"
+                            "raw": "{\n    \"activity_id\": 2\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -3857,13 +3883,13 @@
                                 {
                                     "id": "profile_manager",
                                     "key": "profile_manager",
-                                    "value": "ad",
+                                    "value": "est",
                                     "description": ""
                                 },
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "6",
+                                    "value": "17",
                                     "description": ""
                                 }
                             ]
@@ -4004,18 +4030,18 @@
                             "query": [
                                 {
                                     "key": "range",
-                                    "value": "minus",
+                                    "value": "harum",
                                     "description": "\/\/ all , current, last",
                                     "disabled": false
                                 },
                                 {
                                     "key": "gender",
-                                    "value": "consequatur",
+                                    "value": "incidunt",
                                     "description": "\/\/ all , Male, Female, MaleMaster, FemaleMaster",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/{{baseUrl}}\/api\/reports\/customer-workouts-range?range=minus&gender=consequatur"
+                            "raw": "http:\/\/{{baseUrl}}\/api\/reports\/customer-workouts-range?range=harum&gender=incidunt"
                         },
                         "method": "GET",
                         "header": [
@@ -4088,7 +4114,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"est\"\n}"
+                            "raw": "{\n    \"search\": \"voluptatem\"\n}"
                         },
                         "description": "This endpoint searchs customers and shops and posts"
                     },
@@ -4117,7 +4143,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"consequatur\"\n}"
+                            "raw": "{\n    \"search\": \"explicabo\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -4146,7 +4172,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"quibusdam\"\n}"
+                            "raw": "{\n    \"search\": \"eligendi\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -4175,7 +4201,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"search\": \"ea\"\n}"
+                            "raw": "{\n    \"search\": \"sed\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -4204,7 +4230,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"u\": \"omnis\"\n}"
+                            "raw": "{\n    \"u\": \"ad\"\n}"
                         },
                         "description": "This endpoint\nIt find only shop unauthenticated, and it searchs customer or shop when authenticated.",
                         "auth": {
@@ -4478,7 +4504,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ipsam",
+                                    "value": "sint",
                                     "description": ""
                                 }
                             ]
@@ -4564,7 +4590,7 @@
                                 {
                                     "id": "subscription",
                                     "key": "subscription",
-                                    "value": "fugiat",
+                                    "value": "omnis",
                                     "description": ""
                                 }
                             ]
@@ -4694,7 +4720,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quis",
+                                    "value": "et",
                                     "description": ""
                                 }
                             ]
@@ -4728,7 +4754,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "aut",
+                                    "value": "unde",
                                     "description": ""
                                 }
                             ]
@@ -4762,7 +4788,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "aut",
                                     "description": ""
                                 }
                             ]
@@ -4858,7 +4884,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"first_name\": \"voluptatum\",\n    \"last_name\": \"doloremque\",\n    \"username\": \"qui\",\n    \"gender\": \"maiores\",\n    \"current_height\": \"minima\",\n    \"whatsapp_phone_number\": \"vitae\",\n    \"country\": \"incidunt\",\n    \"country_code\": \"nisi\",\n    \"description\": \"qui\"\n}"
+                            "raw": "{\n    \"first_name\": \"velit\",\n    \"last_name\": \"qui\",\n    \"username\": \"voluptas\",\n    \"gender\": \"earum\",\n    \"current_height\": \"sed\",\n    \"whatsapp_phone_number\": \"nihil\",\n    \"country\": \"esse\",\n    \"country_code\": \"vitae\",\n    \"description\": \"esse\"\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -5088,24 +5114,24 @@
                             "query": [
                                 {
                                     "key": "customer_id",
-                                    "value": "12",
+                                    "value": "6",
                                     "description": "",
                                     "disabled": false
                                 },
                                 {
                                     "key": "page_size",
-                                    "value": "3",
+                                    "value": "12",
                                     "description": "if not, it is 20",
                                     "disabled": false
                                 },
                                 {
                                     "key": "page_number",
-                                    "value": "18",
+                                    "value": "13",
                                     "description": "if not, it is 1, from 1",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/{{baseUrl}}\/api\/workout-comments\/publish?customer_id=12&page_size=3&page_number=18"
+                            "raw": "http:\/\/{{baseUrl}}\/api\/workout-comments\/publish?customer_id=6&page_size=12&page_number=13"
                         },
                         "method": "GET",
                         "header": [
@@ -5133,18 +5159,18 @@
                             "query": [
                                 {
                                     "key": "publish_date",
-                                    "value": "tempora",
+                                    "value": "molestiae",
                                     "description": "",
                                     "disabled": false
                                 },
                                 {
                                     "key": "customer_id",
-                                    "value": "7",
+                                    "value": "6",
                                     "description": "",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/{{baseUrl}}\/api\/workout-comments\/workout?publish_date=tempora&customer_id=7"
+                            "raw": "http:\/\/{{baseUrl}}\/api\/workout-comments\/workout?publish_date=molestiae&customer_id=6"
                         },
                         "method": "GET",
                         "header": [
@@ -5185,7 +5211,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"publish_date\": \"debitis\",\n    \"content\": \"nihil\",\n    \"type\": \"quo\",\n    \"workout\": \"ut\",\n    \"dumbells_weight\": 660.9907154\n}"
+                            "raw": "{\n    \"publish_date\": \"qui\",\n    \"content\": \"perferendis\",\n    \"type\": \"aspernatur\",\n    \"workout\": \"est\",\n    \"dumbells_weight\": 22329.381419\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -5204,13 +5230,13 @@
                                 {
                                     "id": "workout_comment",
                                     "key": "workout_comment",
-                                    "value": "omnis",
+                                    "value": "ipsum",
                                     "description": ""
                                 },
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "12",
+                                    "value": "20",
                                     "description": "comment id"
                                 }
                             ]
@@ -5228,7 +5254,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"content\": \"rerum\",\n    \"dumbells_weight\": 482855047.798032\n}"
+                            "raw": "{\n    \"content\": \"doloremque\",\n    \"dumbells_weight\": 77209.158366523\n}"
                         },
                         "description": "This endpoint."
                     },
@@ -5389,7 +5415,7 @@
                                 {
                                     "id": "social_report",
                                     "key": "social_report",
-                                    "value": "fugiat",
+                                    "value": "ut",
                                     "description": ""
                                 }
                             ]
@@ -5423,7 +5449,7 @@
                                 {
                                     "id": "social_report",
                                     "key": "social_report",
-                                    "value": "expedita",
+                                    "value": "repudiandae",
                                     "description": ""
                                 }
                             ]
@@ -5457,7 +5483,7 @@
                                 {
                                     "id": "social_report",
                                     "key": "social_report",
-                                    "value": "recusandae",
+                                    "value": "et",
                                     "description": ""
                                 }
                             ]

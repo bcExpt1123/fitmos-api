@@ -83,6 +83,7 @@ Route::post('customers/newsfeed', 'CustomerController@newsfeed')->middleware('au
 Route::post('customers/oldnewsfeed', 'CustomerController@oldnewsfeed')->middleware('auth:api');
 Route::post('customers/notifications', 'CustomerController@notifications')->middleware('auth:api');
 Route::get('customers/{id}/profile', 'CustomerController@profile')->where('id', '[0-9]+')->middleware('auth:api');
+Route::get('customers/all', 'CustomerController@all')->middleware('auth:api');
 Route::post('customers/update-dumbells-weight', 'CustomerController@updateDumbellsWeight')->where('id', '[0-9]+')->middleware('auth:api');
 Route::resource('customers', 'CustomerController')->middleware('auth:api');
 Route::get('transactions/export', 'TransactionController@export')->middleware('auth:api');

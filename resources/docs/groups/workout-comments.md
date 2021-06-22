@@ -12,7 +12,7 @@ APIs for managing  likes for post and comment on social part
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/workout-comments/publish?customer_id=12&page_size=3&page_number=18" \
+    -G "http://127.0.0.4/api/workout-comments/publish?customer_id=6&page_size=12&page_number=13" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -23,9 +23,9 @@ const url = new URL(
 );
 
 let params = {
-    "customer_id": "12",
-    "page_size": "3",
-    "page_number": "18",
+    "customer_id": "6",
+    "page_size": "12",
+    "page_number": "13",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -108,7 +108,7 @@ if not, it is 1, from 1</p>
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/workout-comments/workout?publish_date=tempora&customer_id=7" \
+    -G "http://127.0.0.4/api/workout-comments/workout?publish_date=molestiae&customer_id=6" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -119,8 +119,8 @@ const url = new URL(
 );
 
 let params = {
-    "publish_date": "tempora",
-    "customer_id": "7",
+    "publish_date": "molestiae",
+    "customer_id": "6",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -202,7 +202,7 @@ curl -X POST \
     "http://127.0.0.4/api/workout-comments" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"publish_date":"debitis","content":"nihil","type":"quo","workout":"ut","dumbells_weight":660.9907154}'
+    -d '{"publish_date":"qui","content":"perferendis","type":"aspernatur","workout":"est","dumbells_weight":22329.381419}'
 
 ```
 
@@ -217,11 +217,11 @@ let headers = {
 };
 
 let body = {
-    "publish_date": "debitis",
-    "content": "nihil",
-    "type": "quo",
-    "workout": "ut",
-    "dumbells_weight": 660.9907154
+    "publish_date": "qui",
+    "content": "perferendis",
+    "type": "aspernatur",
+    "workout": "est",
+    "dumbells_weight": 22329.381419
 }
 
 fetch(url, {
@@ -299,16 +299,16 @@ This endpoint.
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/workout-comments/omnis" \
+    "http://127.0.0.4/api/workout-comments/ipsum" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"content":"rerum","dumbells_weight":482855047.798032}'
+    -d '{"content":"doloremque","dumbells_weight":77209.158366523}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/workout-comments/omnis"
+    "http://127.0.0.4/api/workout-comments/ipsum"
 );
 
 let headers = {
@@ -317,8 +317,8 @@ let headers = {
 };
 
 let body = {
-    "content": "rerum",
-    "dumbells_weight": 482855047.798032
+    "content": "doloremque",
+    "dumbells_weight": 77209.158366523
 }
 
 fetch(url, {

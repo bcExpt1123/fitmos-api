@@ -751,4 +751,36 @@ class CustomerController extends Controller
         }
         return response()->json(['status'=>false],401);
     }
+    /**
+     * get all customers except me containing expired customers
+     * @authenticated
+     */
+    public function all(Request $request){
+        $user = $request->user('api');
+        if($user->customer){
+            $search = $request->search;
+            $where = Customer::where(function($query) use ($search) {
+                $query->whereHas('user', function($q) use ($search){
+                    $q->where('active','=','1');
+                    $q->where('name','like',"%$search%");
+                });
+            })->where('id','!=',$user->customer->id);
+            $customers = $where->get();
+            foreach($customers as $customer){
+                $customer->display = $customer->first_name.' '.$customer->last_name;
+                $customer->getAvatar();
+                $customer->chat_id = $customer->user->chat_id;
+                unset($customer->user);
+                if($customer->mutedRelations->count()>0){
+                    $customer['relation'] = $customer->mutedRelations[0]->pivot->status;
+                }
+            }
+            return response()->json([
+                'customers'=>$customers
+            ]);
+        }
+        return response()->json([
+            'errors' => ['result'=>[['error'=>'failed']]]
+        ], 403);
+    }
 }

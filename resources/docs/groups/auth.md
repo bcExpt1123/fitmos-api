@@ -579,14 +579,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/verify/placeat" \
+    -G "http://127.0.0.4/api/verify/aliquid" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/verify/placeat"
+    "http://127.0.0.4/api/verify/aliquid"
 );
 
 let headers = {
@@ -711,14 +711,14 @@ This endpoint.
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/password/reset/error" \
+    "http://127.0.0.4/api/password/reset/sit" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/password/reset/error"
+    "http://127.0.0.4/api/password/reset/sit"
 );
 
 let headers = {

@@ -12,7 +12,7 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/likes?activity_id=8&pageNumber=18" \
+    -G "http://127.0.0.4/api/likes?activity_id=20&pageNumber=18" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -23,7 +23,7 @@ const url = new URL(
 );
 
 let params = {
-    "activity_id": "8",
+    "activity_id": "20",
     "pageNumber": "18",
 };
 Object.keys(params)
@@ -109,7 +109,7 @@ curl -X POST \
     "http://127.0.0.4/api/likes" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"activity_id":15}'
+    -d '{"activity_id":4}'
 
 ```
 
@@ -124,7 +124,7 @@ let headers = {
 };
 
 let body = {
-    "activity_id": 15
+    "activity_id": 4
 }
 
 fetch(url, {
@@ -182,14 +182,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/likes/quisquam" \
+    "http://127.0.0.4/api/likes/deserunt" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/likes/quisquam"
+    "http://127.0.0.4/api/likes/deserunt"
 );
 
 let headers = {

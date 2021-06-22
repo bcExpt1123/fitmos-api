@@ -1283,7 +1283,7 @@ curl -X POST \
     "http://127.0.0.4/api/customers/newsfeed" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"suggested":8,"post_id":2}'
+    -d '{"suggested":9,"post_id":12}'
 
 ```
 
@@ -1298,8 +1298,8 @@ let headers = {
 };
 
 let body = {
-    "suggested": 8,
-    "post_id": 2
+    "suggested": 9,
+    "post_id": 12
 }
 
 fetch(url, {
@@ -1434,7 +1434,7 @@ curl -X POST \
     "http://127.0.0.4/api/customers/oldnewsfeed" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"post_id":6}'
+    -d '{"post_id":20}'
 
 ```
 
@@ -1449,7 +1449,7 @@ let headers = {
 };
 
 let body = {
-    "post_id": 6
+    "post_id": 20
 }
 
 fetch(url, {
@@ -1507,14 +1507,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/customers/repellat/profile" \
+    -G "http://127.0.0.4/api/customers/facilis/profile" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/customers/repellat/profile"
+    "http://127.0.0.4/api/customers/facilis/profile"
 );
 
 let headers = {
@@ -1563,6 +1563,142 @@ fetch(url, {
 <input type="text" name="id" data-endpoint="GETapi-customers--id--profile" data-component="url" required  hidden>
 <br>
 </p>
+</form>
+
+
+## get all customers except me containing expired customers
+
+<small class="badge badge-darkred">requires authentication</small>
+
+
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://127.0.0.4/api/customers/all" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://127.0.0.4/api/customers/all"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response => response.json());
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+<div id="execution-results-GETapi-customers-all" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-customers-all"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-customers-all"></code></pre>
+</div>
+<div id="execution-error-GETapi-customers-all" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-customers-all"></code></pre>
+</div>
+<form id="form-GETapi-customers-all" data-method="GET" data-path="api/customers/all" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-customers-all', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-customers-all" onclick="tryItOut('GETapi-customers-all');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-customers-all" onclick="cancelTryOut('GETapi-customers-all');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-customers-all" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/customers/all</code></b>
+</p>
+<p>
+<label id="auth-GETapi-customers-all" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-customers-all" data-component="header"></label>
+</p>
+</form>
+
+
+## update self&#039;s bumbells weight
+
+<small class="badge badge-darkred">requires authentication</small>
+
+
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://127.0.0.4/api/customers/update-dumbells-weight" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"weight":158851.98}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://127.0.0.4/api/customers/update-dumbells-weight"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "weight": 158851.98
+}
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response => response.json());
+```
+
+
+<div id="execution-results-POSTapi-customers-update-dumbells-weight" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-customers-update-dumbells-weight"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-customers-update-dumbells-weight"></code></pre>
+</div>
+<div id="execution-error-POSTapi-customers-update-dumbells-weight" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-customers-update-dumbells-weight"></code></pre>
+</div>
+<form id="form-POSTapi-customers-update-dumbells-weight" data-method="POST" data-path="api/customers/update-dumbells-weight" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-customers-update-dumbells-weight', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-customers-update-dumbells-weight" onclick="tryItOut('POSTapi-customers-update-dumbells-weight');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-customers-update-dumbells-weight" onclick="cancelTryOut('POSTapi-customers-update-dumbells-weight');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-customers-update-dumbells-weight" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>api/customers/update-dumbells-weight</code></b>
+</p>
+<p>
+<label id="auth-POSTapi-customers-update-dumbells-weight" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-customers-update-dumbells-weight" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>weight</code></b>&nbsp;&nbsp;<small>number</small>  &nbsp;
+<input type="number" name="weight" data-endpoint="POSTapi-customers-update-dumbells-weight" data-component="body" required  hidden>
+<br>
+</p>
+
 </form>
 
 
