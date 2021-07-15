@@ -353,7 +353,8 @@ class SearchController extends Controller
                 $where = $where->where('id','<',$request->id);
             }
             $config = new Config;
-            $orderColumn = $config->findByName('customer_display_order_column');    
+            $orderColumn = $config->findByName('customer_display_order_column');   
+            if($orderColumn === null) $orderColumn = 'first_order_id';
             $customers = $where->orderBy($orderColumn,'desc')->skip(($page - 1) * 20)->take(20)->get();
             foreach($customers as $customer){
                 $customer->getAvatar();

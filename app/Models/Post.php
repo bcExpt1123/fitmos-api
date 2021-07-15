@@ -242,7 +242,7 @@ class Post extends Model
                 unset($this->customer);
                 $this->customer = $customer;
                 break;
-            }
+        }
     }
     private function convertJson($content){
         $lines = explode("\n",$content);

@@ -1340,7 +1340,7 @@ class Customer extends Model
         }
         $profileManagerIds = $this->getProfileMangerIds();
         $where = \App\Models\Post::where(function($query) use ($suggested, $companyIds, $profileManagerIds){
-            with(['customer','medias']);
+            // with(['customer','medias']);
             $query->whereHas('customer',function($query) use ($suggested, $profileManagerIds){
                 if($suggested == 0){
                     $query->whereHas('followers',function($q){
@@ -1442,23 +1442,23 @@ class Customer extends Model
     public function getOldNewsfeed($fromId){
         $profileManagerIds = $this->getProfileMangerIds();
         $where = \App\Models\Post::with(['customer','medias']);
-        if($fromId>0){
-            $where->where('id','<',$fromId);
-        }
-        $where->whereHas('customer',function($query){
+        $where->whereHas('customer',function($query) use ($profileManagerIds) {
             $query->whereHas('followers',function($q){
                 $q->where("follows.follower_id",$this->id); 
             });
             $query->whereDoesntHave('mutedRelations',function($q){
                 $q->where("customers_relations.follower_id",$this->id); 
             });
+            $query->orwhere('customer_id','=',$this->id);
+            $query->orWhereIn('customer_id',$profileManagerIds);
         });
-        $where->orwhere('customer_id','=',$this->id);
-        $where->orWhereIn('customer_id',$profileManagerIds);
         $where->whereHas('readingCustomers',function($query){
             $query->where("reading_posts.customer_id",$this->id);
         });
         $where->where('type','!=','join');
+        if($fromId>0){
+            $where->where('id','<',$fromId);
+        }
         $result = $where->where('posts.status',1)->orderBy('posts.id','desc')->limit(9)->get();
         $posts = [];
         foreach($result as $index=>$post){

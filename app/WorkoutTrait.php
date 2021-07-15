@@ -125,6 +125,7 @@ trait WorkoutTrait
         }
         if(Workout::UPDATE){
             $result = null;
+            $multiplerPattern = '/\d{1,2}/';
             if(isset($record->{$slug.'_element'})&&$record->{$slug.'_element'}){
                 if(is_array($record->{$slug.'_element'}))$lines = $record->{$slug.'_element'};
                 else $lines = unserialize($record->{$slug.'_element'});
@@ -135,6 +136,24 @@ trait WorkoutTrait
                 foreach($lines as $index=>$line){
                     if(isset($line['video']) && $line['video']['id']){
                         $lines[$index]['video'] = self::findShortcode($line['video']['id'],$customerId);
+                        if(isset($line['before_content'])){
+                            $check = preg_match($multiplerPattern, $line['before_content'],$keywords);
+                            if($check){
+                                $multipler = $keywords[0];
+                                $beforeContent = str_replace($keywords[0],"@@multipler@@",$line['before_content']);
+                                $beforeContent = ['content'=>$line,'multipler'=>$multipler];
+                                $line['before_content'] = $beforeContent;
+                            }            
+                        }
+                        if(isset($line['after_content'])){
+                            $check = preg_match($multiplerPattern, $line['after_content'], $keywords);
+                            if($check){
+                                $multipler = $keywords[0];
+                                $afterContent = str_replace($keywords[0],"@@multipler@@",$line['after_content']);
+                                $afterContent = ['content'=>$afterContent,'multipler'=>$multipler];
+                                $line['after_content'] = $afterContent;
+                            }      
+                        }
                         $lines[$index]['line'] = $line;
                     }
                     if(isset($line['before_content']) ){
@@ -153,7 +172,7 @@ trait WorkoutTrait
                         if(is_array($line['after_content'])){
                             if(isset($customer))$line['after_content']['content'] = str_ireplace("{name}", $customer->first_name, $line['after_content']['content']);                        
                             if($lines[$index]['video']){
-                                $lines[$index]['after_content'] = str_replace("@@multipler@@", round($line['after_content']['multipler'] / $lines[$index]['video']['multipler']),$line['after_content']['content']);
+                                $lines[$index]['after_content'] = str_replace("@@multipler@@", round($line['after_content']['multipler'] * $lines[$index]['video']['multipler']),$line['after_content']['content']);
                             }else{
                                 $lines[$index]['after_content'] = str_replace("@@multipler@@", $line['after_content']['multipler'],$line['after_content']['content']);
                             }
@@ -718,20 +737,39 @@ trait WorkoutTrait
                     $video['time']=$alternativeA->time;
                     $video['level']=$alternativeA->level;
                     $video['instruction']=$alternativeA->instruction;
-                    $video['alternate_a'] = [
-                        'name'=>$shortcode->name,
-                        'id'=>$shortcode->id,
-                        'instruction'=>$shortcode->instruction,
-                        'url'=>$shortcode->video_url,
-                        'time'=>$shortcode->time,
-                        'level'=>$shortcode->level,    
-                        'multipler'=>1,
-                    ];
-                    if($shortcode->multipler_a){
-                        $video['multipler'] = $shortcode->multipler_a;
-                        $video['multipler_a'] = 1;
-                        $video['original_multipler'] = $shortcode->multipler_a;
+                    if($shortcode->alternate_b){
+                        $video['alternate_b'] = [
+                            'name'=>$shortcode->name,
+                            'id'=>$shortcode->id,
+                            'instruction'=>$shortcode->instruction,
+                            'url'=>$shortcode->video_url,
+                            'time'=>$shortcode->time,
+                            'level'=>$shortcode->level,    
+                            'multipler'=>1,
+                        ];
+                        $video['alternate_a'] = [
+                            'name'=>$alternativeB->name,
+                            'id'=>$alternativeB->id,
+                            'instruction'=>$alternativeB->instruction,
+                            'url'=>$alternativeB->video_url,
+                            'time'=>$alternativeB->time,
+                            'level'=>$alternativeB->level,    
+                            'multipler'=>1,
+                        ];
+                    }else{
+                        $video['alternate_a'] = [
+                            'name'=>$shortcode->name,
+                            'id'=>$shortcode->id,
+                            'instruction'=>$shortcode->instruction,
+                            'url'=>$shortcode->video_url,
+                            'time'=>$shortcode->time,
+                            'level'=>$shortcode->level,    
+                            'multipler'=>1,
+                        ];
                     }
+                    $video['multipler'] = $shortcode->multipler_a;
+                    $video['multipler_a'] = 1;
+                    $video['original_multipler'] = $shortcode->multipler_a;
                 }
                 if($change == "b"){
                     $video['name']=$alternativeB->name;
@@ -740,20 +778,39 @@ trait WorkoutTrait
                     $video['time']=$alternativeB->time;
                     $video['level']=$alternativeB->level;
                     $video['instruction']=$alternativeB->instruction;
-                    $video['alternate_b'] = [
-                        'name'=>$shortcode->name,
-                        'id'=>$shortcode->id,
-                        'instruction'=>$shortcode->instruction,
-                        'url'=>$shortcode->video_url,
-                        'time'=>$shortcode->time,
-                        'level'=>$shortcode->level,    
-                        'multipler'=>1,
-                    ];
-                    if($shortcode->alternate_b){
-                        $video['multipler'] = $shortcode->multipler_b;
-                        $video['multipler_b'] = 1;
-                        $video['original_multipler'] = $shortcode->multipler_b;
+                    if($shortcode->alternate_a){
+                        $video['alternate_a'] = [
+                            'name'=>$shortcode->name,
+                            'id'=>$shortcode->id,
+                            'instruction'=>$shortcode->instruction,
+                            'url'=>$shortcode->video_url,
+                            'time'=>$shortcode->time,
+                            'level'=>$shortcode->level,    
+                            'multipler'=>1,
+                        ];
+                        $video['alternate_b'] = [
+                            'name'=>$alternativeA->name,
+                            'id'=>$alternativeA->id,
+                            'instruction'=>$alternativeA->instruction,
+                            'url'=>$alternativeA->video_url,
+                            'time'=>$alternativeA->time,
+                            'level'=>$alternativeA->level,    
+                            'multipler'=>1,
+                        ];
+                    }else{
+                        $video['alternate_b'] = [
+                            'name'=>$shortcode->name,
+                            'id'=>$shortcode->id,
+                            'instruction'=>$shortcode->instruction,
+                            'url'=>$shortcode->video_url,
+                            'time'=>$shortcode->time,
+                            'level'=>$shortcode->level,    
+                            'multipler'=>1,
+                        ];
                     }
+                    $video['multipler'] = $shortcode->multipler_b;
+                    $video['multipler_b'] = 1;
+                    $video['original_multipler'] = $shortcode->multipler_b;
                 }
             }
         }
