@@ -517,7 +517,7 @@ class Customer extends Model
         return false;
     }
     public function changeLevel(){
-        $level = LevelTest::whereCustomerId($this->id)->orderBy('recording_date','desc')->first();
+        $level = LevelTest::whereCustomerId($this->id)->orderBy('created_at','desc')->first();
         if($level){
             $current = $level->repetition;
         }else{
