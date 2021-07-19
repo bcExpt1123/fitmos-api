@@ -52,7 +52,7 @@ class MoveFileToS3 implements ShouldQueue
         $cdnWebsite = "https://s3.fitemos.com/";
         if (App::environment('local')) {
             $cdnWebsite = "https://devs3.fitemos.com/";
-        }        
+        }
         if (App::environment('staging')) {
             $cdnWebsite = "https://s3.fitemos.com/";
         }        
@@ -60,8 +60,13 @@ class MoveFileToS3 implements ShouldQueue
             $track = GetId3::fromDiskAndPath('local', $this->filename);
             $data = $track->extractInfo();
             if(isset($data['video']['resolution_x'])){
-                $media->width = $data['video']['resolution_x'];
-                $media->height = $data['video']['resolution_y'];
+                if($data['video']['rotate'] === 90){
+                    $media->height = $data['video']['resolution_x'];
+                    $media->width = $data['video']['resolution_y'];
+                }else{
+                    $media->width = $data['video']['resolution_x'];
+                    $media->height = $data['video']['resolution_y'];
+                }
             }
         }
         if($media->type=='image'){
