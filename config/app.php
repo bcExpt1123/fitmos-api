@@ -243,4 +243,5 @@ return [
     'nmi_password'=>env('NMI_PASSWORD'),
     'nmi_security_key'=>env('NMI_SECURITY_KEY'),
     'payment_test_mode'=>env('PAYMENT_TEST_MODE'),
+    'fcm_key'=>env('FCM_KEY'),
 ];
