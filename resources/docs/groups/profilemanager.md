@@ -81,7 +81,7 @@ curl -X POST \
     "http://127.0.0.4/api/profile-managers" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"activity_id":2}'
+    -d '{"activity_id":1}'
 
 ```
 
@@ -96,7 +96,7 @@ let headers = {
 };
 
 let body = {
-    "activity_id": 2
+    "activity_id": 1
 }
 
 fetch(url, {
@@ -154,14 +154,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/profile-managers/est" \
+    "http://127.0.0.4/api/profile-managers/aliquid" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/profile-managers/est"
+    "http://127.0.0.4/api/profile-managers/aliquid"
 );
 
 let headers = {

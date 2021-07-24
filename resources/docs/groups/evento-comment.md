@@ -138,14 +138,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/evento-comments/quia" \
+    -G "http://127.0.0.4/api/evento-comments/labore" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/evento-comments/quia"
+    "http://127.0.0.4/api/evento-comments/labore"
 );
 
 let headers = {
@@ -207,14 +207,14 @@ This endpoint.
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/evento-comments/sit" \
+    "http://127.0.0.4/api/evento-comments/eligendi" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/evento-comments/sit"
+    "http://127.0.0.4/api/evento-comments/eligendi"
 );
 
 let headers = {
@@ -280,14 +280,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/evento-comments/minima" \
+    "http://127.0.0.4/api/evento-comments/aut" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/evento-comments/minima"
+    "http://127.0.0.4/api/evento-comments/aut"
 );
 
 let headers = {

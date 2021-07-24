@@ -141,7 +141,7 @@ curl -X POST \
     "http://127.0.0.4/api/chat/user-id" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"chat_id":3}'
+    -d '{"chat_id":15}'
 
 ```
 
@@ -156,7 +156,7 @@ let headers = {
 };
 
 let body = {
-    "chat_id": 3
+    "chat_id": 15
 }
 
 fetch(url, {

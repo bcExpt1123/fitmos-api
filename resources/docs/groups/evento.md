@@ -15,7 +15,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/eventos/home" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"pageSize":7,"pageNumber":13}'
+    -d '{"pageSize":10,"pageNumber":20}'
 
 ```
 
@@ -30,8 +30,8 @@ let headers = {
 };
 
 let body = {
-    "pageSize": 7,
-    "pageNumber": 13
+    "pageSize": 10,
+    "pageNumber": 20
 }
 
 fetch(url, {
@@ -162,14 +162,14 @@ This endpoint.
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/eventos/magnam/toggle-attend" \
+    "http://127.0.0.4/api/eventos/ipsam/toggle-attend" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/eventos/magnam/toggle-attend"
+    "http://127.0.0.4/api/eventos/ipsam/toggle-attend"
 );
 
 let headers = {
@@ -234,14 +234,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/eventos/16" \
+    -G "http://127.0.0.4/api/eventos/4" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/eventos/16"
+    "http://127.0.0.4/api/eventos/4"
 );
 
 let headers = {

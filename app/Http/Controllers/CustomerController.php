@@ -783,4 +783,23 @@ class CustomerController extends Controller
             'errors' => ['result'=>[['error'=>'failed']]]
         ], 403);
     }
+    /**
+     * update push notification token
+     * @authenticated
+     * @bodyParam token string required
+     */
+    public function pushNotificationToken(Request $request){
+        $user = $request->user('api');
+        $validator = Validator::make($request->all(), array('token'=>['required']));
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()],422);
+        }
+        if($user->customer){
+            $user->customer->push_notification_token = $request->token;
+            $user->customer->save();
+            $me = User::findDetails($user);
+            return response()->json(['user' => $me]);
+        }
+        return response()->json(['status'=>false],401);
+    }
 }

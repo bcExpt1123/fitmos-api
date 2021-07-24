@@ -264,7 +264,7 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/reports/customer-workouts-range?range=harum&gender=incidunt" \
+    -G "http://127.0.0.4/api/reports/customer-workouts-range?range=aut&gender=repellendus" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -275,8 +275,8 @@ const url = new URL(
 );
 
 let params = {
-    "range": "harum",
-    "gender": "incidunt",
+    "range": "aut",
+    "gender": "repellendus",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
