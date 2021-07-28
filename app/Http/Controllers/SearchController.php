@@ -332,6 +332,8 @@ class SearchController extends Controller
      * 
      * @authenticated
      * 
+     * @getParam page integer required
+     * 
      * @response {
      *  "customers":[{customer}],
      * }

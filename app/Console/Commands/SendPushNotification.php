@@ -37,7 +37,7 @@ class SendPushNotification extends Command
      */
     public function handle()
     {
-        
+        $this->sendNotification(7482);
     }
     private function sendNotification($id){
         $notification = \App\Models\Notification::find($id);
@@ -70,7 +70,7 @@ class SendPushNotification extends Command
                             'action_type'=>$notification->action_type
                         ];
                 }
-                \App\Models\Notification::pushNotification($customer->push_notification_token,$data);
+                $result = \App\Models\Notification::pushNotification($customer->push_notification_token,$data);
             }
         }
     }
