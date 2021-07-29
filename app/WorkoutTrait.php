@@ -208,7 +208,7 @@ trait WorkoutTrait
         }
         return $result;
     }
-    private function hasComment($slug, $publishDate, $customer){
+    private static function hasComment($slug, $publishDate, $customer){
         if(in_array($slug,['sin_content','con_content'])){
             $comment = \App\Models\WorkoutComment::whereCustomerId($customer->id)->whereType('basic')->wherePublishDate($publishDate)->first();
             return $comment;
@@ -665,6 +665,7 @@ trait WorkoutTrait
     }
     private static function findShortcode($shortcodeId, $customerId){
         $shortcode = Shortcode::find($shortcodeId);
+        if($shortcode === null) return null;
         $video=[
             'name'=>$shortcode->name,
             'id'=>$shortcode->id,
@@ -707,28 +708,12 @@ trait WorkoutTrait
             ];
         }
         if( $customerId ){
+            $customer = Customer::find($customerId);
             $customerShortcode = CustomerShortcode::whereCustomerId($customerId)->whereShortcodeId($shortcodeId)->first();
-            $change = false;
-            if($customerShortcode){
-                if($customerShortcode->alternate_id != $shortcodeId){
-                    $diffDates = (time() - strtotime($customerShortcode->created_at->format('Y-m-d H:i:s')))/3600/24;
-                    if($diffDates<$customerShortcode->alternate->time){
-                        if($customerShortcode->alternate_id == $shortcode->alternate_a)$change = "a";
-                        if($customerShortcode->alternate_id == $shortcode->alternate_b)$change = "b";
-                    }
-                }
+            if($customerShortcode === null){
+                $customerShortcode = CustomerShortcode::createFirstItem($customer, $shortcode);
             }
-            if(!$change){
-                $customer = Customer::find($customerId);
-                if($shortcode->level > $customer->current_condition){
-                    if($alternativeA->level == $customer->current_condition){
-                        $change = "a";
-                    }
-                    if($alternativeB->level == $customer->current_condition){
-                        $change = "b";
-                    }
-                }
-            }
+            $change = $customerShortcode->getChange();
             if($change){
                 if($change == "a"){
                     $video['name']=$alternativeA->name;

@@ -579,7 +579,7 @@ class CustomerController extends Controller
         $user = $request->user('api');
         if($user->customer){
             $shortcode = Shortcode::find($request->shortcode_id);
-            if($user->customer->current_condition>=$shortcode->level){
+            if($shortcode){
                 $customerShortcode = CustomerShortcode::updateOrCreate(
                     ['customer_id' => $user->customer->id, 'shortcode_id' => $request->shortcode_id],
                     ['alternate_id' => $request->alternate_id]
