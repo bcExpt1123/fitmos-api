@@ -337,7 +337,8 @@ class Notification extends Model
                 'type'=>$notification->type,
                 'message'=>$notification->content,
                 'action_type'=>$notification->action_type,
-                'action_id' => $notification->action_id
+                'action_id' => $notification->action_id,
+                'click_action' => 'FLUTTER_NOTIFICATION_CLICK'
             ];
             self::pushNotification($customer->push_notification_token,$data);
         }
@@ -350,7 +351,8 @@ class Notification extends Model
         /*apiKey available in:
         Firebase Console -> Project Settings -> CLOUD MESSAGING -> Server key*/    
         $apiKey = config('app.fcm_key');
-
+        $data['message'] = str_replace('<b>','',$data['message']);
+        $data['message'] = str_replace('</b>','',$data['message']);
         $notification = $data;
         $notification['icon'] = 'new';
         $notification['sound'] = 'default';
