@@ -338,7 +338,6 @@ class Notification extends Model
                 'message'=>$notification->content,
                 'action_type'=>$notification->action_type,
                 'action_id' => $notification->action_id,
-                'click_action' => 'FLUTTER_NOTIFICATION_CLICK'
             ];
             self::pushNotification($customer->push_notification_token,$data);
         }
@@ -353,6 +352,7 @@ class Notification extends Model
         $apiKey = config('app.fcm_key');
         $data['message'] = str_replace('<b>','',$data['message']);
         $data['message'] = str_replace('</b>','',$data['message']);
+        $data['click_action'] = 'FLUTTER_NOTIFICATION_CLICK';
         $notification = $data;
         $notification['icon'] = 'new';
         $notification['sound'] = 'default';
