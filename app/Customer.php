@@ -1512,7 +1512,7 @@ class Customer extends Model
             $date->add(-1,'day');
         }
         setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
-        while($date->lessThan($firstDate) && $date->greaterThanOrEqualTo($secondDate)){
+        while($date->lessThan($startDate) && $date->greaterThanOrEqualTo($endDate)){
             $birthday = $date->format("m-d");
             // if($birthday == '04-16'){
                 $where = Customer::with('user')

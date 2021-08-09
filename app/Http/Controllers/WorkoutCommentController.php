@@ -64,7 +64,7 @@ class WorkoutCommentController extends Controller
         }        
         $user = $request->user('api');
         $comment = WorkoutComment::find($id);
-        if($comment->customer_id === $user->customer->id){
+        if($comment->customer_id == $user->customer->id){
             $comment->fill([
                 'content'=>$request->content,
                 'dumbells_weight'=>$request->dumbells_weight
