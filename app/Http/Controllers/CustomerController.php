@@ -441,7 +441,8 @@ class CustomerController extends Controller
             $shortcode = Shortcode::find($request->input('shortcode_id'));
             if($shortcode){
                 $exist = true;
-                $redirectLink = $shortcode->url;
+                $redirectLink = $shortcode->video_url;
+                if($redirectLink == null)$redirectLink = $shortcode->link;
             }
         }
         if(!$exist)$redirectLink = 'https://youtu.be/qcQJi0wb2Dg';
@@ -579,7 +580,7 @@ class CustomerController extends Controller
         $user = $request->user('api');
         if($user->customer){
             $shortcode = Shortcode::find($request->shortcode_id);
-            if($user->customer->current_condition>=$shortcode->level){
+            if($shortcode){
                 $customerShortcode = CustomerShortcode::updateOrCreate(
                     ['customer_id' => $user->customer->id, 'shortcode_id' => $request->shortcode_id],
                     ['alternate_id' => $request->alternate_id]
@@ -782,5 +783,24 @@ class CustomerController extends Controller
         return response()->json([
             'errors' => ['result'=>[['error'=>'failed']]]
         ], 403);
+    }
+    /**
+     * update push notification token
+     * @authenticated
+     * @bodyParam token string required
+     */
+    public function pushNotificationToken(Request $request){
+        $user = $request->user('api');
+        $validator = Validator::make($request->all(), array('token'=>['required']));
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()],422);
+        }
+        if($user->customer){
+            $user->customer->push_notification_token = $request->token;
+            $user->customer->save();
+            $me = User::findDetails($user);
+            return response()->json(['user' => $me]);
+        }
+        return response()->json(['status'=>false],401);
     }
 }

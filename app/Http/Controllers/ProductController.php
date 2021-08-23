@@ -187,7 +187,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $productImage=ProductImage::Where('product_id',$id)->get();
         foreach ($productImage as $index=>$item){
-            $productImage[$index]['image']=url("storage/".$item->image);
+            $productImage[$index]['image']=secure_url("storage/".$item->image);
         }
         $product['companyMatchId'] = $product->company_id;
         return response()->json(array('status'=>'ok','product'=>$product,'productImage'=>$productImage ));    
@@ -289,7 +289,7 @@ class ProductController extends Controller
             $productImage = ProductImage::where('image',$delete[1])->delete();
             $productGallery = ProductImage::where('product_id',$productId[0]['product_id'])->get();
             foreach($productGallery as $index=>$item){
-                $productGallery[$index]['image'] = url('storage/'.$productGallery[$index]['image']);
+                $productGallery[$index]['image'] = secure_url('storage/'.$productGallery[$index]['image']);
             }
             return response()->json(array('status'=>'ok','productId'=>$productId[0]['product_id'],'gallery'=>$productGallery));
         }else{
@@ -313,7 +313,7 @@ class ProductController extends Controller
             $product->company;
             foreach ($product->gallery as $index=>$item){
                 $product->gallery[$index]['thumbnail']=$productImage->getImageSize($item->image,"x-small");
-                $product->gallery[$index]['image']=url('storage/'.$item->image);
+                $product->gallery[$index]['image']=secure_url('storage/'.$item->image);
                 $product->gallery[$index]['media_url']=$productImage->getImageSize($item->image,"large");
             }
             //$products = Product::whereStatus("Active")->where("expiration_date",">=",$user->customer->currentDate())->where('id','!=',$id)->inRandomOrder()->limit(6)->get();

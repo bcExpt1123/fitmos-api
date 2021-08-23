@@ -38,7 +38,7 @@ class ProfileManagerController extends Controller
         $customer->user->assignRole('profileManager');
         Cache::forget('profileManagerIds');
         return response()->json([
-            'profileManager'=>$profileManager]
+            'profileManager'=>$customer]
             );        
         
     }

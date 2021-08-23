@@ -40,12 +40,12 @@ class Kernel extends ConsoleKernel
             ->everyTenMinutes()
             ->evenInMaintenanceMode()
             ->timezone('America/Panama');
-        if(!$this->isRunQueue()){
+/*        if(!$this->isRunQueue()){
             $schedule->command('queue:work --tries=3')
             ->everyTenMinutes()
             ->evenInMaintenanceMode()
             ->timezone('America/Panama');
-        }    
+        }    */
         $schedule->command('mautic:scrape')
             ->hourly()
             ->evenInMaintenanceMode()

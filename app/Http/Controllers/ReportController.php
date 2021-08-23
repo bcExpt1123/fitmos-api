@@ -300,25 +300,25 @@ class ReportController extends Controller
                     $data = pathinfo($item->user->avatar);
                     $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];                                
                     $avatarUrls = [
-                        'max'=>url("storage/".$item->user->avatar),
-                        'large'=>url("storage/".$item->user->avatar),
-                        'medium'=>url("storage/".$item->user->avatar),
-                        'small'=>url("storage/".$avatarFile),
+                        'max'=>secure_url("storage/".$item->user->avatar),
+                        'large'=>secure_url("storage/".$item->user->avatar),
+                        'medium'=>secure_url("storage/".$item->user->avatar),
+                        'small'=>secure_url("storage/".$avatarFile),
                     ];
                 }else{
                     if($item->gender=="Male"){
                         $avatarUrls = [
-                            'max'=>url("storage/media/avatar/X-man-large.jpg"),
-                            'large'=>url("storage/media/avatar/X-man-large.jpg"),
-                            'medium'=>url("storage/media/avatar/X-man-medium.jpg"),
-                            'small'=>url("storage/media/avatar/X-man-small.jpg"),
+                            'max'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                            'large'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                            'medium'=>secure_url("storage/media/avatar/X-man-medium.jpg"),
+                            'small'=>secure_url("storage/media/avatar/X-man-small.jpg"),
                         ];
                     }else{
                         $avatarUrls = [
-                            'max'=>url("storage/media/avatar/X-woman-large.jpg"),
-                            'large'=>url("storage/media/avatar/X-woman-large.jpg"),
-                            'medium'=>url("storage/media/avatar/X-woman-medium.jpg"),
-                            'small'=>url("storage/media/avatar/X-woman-small.jpg"),
+                            'max'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                            'large'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                            'medium'=>secure_url("storage/media/avatar/X-woman-medium.jpg"),
+                            'small'=>secure_url("storage/media/avatar/X-woman-small.jpg"),
                         ];
                     }
                 }    
@@ -433,25 +433,25 @@ class ReportController extends Controller
                     $data = pathinfo($item->user->avatar);
                     $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];                                
                     $avatarUrls = [
-                        'max'=>url("storage/".$item->user->avatar),
-                        'large'=>url("storage/".$item->user->avatar),
-                        'medium'=>url("storage/".$item->user->avatar),
-                        'small'=>url("storage/".$avatarFile),
+                        'max'=>secure_url("storage/".$item->user->avatar),
+                        'large'=>secure_url("storage/".$item->user->avatar),
+                        'medium'=>secure_url("storage/".$item->user->avatar),
+                        'small'=>secure_url("storage/".$avatarFile),
                     ];
                 }else{
                     if($item->gender=="Male"){
                         $avatarUrls = [
-                            'max'=>url("storage/media/avatar/X-man-large.jpg"),
-                            'large'=>url("storage/media/avatar/X-man-large.jpg"),
-                            'medium'=>url("storage/media/avatar/X-man-medium.jpg"),
-                            'small'=>url("storage/media/avatar/X-man-small.jpg"),
+                            'max'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                            'large'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                            'medium'=>secure_url("storage/media/avatar/X-man-medium.jpg"),
+                            'small'=>secure_url("storage/media/avatar/X-man-small.jpg"),
                         ];
                     }else{
                         $avatarUrls = [
-                            'max'=>url("storage/media/avatar/X-woman-large.jpg"),
-                            'large'=>url("storage/media/avatar/X-woman-large.jpg"),
-                            'medium'=>url("storage/media/avatar/X-woman-medium.jpg"),
-                            'small'=>url("storage/media/avatar/X-woman-small.jpg"),
+                            'max'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                            'large'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                            'medium'=>secure_url("storage/media/avatar/X-woman-medium.jpg"),
+                            'small'=>secure_url("storage/media/avatar/X-woman-small.jpg"),
                         ];
                     }
                 }    

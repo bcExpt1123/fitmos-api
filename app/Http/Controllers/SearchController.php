@@ -263,14 +263,14 @@ class SearchController extends Controller
             $company = Company::whereUsername($username)->first();
             if($company){
                 $company->type = 'company';
-                if($company->logo)$company->logo = url("storage/".$company->logo);                
+                if($company->logo)$company->logo = secure_url("storage/".$company->logo);                
                 return response()->json($company);
             }
         }else{
             $company = Company::where('username','=',$username)->whereStatus('Active')->first();
             if($company){
                 $company->type = 'company';
-                if($company->logo)$company->logo = url("storage/".$company->logo);                
+                if($company->logo)$company->logo = secure_url("storage/".$company->logo);                
                 return response()->json($company);
             }
         }
@@ -344,8 +344,8 @@ class SearchController extends Controller
             $page = 1;
         }
         if($user->customer){
-            $where = Customer::where(function($query) use ($search) {
-                $query->whereHas('user', function($q) use ($search){
+            $where = Customer::where(function($query) {
+                $query->whereHas('user', function($q){
                     $q->where('active','=','1');
                 });
             })->where('id','!=',$user->customer->id);

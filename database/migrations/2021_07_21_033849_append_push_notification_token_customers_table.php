@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AppendQbligatoryQuestionCustomersTable extends Migration
+class AppendPushNotificationTokenCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AppendQbligatoryQuestionCustomersTable extends Migration
     public function up()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->enum('qbligatory_question',['recommend','advertise','long'])->nullable();
-            $table->unsignedBigInteger('friend_id')->nullable();
-            $table->enum('friend',['yes','no'])->default('no');
+            $table->string('push_notification_token')->nullable();
         });
     }
 
@@ -28,9 +26,7 @@ class AppendQbligatoryQuestionCustomersTable extends Migration
     public function down()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->dropColumn('qbligatory_question');
-            $table->dropColumn('friend_id');
-            $table->dropColumn('friend');
+            $table->dropColumn('push_notification_token');
         });
     }
 }

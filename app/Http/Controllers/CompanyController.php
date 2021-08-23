@@ -263,7 +263,7 @@ class CompanyController extends Controller
             $company = Company::find($id);
             $size = 'small';
             $logo = $company['logo'];
-            $company['logo'] = url('storage/'.$logo);
+            $company['logo'] = secure_url('storage/'.$logo);
             $company['image'] = $company->getImageSize($logo,$size);
             if($company->post_image_id){
                 $media = \App\Models\Media::find($company->post_image_id);

@@ -53,7 +53,7 @@ class CommentOnPost implements ShouldQueue
             }
         }else{
             if($this->comment->post->customer_id!=$this->customer->id){
-                \App\Models\Notification::commentOnPost($this->comment->post->customer_id, $this->customer);
+                \App\Models\Notification::commentOnPost($this->comment->post->customer_id, $this->customer, $this->comment->post);
                 foreach($this->customer->followers as $follower){
                     if($this->comment->post->customer_id!=$follower->id)\App\Models\Notification::commentOnOtherPost($follower->id, $this->customer, $this->comment->post);
                 }

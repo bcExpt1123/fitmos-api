@@ -87,7 +87,7 @@ class MedalController extends Controller
      */
     public function show($id){
         $medal = Medal::find($id);
-        $medal->image = url('storage/'.$medal->image);      
+        $medal->image = secure_url('storage/'.$medal->image);      
         return response()->json($medal);
     }
     /**
@@ -130,7 +130,7 @@ class MedalController extends Controller
         if($medals){
             $total = count($medals);
             foreach ($medals as $key => $medal) {
-                $medal->image = url('storage/'.$medal->image);            
+                $medal->image = secure_url('storage/'.$medal->image);            
             }
         }
         return response()->json(['data'=>$medals,'total'=>$total]);

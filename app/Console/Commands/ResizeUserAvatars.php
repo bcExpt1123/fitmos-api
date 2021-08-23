@@ -55,8 +55,14 @@ class ResizeUserAvatars extends Command
         $data = pathinfo($user->avatar);
         $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];
         if (Storage::disk('public')->exists($avatarFile)==false) {
-            $resizeImg = Media::makeCroppedImage($image, $size);
-            $resizeImg->save('storage/app/public/'. $avatarFile);
+            try{
+                $resizeImg = Media::makeCroppedImage($image, $size);
+                $resizeImg->save('storage/app/public/'. $avatarFile);
+            }catch(\Exception $e){
+                print_r($user->id);
+                var_dump($e);
+                die;
+            }
         }
     }
 }

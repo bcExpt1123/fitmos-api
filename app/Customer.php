@@ -517,7 +517,7 @@ class Customer extends Model
         return false;
     }
     public function changeLevel(){
-        $level = LevelTest::whereCustomerId($this->id)->orderBy('recording_date','desc')->first();
+        $level = LevelTest::whereCustomerId($this->id)->orderBy('created_at','desc')->first();
         if($level){
             $current = $level->repetition;
         }else{
@@ -803,7 +803,7 @@ class Customer extends Model
         return true;
     }
     public function findMedal(){
-        $doneworkouts = $this->done();
+        $doneworkouts = ActivityWorkout::whereCustomerId($this->id)->whereType('complete')->get();
         $workoutCount = $doneworkouts->count();
         $fromWorkout = 0;
         $fromWorkoutImage = null;
@@ -812,12 +812,12 @@ class Customer extends Model
         $totalWorkoutLevels = Medal::whereType('total')->orderBy('count')->get();
         foreach($totalWorkoutLevels as $index=>$level){
             $toWorkout = $level->count;
-            $toWorkoutImage = url('storage/'.$level->image);
+            $toWorkoutImage = secure_url('storage/'.$level->image);
             if($workoutCount>$level->count){
             }else{
                 if(isset($totalWorkoutLevels[$index-1])){
                     $fromWorkout = $totalWorkoutLevels[$index-1]['count'];
-                    $fromWorkoutImage = url('storage/'.$totalWorkoutLevels[$index-1]['image']);
+                    $fromWorkoutImage = secure_url('storage/'.$totalWorkoutLevels[$index-1]['image']);
                 }
                 break;
             }
@@ -826,7 +826,7 @@ class Customer extends Model
         $levelMedals = Medal::whereType('level')->orderBy('count')->get();
         foreach($levelMedals as $index=>$level){
             if($this->current_condition == $level->count){
-                $levelMedalImage = url('storage/'.$level->image);
+                $levelMedalImage = secure_url('storage/'.$level->image);
                 break;
             }
         }
@@ -847,12 +847,12 @@ class Customer extends Model
         $monthWorkoutLevels = Medal::whereType('month')->orderBy('count')->get();
         foreach($monthWorkoutLevels as $index=>$level){
             $toMonthWorkout = $level->count;
-            $toMonthWorkoutImage = url('storage/'.$level->image);
+            $toMonthWorkoutImage = secure_url('storage/'.$level->image);
             if($monthPercent>$level->count){
             }else{
                 if(isset($monthWorkoutLevels[$index-1])){
                     $fromMonthWorkout = $monthWorkoutLevels[$index-1]['count'];
-                    $fromMonthWorkoutImage = url('storage/'.$monthWorkoutLevels[$index-1]['image']);
+                    $fromMonthWorkoutImage = secure_url('storage/'.$monthWorkoutLevels[$index-1]['image']);
                 }
                 break;
             }
@@ -914,25 +914,25 @@ class Customer extends Model
                 $data = pathinfo($partner->user->avatar);
                 $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];        
                 $partner['avatarUrls'] = [
-                    'max'=>url("storage/".$partner->user->avatar),
-                    'large'=>url("storage/".$partner->user->avatar),
-                    'medium'=>url("storage/".$partner->user->avatar),
-                    'small'=>url("storage/".$avatarFile),
+                    'max'=>secure_url("storage/".$partner->user->avatar),
+                    'large'=>secure_url("storage/".$partner->user->avatar),
+                    'medium'=>secure_url("storage/".$partner->user->avatar),
+                    'small'=>secure_url("storage/".$avatarFile),
                 ];
             }else{
                 if($partner->gender=="Male"){
                     $partner['avatarUrls'] = [
-                        'max'=>url("storage/media/avatar/X-man-large.jpg"),
-                        'large'=>url("storage/media/avatar/X-man-large.jpg"),
-                        'medium'=>url("storage/media/avatar/X-man-medium.jpg"),
-                        'small'=>url("storage/media/avatar/X-man-small.jpg"),
+                        'max'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                        'large'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                        'medium'=>secure_url("storage/media/avatar/X-man-medium.jpg"),
+                        'small'=>secure_url("storage/media/avatar/X-man-small.jpg"),
                     ];
                 }else{
                     $partner['avatarUrls'] = [
-                        'max'=>url("storage/media/avatar/X-woman-large.jpg"),
-                        'large'=>url("storage/media/avatar/X-woman-large.jpg"),
-                        'medium'=>url("storage/media/avatar/X-woman-medium.jpg"),
-                        'small'=>url("storage/media/avatar/X-woman-small.jpg"),
+                        'max'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                        'large'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                        'medium'=>secure_url("storage/media/avatar/X-woman-medium.jpg"),
+                        'small'=>secure_url("storage/media/avatar/X-woman-small.jpg"),
                     ];
                 }
             }
@@ -1297,25 +1297,25 @@ class Customer extends Model
             $data = pathinfo($user->avatar);
             $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];    
             $this['avatarUrls'] = [
-                'max'=>url("storage/".$user->avatar),
-                'large'=>url("storage/".$user->avatar),
-                'medium'=>url("storage/".$user->avatar),
-                'small'=>url("storage/".$avatarFile),
+                'max'=>secure_url("storage/".$user->avatar),
+                'large'=>secure_url("storage/".$user->avatar),
+                'medium'=>secure_url("storage/".$user->avatar),
+                'small'=>secure_url("storage/".$avatarFile),
             ];
         }else{
             if($this->gender=="Male"){
                 $this['avatarUrls'] = [
-                    'max'=>url("storage/media/avatar/X-man-large.jpg"),
-                    'large'=>url("storage/media/avatar/X-man-large.jpg"),
-                    'medium'=>url("storage/media/avatar/X-man-medium.jpg"),
-                    'small'=>url("storage/media/avatar/X-man-small.jpg"),
+                    'max'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                    'large'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                    'medium'=>secure_url("storage/media/avatar/X-man-medium.jpg"),
+                    'small'=>secure_url("storage/media/avatar/X-man-small.jpg"),
                 ];
             }else{
                 $this['avatarUrls'] = [
-                    'max'=>url("storage/media/avatar/X-woman-large.jpg"),
-                    'large'=>url("storage/media/avatar/X-woman-large.jpg"),
-                    'medium'=>url("storage/media/avatar/X-woman-medium.jpg"),
-                    'small'=>url("storage/media/avatar/X-woman-small.jpg"),
+                    'max'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                    'large'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                    'medium'=>secure_url("storage/media/avatar/X-woman-medium.jpg"),
+                    'small'=>secure_url("storage/media/avatar/X-woman-small.jpg"),
                 ];
             }
         }

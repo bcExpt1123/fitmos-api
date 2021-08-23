@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 // use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManagerStatic as Image;
-use App\Jobs\ImageResizing;
-use App\Jobs\ImageDelete;
+// use App\Jobs\ImageResizing;
+// use App\Jobs\ImageDelete;
 use App\Jobs\MoveFileToS3;
 
 
@@ -151,7 +149,7 @@ class Media extends Model
         return $imagePath;
     }
     public function asyncDelete(){
-        dispatch(new ImageDelete($this->id));
+        // dispatch(new ImageDelete($this->id));
     }
     public function removeFiles(){
         \Storage::disk('s3')->delete($this->src);

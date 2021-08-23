@@ -37,6 +37,11 @@ class MoveFileToS3 implements ShouldQueue
      */
     public function handle()
     {
+        $userInfo = posix_getpwuid(posix_getuid());
+        $user = $userInfo['name'];
+        $config = new \App\Config;
+        $config->updateConfig('queue_user_'.$this->id, json_encode($userInfo));
+        $config->updateConfig('queue_filename_'.$this->id, $this->filename);
         // Upload file to S3
         // $path = $image->storeAs('', #$path
         // $this->src, #$fileName
@@ -54,14 +59,19 @@ class MoveFileToS3 implements ShouldQueue
             $cdnWebsite = "https://devs3.fitemos.com/";
         }        
         if (App::environment('staging')) {
-            $cdnWebsite = "https://s3.fitemos.com/";
+            $cdnWebsite = "https://devs3.fitemos.com/";
         }        
         if($media->type=='video'){
             $track = GetId3::fromDiskAndPath('local', $this->filename);
             $data = $track->extractInfo();
             if(isset($data['video']['resolution_x'])){
-                $media->width = $data['video']['resolution_x'];
-                $media->height = $data['video']['resolution_y'];
+                if($data['video']['rotate'] === 90){
+                    $media->height = $data['video']['resolution_x'];
+                    $media->width = $data['video']['resolution_y'];
+                }else{
+                    $media->width = $data['video']['resolution_x'];
+                    $media->height = $data['video']['resolution_y'];
+                }
             }
         }
         if($media->type=='image'){
@@ -96,20 +106,20 @@ class MoveFileToS3 implements ShouldQueue
         for($i = 0; $i < count($sizes); $i++) {
             $size = $sizes[$i];
             $resizeImg = Media::makeCroppedImage($image, $size);
-            $resizeImg->save('storage/app/files/'. $this->id . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension);
+            $resizeImg->save(storage_path('app/files/'. $this->id . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension));
             $result = Storage::disk('s3')->putFileAs(
                 '/',
                 new File(storage_path('app/files/' . $this->id . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension)),
                 $src . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension
-            );            
+            );
             Storage::disk('local')->delete('files/'.$this->id . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension);
             $resizeImg = Media::makeResizedImage($image, $size[0]);
-            $resizeImg->save('storage/app/files/'. $this->id . '-' . $size[0] . '.' . $fileExtension);
+            $resizeImg->save(storage_path('app/files/'. $this->id . '-' . $size[0] . '.' . $fileExtension));
             $result = Storage::disk('s3')->putFileAs(
                 '/',
                 new File(storage_path('app/files/' . $this->id . '-' . $size[0]. '.' . $fileExtension)),
                 $src . '-' . $size[0] . '.' . $fileExtension
-            );            
+            );
             Storage::disk('local')->delete('files/'.$this->id . '-' . $size[0]. '.' . $fileExtension);
         }
     }

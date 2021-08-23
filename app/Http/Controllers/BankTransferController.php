@@ -100,6 +100,7 @@ class BankTransferController extends Controller
                 $transaction = $bankTransferRequest->createTransaction();
                 if($transaction){
                     $bankTransferRequest->transaction_id = $transaction->id; 
+                    $bankTransferRequest->done_date = date("Y-m-d H:i:s");
                     $bankTransferRequest->save();
                     $bankTransferRequest->refresh();
                     $bankTransferRequest->createOrUpdateSuscription();

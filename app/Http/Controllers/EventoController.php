@@ -266,7 +266,7 @@ class EventoController extends Controller
             $items[$index]['created_date'] = date('M d, Y',strtotime($evento->created_at));
             $evento->category;
             $items[$index]['excerpt'] = $evento->extractExcerpt($evento->description);
-            if($evento->image)  $evento->image = url('storage/'.$evento->image);            
+            if($evento->image)  $evento->image = secure_url('storage/'.$evento->image);            
         }
         return response()->json($items);
     }
@@ -312,7 +312,7 @@ class EventoController extends Controller
         $news = \App\Event::inRandomOrder()->limit(4)->get();
         foreach($news as $item){
             $item->category;
-            if($item->image)  $item->image = url('storage/'.$item->image);
+            if($item->image)  $item->image = secure_url('storage/'.$item->image);
         }
         $product = new \App\Product;
         $productImage = new \App\ProductImage;

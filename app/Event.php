@@ -45,7 +45,7 @@ class Event extends Model
             $items[$index]['created_date'] = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%B, %d %Y", strtotime($event->post_date))));
             $event->category;
             $items[$index]['excerpt'] = $this->extractExcerpt($event->description);
-            if($event->image)  $event->image = url('storage/'.$event->image);        
+            if($event->image)  $event->image = secure_url('storage/'.$event->image);        
             if($event->post_date){
                 $dates = explode(' ',$event->post_date);
                 $items[$index]['date'] = $dates[0];

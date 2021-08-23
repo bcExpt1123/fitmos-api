@@ -92,7 +92,7 @@ class BenchmarkController extends Controller
         $user = $request->user('api');
         if($user->can('benchmarks')){
             $benchmark = Benchmark::find($id);
-            if($benchmark->image)  $benchmark->image = url('storage/'.$benchmark->image);
+            if($benchmark->image)  $benchmark->image = secure_url('storage/'.$benchmark->image);
             if($benchmark->post_date){
                 $benchmark['immediate'] = false;
                 $dates = explode(' ',$benchmark->post_date);
@@ -168,7 +168,7 @@ class BenchmarkController extends Controller
         // $result = Benchmark::where('status','=','Publish')->where('post_date','>',$user->customer->created_at)->get();
         $result = Benchmark::where('status','=','Publish')->get();
         foreach($result as $index=>$item){
-            if($item->image)  $item->image = url('storage/'.$item->image);
+            if($item->image)  $item->image = secure_url('storage/'.$item->image);
             $benchmarkResult = BenchmarkResult::where('customer_id','=',$customer_id)->where('benchmark_id','=',$item->id)->orderBy('recording_date', 'DESC')->first();
             if($benchmarkResult)$result[$index]['result']=$benchmarkResult->repetition;
             else $result[$index]['result']=0;

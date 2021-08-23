@@ -2,11 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-
 class Setting
 {
     const CART_ABANDONED_TIME = 'cart_abandoned_time';

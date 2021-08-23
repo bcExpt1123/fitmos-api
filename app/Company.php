@@ -37,7 +37,7 @@ class Company extends Model
     public function getImageSize($logo,$size) 
     {
         $image =  implode('-' . Setting::IMAGE_SIZES[$size] . '.', explode('.', $logo));
-        $imagePath = url('storage/'.$image);
+        $imagePath = secure_url('storage/'.$image);
         return $imagePath;
     }
     public function products(){
@@ -129,7 +129,7 @@ class Company extends Model
         $items = $response->items();
         foreach ($items as $index => $item){
             //print_r($item->logo);die;
-            $items[$index]->logo = url("storage/".$item->logo);
+            $items[$index]->logo = secure_url("storage/".$item->logo);
         }
         // dd(DB::getQueryLog());
         return $response;

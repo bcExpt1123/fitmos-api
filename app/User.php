@@ -301,25 +301,25 @@ class User extends Authenticatable
                 $data = pathinfo($user->avatar);
                 $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];        
                 $user['avatarUrls'] = [
-                    'max'=>url("storage/".$user->avatar),
-                    'large'=>url("storage/".$user->avatar),
-                    'medium'=>url("storage/".$user->avatar),
-                    'small'=>url("storage/".$avatarFile),
+                    'max'=>secure_url("storage/".$user->avatar),
+                    'large'=>secure_url("storage/".$user->avatar),
+                    'medium'=>secure_url("storage/".$user->avatar),
+                    'small'=>secure_url("storage/".$avatarFile),
                 ];
             }else{
                 if($user->customer->gender=="Male"){
                     $user['avatarUrls'] = [
-                        'max'=>url("storage/media/avatar/X-man-large.jpg"),
-                        'large'=>url("storage/media/avatar/X-man-large.jpg"),
-                        'medium'=>url("storage/media/avatar/X-man-medium.jpg"),
-                        'small'=>url("storage/media/avatar/X-man-small.jpg"),
+                        'max'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                        'large'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                        'medium'=>secure_url("storage/media/avatar/X-man-medium.jpg"),
+                        'small'=>secure_url("storage/media/avatar/X-man-small.jpg"),
                     ];
                 }else{
                     $user['avatarUrls'] = [
-                        'max'=>url("storage/media/avatar/X-woman-large.jpg"),
-                        'large'=>url("storage/media/avatar/X-woman-large.jpg"),
-                        'medium'=>url("storage/media/avatar/X-woman-medium.jpg"),
-                        'small'=>url("storage/media/avatar/X-woman-small.jpg"),
+                        'max'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                        'large'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                        'medium'=>secure_url("storage/media/avatar/X-woman-medium.jpg"),
+                        'small'=>secure_url("storage/media/avatar/X-woman-small.jpg"),
                     ];
                 }
             }

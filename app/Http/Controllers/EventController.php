@@ -119,7 +119,7 @@ class EventController extends Controller
      */
     public function show($id){
         $event = Event::find($id);
-        if($event->image)  $event->image = url('storage/'.$event->image);
+        if($event->image)  $event->image = secure_url('storage/'.$event->image);
         $event->category;
         $event['created_date'] = date('M d, Y',strtotime($event->post_date));
         if($event->post_date){
@@ -243,7 +243,7 @@ class EventController extends Controller
             $items[$index]['created_date'] = date('M d, Y',strtotime($event->created_at));
             $event->category;
             $items[$index]['excerpt'] = $event->extractExcerpt($event->description);
-            if($event->image)  $event->image = url('storage/'.$event->image);            
+            if($event->image)  $event->image = secure_url('storage/'.$event->image);            
         }
         return response()->json($items);
     }
