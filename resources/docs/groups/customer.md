@@ -1283,7 +1283,7 @@ curl -X POST \
     "http://127.0.0.4/api/customers/newsfeed" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"suggested":9,"post_id":12}'
+    -d '{"suggested":17,"post_id":14}'
 
 ```
 
@@ -1298,8 +1298,8 @@ let headers = {
 };
 
 let body = {
-    "suggested": 9,
-    "post_id": 12
+    "suggested": 17,
+    "post_id": 14
 }
 
 fetch(url, {
@@ -1434,7 +1434,7 @@ curl -X POST \
     "http://127.0.0.4/api/customers/oldnewsfeed" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"post_id":20}'
+    -d '{"post_id":4}'
 
 ```
 
@@ -1449,7 +1449,7 @@ let headers = {
 };
 
 let body = {
-    "post_id": 20
+    "post_id": 4
 }
 
 fetch(url, {
@@ -1507,14 +1507,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/customers/facilis/profile" \
+    -G "http://127.0.0.4/api/customers/et/profile" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/customers/facilis/profile"
+    "http://127.0.0.4/api/customers/et/profile"
 );
 
 let headers = {
@@ -1631,6 +1631,77 @@ fetch(url, {
 </form>
 
 
+## update push notification token
+
+<small class="badge badge-darkred">requires authentication</small>
+
+
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://127.0.0.4/api/customers/push-notification-token" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"doloremque"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://127.0.0.4/api/customers/push-notification-token"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "doloremque"
+}
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response => response.json());
+```
+
+
+<div id="execution-results-POSTapi-customers-push-notification-token" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-customers-push-notification-token"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-customers-push-notification-token"></code></pre>
+</div>
+<div id="execution-error-POSTapi-customers-push-notification-token" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-customers-push-notification-token"></code></pre>
+</div>
+<form id="form-POSTapi-customers-push-notification-token" data-method="POST" data-path="api/customers/push-notification-token" data-authed="1" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-customers-push-notification-token', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-customers-push-notification-token" onclick="tryItOut('POSTapi-customers-push-notification-token');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-customers-push-notification-token" onclick="cancelTryOut('POSTapi-customers-push-notification-token');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-customers-push-notification-token" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>api/customers/push-notification-token</code></b>
+</p>
+<p>
+<label id="auth-POSTapi-customers-push-notification-token" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-customers-push-notification-token" data-component="header"></label>
+</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>token</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="token" data-endpoint="POSTapi-customers-push-notification-token" data-component="body" required  hidden>
+<br>
+</p>
+
+</form>
+
+
 ## update self&#039;s bumbells weight
 
 <small class="badge badge-darkred">requires authentication</small>
@@ -1644,7 +1715,7 @@ curl -X POST \
     "http://127.0.0.4/api/customers/update-dumbells-weight" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"weight":158851.98}'
+    -d '{"weight":349.34}'
 
 ```
 
@@ -1659,7 +1730,7 @@ let headers = {
 };
 
 let body = {
-    "weight": 158851.98
+    "weight": 349.34
 }
 
 fetch(url, {

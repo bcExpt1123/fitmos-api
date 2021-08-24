@@ -354,11 +354,6 @@ class ReportController extends Controller
         }else{
             $range = $request->input('range');
         }
-        if(!$request->exists("number")){
-            $number = 10;
-        }else{
-            $number = $request->input("number");
-        }
         if(!$request->exists("gender")){
             $gender = 'all';
         }else{
@@ -466,7 +461,7 @@ class ReportController extends Controller
                     'workout_complete_count'=>$customer['workouts'],
                     'total'=>count($workouts)
                 ];
-                if(count($results)>=$number) break;
+                // if(count($results)>=$number) break;
             }
         }
         return response()->json(['data'=>$results]);

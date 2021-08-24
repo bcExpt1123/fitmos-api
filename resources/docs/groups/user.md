@@ -12,14 +12,14 @@ This endpoint.
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/users/et" \
+    "http://127.0.0.4/api/users/dolores" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/et"
+    "http://127.0.0.4/api/users/dolores"
 );
 
 let headers = {
@@ -81,14 +81,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/users/unde" \
+    -G "http://127.0.0.4/api/users/repellendus" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/unde"
+    "http://127.0.0.4/api/users/repellendus"
 );
 
 let headers = {
@@ -150,14 +150,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/users/aut" \
+    "http://127.0.0.4/api/users/sed" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/users/aut"
+    "http://127.0.0.4/api/users/sed"
 );
 
 let headers = {
@@ -348,7 +348,7 @@ curl -X POST \
     "http://127.0.0.4/api/users/customerUpdate" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"first_name":"velit","last_name":"qui","username":"voluptas","gender":"earum","current_height":"sed","whatsapp_phone_number":"nihil","country":"esse","country_code":"vitae","description":"esse"}'
+    -d '{"first_name":"ad","last_name":"eveniet","username":"quam","gender":"corporis","current_height":"praesentium","whatsapp_phone_number":"voluptatem","country":"fuga","country_code":"iusto","description":"voluptas"}'
 
 ```
 
@@ -363,15 +363,15 @@ let headers = {
 };
 
 let body = {
-    "first_name": "velit",
-    "last_name": "qui",
-    "username": "voluptas",
-    "gender": "earum",
-    "current_height": "sed",
-    "whatsapp_phone_number": "nihil",
-    "country": "esse",
-    "country_code": "vitae",
-    "description": "esse"
+    "first_name": "ad",
+    "last_name": "eveniet",
+    "username": "quam",
+    "gender": "corporis",
+    "current_height": "praesentium",
+    "whatsapp_phone_number": "voluptatem",
+    "country": "fuga",
+    "country_code": "iusto",
+    "description": "voluptas"
 }
 
 fetch(url, {

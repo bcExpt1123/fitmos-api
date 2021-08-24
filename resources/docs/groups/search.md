@@ -15,7 +15,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/all" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"search":"voluptatem"}'
+    -d '{"search":"aut"}'
 
 ```
 
@@ -30,7 +30,7 @@ let headers = {
 };
 
 let body = {
-    "search": "voluptatem"
+    "search": "aut"
 }
 
 fetch(url, {
@@ -96,7 +96,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/customers" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"search":"explicabo"}'
+    -d '{"search":"mollitia"}'
 
 ```
 
@@ -111,7 +111,7 @@ let headers = {
 };
 
 let body = {
-    "search": "explicabo"
+    "search": "mollitia"
 }
 
 fetch(url, {
@@ -175,7 +175,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/companies" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"search":"eligendi"}'
+    -d '{"search":"labore"}'
 
 ```
 
@@ -190,7 +190,7 @@ let headers = {
 };
 
 let body = {
-    "search": "eligendi"
+    "search": "labore"
 }
 
 fetch(url, {
@@ -254,7 +254,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/posts" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"search":"sed"}'
+    -d '{"search":"harum"}'
 
 ```
 
@@ -269,7 +269,7 @@ let headers = {
 };
 
 let body = {
-    "search": "sed"
+    "search": "harum"
 }
 
 fetch(url, {
@@ -333,7 +333,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/search/username" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"u":"ad"}'
+    -d '{"u":"repudiandae"}'
 
 ```
 
@@ -348,7 +348,7 @@ let headers = {
 };
 
 let body = {
-    "u": "ad"
+    "u": "repudiandae"
 }
 
 fetch(url, {

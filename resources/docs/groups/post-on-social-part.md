@@ -15,7 +15,7 @@ curl -X POST \
     "http://127.0.0.4/api/posts/sub-newsfeed" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"ids":[12,10]}'
+    -d '{"ids":[14,1]}'
 
 ```
 
@@ -31,8 +31,8 @@ let headers = {
 
 let body = {
     "ids": [
-        12,
-        10
+        14,
+        1
     ]
 }
 
@@ -105,14 +105,14 @@ This endpoint get random medias of a customer who is public,  whom authenticated
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/posts/random-medias/7" \
+    -G "http://127.0.0.4/api/posts/random-medias/5" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/posts/random-medias/7"
+    "http://127.0.0.4/api/posts/random-medias/5"
 );
 
 let headers = {
@@ -187,7 +187,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/posts/medias" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"customer_id":14,"media_id":16}'
+    -d '{"customer_id":20,"media_id":6}'
 
 ```
 
@@ -202,8 +202,8 @@ let headers = {
 };
 
 let body = {
-    "customer_id": 14,
-    "media_id": 16
+    "customer_id": 20,
+    "media_id": 6
 }
 
 fetch(url, {
@@ -275,7 +275,7 @@ curl -X POST \
     "http://127.0.0.4/api/posts/sync" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"ids":[{"id":12,"from_id":17,"to_id":2},{"id":12,"from_id":17,"to_id":2}]}'
+    -d '{"ids":[{"id":1,"from_id":16,"to_id":5},{"id":1,"from_id":16,"to_id":5}]}'
 
 ```
 
@@ -292,14 +292,14 @@ let headers = {
 let body = {
     "ids": [
         {
-            "id": 12,
-            "from_id": 17,
-            "to_id": 2
+            "id": 1,
+            "from_id": 16,
+            "to_id": 5
         },
         {
-            "id": 12,
-            "from_id": 17,
-            "to_id": 2
+            "id": 1,
+            "from_id": 16,
+            "to_id": 5
         }
     ]
 }
@@ -452,14 +452,14 @@ This endpoint save reading time on post
 
 ```bash
 curl -X POST \
-    "http://127.0.0.4/api/posts/9/read" \
+    "http://127.0.0.4/api/posts/11/read" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/posts/9/read"
+    "http://127.0.0.4/api/posts/11/read"
 );
 
 let headers = {
@@ -524,7 +524,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/posts" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"customer_id":16,"post_id":8}'
+    -d '{"customer_id":20,"post_id":9}'
 
 ```
 
@@ -539,8 +539,8 @@ let headers = {
 };
 
 let body = {
-    "customer_id": 16,
-    "post_id": 8
+    "customer_id": 20,
+    "post_id": 9
 }
 
 fetch(url, {
@@ -679,10 +679,10 @@ curl -X POST \
     "http://127.0.0.4/api/posts" \
     -H "Content-Type: multipart/form-data" \
     -H "Accept: application/json" \
-    -F "location=distinctio" \
-    -F "content=ut" \
-    -F "tag_followers[]=4" \
-    -F "medias[]=@/tmp/php68s0UV" 
+    -F "location=eaque" \
+    -F "content=facere" \
+    -F "tag_followers[]=2" \
+    -F "medias[]=@/tmp/phphwPvk3" 
 ```
 
 ```javascript
@@ -696,9 +696,9 @@ let headers = {
 };
 
 const body = new FormData();
-body.append('location', 'distinctio');
-body.append('content', 'ut');
-body.append('tag_followers[]', '4');
+body.append('location', 'eaque');
+body.append('content', 'facere');
+body.append('tag_followers[]', '2');
 body.append('medias[]', document.querySelector('input[name="medias[]"]').files[0]);
 
 fetch(url, {
@@ -782,16 +782,16 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/posts/6" \
+    -G "http://127.0.0.4/api/posts/14" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"comment":13}'
+    -d '{"comment":11}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/posts/6"
+    "http://127.0.0.4/api/posts/14"
 );
 
 let headers = {
@@ -800,7 +800,7 @@ let headers = {
 };
 
 let body = {
-    "comment": 13
+    "comment": 11
 }
 
 fetch(url, {
@@ -911,19 +911,19 @@ This endpoint update post data. but image or videos has not been update immediat
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/posts/2" \
+    "http://127.0.0.4/api/posts/8" \
     -H "Content-Type: multipart/form-data" \
     -H "Accept: application/json" \
-    -F "location=dolorum" \
-    -F "content=id" \
-    -F "tag_followers[]=6" \
+    -F "location=omnis" \
+    -F "content=dicta" \
+    -F "tag_followers[]=17" \
     -F "media_ids[]=17" \
-    -F "medias[]=@/tmp/php6EsVOW" 
+    -F "medias[]=@/tmp/phpXM0zUZ" 
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/posts/2"
+    "http://127.0.0.4/api/posts/8"
 );
 
 let headers = {
@@ -932,9 +932,9 @@ let headers = {
 };
 
 const body = new FormData();
-body.append('location', 'dolorum');
-body.append('content', 'id');
-body.append('tag_followers[]', '6');
+body.append('location', 'omnis');
+body.append('content', 'dicta');
+body.append('tag_followers[]', '17');
 body.append('media_ids[]', '17');
 body.append('medias[]', document.querySelector('input[name="medias[]"]').files[0]);
 
@@ -1035,14 +1035,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/posts/17" \
+    "http://127.0.0.4/api/posts/15" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/posts/17"
+    "http://127.0.0.4/api/posts/15"
 );
 
 let headers = {

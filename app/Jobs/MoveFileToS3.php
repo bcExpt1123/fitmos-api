@@ -57,7 +57,7 @@ class MoveFileToS3 implements ShouldQueue
         $cdnWebsite = "https://s3.fitemos.com/";
         if (App::environment('local')) {
             $cdnWebsite = "https://devs3.fitemos.com/";
-        }        
+        }
         if (App::environment('staging')) {
             $cdnWebsite = "https://devs3.fitemos.com/";
         }        

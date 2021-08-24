@@ -12,7 +12,7 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/likes?activity_id=20&pageNumber=18" \
+    -G "http://127.0.0.4/api/likes?activity_id=19&pageNumber=7" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -23,8 +23,8 @@ const url = new URL(
 );
 
 let params = {
-    "activity_id": "20",
-    "pageNumber": "18",
+    "activity_id": "19",
+    "pageNumber": "7",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -109,7 +109,7 @@ curl -X POST \
     "http://127.0.0.4/api/likes" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"activity_id":4}'
+    -d '{"activity_id":3}'
 
 ```
 
@@ -124,7 +124,7 @@ let headers = {
 };
 
 let body = {
-    "activity_id": 4
+    "activity_id": 3
 }
 
 fetch(url, {
@@ -182,14 +182,14 @@ This endpoint.
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/likes/deserunt" \
+    "http://127.0.0.4/api/likes/nam" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/likes/deserunt"
+    "http://127.0.0.4/api/likes/nam"
 );
 
 let headers = {

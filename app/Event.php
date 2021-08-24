@@ -97,6 +97,6 @@ class Event extends Model
                 $constraint->aspectRatio();
             });
         }
-        // $resizeImg->save('storage/' . $photoPath .'/m/'.$fileNameUpdate);
+        $resizeImg->save('storage/' . $photoPath .'/m/'.$fileNameUpdate);
     }
 }

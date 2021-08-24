@@ -20,7 +20,7 @@ curl -X GET \
     -G "http://127.0.0.4/api/comments" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"id":9,"type":"delectus"}'
+    -d '{"id":9,"type":"voluptas"}'
 
 ```
 
@@ -36,7 +36,7 @@ let headers = {
 
 let body = {
     "id": 9,
-    "type": "delectus"
+    "type": "voluptas"
 }
 
 fetch(url, {
@@ -120,7 +120,7 @@ curl -X POST \
     "http://127.0.0.4/api/comments" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"post_id":9,"content":"nobis","parent_activity_id":"qui","condition":{"from_id":1}}'
+    -d '{"post_id":7,"content":"voluptas","parent_activity_id":"perspiciatis","condition":{"from_id":4}}'
 
 ```
 
@@ -135,11 +135,11 @@ let headers = {
 };
 
 let body = {
-    "post_id": 9,
-    "content": "nobis",
-    "parent_activity_id": "qui",
+    "post_id": 7,
+    "content": "voluptas",
+    "parent_activity_id": "perspiciatis",
     "condition": {
-        "from_id": 1
+        "from_id": 4
     }
 }
 
@@ -247,14 +247,14 @@ This endpoint.
 
 ```bash
 curl -X GET \
-    -G "http://127.0.0.4/api/comments/19" \
+    -G "http://127.0.0.4/api/comments/10" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/comments/19"
+    "http://127.0.0.4/api/comments/10"
 );
 
 let headers = {
@@ -316,16 +316,16 @@ This endpoint.
 
 ```bash
 curl -X PUT \
-    "http://127.0.0.4/api/comments/14" \
+    "http://127.0.0.4/api/comments/8" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"content":"et"}'
+    -d '{"content":"ut"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/comments/14"
+    "http://127.0.0.4/api/comments/8"
 );
 
 let headers = {
@@ -334,7 +334,7 @@ let headers = {
 };
 
 let body = {
-    "content": "et"
+    "content": "ut"
 }
 
 fetch(url, {
@@ -406,16 +406,16 @@ This endpoint deletes the comment and child replies and return comment struction
 
 ```bash
 curl -X DELETE \
-    "http://127.0.0.4/api/comments/13" \
+    "http://127.0.0.4/api/comments/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"from_id":7,"to_id":18}'
+    -d '{"from_id":7,"to_id":14}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://127.0.0.4/api/comments/13"
+    "http://127.0.0.4/api/comments/1"
 );
 
 let headers = {
@@ -425,7 +425,7 @@ let headers = {
 
 let body = {
     "from_id": 7,
-    "to_id": 18
+    "to_id": 14
 }
 
 fetch(url, {
