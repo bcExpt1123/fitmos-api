@@ -46,11 +46,7 @@ class CustomerShortcode extends Model
     }
     public static function createFirstItem($customer, $shortcode){
         list($customerId, $alternateId, $shortcodeId) = self::createFirst($customer, $shortcode);
-<<<<<<< HEAD
         return self::updateOrCreate(
-=======
-        self::updateOrCreate(
->>>>>>> 0d5de0e848e2d885dabd7cbb63cb3204e199636e
             ['customer_id' => $customerId, 'shortcode_id' => $shortcodeId],
             ['alternate_id' => $alternateId]
         );

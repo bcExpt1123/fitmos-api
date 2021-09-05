@@ -57,7 +57,7 @@ class MoveFileToS3 implements ShouldQueue
         $cdnWebsite = "https://s3.fitemos.com/";
         if (App::environment('local')) {
             $cdnWebsite = "https://devs3.fitemos.com/";
-        }
+        }        
         if (App::environment('staging')) {
             $cdnWebsite = "https://devs3.fitemos.com/";
         }        
@@ -111,7 +111,7 @@ class MoveFileToS3 implements ShouldQueue
                 '/',
                 new File(storage_path('app/files/' . $this->id . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension)),
                 $src . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension
-            );
+            );            
             Storage::disk('local')->delete('files/'.$this->id . '-' . $size[0] . 'X' . $size[1] . '.' . $fileExtension);
             $resizeImg = Media::makeResizedImage($image, $size[0]);
             $resizeImg->save(storage_path('app/files/'. $this->id . '-' . $size[0] . '.' . $fileExtension));
@@ -119,7 +119,7 @@ class MoveFileToS3 implements ShouldQueue
                 '/',
                 new File(storage_path('app/files/' . $this->id . '-' . $size[0]. '.' . $fileExtension)),
                 $src . '-' . $size[0] . '.' . $fileExtension
-            );
+            );            
             Storage::disk('local')->delete('files/'.$this->id . '-' . $size[0]. '.' . $fileExtension);
         }
     }

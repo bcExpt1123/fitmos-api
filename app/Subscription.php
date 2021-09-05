@@ -677,7 +677,7 @@ class Subscription extends Model
                 $query->whereHas('user', function ($q) {
                     $q->where('active', '=', 1);
                 });
-            })->get();    
+            })->where('id',1730)->get();
         }
         $services = Service::all();
         foreach ($services as $service) {

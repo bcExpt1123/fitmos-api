@@ -738,7 +738,7 @@ class Customer extends Model
             dispatch(function () use ($workout)  {
                 $config = new Config;
                 $construct = $config->findByName('sendmail handle'.$this->id);
-                $config->updateConfig('sendmail handle'.$this->id, date("Y-m-d H:i:s"));        
+                $config->updateConfig('sendmail handle'.$this->id, date("Y-m-d H:i:s"));
             });
             //SendEmail::dispatch($this,new \App\Mail\Workout($workout['date'],$workout['content'],$workout['blog']));
             Mail::to($this->email)->send(new \App\Mail\Workout($workout['date'],$workout['content'],$workout['blog']));

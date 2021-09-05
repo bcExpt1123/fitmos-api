@@ -358,7 +358,7 @@ strong {
 
 #header {background-color: #ffffff; padding:0 25px}
   #header #logo img {
-    margin-left: 0;
+    margin-left: auto;
     margin-right: auto; }
 
 .article-content {

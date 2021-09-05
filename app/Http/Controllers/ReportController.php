@@ -11,6 +11,7 @@ use App\Activity;
 use App\ActivityWorkout;
 use App\Workout;
 use App\Done;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 /**
  * @group Report   
@@ -391,8 +392,9 @@ class ReportController extends Controller
             if(in_array($workout->publish_date,$workoutPublishDates)==false)$workoutPublishDates[] = $workout->publish_date;
             if(isset($customers[$workout->customer_id])){
                 $customers[$workout->customer_id]['workouts']++;
+                if($customers[$workout->customer_id]['done_date']<$workout->done_date)$customers[$workout->customer_id]['done_date'] = $workout->done_date;
             }else{
-                $customers[$workout->customer_id] = ['id'=>$workout->customer_id,'workouts'=>1];
+                $customers[$workout->customer_id] = ['id'=>$workout->customer_id,'workouts'=>1,'done_date'=>$workout->done_date];
             }
         }
         $results = [];
@@ -406,6 +408,7 @@ class ReportController extends Controller
             $workoutComplete = 0;
             $pos = 0;
             $same = 0;
+            $now = Carbon::now();
             foreach($customers as $index=>$customer){
                 $item = Customer::find($customer['id']);
                 if(in_array($gender,['Male','Female'])){
@@ -450,7 +453,9 @@ class ReportController extends Controller
                         ];
                     }
                 }    
-                $workouts = Done::where('customer_id','=',$customer['id'])->get();
+                $doneWorkout = Done::where('customer_id','=',$customer['id'])->where('done_date',$customer['done_date'])->orderByDesc('created_at')->first();
+                if($doneWorkout)$diffHours = $now->diffInHours($doneWorkout->created_at);
+                else $diffHours=1000;
                 $results[] = [
                     'id'=>$item->id,
                     'pos'=>$pos,
@@ -459,7 +464,8 @@ class ReportController extends Controller
                     'username'=>$item->username,
                     'workout_completeness'=>round($customer['workouts']/$workoutCount*100),
                     'workout_complete_count'=>$customer['workouts'],
-                    'total'=>count($workouts)
+                    'workout_done_date'=>$customer['done_date'],
+                    'recent_workout' => $diffHours
                 ];
                 // if(count($results)>=$number) break;
             }

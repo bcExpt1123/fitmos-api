@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\File;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Cache;
@@ -332,11 +333,41 @@ class FindTransactions extends Command
         if(false){
             $this->generateWorkoutPost();
         }
-        if(true){
+        if(false){
             $comment = Comment::find(80);
             $customer = Customer::find(15);
             \App\Jobs\CommentOnPost::dispatch($comment, $customer);
         }
+        if(false){
+            $this->doneTest();
+        }
+        if(false){
+            $this->checkLogging();
+        }
+        if(true){
+            $this->getCustomerIds();
+        }
+    }
+    private function getCustomerIds(){
+        $transactions = DB::table('transactions')
+                ->select('customer_id')
+                ->where('status','Declined')
+                ->where('id','>','6673')
+                ->get();
+        foreach($transactions as $transaction){
+            print_r($transaction->customer_id);
+            print_r(",");
+        }
+    }
+    private function checkLogging(){
+        Log::channel('nmiPayments')->info("Info: Start");
+        Log::channel('nmiPayments')->error("Info: Start");
+        Log::channel('nmiRequests')->info("----Response----\n\n");
+        Log::channel('nmiRequests')->error("----Response----\n\n");
+    }
+    private function doneTest(){
+        print_r(config('app.interval_unit'));
+        var_dump(env('INTERVAL_UNIT'));
     }
     private function generateWorkoutPost(){
         $customer = Customer::find(3);
