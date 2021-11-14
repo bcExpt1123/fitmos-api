@@ -9,7 +9,7 @@ class NmiClient
     private $currency = 'USD';
     private $username;
     private $password;
-    private $addCustomerMethod = 'validate';
+    private $addCustomerMethod = 'auth';
     private $customerReceipt = false;
     public function __construct()
     {
@@ -327,8 +327,10 @@ class NmiClient
 
             // Voiding add_customer auth transaction
             if ($this->addCustomerMethod == 'auth') {
+                Log::channel('nmiPayments')->info(sprintf('Auth tranaction id: %s', $response->transactionid));
                 $args = array(
                     'amount' => 1.00,
+                    'security_key' => $this->securityKey,                    
                     'transactionid' => $response->transactionid,
                     'type' => 'cancel',
                 );

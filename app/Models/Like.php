@@ -41,7 +41,7 @@ class Like extends Model
     }
     public function assignSearch($request){
         $this->activity_id = $request->input('activity_id');
-        $this->pageSize = 4;
+        $this->pageSize = 100;
         $this->pageNumber = $request->input('pageNumber');
     }
 }

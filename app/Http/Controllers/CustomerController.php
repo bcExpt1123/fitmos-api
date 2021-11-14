@@ -2,11 +2,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Redirect;
 use App\Customer;
 use App\Coupon;
@@ -16,11 +14,10 @@ use App\Height;
 use App\Condition;
 use App\Shortcode;
 use App\PaymentTocken;
-use App\PaymentSubscription;
-use App\Transaction;
 use App\Setting;
 use App\CustomerShortcode;
-use Maatwebsite\Excel\Facades\Excel;
+
+
 /**
  * @group Customer
  *
@@ -389,6 +386,27 @@ class CustomerController extends Controller
             return response()->json(array('status'=>'forbidden'), 403);            
         }
     }
+    public function exportReady(Request $request)
+    {
+        $user = $request->user('api');
+        if($user->can('customers')){
+            if($request->exists('uid')){
+                $status = Cache::get('export-'.$request->uid);
+                if($status === 'start'){
+                    return response()->json(['uid'=>$request->uid, 'status'=>'start']);
+                } else if($status === 'completed') {
+                    return response()->json(['uid'=>$request->uid, 'status'=>'completed']);
+                }
+                return response()->json(['status'=>'failed'],500);
+            }else{
+                $uid = rand(0, 1000);
+                \App\Jobs\ExportCustomers::dispatch($uid, $request->search, $request->status);
+                return response()->json(['uid'=>$uid, 'status'=>'start']);
+            }
+        }else{
+            return response()->json(['status'=>'failed'],403);
+        }
+    }
     /**
      * export customers.
      * 
@@ -401,11 +419,14 @@ class CustomerController extends Controller
     {
         $user = $request->user('api');
         if($user->can('customers')){
-            $customer = new Customer;
-            $customer->assignSearch($request);
-            $customers = $customer->searchAll();
-            $export = Customer::export($customers);
-            return Excel::download($export,'customers.xlsx');   
+            if($request->exists('uid')){
+                $status = Cache::get('export-'.$request->uid);
+                if($status === 'completed') {
+                    $filePath = Storage::disk('local')->path("customers/$request->uid");
+                    return response()->download($filePath, 'customers.xlsx');
+                }
+            }
+            return response()->json(['status'=>'failed'],500);
         }else{
             return response()->json(['status'=>'failed'],403);
         }
@@ -758,7 +779,7 @@ class CustomerController extends Controller
      */
     public function all(Request $request){
         $user = $request->user('api');
-        if($user->customer){
+        if(isset($user->customer)){
             $search = $request->search;
             $where = Customer::where(function($query) use ($search) {
                 $query->whereHas('user', function($q) use ($search){

@@ -58,6 +58,7 @@ Route::resource('services', 'ServiceController')->except(['show'])->middleware('
 Route::resource('services', 'ServiceController')->only(['show'])->middleware('api');
 Route::get('customers/{id}/disable', 'CustomerController@disable')->where('id', '[0-9]+')->middleware('auth:api');
 Route::get('customers/{id}/restore', 'CustomerController@restore')->where('id', '[0-9]+')->middleware('auth:api');
+Route::get('customers/export-ready', 'CustomerController@exportReady')->middleware('auth:api');
 Route::get('customers/export', 'CustomerController@export');
 Route::get('customers/weights', 'CustomerController@weights')->middleware('auth:api');
 Route::delete('customers/weights', 'CustomerController@deleteWeight')->middleware('auth:api');
@@ -204,6 +205,7 @@ Route::get('posts/random-medias/{customerId}','PostController@randomMedias')->wh
 Route::get('posts/medias','PostController@medias')->middleware('auth:api');
 Route::post('posts/sync','PostController@sync')->middleware('auth:api');
 Route::post('posts/{id}/read','PostController@read')->where('id', '[0-9]+')->middleware('auth:api');
+Route::post('posts/workout','PostController@workout')->middleware('auth:api');
 Route::resource('posts', 'PostController')->middleware('auth:api');
 Route::resource('comments', 'CommentController')->middleware('auth:api');
 Route::get('search/all', 'SearchController@all')->middleware('auth:api');

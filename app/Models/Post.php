@@ -184,7 +184,7 @@ class Post extends Model
             case 'blog':
                 $blog = \App\Event::find($this->object_id);
                 $this->title = $blog->title;
-                $this->content = $blog->description;
+                $this->content = "";//$blog->description;
                 $this->contentType = "html";
                 if($blog->image){
                     if($blog->image_width==null){

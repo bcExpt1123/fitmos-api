@@ -2,9 +2,7 @@
 
 namespace App\Payment;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\SubscriptionPlan;
+use Illuminate\Support\Facades\Cache;
 use App\Mail\RenewalPaymentBankReminder;
 use Mail;
 
@@ -25,15 +23,17 @@ class Bank
         $endDate = self::getEndDate($subscription);
         if(strtotime($endDate) < time() ){
             if($subscription->status =="Active"){
-                $subscription->endDate = $endDate;
+                $subscription->end_date = $endDate;
                 $subscription->status = 'Expired';
                 $subscription->save();
             }
         }
         $timeDiff = round((time() - strtotime($endDate))/3600);
-        if($timeDiff >= -14 * 24){
+        $reminder = Cache::get('reminder'.$subscription->id);
+        if($timeDiff >= -14 * 24 && $timeDiff <= -14 * 24 + 1 && $reminder == null){
             //notification;
             \App\Models\Notification::bankExpiration($subscription->customer_id, 14);
+            Cache::put('reminder'.$subscription->id, $subscription->customer_id, 3600);
         }
         if($timeDiff >= -7 * 24 && $subscription->reminder_before_seven!=1){
             //send mail reminder
@@ -43,9 +43,11 @@ class Bank
             //notification;
             \App\Models\Notification::bankExpiration($subscription->customer_id, 7);
         }
-        if($timeDiff >= -3 * 24){
+        $reminderTree = Cache::get('reminder-tree-'.$subscription->id);
+        if($timeDiff >= -3 * 24 && $timeDiff <= -3 * 24 + 1 && $reminderTree == null){
             //notification;
             \App\Models\Notification::bankExpiration($subscription->customer_id, 3);
+            Cache::put('reminder-tree-'.$subscription->id, $subscription->customer_id, 3600);
         }
         if($timeDiff >= -24 && $subscription->reminder_before_one!=1){
             //send mail reminder

@@ -29,7 +29,7 @@ class Subscription extends Model
         'expensive'=>'Muy costoso / no tengo tiempo',
         'other'=>'Otro',
     ];
-    const TRACK_CUSTOMER_IDS = [5622, 6147];
+    const TRACK_CUSTOMER_IDS = [4920, 6003];
     public static function validateRules()
     {
         return array(
@@ -671,7 +671,7 @@ class Subscription extends Model
                 $query->whereHas('user', function ($q) {
                     $q->where('active', '=', 1);
                 });
-            })->where('id',5763)->get();
+            })->where('id',3)->get();
         }else{
             $customers = Customer::where(function ($query) {
                 $query->whereHas('user', function ($q) {
@@ -744,7 +744,7 @@ class Subscription extends Model
             $cancelDate = iconv('ISO-8859-2', 'UTF-8', strftime("%d de %B del %Y", strtotime($this->cancelled_date)));
             $subscriptionEndDate = iconv('ISO-8859-2', 'UTF-8', strftime("%d de %B del %Y", strtotime($this->end_date)));
             Mail::to($this->customer->email)->send(new SubscriptionCancel($this->customer->first_name,$this->frequency,$cancelDate,$subscriptionEndDate));                    
-            Mail::to(config('mail.from.address'))->send(new SubscriptionCancelAdmin($this->customer,$this->frequency,$cancelDate,$qualityLevel, self::CANCELLED_REASONS[$radioReason],$reasonText,$recommendation,$enableEnd));
+            Mail::to(config('mail.from.address'))->cc(['degracia.jf@gmail.com','sui201837@gmail.com'])->send(new SubscriptionCancelAdmin($this->customer,$this->frequency,$cancelDate,$qualityLevel, self::CANCELLED_REASONS[$radioReason],$reasonText,$recommendation,$enableEnd));
             $this->customer->removeFriendShip();
             return [true,$subscriptionEndDate];
         } else { //paid
@@ -770,8 +770,8 @@ class Subscription extends Model
                     setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
                     $cancelDate = iconv('ISO-8859-2', 'UTF-8', strftime("%d de %B del %Y", strtotime($this->cancelled_date)));
                     $subscriptionEndDate = iconv('ISO-8859-2', 'UTF-8', strftime("%d de %B del %Y", strtotime($this->end_date)));
-                    Mail::to($this->customer->email)->send(new SubscriptionCancel($this->customer->first_name,$this->frequency,$cancelDate,$subscriptionEndDate));                    
-                    Mail::to(config('mail.from.address'))->send(new SubscriptionCancelAdmin($this->customer,$this->frequency,$cancelDate,$qualityLevel, self::CANCELLED_REASONS[$radioReason],$reasonText,$recommendation,$enableEnd));
+                    Mail::to($this->customer->email)->send(new SubscriptionCancel($this->customer->first_name,$this->frequency,$cancelDate,$subscriptionEndDate));
+                    Mail::to(config('mail.from.address'))->cc(['degracia.jf@gmail.com','sui201837@gmail.com'])->send(new SubscriptionCancelAdmin($this->customer,$this->frequency,$cancelDate,$qualityLevel, self::CANCELLED_REASONS[$radioReason],$reasonText,$recommendation,$enableEnd));
                     $this->customer->removeFriendShip();
                     return [true,$subscriptionEndDate];
                 }

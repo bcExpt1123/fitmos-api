@@ -642,7 +642,7 @@ class PaymentSubscription extends Model
         if( $customer->user )SendEmail::dispatch($customer,new VerifyMail($customer->user));
         NotifySubscriber::dispatch($customer,new \App\Mail\NotifySubscriber($customer))->delay(now()->addDays(7));
         $data = ['first_name'=>$customer->first_name,'last_name'=>$customer->last_name,'email'=>$customer->email,'gender'=>$customer->gender,'view_file'=>'emails.customers.create','subject'=>'Checkout Completed Customer for free trial'];
-        Mail::to(config('mail.from.address'), config('mail.from.name'))->queue(new MailQueue($data));
+        Mail::to(config('mail.from.address'), config('mail.from.name'))->cc(['degracia.jf@gmail.com','sui201837@gmail.com'])->queue(new MailQueue($data));
         $customer->sendFirstWorkout();
     }
     public function sendFirstMail($transaction, $sendableFirstWorkout=true, $bank=false){
@@ -664,7 +664,7 @@ class PaymentSubscription extends Model
         if(!$bank)SendEmail::dispatch($customer,new FirstPaymentNotification($customer->first_name,$frequencyString,$frequency,$amount,$transaction->total,$coupon,date('d/m/Y',strtotime($transaction->done_date)),$nextPaymentDate,$nextPaymentTotal));
         if($sendableFirstWorkout)NotifySubscriber::dispatch($customer,new \App\Mail\NotifySubscriber($customer))->delay(now()->addDays(7));
         $data = ['first_name'=>$customer->first_name,'last_name'=>$customer->last_name,'email'=>$customer->email,'gender'=>$customer->gender,'view_file'=>'emails.customers.create','subject'=>'Checkout Completed Customer for paid'];
-        Mail::to(config('mail.from.address'), config('mail.from.name'))->queue(new MailQueue($data));
+        Mail::to(config('mail.from.address'), config('mail.from.name'))->cc(['degracia.jf@gmail.com','sui201837@gmail.com'])->queue(new MailQueue($data));
         if($sendableFirstWorkout)$customer->sendFirstWorkout();
     }
 }

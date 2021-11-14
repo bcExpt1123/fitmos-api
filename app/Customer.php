@@ -332,6 +332,7 @@ class Customer extends Model
         if($this->search!=null){
             $where->where('first_name','like','%'.$this->search.'%');
             $where->orWhere('last_name','like','%'.$this->search.'%');
+            $where->orWhere('email','like','%'.$this->search.'%');
             $where->orWhere('country','like','%'.$this->search.'%');
         }
         switch($this->status){
@@ -391,6 +392,10 @@ class Customer extends Model
         }
         $this->pageSize = $request->input('pageSize');
         $this->pageNumber = $request->input('pageNumber');
+    }
+    public function assignExport($search, $status){
+        $this->status = $status;
+        $this->search = $search;
     }
     public function hasSubscription(){//workoutSubscription
         /*$subscription = Subscription::where('frequency','Once')->where('customer_id','=',$this->id)->where(function($query){
@@ -909,35 +914,39 @@ class Customer extends Model
     }
     public function findPartners(){
         $partners = Customer::whereFriendId($this->id)->get();
+        $list = [];
         foreach($partners as $partner){
-            if($partner->user->avatar){
-                $data = pathinfo($partner->user->avatar);
-                $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];        
-                $partner['avatarUrls'] = [
-                    'max'=>secure_url("storage/".$partner->user->avatar),
-                    'large'=>secure_url("storage/".$partner->user->avatar),
-                    'medium'=>secure_url("storage/".$partner->user->avatar),
-                    'small'=>secure_url("storage/".$avatarFile),
-                ];
-            }else{
-                if($partner->gender=="Male"){
+            if($partner->hasActiveSubscription()){
+                if($partner->user->avatar){
+                    $data = pathinfo($partner->user->avatar);
+                    $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];        
                     $partner['avatarUrls'] = [
-                        'max'=>secure_url("storage/media/avatar/X-man-large.jpg"),
-                        'large'=>secure_url("storage/media/avatar/X-man-large.jpg"),
-                        'medium'=>secure_url("storage/media/avatar/X-man-medium.jpg"),
-                        'small'=>secure_url("storage/media/avatar/X-man-small.jpg"),
+                        'max'=>secure_url("storage/".$partner->user->avatar),
+                        'large'=>secure_url("storage/".$partner->user->avatar),
+                        'medium'=>secure_url("storage/".$partner->user->avatar),
+                        'small'=>secure_url("storage/".$avatarFile),
                     ];
                 }else{
-                    $partner['avatarUrls'] = [
-                        'max'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
-                        'large'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
-                        'medium'=>secure_url("storage/media/avatar/X-woman-medium.jpg"),
-                        'small'=>secure_url("storage/media/avatar/X-woman-small.jpg"),
-                    ];
+                    if($partner->gender=="Male"){
+                        $partner['avatarUrls'] = [
+                            'max'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                            'large'=>secure_url("storage/media/avatar/X-man-large.jpg"),
+                            'medium'=>secure_url("storage/media/avatar/X-man-medium.jpg"),
+                            'small'=>secure_url("storage/media/avatar/X-man-small.jpg"),
+                        ];
+                    }else{
+                        $partner['avatarUrls'] = [
+                            'max'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                            'large'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
+                            'medium'=>secure_url("storage/media/avatar/X-woman-medium.jpg"),
+                            'small'=>secure_url("storage/media/avatar/X-woman-small.jpg"),
+                        ];
+                    }
                 }
+                $list[] = $partner;
             }
         }
-        return $partners;
+        return $list;
     }
     public function findCurrentSurvey(){
         $activeSurveys = Survey::active();
@@ -1193,6 +1202,188 @@ class Customer extends Model
         ]);
         return $export;
     }
+    public function customerExport($tenPercentCouponsIds){
+        $this->extends();
+        $status = '';
+        $frequencyString = '-';
+        $cancellationDate = null;
+        $currentActiveSubscriptionProgress = '';
+        $renewalCount = 0;
+        $cancelledNow = 'no';
+        $stars = '';
+        $reason = '';
+        $feedback = '';
+        $subscriptionStartDate = '';
+        $cardTypes = [];
+        if($this->user->active == 0){
+            $status = "Disabled";
+        }else{
+            $status = "Inactive";
+            foreach($this->subscriptions as $subscription){
+                $frequencyString = $subscription->frequency;
+                if($subscription->status == "Active"){
+                    $status = "Active";
+                    if($subscription->end_date)$status = "Leaving";
+                    if($subscription->transaction)$paymentSubscription = \App\PaymentSubscription::whereSubscriptionId($subscription->transaction->payment_subscription_id)->first();
+                    else $paymentSubscription = null;
+                    if($paymentSubscription)$currentActiveSubscriptionProgress = Customer::calculateMonthDiff($paymentSubscription->start_date,date('Y-m-d')).'m';
+                    //if($subscription->plan_id == 1) $items[$index]['trial'] = 1;
+                }
+                if($subscription->status == "Cancelled"){
+                    $status = "Cancelled";
+                }
+                if($subscription->start_date)$subscriptionStartDate = $subscription->start_date;
+                $cancellationDate = $subscription->cancelled_date;
+                $cancelledNow = $subscription->cancelled_now;
+                $stars = $subscription->quality_level;
+                if($subscription->cancelled_radio_reason)$reason = \App\Subscription::CANCELLED_REASONS[$subscription->cancelled_radio_reason].' '.$subscription->cancelled_radio_reason_text;
+                if($reason == '') $reason = $subscription->cancelled_reason;
+                $feedback = $subscription->recommendation;
+                if($feedback == '') $feedback = $subscription->cancelled_reason;
+                if($subscription->gateway == 'bank'){
+                    $cardTypes[] = 'ACH';
+                }
+            }
+        }
+        $record = $this->findRecord();
+        $objective = $this->objective;
+        if($objective == 'auto'){
+            $objText='strong';
+            if($this['imc']>25)$objText = "cardio";
+            else if($this['imc']>18.5)$objText = "fit";
+            $objective = $objText.'(auto)';
+        }
+        $cards = \App\PaymentTocken::whereCustomerId($this->id)->get();
+        $cardRegistered = false;
+        if(count($cards)>0){
+            $cardRegistered = true;
+            foreach($cards as $card){
+                if(in_array($card->type,$cardTypes)==false){
+                    $cardTypes[] = $card->type;
+                }
+            }
+        }
+        $firstDateDiff = '';
+        if($this->first_payment_date){
+            $firstDateDiff = Customer::calculateMonthDiff($this->first_payment_date,$this->registration_date).'m';
+        }
+        $pay = null;
+        $firstTransaction = null;
+        $paidMonths = 0;
+        $transactions = \App\Transaction::whereCustomerId($this->id)->whereStatus('Completed')->orderBy('done_date','ASC')->get();
+        $lastPaymentSubscription=null;
+        $nextPaymentMonths = 0;
+        $consumedMonths = 0;
+        $total = 0;
+        $tenPercentcoupon = false;
+        foreach( $transactions as $transaction){
+            if($firstTransaction==null){
+                $firstTransaction = $transaction;
+            }
+            if($pay == null && $transaction->total>0){
+                $pay = $transaction;
+            }
+            $paymentSubscription = \App\PaymentSubscription::whereSubscriptionId($transaction->payment_subscription_id)->first();
+            if($paymentSubscription){
+                list($provider, $planId, $customerId, $frequency, $couponId, $slug) = $paymentSubscription->analyzeSlug();
+                if($pay)$paidMonths = $paidMonths + $frequency;
+                $lastPaymentSubscription = $paymentSubscription;
+                $endDate = $paymentSubscription->getEndDate($transaction);
+                if($cancellationDate && $cancelledNow == 'yes'){
+                    if( $endDate < $cancellationDate){
+                        $consumedMonths += $frequency;
+                    }else {
+                        $consumedMonths += Customer::calculateMonthDiff($endDate,$cancellationDate);
+                    }
+                }else{
+                    if( $endDate < date('Y-m-d H:i:s')){
+                        $consumedMonths += $frequency;
+                    }else {
+                        $consumedMonths += Customer::calculateMonthDiff($endDate,date('Y-m-d H:i:s'));
+                    }
+                } 
+            }
+            $total += $transaction->total;
+            if(in_array($transaction->coupon_id,$tenPercentCouponsIds))$tenPercentcoupon = true;
+        }
+        if($lastPaymentSubscription && $lastPaymentSubscription->status == 'Active'){
+            $paymentSubscriptionEndDate = $lastPaymentSubscription->findEndDate();
+            if($paymentSubscriptionEndDate && $paymentSubscriptionEndDate>date('Y-m-d H:i:s')){
+                $nextPaymentMonths = Customer::calculateMonthDiff($paymentSubscriptionEndDate,date('Y-m-d H:i:s'));
+            }
+        }
+        if($firstTransaction){
+            $renewalCount = \App\PaymentSubscription::whereCustomerId($this->id)->where('start_date','>',$firstTransaction->done_date)->count();
+            //if($renewalCount>0)$renewalCount-=1;
+        }
+        $question = "";
+        switch($this->qbligatory_question){
+            case "recommend":
+                $question = "Me lo recomendaron";
+            break;
+            case "advertise":
+                $question = "Me llegó la publicidad";
+            break;
+            case "long":
+                $question = "Los conozco hace un tiempo";
+            break;
+        }
+        return ['ID'=>$this->id,
+            'Nombre'=>$this->first_name,
+            'Last Name'=>$this->last_name,
+            'Correo'=>$this->email,
+            'Cliente (SI / NO )'=>$total>0?'Si':'No',// SI → if customer pay at least one cent,No → if customer has not paid
+            'Quiere verlo en el correo'=>$this->active_email?'Si':'No',//new active_email
+            'Whatsapp'=>$this->whatsapp_phone_number,
+            'Quiere recibir WA'=>$this->active_whatsapp?'Si':'No',//new active_whatsapp
+            'Código de entrada'=>$this->coupon&&$this->hasSubscription()?$this->coupon->code:'',
+            'PLAN DE SUSCRIPCIÓN'=>$frequencyString,//new subscription frequency
+            'Cliente Pago'=>$pay?'Si':'No',// new payment have?Si/No
+            'estado'=>$status,//new status
+            'TARJETA PEGADA'=>$cardRegistered?'Si':'No',//new payment card registered?Si/No
+            'TIPO DE PAGO'=>implode(',',$cardTypes),//new payment card type
+            'RECIBIENDO SERVICIO'=>$this->hasActiveSubscription()?'Si':'No',//active subscription?Si/No
+            'FECHA REGISTRO'=>$this->registration_date,//Registration Date
+            'Inicio de suscripción'=>$subscriptionStartDate,//date when subscription start
+            'FECHA PRIMER PAGO'=>$this->first_payment_date,//First Payment Date
+            'MESES ENTRE PAGO Y REGISTRO'=>$firstDateDiff,// new the count of months between registeration date and first payment date.
+            'FECHA CANCELACIÓN SUSCRIPCIÓN'=>$cancellationDate,//new cancellation date
+            //'Cancellation',//cancellation reason
+            'Stars'=>$stars,
+            'Motivo'=>$reason,
+            'Feedback'=>$feedback,
+            'Tiempo Activo En Suscripción Meses'=>$currentActiveSubscriptionProgress,//new the count of months of current active subscription
+            'Cantidad de Renovaciones'=>$renewalCount,//new the count of renewaling
+            'MESES PAGADOS'=>$paidMonths,//new the count of months paid
+            'MESES SERVICIO RECIBIDO'=>$consumedMonths,//new the count of months of using service
+            'MESES PARA RENOVACIÓN'=>$nextPaymentMonths,//new remaining the count of months until next payment
+            'VENTAS ACUMULADAS'=>$total,//new total money
+            'DESC SALIDA'=>$tenPercentcoupon?'Si':'No',//new 10% lifetime discount accept or no accept
+            'Sexo'=>$this->gender=='Male'?'M':'F',//gender 
+            'Condición física'=>$this->initial_condition,/*Condición Física Inicial*/
+            'Condición Física Actual'=>$this->current_condition,
+            'Diferencia Nivel Físico'=>$this->current_condition - $this->initial_condition,
+            'Lugar de Entrenamiento'=>$this->training_place,//training_place
+            'Altura'=>$this->current_height,//Height
+            'Peso Inicial'=>$this->initial_weight,
+            'Peso Actual'=>$this->current_weight,
+            'Diferencia de Peso'=>$this->initial_weight - $this->current_weight,
+            'IMC inicial'=>$this['initial_imc'],
+            'IMC actual'=>$this['imc'],
+            'Diferencia IMC'=>$this['initial_imc'] - $this['imc'],
+            'Workouts Ingrsados'=>$record->benckmark_count,
+            'Objetivo'=>$objective,
+            'Edad'=>$this['age'],
+            'País'=>strtoupper($this->country_code),// country
+            'Click on videos'=>$record->video_count,
+            'Click on email links'=>$record->email_count,
+            'Click on Blogs'=>$record->blog_count,
+            'Tiempo activo en website'=>$record->session_count?$record->session_count*10:null,
+            'Actualizaciones totales dentro del perfil'=>$record->edit_count,
+            'contact request'=>$record->contact_count,
+            '¿Cómo nos conociste?'=>$question
+        ];
+    }
     public function currentDate(){
         $userTimezone = new \DateTimeZone($this->timezone);
         $objDateTime = new \DateTime('NOW');
@@ -1295,13 +1486,21 @@ class Customer extends Model
         $user = $this->user;
         if($user->avatar){
             $data = pathinfo($user->avatar);
-            $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];    
+            $avatarFile = $data['dirname']."/avatar/".$data['filename'].".".$data['extension'];
             $this['avatarUrls'] = [
                 'max'=>secure_url("storage/".$user->avatar),
                 'large'=>secure_url("storage/".$user->avatar),
                 'medium'=>secure_url("storage/".$user->avatar),
                 'small'=>secure_url("storage/".$avatarFile),
             ];
+            if(config('app.env') === 'local'){
+                $this['avatarUrls'] = [
+                    'max'=>url("storage/".$user->avatar),
+                    'large'=>url("storage/".$user->avatar),
+                    'medium'=>url("storage/".$user->avatar),
+                    'small'=>url("storage/".$avatarFile),
+                ];
+            }
         }else{
             if($this->gender=="Male"){
                 $this['avatarUrls'] = [
@@ -1310,6 +1509,14 @@ class Customer extends Model
                     'medium'=>secure_url("storage/media/avatar/X-man-medium.jpg"),
                     'small'=>secure_url("storage/media/avatar/X-man-small.jpg"),
                 ];
+                if(config('app.env') === 'local'){
+                    $this['avatarUrls'] = [
+                        'max'=>url("storage/media/avatar/X-man-large.jpg"),
+                        'large'=>url("storage/media/avatar/X-man-large.jpg"),
+                        'medium'=>url("storage/media/avatar/X-man-medium.jpg"),
+                        'small'=>url("storage/media/avatar/X-man-small.jpg"),
+                    ];
+                }
             }else{
                 $this['avatarUrls'] = [
                     'max'=>secure_url("storage/media/avatar/X-woman-large.jpg"),
@@ -1317,6 +1524,14 @@ class Customer extends Model
                     'medium'=>secure_url("storage/media/avatar/X-woman-medium.jpg"),
                     'small'=>secure_url("storage/media/avatar/X-woman-small.jpg"),
                 ];
+                if(config('app.env') === 'local'){
+                    $this['avatarUrls'] = [
+                        'max'=>url("storage/media/avatar/X-woman-large.jpg"),
+                        'large'=>url("storage/media/avatar/X-woman-large.jpg"),
+                        'medium'=>url("storage/media/avatar/X-woman-medium.jpg"),
+                        'small'=>url("storage/media/avatar/X-woman-small.jpg"),
+                    ];
+                }
             }
         }
     }
@@ -1471,28 +1686,53 @@ class Customer extends Model
     }
     public function generateWorkoutPost(){
         setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
-        $workout = $this->getSendableWorkout(1);
+        $userTimezone = new \DateTimeZone($this->timezone);
+        $objDateTime = new \DateTime('NOW');
+        $objDateTime->setTimezone($userTimezone);
+        $hour = $objDateTime->format('H');
+        if( $hour >= 19){
+            $workout = $this->getSendableWorkout(1);
+        }else{
+            $workout = $this->getSendableWorkout(0);
+        }
         // $workout = $this->findSendableWorkout('2021-02-23');
         $post = null;
         if($workout){
             $done = \App\Done::whereCustomerId($this->id)->whereDoneDate($workout['publish_date'])->first();
             if($done == null){
+                $text = '';
+                if($workout['blog']){
+                    $text = $workout['content'];
+                }else{
+                    foreach($workout['blocks'] as $block){
+                        if($block['slug'] === 'comentario'){
+                            foreach($block['content'] as $content){
+                                if(isset($content['before_content']))$text .= $content['before_content'];
+                                if(isset($content['after_content']))$text .= $content['after_content'];
+                            }
+                        }
+                    }
+                }
                 $post = ['id'=>$workout['publish_date'].'-w',
                 'type'=>'workout-post',
                 'title'=>$workout['date'],
-                'content'=>$workout['content'],
+                'content'=>$text,
                 'contentType'=>'html',
                 ];
                 if(isset($workout['image_path'])){
-                    $data = getimagesize($workout['image_path']);
-                    if(isset($data[0])){
-                        $post['medias'] = [[
-                            'post_id'=>$workout['publish_date'].'-w',
-                            'url'=>$workout['image_path'],
-                            'type'=>'image',
-                            'width'=>$data[0], 
-                            'height'=>$data[0],
-                        ]];
+                    try {
+                        $data = getimagesize($workout['image_path']);
+                        if(isset($data[0])){
+                            $post['medias'] = [[
+                                'post_id'=>$workout['publish_date'].'-w',
+                                'url'=>$workout['image_path'],
+                                'type'=>'image',
+                                'width'=>$data[0], 
+                                'height'=>$data[0],
+                            ]];
+                        }
+                    } catch (\Exception $e) {
+
                     }
                 }                        
             }
@@ -1600,5 +1840,16 @@ class Customer extends Model
             $profile = $this->isConnecting($customer);
         }
         return $profile;
+    }
+    public function isFirstTransaction($transaction){
+        $transactions = Transaction::whereCustomerId($this->id)->get();
+        if($transactions->count() == 1){
+            if($transactions[0]->id == $transaction->id){
+                $freePaymentSubscription = PaymentSubscription::where('plan_id','like','nmi-1%')->first();
+                if($freePaymentSubscription) return false;
+                return true;
+            }
+        }
+        return false;
     }
 }

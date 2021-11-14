@@ -19,6 +19,7 @@ class MoveFileToS3 implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $filename;
     protected $id;
+    public $timeout = 1000;
     /**
      * Create a new job instance.
      *
@@ -103,6 +104,7 @@ class MoveFileToS3 implements ShouldQueue
         $sizes = \App\Setting::convertSizes();
         $fileExtension = $image->extension();
         $src = substr($src,0,strlen($src)-strlen($fileExtension) -1 );
+        ini_set('memory_limit', '256M');
         for($i = 0; $i < count($sizes); $i++) {
             $size = $sizes[$i];
             $resizeImg = Media::makeCroppedImage($image, $size);

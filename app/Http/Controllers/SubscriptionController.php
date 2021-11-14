@@ -288,8 +288,10 @@ class SubscriptionController extends Controller
             //return response;
             if($response && $response['result'] == 'success' ){
                 $now = $paymentSubscription->updateSubscription($transaction);
-                $paymentSubscription->sendFirstMail($transaction);
-                $user->customer->setFriendShip($coupon);
+                if($user->customer->isFirstTransaction($transaction)){
+                    $paymentSubscription->sendFirstMail($transaction);
+                    $user->customer->setFriendShip($coupon);
+                }
             }else{
                 return [$now,'failed', $response['error_message'],422];
             }

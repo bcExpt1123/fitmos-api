@@ -38,6 +38,7 @@ use App\BankTransferRequest;
 use App\Done;
 use App\Models\Media;
 use Carbon\Carbon;
+use App\Mail\MailQueue;
 
 class FindTransactions extends Command
 {
@@ -213,14 +214,19 @@ class FindTransactions extends Command
         if(false){
             $customer = Customer::whereEmail('degracia.jf@gmail.com')->first();
             if($customer){
-                $workout = $customer->getSendableWorkout(1);
-                if($workout){
-                    try{
-                        $customer->send($workout);
-                    }catch(\Exception $e){
-                        //print_r($e);
+                $workout = $customer->getSendableWorkout(-6);
+                // print_r($workout['blocks'][0]);
+                $text = '';
+                foreach($workout['blocks'] as $block){
+                    if($block['slug'] === 'comentario'){
+                        foreach($block['content'] as $content){
+                            if(isset($content['before_content']))$text .= $content['before_content'];
+                            if(isset($content['after_content']))$text .= $content['after_content'];
+                        }
                     }
                 }
+                print_r($text);
+                var_dump($workout['blog']);
             }
         }
         if(false){
@@ -344,8 +350,66 @@ class FindTransactions extends Command
         if(false){
             $this->checkLogging();
         }
-        if(true){
+        if(false){
             $this->getCustomerIds();
+        }
+        if(false){
+            $this->isFirstTransaction();
+        }
+        if(false){
+            $this->sendFollowingEmail();
+        }
+        if(false){
+            $this->exportCustomers();
+        }
+        if(true){
+            $this->timeCalculate();
+        }
+    }
+    private function timeCalculate(){
+        $subscription = Cache::get('1');
+        $timeDiff = -14 * 24 + 1;
+        if($timeDiff >= -14 * 24 && $timeDiff <= -14 * 24 + 1 && $subscription == null){
+            //notification;
+            var_dump($timeDiff);
+            Cache::put('1', '2', 3600);
+        }
+    }
+    private function exportCustomers(){
+        // \App\Jobs\ExportCustomers::dispatch('300', '', 'all');
+        $job = new \App\Jobs\ExportCustomers('300', 'sincooh19@gmail.com', 'all');
+        $job->handle();
+    }
+    private function sendFollowingEmail(){
+        $customers = Customer::all();
+        $i = 0;
+        foreach($customers as $customer){
+            $follows = DB::table("follows")->select("*")->where('customer_id',$customer->id)->get();
+            if($follows->count()>0){
+                if(!$customer->hasActiveSubscription()){
+                    $userCustomer = Customer::find($follows[0]->follower_id);
+                    var_dump($customer->first_name);
+                    $data = ['sender_first_name'=>$userCustomer->first_name,'receiver_first_name'=>$customer->first_name,'email'=>$customer->email,'view_file'=>'emails.customers.following','subject'=>$customer->first_name.' y otras personas te empezaron a seguir en Fitemos'];
+                    Mail::to($customer->email, $customer->first_name.' '.$customer->last_name)->queue(new MailQueue($data));
+                    $i++;
+                }    
+            }
+        }
+        var_dump($i);
+    }
+    private function isFirstTransaction(){
+        $customers = Customer::all();
+        $ids = [11, 34, 44, 67];
+        // foreach($customers as $customer){
+        foreach($ids as $id){
+            $customer = Customer::find($id);
+            $transaction = Transaction::whereCustomerId($customer->id)->first();
+            if(Transaction::whereCustomerId($customer->id)->count() === 1){
+                echo 'customer';
+                var_dump($customer->id);
+                $result = $customer->isFirstTransaction($transaction);
+                var_dump($result);
+            }
         }
     }
     private function getCustomerIds(){

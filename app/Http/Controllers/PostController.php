@@ -563,5 +563,21 @@ class PostController extends Controller
         }
         return response()->json(['posts'=>$posts]);
     }
+    /**
+     * get a today workout post.
+     * 
+     * This endpoint get current workout post, after 19, it returns tomorrow workout post
+     * @authenticated
+     * @response {
+     * }
+     */
+    public function workout(Request $request){
+        $user = $request->user();
+        if($user&&$user->customer){
+            $post = $user->customer->generateWorkoutPost();
+            return response()->json($post);
+        }
+        return response()->json(null);
+    }
 }
 
