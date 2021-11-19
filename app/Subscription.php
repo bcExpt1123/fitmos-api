@@ -29,7 +29,7 @@ class Subscription extends Model
         'expensive'=>'Muy costoso / no tengo tiempo',
         'other'=>'Otro',
     ];
-    const TRACK_CUSTOMER_IDS = [4920, 6003];
+    const TRACK_CUSTOMER_IDS = [6413, 6424, 6546, 6706, 7031, 7326, 7348, 7358, 7383, 7386, 7387, 7390, 7391, 7393, 7396, 7398, 7414, 7422, 7423, 7429, 7431, 7432, 7437];
     public static function validateRules()
     {
         return array(
@@ -514,9 +514,17 @@ class Subscription extends Model
                     if(in_array($this->customer_id, Subscription::TRACK_CUSTOMER_IDS))Log::channel('nmiTrack')->info("---- Payment subscription is null----");
                 }
             }
-            if ($this->end_date && $this->status !== 'Cancelled' && date("Y-m-d H:i:s")>=$this->end_date) {
-                $this->status = 'Cancelled';
-                $this->save();
+            if ($this->end_date ) {
+                if ($this->status !== 'Cancelled' && date("Y-m-d H:i:s")>=$this->end_date) {
+                    $this->status = 'Cancelled';
+                    $this->save();
+                }
+            } else {
+                if(strtotime($this->start_date) + ($this->plan->free_duration + 1)*3600*24<time() ){
+                    $this->status = 'Cancelled';
+                    $this->end_date = date('Y-m-d H:i:s');
+                    $this->save();                    
+                }
             }
             if($this->status == 'Cancelled' && $paymentSubscription){
                 $paymentSubscription->status = 'Cancelled';
@@ -671,7 +679,7 @@ class Subscription extends Model
                 $query->whereHas('user', function ($q) {
                     $q->where('active', '=', 1);
                 });
-            })->where('id',3)->get();
+            })->whereIn('id',[6424])->get();
         }else{
             $customers = Customer::where(function ($query) {
                 $query->whereHas('user', function ($q) {

@@ -188,7 +188,8 @@ class Post extends Model
                 $this->contentType = "html";
                 if($blog->image){
                     if($blog->image_width==null){
-                        $data = getimagesize(config('app.url').'/storage/'.$blog->image);
+		    	        $path = getcwd().'/storage/'.$blog->image;
+                        $data = getimagesize($path);
                         if(isset($data[0])){
                             $blog->image_width = $data[0];
                             $blog->image_height = $data[1];
