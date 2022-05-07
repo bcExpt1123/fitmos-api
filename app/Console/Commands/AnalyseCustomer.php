@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Customer;
+use App\User;
 use App\Subscription;
 
 
@@ -40,8 +41,23 @@ class AnalyseCustomer extends Command
      */
     public function handle()
     {
-        $this->updateUsername();
+        // $this->updateUsername();
         // $this->getCustomersLeavingOneAgo();
+        $this->getUsersWithoutCustomers();
+    }
+    private function getUsersWithoutCustomers(){
+        $users = User::all();
+        $i = 0;
+        foreach($users as $user) {
+            if ($user->type === 'customer') {
+                if($user->customer === NULL) {
+                    echo $user->id;
+                    echo "\n";
+                    $i++;
+                }
+            }
+        }
+        var_dump($i);
     }
     private function updateUsername(){
         $customers = Customer::all();

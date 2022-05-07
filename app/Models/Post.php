@@ -142,26 +142,30 @@ class Post extends Model
         switch($this->type){
             case 'workout':
                 $workoutComment = WorkoutComment::find($this->object_id);
-                $this->content = $workoutComment->content;
-                if($workoutComment->dumbells_weight)$this->dumbells_weight = $workoutComment->dumbells_weight;
-                $this->json_content = $this->convertJson($workoutComment->content);
-                $this->contentFollowers = [];
-                $this->workout_spanish_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B del %Y", strtotime($workoutComment->publish_date))));
-                $this->workout_spanish_short_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B", strtotime($workoutComment->publish_date))));
+                if ($workoutComment) {
+                    $this->content = $workoutComment->content;
+                    if($workoutComment->dumbells_weight)$this->dumbells_weight = $workoutComment->dumbells_weight;
+                    $this->json_content = $this->convertJson($workoutComment->content);
+                    $this->contentFollowers = [];
+                    $this->workout_spanish_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B del %Y", strtotime($workoutComment->publish_date))));
+                    $this->workout_spanish_short_date = ucfirst(iconv('ISO-8859-2', 'UTF-8', strftime("%A, %d de %B", strtotime($workoutComment->publish_date))));
+                }
                 break;
             case 'shop':
                 $company = \App\Company::find($this->object_id);
-                $this->title = $company->name;
-                $this->content = $company->description;
-                $this->json_content = $this->convertJson($company->description);
-                $this->contentFollowers = [];
-                $this->shopUsername = $company->username;
-                $this->shopLogo = ['small'=>config('app.url').'/storage/'.$company->logo];
-                unset($this->medias);
-                $this->medias = [];
-                if($company->post_image_id){
-                    $media = Media::find($company->post_image_id);
-                    $this->medias = [$media];
+                if ($company) {
+                    $this->title = $company->name;
+                    $this->content = $company->description;
+                    $this->json_content = $this->convertJson($company->description);
+                    $this->contentFollowers = [];
+                    $this->shopUsername = $company->username;
+                    $this->shopLogo = ['small'=>config('app.url').'/storage/'.$company->logo];
+                    unset($this->medias);
+                    $this->medias = [];
+                    if($company->post_image_id){
+                        $media = Media::find($company->post_image_id);
+                        $this->medias = [$media];
+                    }
                 }
                 //latest product image
                 // $image = \App\ProductImage::whereHas('product',function($query) use ($company){
@@ -183,65 +187,73 @@ class Post extends Model
                 break;
             case 'blog':
                 $blog = \App\Event::find($this->object_id);
-                $this->title = $blog->title;
-                $this->content = "";//$blog->description;
-                $this->contentType = "html";
-                if($blog->image){
-                    if($blog->image_width==null){
-		    	        $path = getcwd().'/storage/'.$blog->image;
-                        $data = getimagesize($path);
-                        if(isset($data[0])){
-                            $blog->image_width = $data[0];
-                            $blog->image_height = $data[1];
-                            $blog->save();
-                        }                        
+                if ($blog) {
+                    $this->title = $blog->title;
+                    $this->content = "";//$blog->description;
+                    $this->contentType = "html";
+                    if($blog->image){
+                        if($blog->image_width==null){
+                            $path = getcwd().'/storage/'.$blog->image;
+                            $data = getimagesize($path);
+                            if(isset($data[0])){
+                                $blog->image_width = $data[0];
+                                $blog->image_height = $data[1];
+                                $blog->save();
+                            }                        
+                        }
+                        unset($this->medias);
+                        $medias = [['url'=>config('app.url').'/storage/'.$blog->image,'post_id'=>$this->id,'type'=>'image','width'=>$blog->image_width,'height'=>$blog->image_height]];
+                        $this->medias = $medias;
                     }
-                    unset($this->medias);
-                    $medias = [['url'=>config('app.url').'/storage/'.$blog->image,'post_id'=>$this->id,'type'=>'image','width'=>$blog->image_width,'height'=>$blog->image_height]];
-                    $this->medias = $medias;
                 }
                 break;
             case 'benchmark':
                 $benchmark = \App\Benchmark::find($this->object_id);
-                $this->title = $benchmark->title;
-                $this->content = $benchmark->description;
-                $this->json_content = $this->convertJson($benchmark->description);
-                $this->contentFollowers = [];
-                if($benchmark->image){
-                    if($benchmark->image_width==null){
-                        $data = getimagesize(config('app.url').'/storage/'.$benchmark->image);
-                        if(isset($data[0])){
-                            $benchmark->image_width = $data[0];
-                            $benchmark->image_height = $data[1];
-                            $benchmark->save();
-                        }                        
+                if ($benchmark) {
+                    $this->title = $benchmark->title;
+                    $this->content = $benchmark->description;
+                    $this->json_content = $this->convertJson($benchmark->description);
+                    $this->contentFollowers = [];
+                    if($benchmark->image){
+                        if($benchmark->image_width==null){
+                            $data = getimagesize(config('app.url').'/storage/'.$benchmark->image);
+                            if(isset($data[0])){
+                                $benchmark->image_width = $data[0];
+                                $benchmark->image_height = $data[1];
+                                $benchmark->save();
+                            }                        
+                        }
+                        unset($this->medias);
+                        $medias = [['url'=>config('app.url').'/storage/'.$benchmark->image,'post_id'=>$this->id,'type'=>'image','width'=>$benchmark->image_width,'height'=>$benchmark->image_height]];
+                        $this->medias = $medias;
                     }
-                    unset($this->medias);
-                    $medias = [['url'=>config('app.url').'/storage/'.$benchmark->image,'post_id'=>$this->id,'type'=>'image','width'=>$benchmark->image_width,'height'=>$benchmark->image_height]];
-                    $this->medias = $medias;
                 }
                 break;
             case 'evento':
                 $evento = \App\Models\Evento::find($this->object_id);
-                $this->title = $evento->title;
-                $this->content = $evento->description;
-                $this->contentType = "html";
-                if(count($evento->medias)>0){
-                    unset($this->medias);
-                    $evento->getImages();
-                    $this->medias = $evento->images;
-                    foreach($this->medias as $media){
-                        $media->post_id = $this->id;
+                if ($evento) {
+                    $this->title = $evento->title;
+                    $this->content = $evento->description;
+                    $this->contentType = "html";
+                    if(count($evento->medias)>0){
+                        unset($this->medias);
+                        $evento->getImages();
+                        $this->medias = $evento->images;
+                        foreach($this->medias as $media){
+                            $media->post_id = $this->id;
+                        }
                     }
                 }
                 break;
             case 'join':
                 $customer = \App\Customer::find($this->object_id);
-                $customer->getAvatar();
-                $customer->chat_id = $customer->user->chat_id;
-                unset($customer->user);
-                unset($this->customer);
-                $this->customer = $customer;
+                if ($customer) {
+                    $customer->getAvatar();
+                    $customer->chat_id = $customer->user->chat_id;
+                    unset($customer->user);
+                    unset($this->customer);
+                    $this->customer = $customer;
+                }
                 break;
         }
     }

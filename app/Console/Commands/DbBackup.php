@@ -40,8 +40,9 @@ class DbBackup extends Command
     {
         $filename = "backup-" . Carbon::now()->format('Y-m-d') . ".gz";
         $command = "mysqldump --user=" . config('database.connections.mysql.username') ." --password=" . config('database.connections.mysql.password') . " --host=" . config('database.connections.mysql.host') . " " . config('database.connections.mysql.database') . "  | gzip > " . storage_path() . "/app/backup/" . $filename;
+        var_dump($command);
         $returnVar = NULL;
         $output  = NULL;
-        exec($command, $output, $returnVar);
+        // exec($command, $output, $returnVar);
     }
 }
